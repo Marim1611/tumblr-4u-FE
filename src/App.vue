@@ -1,20 +1,35 @@
 <template>
-  <div id="app">
-     
-  </div>
+<div id="app">
+  <!-- <MatchMedia query="(max-width: 480px)" v-slot="{ matches }">
+    <MobileNavBar v-if="matches" /> 
+    <NavBar v-else /> 
+    
+  </MatchMedia> -->
+   <!-- <MobileNavBar/>  -->
+   <NavBar/> 
+   <router-view/> 
+
+</div>
 </template>
 
 <script>
- 
-
+//import { MatchMedia } from "vue-component-media-queries";
+//import MobileNavBar from './homePage/HomePageMobileNavBar.vue'
+import NavBar from './homePage/HomePageNavBar.vue'
 export default {
   name: 'App',
-  components: {
-     
-  }
-}
-</script>
+  components:{
+   // 'MobileNavBar':MobileNavBar,
+     'NavBar':NavBar,
+    //  'MatchMedia':MatchMedia,
+  },
 
-<style>
+  data: () => ({
+    //
+  }),
+};
+</script>
+<style scoped>
  
+
 </style>

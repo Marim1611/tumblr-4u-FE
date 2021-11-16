@@ -5,21 +5,53 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "test": "jest"
   },
   "dependencies": {
+    "@mdi/font": "^6.4.95",
+    "@nuxt/opencollective": "^0.3.2",
+    "@syncfusion/ej2-base": "^19.3.47",
+    "@syncfusion/ej2-vue-dropdowns": "^19.3.48",
+    "@syncfusion/ej2-vue-splitbuttons": "^19.3.48",
+    "bootstrap-vue": "^2.21.2",
     "core-js": "^3.6.5",
-    "vue": "^2.6.11",
+    "portal-vue": "^2.1.7",
+    "prettier": "^2.4.1",
+    "roboto-fontface": "^0.10.0",
+    "sass": "^1.43.4",
+    "vue": "^2.6.14",
+    "vue-class-component": "^7.2.6",
+    "vue-component-media-queries": "^1.0.0",
+    "vue-functional-data-merge": "^3.1.0",
+    "vue-router": "^3.5.3",
+    "vue-simple-search-dropdown": "^1.0.1",
+    "vuetify": "^2.5.14",
+    "vuetify-loader": "^1.7.3",
     "vuex": "^3.6.2"
   },
   "devDependencies": {
+    "@nuxtjs/vuetify": "^1.12.1",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
+    "@vue/test-utils": "^1.2.2",
     "babel-eslint": "^10.1.0",
+    "babel-jest": "^27.3.1",
+    "bootstrap": "^4.6.1",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
-    "vue-template-compiler": "^2.6.11"
+    "jest": "^27.3.1",
+    "jquery": "^3.6.0",
+    "node-sass": "^6.0.1",
+    "popper.js": "^1.16.1",
+    "sass": "~1.32.0",
+    "sass-loader": "^10.2.0",
+    "vue-cli-plugin-vuetify": "~2.4.3",
+    "vue-jest": "^3.0.7",
+    "vue-template-compiler": "^2.6.14",
+    "vue-test-utils": "^1.0.0-beta.11",
+    "vuetify-loader": "^1.7.0"
   },
   "eslintConfig": {
     "root": true,
@@ -39,5 +71,18 @@
     "> 1%",
     "last 2 versions",
     "not dead"
-  ]
+  ],
+  "jest": {
+    "moduleNameMapper": {
+      "^vue$": "vue/dist/vue.common.js"
+    },
+    "moduleFileExtensions": [
+      "js",
+      "vue"
+    ],
+    "transform": {
+      "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
+      ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest"
+    }
+  }
 }
