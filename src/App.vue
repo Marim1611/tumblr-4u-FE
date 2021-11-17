@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+<<<<<<< Updated upstream
      <Header></Header>
       <component v-bind:is="component"></component>
       <button v-on:click="component='signIn'">CLICKMEE!!!!</button>
@@ -8,10 +9,14 @@
      
 
      
+=======
+     <search-bar></search-bar>
+>>>>>>> Stashed changes
   </div>
 </template>
 
 <script>
+<<<<<<< Updated upstream
 import Header from './components/Header.vue'
 import Content_1 from './components/Content_1.vue'
 import SignIn from './components/SignIn.vue'
@@ -19,12 +24,16 @@ import SignIn from './components/SignIn.vue'
 
 
  
+=======
+import searchBar from './components/search.vue';
+>>>>>>> Stashed changes
 
 export default {
 
   name: 'App',
 
   components: {
+<<<<<<< Updated upstream
 
     Header,
     'signIn' : SignIn,
@@ -40,6 +49,9 @@ export default {
       component: 'content_1'
     }
     
+=======
+     'search-bar': searchBar
+>>>>>>> Stashed changes
   }
 }
 
