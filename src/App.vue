@@ -1,4 +1,5 @@
 <template>
+
   <div id="app">
      <Header></Header>
       <component v-bind:is="component"></component>
@@ -19,10 +20,11 @@ import SignIn from './components/SignIn.vue'
 
 
  
-
+ 
 export default {
 
   name: 'App',
+ 
 
   components: {
 
