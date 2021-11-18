@@ -21,6 +21,7 @@
     "roboto-fontface": "^0.10.0",
     "sass": "^1.43.4",
     "vue": "^2.6.14",
+    "vue-avatar": "^2.3.3",
     "vue-class-component": "^7.2.6",
     "vue-component-media-queries": "^1.0.0",
     "vue-functional-data-merge": "^3.1.0",

@@ -1,4 +1,5 @@
 <template>
+<div>
   <div class="dropdown">
       <div id="input_container" :style="{'background': homeTheme[homeThemeIndex].cardColor,'border-radius':'4px', 'border-color':  homeTheme[homeThemeIndex].fontColor }">
       <b-icon id="icon" icon="search" font-scale="1.5"  aria-hidden="true" 
@@ -8,6 +9,7 @@
        :style="{'background':  homeTheme[homeThemeIndex].cardColor, 'color': homeTheme[homeThemeIndex].fontColor }" />
      <!-- <img src="https://cdn4.iconfinder.com/data/icons/36-slim-icons/87/calender.png" id="input_img"> -->
 </div>
+  <!-- intersts  -->
       <div  v-on:click.prevent="toggleDropdown">
 <div v-if="!inputValue" v-show="isClicked" class="dropdown-list">
       <div v-for="item in interestsList" :key="item.name" class="dropdown-item">
@@ -15,17 +17,28 @@
       <p :style="{  'font-style':homeTheme[homeThemeIndex].fontStyle}">   {{ item.name }}</p>
       
       </div>
+       
     </div >
+     <!-- auto complete  -->
     <div v-else  class="dropdown-list">
       <div><p :style="{'font-size':'18px', 'margin':'10px'}"> Go to #{{this.inputValue}}</p></div>
-        <div   v-for="item in autoComplete" :key="item.name" class="dropdown-item">
+        <div  v-show="itemVisible(item)" v-for="item in autoComplete" :key="item.name" class="dropdown-item">
          <b-icon   icon="search" font-scale="1"  aria-hidden="true"  :style="{'color': 'black'}" ></b-icon> 
       <p :style="{  'font-style':homeTheme[homeThemeIndex].fontStyle ,'padding':'10px'}">   {{ item }}</p>
 
       </div>
+        <!--  Tumblrs  -->
             <div><p :style="{'font-size':'18px', 'margin':'10px'}">Tumblrs</p></div>
-      <div   v-for="item in usersInSearch" :key="item.name" class="dropdown-item">
-        <img :src="item.img" class="dropdown-item-flag" />
+      <div    v-on:click="openDrawer( item.name,item.img)" v-show="itemVisible(item.name)" v-for="item in usersInSearch" :key="item.name" class="dropdown-item">
+        <!-- <img :src="item.img" class="dropdown-item-flag" /> -->
+        <div class="dropdown-item-flag">
+<avatar username= item.name
+        :src= item.img
+        :size = 30
+        :rounded=false        
+        ></avatar>
+        </div>
+        
       <p :style="{  'font-style':homeTheme[homeThemeIndex].fontStyle}">   {{ item.name }}</p>
 
       </div>
@@ -34,15 +47,22 @@
       </div>
     
   </div>
+    <TumblrDrawer v-if="showBlogDrawer" v-bind:tumblrsObj="tumblrsObj"></TumblrDrawer>
+  </div>
+
 </template>
 
 <script>
- 
+import TumblrDrawer from '../components/TumblrsDrawer.vue'
+import Avatar from 'vue-avatar' 
+import Vue from 'vue'
 export default {
   data: function ()  {
     return {
+      showBlogDrawer:false,
       inputValue: '',
       isClicked:false,
+      tumblrsObj:{name: '',avatar:''},
       interestsList: [
                     {
             name: "crafts",
@@ -59,30 +79,36 @@ export default {
       ],
       usersInSearch: [
                     {
-            name: "Mohamed",
-            img:"https://img.icons8.com/office/50/000000/instagram-new.png"
+            name: "Moatasem",
+            img:"https://pe-images.s3.amazonaws.com/basics/cc/image-size-resolution/resize-images-for-print/image-cropped-8x10.jpg"
                     },
                   {
             name: "Sara",
-             img:"https://img.icons8.com/office/50/000000/instagram-new.png"
+             img:"https://boostlikes-bc85.kxcdn.com/blog/wp-content/uploads/2018/04/Short-URL-Illustration.jpg"
                     },
                      {
             name: "Merna",
-             img:"https://img.icons8.com/office/50/000000/instagram-new.png"
+             img:"http://i.imgur.com/NeRJgd9.png"
                     },
       ], 
         autoComplete: [
-               'cat','car','sports','hanmade','fashion','pets'
+               'cat','car','sports','hanmade','fashion','pets','friends','tarvel','Art'
       ], 
 
     }
   },
+  components:{
+     'TumblrDrawer':TumblrDrawer,
+     'Avatar':Avatar
+  },
   methods: {
     itemVisible (item) {
-      //let currentName = item.name.toLowerCase()
-      //let currentInput = this.inputValue.toLowerCase()
-      return item.includes(this.inputValue)
+      let currentName = item.toLowerCase()
+      let currentInput = this.inputValue.toLowerCase()
+      return currentName.includes(currentInput)
+     // return item.includes(this.inputValue)
     },
+    
     toggleDropdown () {
       this.isClicked = !this.isClicked
     },
@@ -91,6 +117,16 @@ export default {
         this.isClicked = false
       }
     },
+    openDrawer(name,avatar){
+      console.log("opeeeeeeeeeeeeen")
+      this.showBlogDrawer=!this.showBlogDrawer;
+      Vue.set(this.tumblrsObj, 'name',name);
+      Vue.set(this.tumblrsObj, 'avatar',avatar);
+      // this.tumblrsObj.name=name;
+      // this.tumblrsObj.avatar=avatar;
+      console.log( this.tumblrsObj.name)
+      
+    }
     
   },
    computed: {
