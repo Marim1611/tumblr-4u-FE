@@ -1,35 +1,53 @@
 <template>
-<div id="app">
-  <!-- <MatchMedia query="(max-width: 480px)" v-slot="{ matches }">
-    <MobileNavBar v-if="matches" /> 
-    <NavBar v-else /> 
-    
-  </MatchMedia> -->
-   <!-- <MobileNavBar/>  -->
-   <NavBar/> 
-   <router-view/> 
 
-</div>
+  <div id="app">
+     <Header></Header>
+      <component v-bind:is="component"></component>
+      <button v-on:click="component='signIn'">CLICKMEE!!!!</button>
+        
+        
+     
+
+     
+  </div>
 </template>
 
 <script>
-//import { MatchMedia } from "vue-component-media-queries";
-//import MobileNavBar from './homePage/HomePageMobileNavBar.vue'
-import NavBar from './homePage/HomePageNavBar.vue'
-export default {
-  name: 'App',
-  components:{
-   // 'MobileNavBar':MobileNavBar,
-     'NavBar':NavBar,
-    //  'MatchMedia':MatchMedia,
-  },
+import Header from './components/Header.vue'
+import Content_1 from './components/Content_1.vue'
+import SignIn from './components/SignIn.vue'
 
-  data: () => ({
-    //
-  }),
-};
-</script>
-<style scoped>
+
+
+ 
+ 
+export default {
+
+  name: 'App',
  
 
+  components: {
+
+    Header,
+    'signIn' : SignIn,
+    'content_1': Content_1
+    
+    
+     
+  },
+  data(){
+
+    return{
+
+      component: 'content_1'
+    }
+    
+  }
+}
+
+
+</script>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
 </style>
