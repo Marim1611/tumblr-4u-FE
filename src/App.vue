@@ -1,45 +1,41 @@
 <template>
   <div id="app">
-<<<<<<< Updated upstream
-     <Header></Header>
-      <component v-bind:is="component"></component>
-      <button v-on:click="component='signIn'">CLICKMEE!!!!</button>
+<!--<<<<<<< Updated upstream-->
+     <!--<Header></Header>-->
+      <!--<component v-bind:is="component"></component>-->
+      <!--<button v-on:click="component='signIn'">CLICKMEE!!!!</button>-->
+       
         
-        
-     
-
-     
-=======
-     <search-bar></search-bar>
->>>>>>> Stashed changes
+<!--=======-->
+    <search-bar></search-bar>
+<!--<>>>>>>> Stashed changes-->
   </div>
 </template>
 
 <script>
-<<<<<<< Updated upstream
-import Header from './components/Header.vue'
-import Content_1 from './components/Content_1.vue'
-import SignIn from './components/SignIn.vue'
+//<<<<<<< Updated upstream
+//import Header from './components/Header.vue'
+//import Content_1 from './components/Content_1.vue'
+//import SignIn from './components/SignIn.vue'
 
 
 
  
-=======
+//=======
 import searchBar from './components/search.vue';
->>>>>>> Stashed changes
+//>>>>>>> Stashed changes
 
 export default {
 
   name: 'App',
 
   components: {
-<<<<<<< Updated upstream
+//<<<<<<< Updated upstream
 
-    Header,
-    'signIn' : SignIn,
-    'content_1': Content_1
-    
-    
+    //Header,
+    //'signIn' : SignIn,
+    //'content_1': Content_1,
+    'search-bar': searchBar
      
   },
   data(){
@@ -49,9 +45,9 @@ export default {
       component: 'content_1'
     }
     
-=======
-     'search-bar': searchBar
->>>>>>> Stashed changes
+//=======
+     
+//>>>>>>> Stashed changes
   }
 }
 
