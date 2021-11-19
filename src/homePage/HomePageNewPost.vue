@@ -1,5 +1,6 @@
 <template>
-
+<md-dialog v-bind:md-active.sync="postToBegin" v-bind:md-close-on-esc="false">
+    <md-dialog-content>
 <div id = 'parentDiv'>
     <div id = 'postItem'>
         <div id="circle" class ='text' style=" background-color:white;">
@@ -45,7 +46,8 @@
      </div>    
 </div>
 
-  
+   </md-dialog-content>
+  </md-dialog>
 </template>
 
 <script>

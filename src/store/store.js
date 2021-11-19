@@ -21,7 +21,7 @@ export const store = new Vuex.Store({
         // we need to replace this with bodyColor in DB as each user has his theme color
         homeThemeIndex:0,
         homeTheme: [
-            {backgroundColor: 'navy',fontColor:'white', cardColor:'#add8e6', fontStyle: 'normal'},
+            {backgroundColor: '#001935',fontColor:'white', cardColor:'#add8e6', fontStyle: 'normal'},
             {backgroundColor: 'black',fontColor:'lime', cardColor:'#222222', fontStyle: 'italic'},
             {backgroundColor: 'black',fontColor:'#ff6400', cardColor:'#221000', fontStyle: 'oblique'},
             {backgroundColor: '#1A2735',fontColor:'#BFBFBF', cardColor:'#36465D', fontStyle: 'Arial'},

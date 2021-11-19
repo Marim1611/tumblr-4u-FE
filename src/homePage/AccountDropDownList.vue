@@ -32,8 +32,9 @@
     
         </div>
         <li>
+          <router-link to="/new/blog"> 
      <v-btn   elevation="2" >new plog</v-btn>
-
+</router-link>
             </li>
       </div>
 

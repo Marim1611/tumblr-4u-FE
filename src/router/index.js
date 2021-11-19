@@ -7,6 +7,8 @@ import SignIn from '../components/SignIn.vue'
 import SignUp from '../components/SignUp.vue'
 import WelcomePage from '../components/WelcomePage.vue'
 import DashBoard from '../homePage/HomePageNewPost.vue'
+import NewBlog from '../components/CreateBlogPage'
+import CreatedBlog from '../components/CreatedBlogPage'
 Vue.use(VueRouter);
 const routes = [
   {
@@ -41,6 +43,17 @@ const routes = [
         path: '/dashBoard',
         name: 'dashBoard',
         component:DashBoard
+      },
+      {
+        path: '/new/blog',
+        name: 'newBlog',
+        component:NewBlog
+      },
+  
+      {
+        path: '/blog/created',
+        name: 'createdBlog',
+        component:CreatedBlog
       },
   
 ]

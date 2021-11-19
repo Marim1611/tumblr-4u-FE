@@ -1,5 +1,5 @@
 <template>
-  <div id="main">
+  <div id="main" class="revert">
     <div class="posts">
         <p1>No posts available<br /></p1>
         <p2>Learn how to make a post.</p2>
@@ -152,6 +152,11 @@ p2{
     border: none;
     background-color: #001935;
 }
+.revert{
 
+    all:revert;
+    color:revert;
+    padding: revert;
+}
 
 </style>

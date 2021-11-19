@@ -1,6 +1,5 @@
 <template>
-  <div id="main">
-
+  <div id="main" class="revert">
   <h1> create a new blog </h1>
   <p1> This additional blog can be managed by multiple authors or set to private.<br />
     Note: If you want to Like posts or Follow other users with this blog identity, you must log out and create a separate account.<br />
@@ -26,14 +25,17 @@
             <input type="checkbox" id="password"  @change="$_access_privacy()">
   </div>
   <component v-bind:is="component"></component>
-  <button id="button-create" @click="$_goto_created_page" >create blog</button>
+ <router-link to="/blog/created">
+    <button id="button-create"  >create blog</button>
+  </router-link>
   <button id="button-cancel">cancel</button>
+ 
   
   </div>
 </template>
 
 <script>
-import CreatedBlog from './CreatedBlog.vue'
+import CreatedBlog from './CreatedBlogPage.vue'
 
 
 export default {
@@ -61,9 +63,7 @@ export default {
       }
         
     },
-    $_goto_created_page(){
-        alert("Hello! I am an alert box!!");
-    }
+   
  },
   data(){
     return{
@@ -79,6 +79,14 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 #main{
+   position: relative;
+ top:60px;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
   border: 15px solid whitesmoke;
   width: 1000px;
   padding: 50px;
@@ -166,15 +174,30 @@ p7{
   left:55px;
 }
 #input-title{
+border: 1px solid black;
   width: 600px;
   padding: 6px ;
   margin: 2px ;
   box-sizing: border-box;
   position: relative;
   left:250px;
+  
 
 }
+*{
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+.revert{
+
+    all:revert;
+    color:revert;
+    padding: revert;
+}
 #input-url{
+  border: 1px solid black;
   width: 600px;
   padding: 6px ;
   margin: 2px ;
@@ -184,6 +207,7 @@ p7{
 
 }
 #input-privacy{
+   border: 1px solid black;
   width: 400px;
   padding: 6px ;
   margin: 2px ;
@@ -197,6 +221,7 @@ p7{
  position: relative;
  top:80px;
  padding:10px;
+ color:white;
  background-color:rgb(20, 143, 243);
  width: 130px;
 }
@@ -205,6 +230,7 @@ p7{
  top:80px;
  left:500px;
  padding:10px;
+  color:white;
  background-color:rgb(20, 143, 243);
   width: 100px;
 }
