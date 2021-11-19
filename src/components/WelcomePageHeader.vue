@@ -1,6 +1,6 @@
 <template>
 <div id="TheHeader">
-    <b-navbar class="NavBar" toggleable="lg" type="dark" variant="info">
+    <b-navbar class="NavBar" toggleable="sm" type="dark" variant="faded">
         <b-navbar-brand class="NavBarBrand" href="#">T4U</b-navbar-brand>
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
         <b-collapse id="nav-collapse" is-nav>
@@ -11,18 +11,8 @@
             </b-navbar-nav>
             <div class="NavBarRight">
                 <b-navbar-nav class="navButtons">
-                    <div>
-                        <router-link to="/signIn" > 
-                            <b-button  size="lg" class="navButtons" pill variant="success">Log in</b-button>
-                        </router-link>
-                    </div>
-                    <div>
-                            <router-link to="/signUp">
-                            <b-button   size="lg" class="navButtons" pill variant="outline-primary">Sign up</b-button>
-                            <router-link>
-                    </div>
-                     
-                    
+                     <b-button size="md" class="navButtons"  variant="success">Log in</b-button>
+                    <b-button size="md" class="navButtons"  variant="primary">Sign up</b-button>
                 </b-navbar-nav>
             </div>
             
@@ -57,9 +47,11 @@ export default {
 }*/
 .NavBarBrand{
     padding: 0 0 0 20px;
+     color:navy;
 }
 
 .NavBar{
+   
     padding:4.5 4.3  4.5rem;
 }
 .NavBarBrand{

@@ -1,8 +1,13 @@
 import Vue from 'vue'
 import App from './App.vue'
+import router from './router'
+import { BootstrapVue, BootstrapVueIcons, IconsPlugin  } from 'bootstrap-vue'
 import { store } from './store/store';
+import vuetify from './plugins/vuetify'
 
-import { BootstrapVue, IconsPlugin, BootstrapVueIcons  } from 'bootstrap-vue'
+
+
+ 
 
 // Import Bootstrap an BootstrapVue CSS files (order is important)
 import 'bootstrap/dist/css/bootstrap.css'
@@ -13,14 +18,13 @@ Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
 Vue.use(BootstrapVueIcons)
-
-
-
-
 Vue.config.productionTip = false
+Vue.use(router)
 
 new Vue({
   el: '#app',
   store: store,
-  render: h => h(App),
+  router:router,
+  vuetify,
+  render: h => h(App)
 }).$mount('#app')

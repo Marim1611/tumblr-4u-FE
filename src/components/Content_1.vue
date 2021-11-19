@@ -68,6 +68,9 @@ export default {
   font-family: 'Ubuntu', sans-serif;
   margin-top: 20px;
   
+   
+ 
+  
   line-height: 1.5;
   text-align: center;
 }

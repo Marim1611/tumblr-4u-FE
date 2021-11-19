@@ -1,24 +1,28 @@
 <template>
-  <div class="hello">
-     <NavBar/> 
-     <h1>SOON :D</h1>
+  <div id="homeDiv">
+   
+   
+  <NavBar/> 
+  
+    
+    
   </div>
 </template>
 
 <script>
-import NavBar from '../homePage/HomePageNavBar'; 
+import NavBar from './HomePageNavBar.vue';  
+
 export default {
-  name: 'HelloWorld',
+  name: 'HomePage',
   components: {
     'NavBar':NavBar,
      
   }
-  
 }
 </script>
 
-
 <style scoped>
+ 
  
  
 </style>
