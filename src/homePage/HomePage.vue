@@ -1,27 +1,27 @@
 <template>
   <div id="homeDiv">
-    <h1>THIS IS THE DASH BOARD!</h1>
-      
+   
+  <NavBar/> 
   
+    
     
   </div>
 </template>
 
 <script>
-//import NavBar from './HomePageNavBar.vue';  
+import NavBar from './HomePageNavBar.vue';  
+
 export default {
   name: 'HomePage',
   components: {
-    
+    'NavBar':NavBar,
+     
   }
 }
 </script>
 
 <style scoped>
-#homeDiv{
-  display: flex;
-   
-}
+ 
  
  
 </style>

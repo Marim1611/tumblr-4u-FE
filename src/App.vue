@@ -1,26 +1,18 @@
 <template>
 
   <div id="app">
-     <Header></Header>
-      <component v-bind:is="component"></component>
-      <button v-on:click="component='signIn'">CLICKMEE!!!!</button>
-        
+     
+     <router-view/> 
+       
         
      
 
      
   </div>
+  
 </template>
 
 <script>
-import Header from './components/Header.vue'
-import Content_1 from './components/Content_1.vue'
-import SignIn from './components/SignIn.vue'
-
-
-
- 
- 
 export default {
 
   name: 'App',
@@ -28,9 +20,8 @@ export default {
 
   components: {
 
-    Header,
-    'signIn' : SignIn,
-    'content_1': Content_1
+    
+ 
     
     
      
@@ -39,7 +30,7 @@ export default {
 
     return{
 
-      component: 'content_1'
+       
     }
     
   }

@@ -1,5 +1,6 @@
 <template>
 <div class='root'>
+   <Header/>
     <b-container class="bv-example-row">
       <b-row>
         <b-col></b-col>
@@ -7,7 +8,7 @@
         <b-col col lg="3">
           <h1>Tumblr4U</h1>
           <div class="TheForm">
-            <b-form @submit="onSubmit" v-if="show">
+            <b-form   v-if="show">
                 <b-form-group
                   id="input-group-1"
                   label-for="input-1"
@@ -45,7 +46,10 @@
                 ></b-form-input>
               </b-form-group>
               <h6>By clicking "sign up", or continuing with the other options below, you agree to Tumblr’s Terms of Service and have read the Privacy Policy</h6>
+            
+             <router-link to="/home" > 
               <b-button size="lg" class="buttonTop" type="submit" block variant="info">Sign up</b-button>
+           </router-link>
           </b-form>
 
           </div>
@@ -63,6 +67,7 @@
 </template>
 
 <script>
+import Header from './WelcomePageHeader.vue'
 export default {
 
   name: 'SignIn',
@@ -86,7 +91,11 @@ export default {
 
     msg: String
 
-  }
+  },
+  components: {
+'Header':Header 
+  },
+
 }
   
 </script>
@@ -101,9 +110,9 @@ export default {
   text-align: center;
  
 }
-.TheForm{
+/* .TheForm{
   
-}
+} */
 .formInput
 {
   margin: 5px auto 5px auto;

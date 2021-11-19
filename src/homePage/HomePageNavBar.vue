@@ -26,7 +26,7 @@
          
          <div id="iconsDiv">
  <li>
-          <router-link to="/" class="nav-item nav-link"> 
+          <router-link to="/home" class="nav-item nav-link"> 
              <b-icon id="icon" icon="house-door-fill" font-scale="1.5"  aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor}" ></b-icon> 
             </router-link>
         </li>
@@ -36,22 +36,31 @@
             </router-link>
         </li>
         <li>
-          <!-- <router-link to="/inbox" class="nav-item nav-link">  -->
+          <router-link to="" class="nav-item nav-link"> 
             <b-icon id="icon"  icon="envelope-fill" font-scale="1.5" aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon>    
-            <!-- </router-link>  -->
+            </router-link> 
          </li>       
          <li>
+            <router-link to="" class="nav-item nav-link"> 
               <b-icon id="icon"  icon="emoji-laughing" font-scale="1.5" aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon> 
+       </router-link> 
          </li> 
          <li>
+            <router-link to="" class="nav-item nav-link"> 
               <b-icon id="icon"  icon="lightning-fill" font-scale="1.5" aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon> 
+        </router-link> 
          </li> 
          <li>
-           <DropdownList   :accountItems="accountItems" />
+            <router-link to="" class="nav-item nav-link"> 
+           
+          <DropdownList   :accountItems="accountItems" />
+          </router-link> 
          </li> 
          <li>
+            <router-link to="" class="nav-item nav-link"> 
               <b-icon v-on:click="newPost = !newPost" id="icon"  icon= "pencil-fill" font-scale="1.5" aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon> 
-               <NewPost v-if="newPost"/>  
+               <NewPost v-if="newPost"/> 
+               </router-link>  
          </li> 
          </div>
        

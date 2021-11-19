@@ -47,9 +47,11 @@ export default {
 }*/
 .NavBarBrand{
     padding: 0 0 0 20px;
+     color:navy;
 }
 
 .NavBar{
+   
     padding:4.5 4.3  4.5rem;
 }
 .NavBarBrand{

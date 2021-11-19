@@ -3,24 +3,41 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Explore from '../components/HelloWorld.vue'
 import Home from '../homePage/HomePage.vue'
+import SignIn from '../components/SignIn.vue'
+import WelcomePage from '../components/WelcomePage.vue'
+import DashBoard from '../homePage/HomePageNewPost.vue'
 Vue.use(VueRouter);
 const routes = [
   {
+   
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'WelcomePage',
+    component: WelcomePage
   },
-  
   {
-    path: '/explore',
-    name: 'Explore',
-    component:Explore
+   
+    path: '/signIn',
+    name: 'SignIn',
+    component: SignIn,
   },
-  //  {
-  //   path: '/inbox',
-  //   name: 'Inbox',
-  //   component:Inbox
-  // }
+   {
+        path: '/home',
+        name: 'Home',
+        component: Home,
+        default:true
+      },
+      
+      {
+        path: '/explore',
+        name: 'Explore',
+        component:Explore
+      },
+      {
+        path: '/dashBoard',
+        name: 'dashBoard',
+        component:DashBoard
+      },
+  
 ]
 
 const router = new VueRouter({

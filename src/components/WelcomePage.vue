@@ -1,6 +1,8 @@
 <template>
     <div id="Heading">
+     <Header/>
       <b-container class="bv-example-row">
+        
   <b-row>
     <b-col></b-col>
 
@@ -12,7 +14,10 @@
           <b-button  size="lg" class="buttonTop"  block variant="success">Sign up</b-button>
       </div>
       <div>
-          <b-button size="lg" class="buttonTop" block variant="info">Log in</b-button>
+           <router-link to="/signIn" > 
+           <b-button size="lg" class="buttonTop" block variant="info">Log in</b-button>
+             </router-link>
+          
       </div>
       <div class="striped-border"></div>
       <h6>By continuing with the options below, you agree to Tumblr’s Terms of Service and have read the Privacy Policy</h6>
@@ -30,19 +35,24 @@
     <b-col></b-col>
   </b-row>
 </b-container>
+
     </div>
+    
 </template>
 <script>
-
+import Header from './WelcomePageHeader.vue'
 export default {
 
-  name: 'Content',
+  name: 'WelcomePage',
 
   props: {
 
     msg: String
 
-  }
+  },
+  components: {
+'Header':Header 
+  },
 }
 </script>
 
