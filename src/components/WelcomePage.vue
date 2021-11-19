@@ -11,7 +11,9 @@
       <p>Make stuff, look at stuff,</p>
       <p>talk about stuff, find your people.</p>
       <div>
+        <router-link to="/signUp" >
           <b-button  size="lg" class="buttonTop"  block variant="success">Sign up</b-button>
+     </router-link>
       </div>
       <div>
            <router-link to="/signIn" > 

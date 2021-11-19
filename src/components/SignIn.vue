@@ -1,10 +1,6 @@
 <template>
- 
-<div  class='root'>
- 
 <div class='root'>
    <Header/>
- 
     <b-container class="bv-example-row">
       <b-row>
         <b-col></b-col>
@@ -40,51 +36,10 @@
                   
               
               <h6>By clicking "log in", or continuing with the other options below, you agree to Tumblr’s Terms of Service and have read the Privacy Policy</h6>
+               <router-link to="/home" > 
               <b-button v-on:click="Submit($event)"  size="lg" class="buttonTop" type="submit" block variant="info">Log in</b-button>
- 
-          <div class="TheForm">
-            <b-form   v-if="show">
-                <b-form-group
-                  id="input-group-1"
-                  label-for="input-1"
-                >
-                  <b-form-input
-                    class="formInput"
-                    id="input-1"
-                    v-model="form.email"
-                    type="email"
-                    placeholder="Email"
-                    required
-                  ></b-form-input>
-                </b-form-group>
-                  
-
-                <b-form-group id="input-group-2" label-for="input-2" >
-                  <b-form-input
-                      class="formInput"
-                      type="password" 
-                      id="input-2" 
-                      v-model="form.password"
-                      aria-describedby="password-help-block" 
-                      placeholder="Password">
-                  </b-form-input>
-
-                </b-form-group>
-                  
-              <b-form-group id="input-group-3" label-for="input-3">
-                <b-form-input
-                  class="formInput"
-                  id="input-3"
-                  v-model="form.name"
-                  placeholder="Blog name"
-                  required
-                ></b-form-input>
-              </b-form-group>
-              <h6>By clicking "sign up", or continuing with the other options below, you agree to Tumblr’s Terms of Service and have read the Privacy Policy</h6>
-            
-             <router-link to="/home" > 
-              <b-button size="lg" class="buttonTop" type="submit" block variant="info">Sign up</b-button>
-           </router-link>
+   </router-link>
+                 
  
           </b-form>
 
@@ -167,7 +122,7 @@ export default {
  
   
       if ((this.password.length < 7) || (this.password.length > 15)) {
-      this.ErrorMsg = "The password is the wrong length. \n";
+      this.ErrorMsg = "The password should be between 7 : 15 charachters. \n";
       this.InputError=true;
       event.preventDefult();  
 
@@ -186,22 +141,10 @@ export default {
  
     }
   },
-
-      form: {
-          email: '',
-          password: '',
-          blogName: '',
-      },
-
-      show: true
-    }
+components: {
+      'Header':Header 
   },
-
-  },
-  components: {
-'Header':Header 
-  },
- 
+  
 }
   
 </script>
