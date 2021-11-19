@@ -1,18 +1,14 @@
 <template>
- 
 <div  class='root'>
- 
-<div class='root'>
-   <Header/>
- 
-    <b-container class="bv-example-row">
+  <b-container class="bv-example-row">
       <b-row>
         <b-col></b-col>
 
         <b-col col lg="3">
           <h1>Tumblr4U</h1>
- 
+         
           <p v-if="InputError" class="DynamiError">{{this.ErrorMsg}}</p>
+          
           <div class="TheForm">
             <b-form  v-if="show">
               <b-input-group size="sm" class="mb-2">
@@ -37,60 +33,34 @@
                       placeholder="Password">
                   </b-form-input>
                 </b-input-group>
+                
+              <b-input-group size="sm" class="mb-4"> 
+                <b-input-group-prepend is-text>
+                    <b-icon icon="person-circle"></b-icon>
+                  </b-input-group-prepend>
+                  <b-form-input
+                  v-model="blogName"
+                  placeholder="Blog name"
+                ></b-form-input>
+
+
+              </b-input-group>
+                
                   
               
-              <h6>By clicking "log in", or continuing with the other options below, you agree to Tumblr’s Terms of Service and have read the Privacy Policy</h6>
-              <b-button v-on:click="Submit($event)"  size="lg" class="buttonTop" type="submit" block variant="info">Log in</b-button>
- 
-          <div class="TheForm">
-            <b-form   v-if="show">
-                <b-form-group
-                  id="input-group-1"
-                  label-for="input-1"
-                >
-                  <b-form-input
-                    class="formInput"
-                    id="input-1"
-                    v-model="form.email"
-                    type="email"
-                    placeholder="Email"
-                    required
-                  ></b-form-input>
-                </b-form-group>
-                  
-
-                <b-form-group id="input-group-2" label-for="input-2" >
-                  <b-form-input
-                      class="formInput"
-                      type="password" 
-                      id="input-2" 
-                      v-model="form.password"
-                      aria-describedby="password-help-block" 
-                      placeholder="Password">
-                  </b-form-input>
-
-                </b-form-group>
-                  
-              <b-form-group id="input-group-3" label-for="input-3">
-                <b-form-input
-                  class="formInput"
-                  id="input-3"
-                  v-model="form.name"
-                  placeholder="Blog name"
-                  required
-                ></b-form-input>
-              </b-form-group>
+                
+              
               <h6>By clicking "sign up", or continuing with the other options below, you agree to Tumblr’s Terms of Service and have read the Privacy Policy</h6>
-            
-             <router-link to="/home" > 
-              <b-button size="lg" class="buttonTop" type="submit" block variant="info">Sign up</b-button>
-           </router-link>
- 
+              <b-button v-on:click="Submit($event)" size="lg" class="buttonTop" type="submit" block variant="info">Sign up</b-button>
           </b-form>
 
+
           </div>
+
           
           <div class="striped-border"></div>
+
+          
           
 
         </b-col>
@@ -103,38 +73,28 @@
 </template>
 
 <script>
-
 import {mapFields} from 'vuex-map-fields';
-import Header from './WelcomePageHeader.vue'
- 
 export default {
 
-  name: 'SignIn',
+  name: 'SignUp',
   data(){
 
     return{
- 
+      
+     
       email: '',
       password: '',
+      blogName: '',
       show: true,
       ShareData: false,
       InputError:false,
       ErrorMsg:''
     }
   },
-
-  computed:{
-    ...mapFields([
-      'user.email',
-      'user.password',
-
-    ]),
-
-  },
   methods:{
-    Submit:function(event){
+     Submit:function(event){
 
-       //IF any of the fields are empty 
+      //IF the fields are empty the counter value will be 0 
       if(!this.email)
       {
         this.ErrorMsg='you forgot to enter Email';
@@ -142,13 +102,19 @@ export default {
          event.preventDefult();
       }
       else if(!this.password)
-        {
-          this.ErrorMsg='you forgot to enter Password';
-          this.InputError=true;
-          event.preventDefault();
-        }
-
+      {
+        this.ErrorMsg='you forgot to enter Password';
+        this.InputError=true;
+        event.preventDefault();
+      }
+      else if(!this.blogName)
+      {
+        this.ErrorMsg='you forgot to enter Blog Name';
+        this.InputError=true;
+        event.preventDefault();
+      }
       
+
       //Email Validation
       var  apos=this.email.indexOf('@');
       console.log(apos);
@@ -171,37 +137,48 @@ export default {
       this.InputError=true;
       event.preventDefult();  
 
-      }
+    }
 
       else if (illegalChars.test(this.password.value)) {
       this.ErrorMsg = "The password contains illegal characters.\n";
       this.InputError=true;
       event.preventDefult();
-      } 
+    } 
     else if ( (this.password.search(/[a-zA-Z]+/)==-1) || (this.password.search(/[0-9]+/)==-1) ) {
         this.ErrorMsg = "The password must contain at least one numeral.\n";
         this.InputError=true;
         event.preventDefult();
-      }
- 
     }
-  },
-
-      form: {
-          email: '',
-          password: '',
-          blogName: '',
-      },
-
-      show: true
-    }
-  },
-
-  },
-  components: {
-'Header':Header 
-  },
  
+  
+   
+}
+      
+
+
+    
+    
+    
+  },
+  computed:{
+     ...mapFields([
+      'user.email',
+      'user.password',
+      'user.blogName'
+
+    ]),
+    
+
+   
+  },
+
+  
+
+  props: {
+
+    msg: String
+
+  }
 }
   
 </script>
@@ -216,7 +193,7 @@ export default {
   text-align: center;
  
 }
- 
+
 .formInput
 {
   margin: 5px auto 5px auto;
@@ -227,11 +204,9 @@ export default {
   margin:20px 0 20px 0 ;
   width: 230px;
 }
- 
 .DynamiError{
   background-color: #FFAB4C;
 
 }
- 
 
 </style>
