@@ -4,7 +4,6 @@
          <b-icon id="icon"  icon="person-fill" font-scale="2" aria-hidden="true"  :style="{'color': homeTheme[homeThemeIndex].fontColor, 'cursor':'pointer' }"></b-icon> 
    
     <transition name="fade" appear>
-        
         <div v-on:click.prevent="toggleDropdown">
           <div class="sub-menu" v-if="isOpen" :style="{'background-color': homeTheme[homeThemeIndex].cardColor}">
         <li id =" header"  >
@@ -28,9 +27,14 @@
                 </div>
        <!-- </router-link> -->
             </li>
+            
 
-          
+    
         </div>
+        <li>
+     <v-btn   elevation="2" >new plog</v-btn>
+
+            </li>
       </div>
 
         </div>
