@@ -1,59 +1,66 @@
 <template>
 <div  class='root'>
-    <b-container class="bv-example-row">
+  <b-container class="bv-example-row">
       <b-row>
         <b-col></b-col>
 
         <b-col col lg="3">
           <h1>Tumblr4U</h1>
-          <p>{{form.email}}</p>
-
-
+         
           <p v-if="InputError" class="DynamiError">{{this.ErrorMsg}}</p>
+          
           <div class="TheForm">
             <b-form  v-if="show">
-                <b-form-group
-                  id="input-group-1"
-                  label-for="input-1"
-                >
-                  
-                  <b-form-input
-                  
-                    class="formInput"
+              <b-input-group size="sm" class="mb-2">
+                <b-input-group-prepend is-text>
+                  <b-icon  icon="envelope"></b-icon>
+                </b-input-group-prepend>
+                <b-form-input 
                     id="input-1"
-                    v-model="form.email"
-                    placeholder="Email"
-                  > </b-form-input>
-                </b-form-group > 
-                  
-
-                <b-form-group id="input-group-2" label-for="input-2" >
+                    v-model="email"
+                    placeholder="Email">
+                </b-form-input>
+              </b-input-group>
+                <b-input-group size="sm" class="mb-2"> 
+                  <b-input-group-prepend is-text>
+                    <b-icon icon="shield-lock"></b-icon>
+                  </b-input-group-prepend>
                   <b-form-input
-                      class="formInput"
                       type="password" 
                       id="input-2" 
-                      v-model="form.password"
+                      v-model="password"
                       aria-describedby="password-help-block" 
                       placeholder="Password">
                   </b-form-input>
-
-                </b-form-group>
-                  
-              <b-form-group id="input-group-3" label-for="input-3">
-                <b-form-input
-                  class="formInput"
-                  id="input-3"
-                  v-model="form.blogName"
+                </b-input-group>
+                
+              <b-input-group size="sm" class="mb-4"> 
+                <b-input-group-prepend is-text>
+                    <b-icon icon="person-circle"></b-icon>
+                  </b-input-group-prepend>
+                  <b-form-input
+                  v-model="blogName"
                   placeholder="Blog name"
                 ></b-form-input>
-              </b-form-group>
+
+
+              </b-input-group>
+                
+                  
+              
+                
+              
               <h6>By clicking "sign up", or continuing with the other options below, you agree to Tumblr’s Terms of Service and have read the Privacy Policy</h6>
               <b-button v-on:click="Submit($event)" size="lg" class="buttonTop" type="submit" block variant="info">Sign up</b-button>
           </b-form>
 
+
           </div>
+
           
           <div class="striped-border"></div>
+
+          
           
 
         </b-col>
@@ -66,6 +73,7 @@
 </template>
 
 <script>
+import {mapFields} from 'vuex-map-fields';
 export default {
 
   name: 'SignUp',
@@ -74,7 +82,9 @@ export default {
     return{
       
      
-
+      email: '',
+      password: '',
+      blogName: '',
       show: true,
       ShareData: false,
       InputError:false,
@@ -85,19 +95,19 @@ export default {
      Submit:function(event){
 
       //IF the fields are empty the counter value will be 0 
-      if(!this.form.email)
+      if(!this.email)
       {
         this.ErrorMsg='you forgot to enter Email';
          this.InputError=true;
          event.preventDefult();
       }
-      else if(!this.form.password)
+      else if(!this.password)
       {
         this.ErrorMsg='you forgot to enter Password';
         this.InputError=true;
         event.preventDefault();
       }
-      else if(!this.form.blogName)
+      else if(!this.blogName)
       {
         this.ErrorMsg='you forgot to enter Blog Name';
         this.InputError=true;
@@ -106,9 +116,9 @@ export default {
       
 
       //Email Validation
-      var  apos=this.form.email.indexOf('@');
+      var  apos=this.email.indexOf('@');
       console.log(apos);
-      var dotpos=this.form.email.indexOf('.');
+      var dotpos=this.email.indexOf('.');
       console.log(dotpos);
       if(apos<1||dotpos-apos<2){
         this.ErrorMsg='The Mail should contain @ and . ';
@@ -122,19 +132,19 @@ export default {
       var illegalChars = /[\W_]/; // allow only letters and numbers
  
   
-      if ((this.form.password.length < 7) || (this.form.password.length > 15)) {
+      if ((this.password.length < 7) || (this.password.length > 15)) {
       this.ErrorMsg = "The password is the wrong length. \n";
       this.InputError=true;
       event.preventDefult();  
 
     }
 
-      else if (illegalChars.test(this.form.password.value)) {
+      else if (illegalChars.test(this.password.value)) {
       this.ErrorMsg = "The password contains illegal characters.\n";
       this.InputError=true;
       event.preventDefult();
     } 
-    else if ( (this.form.password.search(/[a-zA-Z]+/)==-1) || (this.form.password.search(/[0-9]+/)==-1) ) {
+    else if ( (this.password.search(/[a-zA-Z]+/)==-1) || (this.password.search(/[0-9]+/)==-1) ) {
         this.ErrorMsg = "The password must contain at least one numeral.\n";
         this.InputError=true;
         event.preventDefult();
@@ -151,10 +161,12 @@ export default {
     
   },
   computed:{
-    user(){
-      return this.$store.state.form;
+     ...mapFields([
+      'user.email',
+      'user.password',
+      'user.blogName'
 
-    }
+    ]),
     
 
    

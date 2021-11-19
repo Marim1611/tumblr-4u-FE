@@ -9,30 +9,28 @@
           <p v-if="InputError" class="DynamiError">{{this.ErrorMsg}}</p>
           <div class="TheForm">
             <b-form  v-if="show">
-                <b-form-group
-                  id="input-group-11"
-                  label-for="input-11"
-                >
-                  <b-form-input
-                    class="formInput"
+              <b-input-group size="sm" class="mb-2">
+                <b-input-group-prepend is-text>
+                  <b-icon  icon="envelope"></b-icon>
+                </b-input-group-prepend>
+                <b-form-input 
                     id="input-1"
-                    v-model="form.email"
-                    placeholder="Email"
-                  ></b-form-input>
-                </b-form-group>
-                  
-
-                <b-form-group id="input-group-21" label-for="input-21" >
+                    v-model="email"
+                    placeholder="Email">
+                </b-form-input>
+              </b-input-group>
+                <b-input-group size="sm" class="mb-2"> 
+                  <b-input-group-prepend is-text>
+                    <b-icon icon="shield-lock"></b-icon>
+                  </b-input-group-prepend>
                   <b-form-input
-                      class="formInput"
                       type="password" 
-                      id="input-21" 
-                      v-model="form.password"
+                      id="input-2" 
+                      v-model="password"
                       aria-describedby="password-help-block" 
                       placeholder="Password">
                   </b-form-input>
-
-                </b-form-group>
+                </b-input-group>
                   
               
               <h6>By clicking "log in", or continuing with the other options below, you agree to Tumblr’s Terms of Service and have read the Privacy Policy</h6>
@@ -54,47 +52,52 @@
 </template>
 
 <script>
+import {mapFields} from 'vuex-map-fields';
 export default {
 
   name: 'SignIn',
   data(){
 
     return{
-
-      form: {
-          email: '',
-          password: '',
-          blogName: '',
-      },
-
+      email: '',
+      password: '',
       show: true,
       ShareData: false,
       InputError:false,
       ErrorMsg:''
     }
   },
+
+  computed:{
+    ...mapFields([
+      'user.email',
+      'user.password',
+
+    ]),
+
+  },
   methods:{
     Submit:function(event){
 
        //IF any of the fields are empty 
-       if(!this.form.email)
+      if(!this.email)
       {
         this.ErrorMsg='you forgot to enter Email';
          this.InputError=true;
          event.preventDefult();
       }
-      else if(!this.form.password)
-      {
-        this.ErrorMsg='you forgot to enter Password';
-        this.InputError=true;
-        event.preventDefault();
-      }
+      else if(!this.password)
+        {
+          this.ErrorMsg='you forgot to enter Password';
+          this.InputError=true;
+          event.preventDefault();
+        }
 
       
       //Email Validation
-      var  apos=this.form.email.indexOf('@');
+      var  apos=this.email.indexOf('@');
       console.log(apos);
-      var dotpos=this.form.email.indexOf('.');
+      var dotpos=this.email.indexOf('.');
       console.log(dotpos);
       if(apos<1||dotpos-apos<2){
         this.ErrorMsg='The Mail should contain @ and . ';
@@ -108,19 +111,19 @@ export default {
       var illegalChars = /[\W_]/; // allow only letters and numbers
  
   
-      if ((this.form.password.length < 7) || (this.form.password.length > 15)) {
+      if ((this.password.length < 7) || (this.password.length > 15)) {
       this.ErrorMsg = "The password is the wrong length. \n";
       this.InputError=true;
       event.preventDefult();  
 
       }
 
-      else if (illegalChars.test(this.form.password.value)) {
+      else if (illegalChars.test(this.password.value)) {
       this.ErrorMsg = "The password contains illegal characters.\n";
       this.InputError=true;
       event.preventDefult();
       } 
-    else if ( (this.form.password.search(/[a-zA-Z]+/)==-1) || (this.form.password.search(/[0-9]+/)==-1) ) {
+    else if ( (this.password.search(/[a-zA-Z]+/)==-1) || (this.password.search(/[0-9]+/)==-1) ) {
         this.ErrorMsg = "The password must contain at least one numeral.\n";
         this.InputError=true;
         event.preventDefult();
@@ -128,9 +131,7 @@ export default {
  
     }
   },
-
   
-
   props: {
 
     msg: String
