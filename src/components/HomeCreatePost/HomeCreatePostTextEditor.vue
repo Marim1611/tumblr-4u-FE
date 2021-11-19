@@ -8,19 +8,18 @@
         v-bind:editor="editor"
         v-if="editor"
       >
-        <button
-          v-on:click="boldButton"
+         
+          <b-icon  class="editButtons"
+           v-on:click="boldButton"
           v-bind:class="{
             'is-active': editor.isActive('bold'),
           }"
-          class="editButtons"
-        >
-          <b-icon
+         
             icon="type-bold"
-            class="border rounded p-2"
-            font-scale="1.2"
+            
+            font-scale="0.5"
           ></b-icon>
-        </button>
+       
         <button
           v-on:click="italicButton"
           v-bind:class="{
@@ -67,7 +66,7 @@
           <b-icon
             icon=" list-ol"
             class="border rounded p-2"
-            font-scale="1.2"
+            font-scale="2"
           ></b-icon>
         </button>
         <button
@@ -80,7 +79,7 @@
           <b-icon
             icon="  list-ul"
             class="border rounded p-2"
-            font-scale="1.2"
+            font-scale="2"
           ></b-icon>
         </button>
         <button
@@ -223,7 +222,7 @@ export default {
 
 .editButtons {
   transition: background-color 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
   border-radius: 15px;
   border: none;
   width: 30px;

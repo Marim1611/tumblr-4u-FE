@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="CreatePost">
+    <div class="CreatePost" v-bind:style="{'background-color': homeTheme[homeThemeIndex].cardColor}">
       <ul>
         <li>
           <button v-on:click="textUpload">
@@ -162,6 +162,14 @@ export default {
     chatUpload: function () {
       this.chat = true;
     },
+  },
+  computed: {
+        homeTheme: function(){
+            return this.$store.state.homeTheme;
+        },
+        homeThemeIndex: function(){
+            return this.$store.state.homeThemeIndex;
+        },
   },
 };
 </script>
