@@ -80,15 +80,6 @@ describe("Create Post Text Editor Test", () => {
 
   wrapper = mount(CreatePostTextEditor, {
     vuetify,
-    methods: {
-      boldButton: jest.fn(),
-      italicButton: jest.fn(),
-      headlineButton: jest.fn(),
-      strikedButton: jest.fn(),
-      orderedListButton: jest.fn(),
-      unorderedListButton: jest.fn(),
-      blockQuoteButton: jest.fn(),
-    },
   });
 
   it("renders", () => {
@@ -99,14 +90,6 @@ describe("Create Post Text Editor Test", () => {
     expect(wrapper.vm).toBeTruthy();
   });
 
-  it("toggle bold button", () => {
-    const boldButton = jest.fn();
-    wrapper.setMethods({
-      boldButton: boldButton,
-    });
-    wrapper.find("button").trigger("click");
-    expect(boldButton).toHaveBeenCalled();
-  });
 });
 
 // ------------------------- Create post image test ------------------
