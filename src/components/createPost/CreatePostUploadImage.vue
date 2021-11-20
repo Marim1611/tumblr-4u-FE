@@ -48,6 +48,10 @@
 </template>
 
 <script>
+/**
+ * Uploading, dragging/dropping images file
+ * @example [none]
+ */
 export default {
   data() {
     return {
@@ -59,6 +63,11 @@ export default {
   },
 
   methods: {
+    /**
+     * Function to take the uploaded images and save them in an array
+     * @public This is a public method
+     * @param {none}
+     */
     ImageSelected: function (e) {
       let input = this.$refs.fileInput;
       let file = input.files;
@@ -98,9 +107,15 @@ export default {
       event.preventDefault();
     },
 
+
     tts() {
       this.dt = "Drag here to upload files";
     },
+    /**
+     * Function to save the dragged photo in an array
+     * @public This is a public method
+     * @param {none}
+     */
     ttrs(e) {
       let datas = e.target.files || e.dataTransfer.files;
 
@@ -115,6 +130,11 @@ export default {
       e.preventDefault();
     },
 
+    /**
+     * Function to uppload image as a link (from browser, not finished yet)
+     * @public This is a public method
+     * @param {none}
+     */
     webImage: function () {
       this.urlChosen = true;
     },

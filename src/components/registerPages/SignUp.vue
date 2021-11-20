@@ -77,6 +77,10 @@
 <script>
 import {mapFields} from 'vuex-map-fields';
 import Header from './WelcomePageHeader.vue'
+/**
+ *   A complete SignUp template    
+ * @example [none]
+ */
 export default {
 
   name: 'SignUp',

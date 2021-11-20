@@ -1,6 +1,5 @@
 <template>
-<md-dialog v-bind:md-active.sync="postToBegin" v-bind:md-close-on-esc="false">
-    <md-dialog-content>
+
 <div id = 'parentDiv'>
     <div id = 'postItem'>
         <div id="circle" class ='text' style=" background-color:white;">
@@ -46,11 +45,14 @@
      </div>    
 </div>
 
-   </md-dialog-content>
-  </md-dialog>
+  
 </template>
 
 <script>
+/**
+ *  dialog that we use to create post it will appears when click on pen icon in nav bar 
+ * @example [none]
+ */
 export default {
   name: 'NewPost',
   data : function () {

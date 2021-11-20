@@ -9,12 +9,11 @@
         font-scale="1"
       ></b-icon> -->
   <!-- </div> -->
-  <md-dialog v-bind:md-active.sync="postToBegin" v-bind:md-close-on-esc="false">
+  <md-dialog v-bind:md-active.sync="postToBegin">
     <md-dialog-content>
       <!-- <md-dialog-title>mariemzayn22</md-dialog-title> -->
       <v-textarea
         name="input-7-1"
-        filled
         placeholder="Title"
         auto-grow
         rows="2"
@@ -44,7 +43,7 @@
       <div class="footerBtns">
         <button class="closeBtn" v-on:click="closeTextBox">Close</button>
         <!-- <div class="postOptions"> -->
-        <v-btn
+        <button
           v-bind:disabled="disablePosting"
           v-bind:class="{
             disabledBtn: this.disablePosting,
@@ -53,7 +52,7 @@
           v-on:click="postDone"
         >
           Post
-        </v-btn>
+        </button>
         <!-- <v-divider />
           <button>
             <b-icon
@@ -70,13 +69,16 @@
 
 <script>
 import CreatePostTextEditor from "./CreatePostTextEditor.vue";
+/**
+ * @displayName Create post for text
+ * @example [none]
+ */
 export default {
   props: {
     textPost: Boolean,
-    
   },
   components: {
-  'CreatePostTextEditor':CreatePostTextEditor,
+    CreatePostTextEditor: CreatePostTextEditor,
   },
 
   data() {
@@ -103,15 +105,31 @@ export default {
     //   if (selectedIndex === 1) this.selectedPostOption = "Mariem";
     // },
 
+    /**
+     * Function to close the text upload section for create post
+     * @public This is a public method
+     * @param {none}
+     */
     closeTextBox() {
       this.$emit("closeTextBox", false);
       this.postContent = null;
       this.postTitle = null;
     },
 
+    /**
+     * Function to recieve the content written inside the post from the text editor file
+     * @public This is a public method
+     * @param {Boolean} content --> boolean sent from the create post section when clicking on text post to start uploading one
+     */
     onTextClick(content) {
       this.postContent = content;
     },
+
+    /**
+     * Function to publish the post and save its content
+     * @public This is a public method
+     * @param {none}
+     */
     postDone() {
       console.log(this.$refs.titleRefs.$el.outerHTML);
       // console.log(this.postContent);
@@ -119,6 +137,11 @@ export default {
   },
 
   computed: {
+    /**
+     * Function to know if the text upload post should appear or not
+     * @public This is a public method
+     * @param {none}
+     */
     postToBegin: {
       get() {
         return this.textPost;
@@ -128,6 +151,11 @@ export default {
       },
     },
 
+    /**
+     * Function to know if the post containing content to be displayed or not and activate or deactivate the post button according to this
+     * @public This is a public method
+     * @param {none}
+     */
     disablePosting() {
       if (
         this.postContent === null &&
@@ -139,9 +167,31 @@ export default {
   },
 };
 </script>
-
 <style>
-.v-textarea textarea {
+.v-text-field.v-text-field--enclosed:not(.v-text-field--rounded)
+  > .v-input__control
+  > .v-input__slot,
+.v-text-field.v-text-field--enclosed .v-text-field__details {
+  padding: 0;
+}
+
+v-input:focus {
+  border: none;
+  outline: none;
+}
+.v-text-field.v-text-field--enclosed:not(.v-text-field--rounded) {
+  border-radius: 0;
+  outline: none;
+  border: none;
+  padding: 0;
+}
+
+.theme--light.v-text-field--filled > .v-input__control > .v-input__slot {
+  background: white;
+  border: none;
+  padding: 0;
+}
+.v-textarea > textarea {
   max-width: 30vw;
   font-size: 36px;
   font-weight: 400;
@@ -169,16 +219,14 @@ input[type="text"] {
 .footerBtns {
   display: flex;
   flex-direction: row;
-  /* justify-content: left; */
 }
 
 .footerBtns button {
   border: none;
   border-radius: 1.9px;
-  /* width: 4vw; */
   margin-top: 10px;
   padding: 5px 7px;
-  font-size: 13px;
+
   font-weight: 700;
 }
 .postOptions {
@@ -186,39 +234,32 @@ input[type="text"] {
   margin-top: 10px;
   display: flex;
   flex-direction: row;
-  /* padding: 0;
-  margin: 0;  */
+
   position: absolute;
   right: 24px;
-  /* color: white; */
-
-  /* text-align: center; */
 }
-/* #icon {
-  flex-direction: row;
-  color: gray;
-  float: right;
-} */
+
 .nonDisabledBtn {
-  /* background-color: transparent; */
   background-color: #00b8ff;
   position: absolute;
   right: 24px;
   color: white;
   cursor: pointer;
+  font-size: 13px;
 }
 .closeBtn {
   background-color: #9da6af;
   color: white;
   cursor: pointer;
+  font-size: 13px;
 }
 
 .disabledBtn {
-  /* background-color: transparent; */
   background-color: #00b8ff;
   position: absolute;
   right: 24px;
   color: hsla(0, 0%, 100%, 0.5);
   cursor: default;
+  font-size: 13px;
 }
 </style>

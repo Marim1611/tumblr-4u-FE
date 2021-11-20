@@ -25,7 +25,7 @@
                                 <li>
                                   <div>
 <b-icon id="iconD" icon="compass" font-scale="1.5"  aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon> 
-                     <p id="pD" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor,  'font-style':homeTheme[homeThemeIndex].fontStyle,'text-decoration': 'none'}">Explore</p>   
+                     <p id="pD" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor,  'font-family':homeTheme[homeThemeIndex].fontStyle,'text-decoration': 'none'}">Explore</p>   
         
                                   </div>
         
@@ -35,7 +35,7 @@
           <!-- <router-link to="/inbox" class="nav-item nav-link" style="text-decoration: none" >  -->
           <div>
  <b-icon id="iconD"  icon="envelope-fill" font-scale="1.5" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon>    
-       <p id="pD" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor, 'font-style':homeTheme[homeThemeIndex].fontStyle, 'text-decoration': 'none'}">Inbox</p>   
+       <p id="pD" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor, 'font-family':homeTheme[homeThemeIndex].fontStyle, 'text-decoration': 'none'}">Inbox</p>   
 
           </div>
            
@@ -44,7 +44,7 @@
          <li>
            <div>
  <b-icon id="iconD"  icon="emoji-laughing" font-scale="1.5" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon> 
-                       <p id="pD" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor,  'font-style':homeTheme[homeThemeIndex].fontStyle,'text-decoration': 'none'}">Messaging</p>   
+                       <p id="pD" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor,  'font-family':homeTheme[homeThemeIndex].fontStyle,'text-decoration': 'none'}">Messaging</p>   
 
            </div>
              
@@ -52,7 +52,7 @@
          <li>
            <div>
  <b-icon id="iconD"  icon="lightning-fill" font-scale="1.5" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon> 
-                            <p id="pD" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor, 'font-style':homeTheme[homeThemeIndex].fontStyle, 'text-decoration': 'none'}">Activity</p>   
+                            <p id="pD" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor, 'font-family':homeTheme[homeThemeIndex].fontStyle, 'text-decoration': 'none'}">Activity</p>   
 
            </div>
              
@@ -62,7 +62,7 @@
           <!-- <router-link to="/likes"  style="text-decoration: none">  -->
            <div>
  <b-icon id="iconD"  icon="Heart-fill" font-scale="1.5" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon>    
-                                <p id="pD" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor,  'font-style':homeTheme[homeThemeIndex].fontStyle,'text-decoration': 'none'}">Likes</p>   
+                                <p id="pD" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor,  'font-family':homeTheme[homeThemeIndex].fontStyle,'text-decoration': 'none'}">Likes</p>   
 
            </div>
            
@@ -72,7 +72,7 @@
           <!-- <router-link to="/inbox" class="nav-item nav-link" style="text-decoration: none">  -->
             <div>
   <b-icon id="iconD"  icon="person-plus-fill" font-scale="1.5" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon>    
-                                <p id="pD" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor,  'font-style':homeTheme[homeThemeIndex].fontStyle,'text-decoration': 'none'}">Followings</p>   
+                                <p id="pD" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor,  'font-family':homeTheme[homeThemeIndex].fontStyle,'text-decoration': 'none'}">Followings</p>   
 
             </div>
           
@@ -92,7 +92,7 @@
             
             <div>
    <b-icon id="iconD"  icon="question-circle-fill" font-scale="1.5" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon>    
-                                <p id="pD" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor, 'font-style':homeTheme[homeThemeIndex].fontStyle, 'text-decoration': 'none'}">Help</p>   
+                                <p id="pD" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor, 'font-family':homeTheme[homeThemeIndex].fontStyle, 'text-decoration': 'none'}">Help</p>   
 
             </div>
          
@@ -101,7 +101,7 @@
            <li v-on:click="changePalete()" >
              <div>
   <b-icon id="iconD"  icon="brush-fill" font-scale="1.5" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon>    
-                                <p id="pD" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor,  'font-style':homeTheme[homeThemeIndex].fontStyle,'text-decoration': 'none'}">Change Palette</p>   
+                                <p id="pD" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor,  'font-family':homeTheme[homeThemeIndex].fontStyle,'text-decoration': 'none'}">Change Palette</p>   
              </div>
          </li> 
                           </ul>     
@@ -129,13 +129,21 @@
 
 <script>
 import SearchBar  from './HomePageSearchBar.vue';
- 
+ /**
+ *  Home page Navigation Bar for mobile view
+ * @example [none]
+ */
 export default {
   name: 'HomeNavbar',
   components:{
       'SearchBar':SearchBar
   },
   methods: {
+     /**
+     * Function to fire event from the store to change theme color of website on click the brus icon in the drawer 
+     * @public This is a public method
+     * @param {none}
+     */
      changePalete: function ( ){
     // fire mutation
         this.$store.commit('changePalette');
@@ -151,9 +159,19 @@ export default {
     }, 
      
   computed: {
+     /**
+     * Function to get the home page color theme array from the store
+     * @public This is a public method
+     * @param {none}
+     */
         homeTheme: function(){
             return this.$store.state.homeTheme;
         },
+         /**
+     * Function to get the home page colortheme Index from the store
+     * @public This is a public method
+     * @param {none}
+     */
         homeThemeIndex: function(){
             return this.$store.state.homeThemeIndex;
         },

@@ -1,119 +1,70 @@
 <template>
-<body style="background-color:#001935;">
-<b-container class="bv-example-row box" >
-          <h1> create a new blog </h1>
+<body style="background-color:#001935;top:-20px">
+<div main>
+  <div  class="revert">
+      <h1> create a new blog </h1>
       <p1> This additional blog can be managed by multiple authors or set to private.<br />
         Note: If you want to Like posts or Follow other users with this blog identity, you must log out and create a separate account.<br />
         Learn more about Primary vs. Secondary blog features here. </p1>
 
-  <b-row class="row-handler">
-    <b-col cols="1" class="col1-handler">
-      <h class="h11">  Title <br /></h>
-      <h   class="h11">  URL  <br /></h>
-      <h   class="h11">  Privacy  <br /></h>
+      <div id="part1">
+        <p2>Title</p2>
+        <input  v-model="title" id="input-title"  > 
+        <p5> (ie. Acme Corp, Sara & Jacob, My Awesome Blog)</p5>
+      </div>
 
-        <v-btn class="button-create" @click="go_validations" >create blog</v-btn>
-    </b-col>
-    <b-col cols="8">
-        <form class="the-form" >
-            <div class="form-group">
-                <p v-if="!isHidden_title" class=err_title>error: you must fill the title</p>
-    <input type="text"  v-model="title" class="form-control titlee border border-secondary"  placeholder="title " >
+      <div id="part2">
+        <p3>URL<br /></p3>
+        <input  v-model="url" id="input-url" > 
+        <p6> (you can change this at any time)</p6>
+      </div>
 
-            </div>
-            <div class="form-group">
-                        <p v-if="!isHidden_url" class=err_url >error: you must fill the url</p>
-                         <p v-if="!special_char_detected" class=special_char >special char not permitted</p>
-        <input type="text" v-model="url" class="form-control urll border border-secondary "   placeholder="url" >
-    
-            </div>
-                <div class="form-group">
-                    <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1"  v-on:change="access_privacy()">
-                    <label class="form-check-label" for="exampleCheck1">Password protect this blog</label>
-                </div>
-                <input type="text" v-model="pass" class="form-control passwordd border border-secondary"  placeholder="password" :disabled="validated == 0">
-                 
-
-            </div>
-        </form>
-    </b-col>
-    <b-col>
-            <p>ie. Acme Corp, Sara & Jacob, My Awesome Blog</p>
-            <p>
-                you can change this at any time
-            </p>
-       <v-btn class="button-cancel">cancel</v-btn>
-
-    </b-col>
-  </b-row>
-
-</b-container>
-<div class="end"></div>
+      <div id="part3">
+            <p4>Privacy<br /></p4>
+            <input  v-model="privacy" id="input-privacy" :disabled="validated == 1" >
+            <p7><strong> Password protect this blog<br/></strong></p7>
+              <p8>This blog can only be viewed by people who enter this password: <br /></p8>
+                <input type="checkbox" id="password"  v-on:change="$_access_privacy()">
+      </div>
+    <component v-bind:is="component"></component>
+    <router-link to="/blog/created">
+    <button id="button-create"  >create blog</button>
+    </router-link>
+    <button id="button-cancel">cancel</button>
+  </div>
+</div>
 </body>
 </template>
 
 <script>
-//import CreatedBlog from './CreatedBlogPage.vue'
+import CreatedBlog from './CreatedBlogPage.vue'
 
 
 export default {
   name: 'CreateBlog',
+  /*created: function () {
+    document.body.style.backgroundColor ="#001935";
+  },
+  destroyed: function () {
+    document.body.style.backgroundColor = null;
+  },*/
     components: {
-  //'created-blog':CreatedBlog
+  'created-blog':CreatedBlog
   },
   props: {
     
   },
   methods: {
-      /** 
-      *makes textbox of password enabled when the its label accessed
-      *@public
-      */ 
-    access_privacy(){
+    $_access_privacy(){
       if(this.validated==0)
         this.validated=1;
       else
       {
         //delete text entered before
-        this.pass="";
         this.validated=0;
       }
         
     },
-      /*
-      *does not permit user to create a blog except he enters the title and 
-      *url and url without special characters
-      *@public
-      */ 
-    go_validations(){
-        var illegalChars = /[\W_]/; // allow only letters and numbers
-      if(this.title==" " && this.url==" " ){
-        this.isHidden_url=0;
-        this.isHidden_title=0;
-
-      }
-      else if(this.title=="" && this.url!="" &&illegalChars.test(this.url)!=1){
-        this.isHidden_title=0;
-        this.isHidden_url=1;
-        this.special_char_detected=1;
-      }
-      else if(this.url==""){
-        this.isHidden_url=0;
-      }
-      else if(illegalChars.test(this.url) ){// special char
-            this.special_char_detected=0;
-            this.isHidden_url=1;
-
-      }
-      else{
-        this.isHidden_url=1;
-        this.isHidden_title=1;
-         this.special_char_detected=1;
-      }
-      
-
-    }
    
  },
   data(){
@@ -121,11 +72,7 @@ export default {
        title:""
       ,url:""
       ,privacy:""
-      ,validated:0,
-      isHidden_title:1,
-      isHidden_url:1,
-      special_char_detected:1,
-      pass:""
+      ,validated:1
     }
   }
 }
@@ -133,75 +80,174 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.h11{
-    text-align: left;
-    color: rgb(160, 96, 96);
-    left:10px;
-    position: relative;
-    line-height: 2.5;
-    font-size: 25px;
-    top:-10px;
-    border:1px solid whitesmoke ;
-    margin: 15px;
+#main{
+  background-color: #001935;
+}
+.revert{
+  position: relative;
+  top:30px;
+  /*font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;*/
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+  border: 15px solid whitesmoke;
+  width: 1200px;
+  padding: 50px;
+  margin: 20px;
+  height: 650px;
+  text-align:left;
+  align-self: left;
+  background-color: rgb(255, 255, 255);
+}
+
+#part1{
+  align-self: right;
+  text-align: right;
+  border:solid powderblue   ;
+  background-color:rgba(226, 207, 207, 0.719);
+  width:200px;
+  height:80px ;
+  top:10px;
+  position: relative;
+  border-width: 2px;
+}
+#part2{
+  align-self: right;
+  text-align: right;
+  border:solid white   ;
+  border-color:white powderblue;
+  background-color:rgba(226, 207, 207, 0.719);
+  width:200px;
+  height:80px ;
+  top:10px;
+  position: relative;
+  border-width: 2px;
 
 }
-.end{
+#part3{
+  align-self: right;
+  text-align: right;
+  border:solid powderblue   ;
+  background-color:rgba(226, 207, 207, 0.719);
+  width:200px;
+  height:120px ;
+  top:10px;
+  position: relative;
+  border-width: 2px;
+}
+#p1 {
+  font-size: 8px;
+}
+p2{
+  font-size: 20px;
+  position: relative;
+  top:25px;
+}
+p3{
+  font-size: 20px;
+  position: relative;
+  top:25px;
+}
+p4{
+   font-size: 20px;
+   position: relative;
+   top:50px;
+}
+p5{
+   font-size: 10px;
+   position: relative;
+   top:-30px;
+   left:820px;
+}
+p6{
+   font-size: 10px;
+   position: relative;
+   top:-30px;
+   left:820px;
+}
+p7{
+   font-size: 14px;
+   position: relative;
+   top:-80px;
+   left:255px;
+}
+p8{
+   font-size: 13px;
+   position: relative;
+   top:-80px;
+   left:245px;
+}
+#password{
+  position: relative;
+  top:-150px;
+  left:70px;
+}
+#input-title{
+border: 1px solid black;
+  width: 600px;
+  padding: 6px ;
+  margin: 2px ;
+  box-sizing: border-box;
+  position: relative;
+  left:250px;
+  top:-5px;
+}
+#input-url{
+  position: relative;
+  top:-5px;
+}
 
-    height: 600px;
-
-}
-      /*
-      *make the form in shape of a box 
-      *@public
-      */ 
-.box{
-    background-color: white;
-    position: relative;
-    top: 100px;
-    border-radius: 25px;
-    border: 2px solid #73AD21;
-    height:550px;
-}
-.button-create{
-    position: relative;
-    top: 100px;
-    color: cornflowerblue;
-}
-.titlee{
-    border-color: black;
-}
-.urll{
-    border-color: black;
-}
-.password{
-    border-color: black;
-}
-.row-handler{
-    position: relative;
-    top: 40px;
-}
-.button-cancel{
- position: relative;
-    top: 180px;
-    color: cornflowerblue;
-    
-}
-.err_title{
-font-size: 20px;
-color: red;
-}
-.err_url{
-font-size: 20px;
-color: red;
-}
-.form-group{
-    margin: 15px;
-}
-.special_char{
-    font-size: 20px;
-color: red;
-}
-/*.col1-handler{
-     margin: 15px;
+/**{
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }*/
+/*.revert{
+
+    all:revert;
+    color:revert;
+    padding: revert;
+}*/
+#input-url{
+  border: 1px solid black;
+  width: 600px;
+  padding: 6px ;
+  margin: 2px ;
+  box-sizing: border-box;
+  position: relative;
+  left:250px;
+
+}
+#input-privacy{
+   border: 1px solid black;
+  width: 400px;
+  padding: 6px ;
+  margin: 2px ;
+  box-sizing: border-box;
+  position: relative;
+  left:250px;
+  top:50px;
+
+}
+ #button-create{
+ position: relative;
+ top:80px;
+ padding:10px;
+ color:white;
+ background-color:rgb(20, 143, 243);
+ width: 130px;
+}
+ #button-cancel{
+ position: relative;
+ top:80px;
+ left:500px;
+ padding:10px;
+  color:white;
+ background-color:rgb(20, 143, 243);
+  width: 100px;
+}
+
 </style>

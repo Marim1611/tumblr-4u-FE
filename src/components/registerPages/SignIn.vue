@@ -57,6 +57,10 @@
 
 import {mapFields} from 'vuex-map-fields';
 import Header from './WelcomePageHeader.vue'
+/**
+ * A complete LogIn template    
+ * @example [none]
+ */
   
 export default {
 
