@@ -11,7 +11,7 @@
               font-scale="3"
             ></b-icon>
 
-            <p  v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"  >Text</p>
+            <p  v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor, 'font-family': homeTheme[homeThemeIndex].fontStyle }"  >Text</p>
           </button>
         </li>
         <li>
@@ -22,7 +22,7 @@
               class="border rounded p-2"
               font-scale="3"
             ></b-icon>
-            <p  v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"  >Photo</p>
+            <p  v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor, 'font-family': homeTheme[homeThemeIndex].fontStyle }"  >Photo</p>
           </button>
         </li>
         <li>
@@ -33,7 +33,7 @@
               class="border rounded p-2"
               font-scale="3"
             ></b-icon>
-            <p  v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"  >Quote</p>
+            <p  v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor, 'font-family': homeTheme[homeThemeIndex].fontStyle }"  >Quote</p>
           </button>
         </li>
         <li>
@@ -42,7 +42,7 @@
              v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"  >
               
             </b-icon>
-            <p  v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"  >Link</p>
+            <p  v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor, 'font-family': homeTheme[homeThemeIndex].fontStyle }"  >Link</p>
           </button>
         </li>
         <li>
@@ -54,7 +54,7 @@
               font-scale="3"
             ></b-icon>
 
-            <p  v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"  >Chat</p>
+            <p  v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor, 'font-family': homeTheme[homeThemeIndex].fontStyle }"  >Chat</p>
           </button>
         </li>
         <li>
@@ -65,7 +65,7 @@
               class="border rounded p-2"
               font-scale="3"
             ></b-icon>
-            <p  v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"  >Audio</p>
+            <p  v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor, 'font-family': homeTheme[homeThemeIndex].fontStyle }"  >Audio</p>
           </button>
         </li>
         <li>
@@ -76,7 +76,7 @@
               class="border rounded p-2"
               font-scale="3"
             ></b-icon>
-            <p  v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"  >Video</p>
+            <p  v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor, 'font-family': homeTheme[homeThemeIndex].fontStyle }"  >Video</p>
           </button>
         </li>
       </ul>
@@ -190,12 +190,12 @@ export default {
   background-color: rgb(123, 123, 219);
   border-radius: 3px;
   box-sizing: border-box;
-  display: flex;
+  /* display: flex; */
   width: 40%;
-  margin: 100px;
-  left: 200px;
+  /* margin: 100px;
+  left: 200px; */
   min-height: 100px;
-  position: relative;
+  position: absolute;
 }
 
 ul {
