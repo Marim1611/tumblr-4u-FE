@@ -2,8 +2,11 @@
 <div id="TheHeader">
  
     <b-navbar class="NavBar" toggleable="sm" type="dark" variant="faded">
- 
-        <b-navbar-brand class="NavBarBrand" href="#">T4U</b-navbar-brand>
+        
+        <router-link to="/">
+        <b-navbar-brand class="NavBarBrand bra" >T4U</b-navbar-brand>
+        </router-link>
+
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
         <b-collapse id="nav-collapse" is-nav>
             <b-navbar-nav>
@@ -13,9 +16,15 @@
             </b-navbar-nav>
             <div class="NavBarRight">
                 <b-navbar-nav class="navButtons">
- 
+                    
+                    
+                    <router-link to="/signIn">
                      <b-button size="md" class="navButtons"  variant="success">Log in</b-button>
-                    <b-button size="md" class="navButtons"  variant="primary">Sign up</b-button>
+                     </router-link>
+
+                     <router-link to="/signUp">
+                    <b-button size="md" class="navButtons"  variant="info">Sign up</b-button>
+                    </router-link>
  
                 </b-navbar-nav>
             </div>
@@ -42,13 +51,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-/*#TheHeader{
-    text-align: center;
-    line-height: 1.5;
-    font-size: 1.5rem;
-    padding: 3% 15% 7%;
-    margin: 5% 3% 5% 0;
-}*/
+#TheHeader{
+    background-image: url("../../assets/images/HomeBackground.jpg");
+    background-position: center;
+    background-size: cover;
+}
+
 .NavBarBrand{
     padding: 0 0 0 20px;
      color:navy;
@@ -73,6 +81,8 @@ export default {
     
     margin-right:10px;
     margin-left:10px;
+    font-weight: bold;
+    color: black;
 
 }
 </style>
