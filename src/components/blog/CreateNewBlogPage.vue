@@ -1,5 +1,5 @@
 <template>
-<body style="background-color:#001935;top:-20px ">
+<body style="background-color:#001935;top:-20px">
 <div main>
   <div  class="revert">
       <h1> create a new blog </h1>
