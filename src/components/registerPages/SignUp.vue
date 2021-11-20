@@ -100,6 +100,11 @@ export default {
     }
   },
   methods:{
+    /** 
+      * Gets Called When user clicks Sign up button
+      * @public
+
+     */
     Validation:function(){
       this.errors = [];
       var  apos=this.userEmail.indexOf('@');

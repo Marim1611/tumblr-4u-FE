@@ -7,6 +7,8 @@
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
+    "styleguide": "vue-styleguidist server",
+    "styleguide:build": "vue-styleguidist build",
     "test": "jest"
   },
   "dependencies": {
@@ -54,6 +56,7 @@
   },
   "devDependencies": {
     "@nuxtjs/vuetify": "^1.12.1",
+    "@types/jest": "^27.0.3",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-plugin-unit-jest": "^4.5.15",
@@ -65,13 +68,15 @@
     "bootstrap": "^4.6.1",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
-    "jest": "^27.3.1",
+    "jest": "^24.3.0",
     "jquery": "^3.6.0",
     "node-sass": "^6.0.1",
     "popper.js": "^1.16.1",
     "sass": "^1.43.4",
+    "ts-jest": "^27.0.7",
     "vue-cli-plugin-vuetify": "~2.4.3",
     "vue-jest": "^3.0.7",
+    "vue-styleguidist": "^4.42.0",
     "vue-template-compiler": "^2.6.14",
     "vue-test-utils": "^1.0.0-beta.11",
     "vuetify-loader": "^1.7.0"
@@ -90,6 +95,15 @@
     },
     "rules": {},
     "overrides": [
+      {
+        "files": [
+          "**/__tests__/*.{j,t}s?(x)",
+          "**/tests/unit/**/*.spec.{j,t}s?(x)"
+        ],
+        "env": {
+          "jest": true
+        }
+      },
       {
         "files": [
           "**/__tests__/*.{j,t}s?(x)",
@@ -118,6 +132,19 @@
       "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
       ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest"
     },
-    "preset": "@vue/cli-plugin-unit-jest"
+    "preset": "@vue/cli-plugin-unit-jest",
+    "jest": {
+      "moduleNameMapper": {
+        "^vue$": "vue/dist/vue.common.js"
+      },
+      "moduleFileExtensions": [
+        "js",
+        "vue"
+      ],
+      "transform": {
+        "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
+        ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest"
+      }
+    }
   }
 }

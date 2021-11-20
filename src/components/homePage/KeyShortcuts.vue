@@ -76,9 +76,17 @@ export default {
   props: {
 },
   methods: {
+       /**
+      *go to top of the page as a reaction from the event listener 
+      *@public
+      */ 
     $_go_to_top(){
           window.scrollBy(0,-document.body.scrollHeight);
     },
+      /**
+      *scrolling up the page as a reaction from the event listener 
+      *@public
+      */ 
     $_scroll_up(){
         window.scrollBy({
         top: -50,
@@ -86,6 +94,10 @@ export default {
         behavior: 'smooth'
       });
     },
+      /** 
+      *scrolling down  the page as a reaction from the event listener 
+      *@public
+      */
     $_Scroll_down(){
         window.scrollBy({
         top: 50,
@@ -98,8 +110,13 @@ export default {
     return{  
     }
   },
+  /** 
+      *listener to any click on keboard by the user
+      *@public
 
+      */
   mounted(){
+      
 
   this._keyListener  = function(e) {
     if (e.key === "." ) {
