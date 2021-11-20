@@ -3,7 +3,7 @@
  
     <b-navbar class="NavBar" toggleable="sm" type="dark" variant="faded">
         
-        <router-link to="/home">
+        <router-link to="/">
         <b-navbar-brand class="NavBarBrand bra" >T4U</b-navbar-brand>
         </router-link>
 
@@ -38,13 +38,9 @@
 
 <script>
 export default {
-
   name: 'Header',
-
   props: {
-
     msg: String
-
   }
 }
 </script>
@@ -56,12 +52,10 @@ export default {
     background-position: center;
     background-size: cover;
 }
-
 .NavBarBrand{
     padding: 0 0 0 20px;
      color:navy;
 }
-
 .NavBar{
    
     padding:4.5 4.3  4.5rem;
@@ -83,8 +77,5 @@ export default {
     margin-left:10px;
     font-weight: bold;
     color: black;
-
 }
 </style>
-
-

@@ -77,11 +77,13 @@
 <script>
 import {mapFields} from 'vuex-map-fields';
 import Header from './WelcomePageHeader.vue'
+/**
+ *   A complete SignUp template    
+ * @example [none]
+ */
 export default {
-
   name: 'SignUp',
   data(){
-
     return{
       
      
@@ -96,10 +98,13 @@ export default {
       cleanEmail:false,
       cleanPassword:false,
       cleanBlogName:false
-
     }
   },
   methods:{
+    /** 
+      * Gets Called When user clicks Sign up button
+      * @public
+     */
     Validation:function(){
       this.errors = [];
       var  apos=this.userEmail.indexOf('@');
@@ -129,7 +134,6 @@ export default {
 					document.getElementById('feedback-1').className = "valid-feedback";
           this.cleanEmail=true;
 				}
-
         //password validation
       var illegalChars = /[\W_]/; // allow only letters and numbers
  
@@ -150,7 +154,7 @@ export default {
     else if ( (this.userPassword.search(/[a-zA-Z]+/)==-1) || (this.userPassword.search(/[0-9]+/)==-1) ) {
         this.passwordError = true;
 					this.errors.push({
-						'message': 'The password should contains both numbers and letters'
+						'message': 'The password contains illegal characters.'
 					});
     }
     else{
@@ -161,7 +165,6 @@ export default {
 					document.getElementById('feedback-2').className = "valid-feedback";
           this.cleanPassword=true;
     }
-
     //blog
     if(!this.userBlogName)
     {
@@ -189,16 +192,12 @@ export default {
       'user.email',
       'user.password',
       'user.blogName'
-
     ]),
     
-
    
   },
   props: {
-
     msg: String
-
   },
   components: {
       'Header':Header 
@@ -209,14 +208,11 @@ export default {
 
 
 <style scoped>
-
 .Main{
   margin-top:50px;
   font-size: 5rem; 
 }
-
 .root{
-
   font-family: 'Ubuntu', sans-serif;
   color:white;
   background-image: url("../../assets/images/HomeBackground.jpg");
@@ -229,7 +225,6 @@ export default {
   line-height: 1.5;
   text-align: center
 }
-
 .formInput
 {
   margin: 8px auto 5px auto;
@@ -255,6 +250,4 @@ export default {
 .d7k{
  height:4.5rem;
 }
-
-
 </style>

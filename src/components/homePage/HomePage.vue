@@ -38,7 +38,7 @@ import NavBar from "./HomePageNavBar.vue";
 import CreatPostSection from "../createPost/CreatePostSection.vue";
 import DashBoard from "./HomePageViewPost.vue";
 /**
- * @displayName Home page that contains dashboard and create post compnents 
+ *  Home page that contains dashboard and create post compnents 
  * @example [none]
  */
 export default {

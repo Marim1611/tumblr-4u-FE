@@ -36,7 +36,7 @@
 </template>
 <script>
 /** 
- * @displayName Post Card in the home page
+ *  Post Card in the home page
  * @example [none]
  */
 export default {

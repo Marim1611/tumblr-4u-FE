@@ -50,7 +50,7 @@
 
 <script>
 /**
- * @displayName dialog that we use to create post it will appears when click on pen icon in nav bar 
+ *  dialog that we use to create post it will appears when click on pen icon in nav bar 
  * @example [none]
  */
 export default {

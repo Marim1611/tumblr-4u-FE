@@ -128,7 +128,7 @@ import TumblrDrawer from "./TumblrsDrawer.vue";
 //import Avatar from 'vue-avatar'
 import Vue from "vue";
 /**
- * @displayName SearchBar of the home page shows list of user intersts if he didn't type any thing otherwise show realted other users or tags
+ *  SearchBar of the home page shows list of user intersts if he didn't type any thing otherwise show realted other users or tags
  * @example [none]
  */
 export default {

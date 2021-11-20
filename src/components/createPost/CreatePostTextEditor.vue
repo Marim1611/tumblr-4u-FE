@@ -89,7 +89,7 @@ import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
 
 /**
- * @displayName Create rich text editor
+ *  Create rich text editor
  * @example [none]
  */
 export default {

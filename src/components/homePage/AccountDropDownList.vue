@@ -50,7 +50,7 @@
 
 <script>
 /**
- * @displayName AccountDropdownList is a drop down list appears when user clicks on account icon in the nav bar it shows list of options user will be able to click on all of them
+ *  AccountDropdownList is a drop down list appears when user clicks on account icon in the nav bar it shows list of options user will be able to click on all of them
  * @example [none]
  */
 export default {

@@ -111,7 +111,7 @@ import DropdownList from "./AccountDropDownList.vue";
 import NewPostItem from "./HomePageNewPost.vue";
 import SearchBar from "./HomePageSearchBar.vue";
 /**
- * @displayName Home page Navigation Bar 
+ *  Home page Navigation Bar 
  * @example [none]
  */
 export default {

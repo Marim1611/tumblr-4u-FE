@@ -70,7 +70,7 @@
 <script>
 import CreatePostTextEditor from "./CreatePostTextEditor.vue";
 /**
- * @displayName Create post for text
+ *  Create post for text
  * @example [none]
  */
 export default {

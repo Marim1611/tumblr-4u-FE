@@ -41,16 +41,11 @@
 </template>
 <script>
 export default {
-
   name: 'WelcomePage',
-
   props: {
-
     msg: String
-
   },
   components: {
-
   },
 }
 </script>
@@ -67,9 +62,7 @@ export default {
 .privacy{
   font-size:0.85rem;
   line-height: 1.5;
-
 }
-
 .Heading{
   font-family: 'Ubuntu', sans-serif;
   color:white;
@@ -106,9 +99,7 @@ export default {
   margin: auto; 
 }
 .d7k{
-
   height: 8.4rem;
 }
-
  
 </style>

@@ -38,7 +38,7 @@
 <script>
 import CreatePostUploadImage from "./CreatePostUploadImage.vue";
 /**
- * @displayName Create post for images
+ * Name Create post for images
  * @example [none]
  */
 export default {

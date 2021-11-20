@@ -54,42 +54,41 @@
 </template>
 
 <script>
-
 import {mapFields} from 'vuex-map-fields';
 import Header from './WelcomePageHeader.vue'
+/**
+ * A complete LogIn template    
+ * @example [none]
+ */
   
 export default {
-
   name: 'SignIn',
   data(){
-
     return{
       
       userEmail: '',
       userPassword:'',
      
-
       passwordError: false,
 			emailError: false,
       cleanEmail:false,
       cleanPassword:false,
 			
-
       errors: [],
  
-
     }
   },
-
   computed:{
     ...mapFields([
       'user.email',
       'user.password',
-
     ]),
-
   },
   methods:{
+    /** 
+      * Gets Called When user clicks Sign up button
+      * @public
+     */
     Validation:function(){
       this.errors = [];
       var  apos=this.userEmail.indexOf('@');
@@ -119,10 +118,8 @@ export default {
 					document.getElementById('feedback-1').className = "valid-feedback";
           this.cleanEmail=true;
 				}
-
         //password validation
       var illegalChars = /[\W_]/; // allow only letters and numbers
-
   
       if ((this.userPassword.length < 7) || (this.userPassword.length > 15)) {
        this.passwordError = true;
@@ -139,7 +136,7 @@ export default {
     else if ( (this.userPassword.search(/[a-zA-Z]+/)==-1) || (this.userPassword.search(/[0-9]+/)==-1) ) {
         this.passwordError = true;
 					this.errors.push({
-						'message': 'The password should contains both numbers and letters.'
+						'message': 'The password contains illegal characters.'
 					});
     }
     else{
@@ -162,7 +159,6 @@ components: {
 
 
 <style scoped>
-
 .pass{
   color: white;
 }
@@ -171,7 +167,6 @@ components: {
   font-size: 5rem; 
 }
 .root{
-
   font-family: 'Ubuntu', sans-serif;
   color:white;
   background-image: url("../../assets/images/HomeBackground.jpg");
@@ -184,18 +179,13 @@ components: {
  
 }
  
-
 .striped-border{ 
   border: 2px solid white;
   margin-top:20px;
-
   width: 115px; 
   margin: auto; 
   
 }
-
-
-
  
 .formInput
 {
@@ -209,7 +199,6 @@ components: {
   font-weight: bold;
   color: black;
 }
-
 .privacy{
   font-size:0.8rem;
   line-height: 1.5;
@@ -217,12 +206,10 @@ components: {
 .d7k{
  height:6rem;
 }
-
 .buttonBot{
   text-align:left ;
   margin-bottom:10px ;
   font-size: 1rem;
   font-weight: bold;
 }
-
 </style>

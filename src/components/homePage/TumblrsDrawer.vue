@@ -204,7 +204,7 @@
 import Avatar from "vue-avatar";
 import Vue from "vue";
 /**
- * @displayName TumblrDrawer with profile view of a tumblr user -not the current user- should appear when current user clicks on some user in the search drop down list
+ *  TumblrDrawer with profile view of a tumblr user -not the current user- should appear when current user clicks on some user in the search drop down list
  * @example [none]
  */
 export default {
@@ -268,7 +268,7 @@ export default {
 #avatarDiv {
   /* position: absolute; */
   /* right: 30px; */
-  top: 50%;
+  top: 50px;
   /* justify-content: center; */
   display: flex;
   flex-direction: column;

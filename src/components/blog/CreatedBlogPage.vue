@@ -15,7 +15,6 @@
           <v-btn id="button-edit-appearance">Edit appearance</v-btn>
           <!--<button id="button-mass-post-editor">Mass Post Editor</button>-->
     </div>
-     
   </div>
 </body>
 </template>
@@ -29,7 +28,6 @@ export default {
   destroyed: function () {
     this.document.body.style.backgroundColor = null;
   },*/
-
   props: {
 },
   methods: {
@@ -40,9 +38,6 @@ export default {
     }
   },
 }
-
-
-
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -163,6 +158,4 @@ p2{
 body {
   background-color:"#001935";
 }
-
-
 </style>

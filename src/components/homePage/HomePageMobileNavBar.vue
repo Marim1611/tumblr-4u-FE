@@ -14,7 +14,7 @@
                           </li>
                           <li>
                               <router-link to="/" class="nav-item nav-link" style="text-decoration: none"> 
-                         <div>
+                         <div id="itemID">
                             <b-icon id="iconD" icon="house-door-fill" font-scale="1.5"  aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor}" ></b-icon> 
                           <p id="pD" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}">Dashboard</p>
                            </div>    
@@ -23,7 +23,7 @@
             </router-link>
                               </li> 
                                 <li>
-                                  <div>
+                                  <div id="itemID">
 <b-icon id="iconD" icon="compass" font-scale="1.5"  aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon> 
                      <p id="pD" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor,  'font-family':homeTheme[homeThemeIndex].fontStyle,'text-decoration': 'none'}">Explore</p>   
         
@@ -33,7 +33,7 @@
         </li>
         <li>
           <!-- <router-link to="/inbox" class="nav-item nav-link" style="text-decoration: none" >  -->
-          <div>
+          <div id="itemID">
  <b-icon id="iconD"  icon="envelope-fill" font-scale="1.5" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon>    
        <p id="pD" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor, 'font-family':homeTheme[homeThemeIndex].fontStyle, 'text-decoration': 'none'}">Inbox</p>   
 
@@ -42,7 +42,7 @@
             <!-- </router-link>  -->
          </li>       
          <li>
-           <div>
+           <div id="itemID">
  <b-icon id="iconD"  icon="emoji-laughing" font-scale="1.5" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon> 
                        <p id="pD" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor,  'font-family':homeTheme[homeThemeIndex].fontStyle,'text-decoration': 'none'}">Messaging</p>   
 
@@ -50,7 +50,7 @@
              
    </li> 
          <li>
-           <div>
+           <div id="itemID">
  <b-icon id="iconD"  icon="lightning-fill" font-scale="1.5" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon> 
                             <p id="pD" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor, 'font-family':homeTheme[homeThemeIndex].fontStyle, 'text-decoration': 'none'}">Activity</p>   
 
@@ -60,7 +60,7 @@
            <li>
           
           <!-- <router-link to="/likes"  style="text-decoration: none">  -->
-           <div>
+           <div id="itemID">
  <b-icon id="iconD"  icon="Heart-fill" font-scale="1.5" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon>    
                                 <p id="pD" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor,  'font-family':homeTheme[homeThemeIndex].fontStyle,'text-decoration': 'none'}">Likes</p>   
 
@@ -70,7 +70,7 @@
          </li> 
            <li>
           <!-- <router-link to="/inbox" class="nav-item nav-link" style="text-decoration: none">  -->
-            <div>
+            <div id="itemID">
   <b-icon id="iconD"  icon="person-plus-fill" font-scale="1.5" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon>    
                                 <p id="pD" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor,  'font-family':homeTheme[homeThemeIndex].fontStyle,'text-decoration': 'none'}">Followings</p>   
 
@@ -80,7 +80,7 @@
          </li> 
            <li>
           <!-- <router-link to="/inbox" class="nav-item nav-link" style="text-decoration: none" >  -->
-           <div>
+           <div id="itemID">
    <b-icon id="iconD"  icon="gear-fill" font-scale="1.5" aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon>    
                                 <p id="pD" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor, 'text-decoration': 'none'}">Settings</p>   
            </div>
@@ -90,7 +90,7 @@
            <li>
           <!-- <router-link to="/inbox" class="nav-item nav-link" style="text-decoration: none">  -->
             
-            <div>
+            <div id="itemID">
    <b-icon id="iconD"  icon="question-circle-fill" font-scale="1.5" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon>    
                                 <p id="pD" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor, 'font-family':homeTheme[homeThemeIndex].fontStyle, 'text-decoration': 'none'}">Help</p>   
 
@@ -99,7 +99,7 @@
             <!-- </router-link>  -->
          </li> 
            <li v-on:click="changePalete()" >
-             <div>
+             <div id="itemID">
   <b-icon id="iconD"  icon="brush-fill" font-scale="1.5" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon>    
                                 <p id="pD" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor,  'font-family':homeTheme[homeThemeIndex].fontStyle,'text-decoration': 'none'}">Change Palette</p>   
              </div>
@@ -130,7 +130,7 @@
 <script>
 import SearchBar  from './HomePageSearchBar.vue';
  /**
- * @displayName Home page Navigation Bar for mobile view
+ *  Home page Navigation Bar for mobile view
  * @example [none]
  */
 export default {
@@ -197,6 +197,10 @@ export default {
   display: flex;
   justify-content: baseline;
 }
+#itemID{
+  display: grid;
+  grid-template-columns: 30% auto;
+}
 #navItem{
     flex-grow: 1;
       flex-direction: row;
@@ -219,20 +223,23 @@ li {
   padding: 10px;
   list-style: none; 
   justify-content: space-between;
+  width: 100%;
 
 }
 
 li.right{
     float: left;
 }
-
+#iconD{
+  cursor: pointer;
+}
  #icon{
    
    /* padding: 20px; */
    cursor: pointer;
      flex-grow: 2;
  } 
- #pD{
+ /* #pD{
    padding:10px;
    float:right;
  }
@@ -244,7 +251,7 @@ li.right{
     
 
  }
- 
+  */
 img{
   flex-grow: 2;
   margin: 0 auto;

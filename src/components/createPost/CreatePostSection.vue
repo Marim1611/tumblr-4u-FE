@@ -43,7 +43,7 @@
           </button>
         </li>
         <li>
-          <button v-on:click="quoteUpload">
+          <button>
             <b-icon
               v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
               icon="chat-quote-fill"
@@ -61,7 +61,7 @@
           </button>
         </li>
         <li>
-          <button v-on:click="linkUpload">
+          <button>
             <b-icon
               icon="link45deg"
               class="border rounded p-2"
@@ -80,7 +80,7 @@
           </button>
         </li>
         <li>
-          <button v-on:click="chatUpload">
+          <button>
             <b-icon
               v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
               icon=" chat-dots-fill"
@@ -99,7 +99,7 @@
           </button>
         </li>
         <li>
-          <button v-on:click="audioUpload">
+          <button>
             <b-icon
               v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
               icon=" headphones"
@@ -117,7 +117,7 @@
           </button>
         </li>
         <li>
-          <button v-on:click="videoUpload">
+          <button>
             <b-icon
               v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
               icon="camera-reels"
@@ -173,7 +173,7 @@ import CreatePostImage from "./CreatePostImage.vue";
 import CreatePostText from "./CreatePostText.vue";
 
 /**
- * @displayName Create post section
+ *  Create post section
  * @example [none]
  */
 
@@ -241,7 +241,6 @@ export default {
       this.imageChosen = imgClosed;
     },
 
-    
     // videoUpload: function () {
     //   this.video = true;
     // },
@@ -260,7 +259,7 @@ export default {
   },
   computed: {
     /**
-     * Function to adjust the theme of the section 
+     * Function to adjust the theme of the section
      * @public This is a public method
      * @param {none}
      */
@@ -276,6 +275,7 @@ export default {
 
 <style scoped>
 .CreatePost {
+  display: flex;
   align-items: center;
   background-color: rgb(123, 123, 219);
   border-radius: 3px;
@@ -286,6 +286,8 @@ export default {
   left: 200px; */
   min-height: 100px;
   position: absolute;
+  /* flex-grow: 2;
+  flex-shrink: 2; */
 }
 
 ul {
@@ -294,11 +296,16 @@ ul {
   flex-direction: row;
   padding: 0;
   margin: 0;
+  flex-grow: 2;
+  flex-shrink: 2;
 }
 li {
   position: relative;
   padding: 20px;
   list-style: none;
+  flex-grow: 2;
+  flex-shrink: 2;
+   float: right;
 }
 
 button {
@@ -317,11 +324,16 @@ button {
   font-size: 16px;
   font-weight: 400;
   height: 100%;
+  flex-grow: 4;
+  flex-shrink: 4;
+  
 }
 
 p {
   margin: 0;
   padding-top: 5px;
+  flex-grow: 2;
+  flex-shrink: 2;
 }
 
 .selfie {

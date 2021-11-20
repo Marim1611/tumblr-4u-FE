@@ -49,7 +49,7 @@
 
 <script>
 /**
- * @displayName Uploading, dragging/dropping images file
+ *  Uploading, dragging/dropping images file
  * @example [none]
  */
 export default {
