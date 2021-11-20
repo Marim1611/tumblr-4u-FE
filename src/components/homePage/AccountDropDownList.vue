@@ -1,14 +1,14 @@
 <template>
-  <div class="menu-item" v-on:click="isOpen = !isOpen">
+  <div class="menu-item" id="dropDown" v-on:click="isOpen = !isOpen">
      
          <b-icon id="icon"  icon="person-fill" font-scale="2" aria-hidden="true"  :style="{'color': homeTheme[homeThemeIndex].fontColor, 'cursor':'pointer' }"></b-icon> 
    
     <transition name="fade" appear>
         <div v-on:click.prevent="toggleDropdown">
-          <div class="sub-menu" v-if="isOpen" :style="{'background-color': homeTheme[homeThemeIndex].cardColor}">
+          <div id ="content" class="sub-menu" v-if="isOpen" :style="{'background-color': homeTheme[homeThemeIndex].cardColor}">
         <li id =" header"  >
-              <p  id ="pHeader" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-style':homeTheme[homeThemeIndex].fontStyle}">Account </p>
-                <p  id ="pHeader"  v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-style':homeTheme[homeThemeIndex].fontStyle}">Logout</p>
+              <p  id ="pHeader" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle}">Account </p>
+                <p  id ="pHeader"  v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle}">Logout</p>
 
         </li>
        <li>
@@ -19,11 +19,11 @@
         <div v-for="(item, i) in accountItems" :key="i" class="menu-item"  >
             <li>
         <!-- <router-link :to="item.route"   id= "item">  -->
-                <div id='item' v-on:click="changePalete(item.title)">
+                <div id='item'  v-on:click="changePalete(item.title)">
                   <li >
                    <b-icon id="iconList"  :icon="item.icon" font-scale="1.5" aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor, 'display': 'inline-block'}"></b-icon>
               <!-- <v-spacer :style="{'display': 'inline-block' , 'width' :'30px'}"></v-spacer> -->
-                <p v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-style':homeTheme[homeThemeIndex].fontStyle, 'display': 'inline-block', 'margin':'auto 3px' }">{{ item.title }} </p>
+                <p v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle, 'display': 'inline-block', 'margin':'auto 3px' }">{{ item.title }} </p>
                     </li>  
                 </div>
        <!-- </router-link> -->
@@ -111,6 +111,7 @@ nav .menu-item .sub-menu {
   transform: translateX(-50%);
   width: max-content;
   border-radius: 5px;
+  
 }
 
 .fade-enter-active,
@@ -154,9 +155,18 @@ nav .menu-item .sub-menu {
   background: #464747;
  
 }
- 
+#dropDown{
+   position: relative;
+  display: inline-block;
+}
 #pHeader{
   display :inline-block;
   padding: 5px;
+}
+#content{
+    
+  position: absolute;
+    
+  z-index: 1;
 }
 </style>

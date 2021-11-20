@@ -89,6 +89,8 @@
             <!-- <img :src="item.img" class="dropdown-item-flag" /> -->
             <img :src="item.img" class="dropdown-item-flag" />
             <!-- <div class="dropdown-item-flag">
+ 
+       
 <avatar username= item.name
         v-bind:src= item.img
         v-bind:size = 30
@@ -96,6 +98,7 @@
         ></avatar>
         </div>
          -->
+ 
             <p
               v-bind:style="{
                 'font-style': homeTheme[homeThemeIndex].fontStyle,
@@ -105,6 +108,10 @@
             </p>
           </div>
         </div>
+
+       
+
+
       </div>
     </div>
     <TumblrDrawer

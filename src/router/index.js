@@ -5,7 +5,8 @@ import Explore from '../components/HelloWorld.vue'
 import Home from '../components/homePage/HomePage.vue'
 import SignIn from '../components/registerPages/SignIn.vue'
 import SignUp from '../components/registerPages/SignUp.vue'
-import WelcomePage from '../components/registerPages/WelcomePage.vue'
+//import WelcomePage from '../components/registerPages/WelcomePage.vue'
+import Render from '../components/renderOrder/Render.vue'
 import DashBoard from '../components/homePage/HomePageNewPost.vue'
 import NewBlog from '../components/blog/CreateNewBlogPage'
 import CreatedBlog from '../components/blog/CreatedBlogPage'
@@ -14,8 +15,8 @@ const routes = [
   {
    
     path: '/',
-    name: 'WelcomePage',
-    component: WelcomePage
+    name: 'Render',
+    component: Render
   },
   {
     path: '/signIn',
