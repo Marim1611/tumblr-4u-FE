@@ -1,12 +1,20 @@
 import { shallowMount } from '@vue/test-utils'
-import HelloWorld from '@/components/HelloWorld.vue'
+import SignIn from '@/components/registerPages/SignIn.vue'
 
-describe('HelloWorld.vue', () => {
-  it('renders props.msg when passed', () => {
-    const msg = 'new message'
-    const wrapper = shallowMount(HelloWorld, {
-      propsData: { msg }
-    })
-    expect(wrapper.text()).toMatch(msg)
+describe('SignIn.vue', () => {
+  it('See if fucntion clicked', () => {
+
+    const wrapper = shallowMount(SignIn, {
+      data(){
+        return{
+        userEmail: '',
+        userPassword: '',
+      }
+    }
+        
+    });
+    wrapper.setData({ userEmail: 'asdsadsa@gmail.g' })
+    
+    expect(userEmail).toMatch(msg)
   })
 })
