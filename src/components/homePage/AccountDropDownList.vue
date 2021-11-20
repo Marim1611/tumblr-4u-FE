@@ -7,12 +7,12 @@
         <div v-on:click.prevent="toggleDropdown">
           <div class="sub-menu" v-if="isOpen" :style="{'background-color': homeTheme[homeThemeIndex].cardColor}">
         <li id =" header"  >
-              <p  id ="pHeader" :style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-style':homeTheme[homeThemeIndex].fontStyle}">Account </p>
-                <p  id ="pHeader"  :style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-style':homeTheme[homeThemeIndex].fontStyle}">Logout</p>
+              <p  id ="pHeader" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-style':homeTheme[homeThemeIndex].fontStyle}">Account </p>
+                <p  id ="pHeader"  v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-style':homeTheme[homeThemeIndex].fontStyle}">Logout</p>
 
         </li>
       <li>
-          <v-divider :style="{'color':' homeTheme[homeThemeIndex].fontColor '}" ></v-divider>
+          <v-divider v-bind:style="{'color':' homeTheme[homeThemeIndex].fontColor '}" ></v-divider>
       </li>
           
         <div v-for="(item, i) in accountItems" :key="i" class="menu-item"  >
@@ -22,7 +22,7 @@
                   <li >
                    <b-icon id="iconList"  :icon="item.icon" font-scale="1.5" aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor, 'display': 'inline-block'}"></b-icon>
               <!-- <v-spacer :style="{'display': 'inline-block' , 'width' :'30px'}"></v-spacer> -->
-                <p :style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-style':homeTheme[homeThemeIndex].fontStyle, 'display': 'inline-block', 'margin':'auto 3px' }">{{ item.title }} </p>
+                <p v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-style':homeTheme[homeThemeIndex].fontStyle, 'display': 'inline-block', 'margin':'auto 3px' }">{{ item.title }} </p>
                     </li>  
                 </div>
        <!-- </router-link> -->
@@ -54,15 +54,9 @@ export default {
 
   },
   methods:{
-    changePalete: function (title){
-        
+    changePalete(title){
       if(title == "Change palette")
-      {
-    console.log( this.isOpen);
-
         this.$store.commit('changePalette');
-      }
-     
     },
      toggleDropdown () {
       this.isOpen = !this.isOpen

@@ -10,7 +10,7 @@
                 </li>
               
                 <li v-if="!isOpenSearch" >
-                    <p class= "searchP" :style="{'color':'white','font-size' :'20px'}">{{this.tumblrsObj.name}}</p>   
+                    <p class= "searchP"  v-bind:style="{'color':'white','font-size' :'20px'}">{{this.tumblrsObj.name}}</p>   
                    <!-- <div id='spacer'  class= "searchP"></div> -->
                    <v-spacer class= "searchP"></v-spacer>
                    <b-icon  class= "searchP" v-on:click="isOpenSearch = true"  id="icon" icon="search" font-scale="2"  aria-hidden="true"></b-icon> 
@@ -55,7 +55,7 @@
     <transition name="fade" appear>
         
          
-          <div class="sub-menu" v-if="isOpendotted" :style="{'background-color': homeTheme[homeThemeIndex].cardColor}">
+          <div class="sub-menu" v-if="isOpendotted"  v-bind:style="{'background-color': homeTheme[homeThemeIndex].cardColor}">
         
      
         <div v-for="(item, i) in dottedItems" :key="i" class="menu-item"  >
@@ -63,7 +63,7 @@
        
                 <div id='item' >
                   <li >
-                 <p :style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-style':homeTheme[homeThemeIndex].fontStyle, 'display': 'inline-block', 'margin':'auto 3px' }">{{ item }} </p>
+                 <p  v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-style':homeTheme[homeThemeIndex].fontStyle, 'display': 'inline-block', 'margin':'auto 3px' }">{{ item }} </p>
                     </li>  
                 </div>
             </li>
@@ -77,15 +77,15 @@
   <div class="menu-item-share">
     <transition name="fade" appear>
         
-          <div class="sub-menu-share" v-if="isOpenShare" :style="{'background-color': homeTheme[homeThemeIndex].cardColor}">
+          <div class="sub-menu-share" v-if="isOpenShare"  v-bind:style="{'background-color': homeTheme[homeThemeIndex].cardColor}">
         
      
-        <div v-for="(item, i) in shareItems" :key="i" class="menu-item"  >
+        <div v-for="(item, i) in shareItems"  v-bind:key="i" class="menu-item"  >
             <li>
        
                 <div id='item' >
                   <li >
-                 <p :style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-style':homeTheme[homeThemeIndex].fontStyle, 'display': 'inline-block', 'margin':'auto 3px' }">{{ item }} </p>
+                 <p  v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-style':homeTheme[homeThemeIndex].fontStyle, 'display': 'inline-block', 'margin':'auto 3px' }">{{ item }} </p>
                     </li>  
                 </div>
             </li>
@@ -96,27 +96,19 @@
    
     </transition>
   </div>
-    <div id="avatarDiv"  style="justify-content: center;flex-direction:column;display:flex;text-align:center;padding:50px 20px 10px 50px;">
-      <div :style="{'left':'%80'}" >
+    <div id="avatarDiv"   v-bind:style="{'justify-content': 'center','flex-direction':'column','text-align':'center','padding':'50px 20px 10px 50px'}">
+      <div  v-bind:style="{'left':'%80'}" >
 <avatar username="Jane Doe"
-        :src= this.tumblrsObj.avatar
-        :size = 100
+        v-bind:src= this.tumblrsObj.avatar
+         v-bind:size = 100
          
         ></avatar>
       </div>
 
            
-        <p :style="{'font-size':'60px', 'color':'black','font-weight':'bold','left':'%50'}">{{this.tumblrsObj.name}}</p>
+        <p  v-bind:style="{'font-size':'60px', 'color':'black','font-weight':'bold','left':'%50'}">{{this.tumblrsObj.name}}</p>
    </div>
     </div>
-     
-       
-        
-    
- 
-    
-      
-   
       </v-navigation-drawer>
       
   
@@ -131,18 +123,17 @@ export default {
   name: 'TumblrDrawer',
   components:
    {
-      Avatar
+     'Avatar': Avatar
   },
   data : function(){
     return {
-      //change this to be dynamic
       isFollow:{status:"Follow"},
       inputValue:'',
       avatarPhoto:"https://assets.tumblr.com/images/default_avatar/octahedron_closed_128.png",
       isOpendotted:false,
-       isOpenShare:false,
-       isOpenSearch:false,
-       showBlogDrawer:true,
+      isOpenShare:false,
+      isOpenSearch:false,
+      showBlogDrawer:true,
       dottedItems:["Archive","Ask","Report","Block","Close"],
       shareItems:["Facebook","Twitter"],
       image:'https://helpx.adobe.com/content/dam/help/en/stock/how-to/visual-reverse-image-search/jcr_content/main-pars/image/visual-reverse-image-search-v2_intro.jpg'
@@ -151,22 +142,11 @@ export default {
   },
   methods: {
     toggleFollow () {
-      console.log("helllllllllo")
-      ///TODO:change in user followers
        if (this.isFollow.status == "Follow")
-       { 
-         console.log(this.isFollow.status);
-Vue.set(this.isFollow, 'status','Unfollow');
-  console.log(this.isFollow.status);
-    
-       }
-      
-      else if (this.isFollow.status == "Unfollow")
-       {
-      Vue.set(this.isFollow, 'status','Follow');
-      console.log("^^^^^^^^^^^")
-       }
-
+         Vue.set(this.isFollow, 'status','Unfollow');
+        
+       else if (this.isFollow.status == "Unfollow")
+          Vue.set(this.isFollow, 'status','Follow');
     },
      
     

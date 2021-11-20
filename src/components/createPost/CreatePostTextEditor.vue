@@ -108,8 +108,8 @@ import Placeholder from "@tiptap/extension-placeholder";
 
 export default {
   components: {
-    EditorContent,
-    BubbleMenu,
+    'EditorContent':EditorContent,
+    'BubbleMenu':BubbleMenu,
   },
 
   data() {

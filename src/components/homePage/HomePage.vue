@@ -36,7 +36,7 @@ export default {
     'CreatPostSection':CreatPostSection,
     'DashBoard':DashBoard,
     'MobileNavBar':MobileNavBar,
-      'MatchMedia':MatchMedia,
+    'MatchMedia':MatchMedia,
      
   },
    computed: {

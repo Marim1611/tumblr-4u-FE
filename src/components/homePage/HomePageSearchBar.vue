@@ -1,45 +1,44 @@
 <template>
 <div>
   <div class="dropdown">
-      <div id="input_container" :style="{'background': homeTheme[homeThemeIndex].cardColor,'border-radius':'4px', 'border-color':  homeTheme[homeThemeIndex].fontColor }">
+      <div id="input_container" v-bind:style="{'background': homeTheme[homeThemeIndex].cardColor,'border-radius':'4px', 'border-color':  homeTheme[homeThemeIndex].fontColor }">
       <b-icon id="icon" icon="search" font-scale="1.5"  aria-hidden="true" 
-       :style="{'color': homeTheme[homeThemeIndex].fontColor}" ></b-icon> 
+       v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}" ></b-icon> 
 
        <input v-model.trim="inputValue" v-on:click="isClicked=!isClicked"  class="dropdown-input" type="text" placeholder="Search Tunmblr"
-       :style="{'background':  homeTheme[homeThemeIndex].cardColor, 'color': homeTheme[homeThemeIndex].fontColor }" />
-     <!-- <img src="https://cdn4.iconfinder.com/data/icons/36-slim-icons/87/calender.png" id="input_img"> -->
-</div>
+       v-bind:style="{'background':  homeTheme[homeThemeIndex].cardColor, 'color': homeTheme[homeThemeIndex].fontColor }" />
+ </div>
   <!-- intersts  -->
       <div  v-on:click.prevent="toggleDropdown">
 <div v-if="!inputValue" v-show="isClicked" class="dropdown-list">
-      <div v-for="item in interestsList" :key="item.name" class="dropdown-item">
+      <div v-for="item in interestsList" v-bind:key="item.name" class="dropdown-item">
         <img :src="item.img" class="dropdown-item-flag" />
-      <p :style="{  'font-style':homeTheme[homeThemeIndex].fontStyle}">   {{ item.name }}</p>
+      <p v-bind:style="{  'font-style':homeTheme[homeThemeIndex].fontStyle}">   {{ item.name }}</p>
       
       </div>
        
     </div >
      <!-- auto complete  -->
     <div v-else  class="dropdown-list">
-      <div><p :style="{'font-size':'18px', 'margin':'10px'}"> Go to #{{this.inputValue}}</p></div>
-        <div  v-show="itemVisible(item)" v-for="item in autoComplete" :key="item.name" class="dropdown-item">
-         <b-icon   icon="search" font-scale="1"  aria-hidden="true"  :style="{'color': 'black'}" ></b-icon> 
-      <p :style="{  'font-style':homeTheme[homeThemeIndex].fontStyle ,'padding':'10px'}">   {{ item }}</p>
+      <div><p v-bind:style="{'font-size':'18px', 'margin':'10px'}"> Go to #{{this.inputValue}}</p></div>
+        <div  v-show="itemVisible(item)" v-for="item in autoComplete" v-bind:key="item.name" class="dropdown-item">
+         <b-icon   icon="search" font-scale="1"  aria-hidden="true"  v-bind:style="{'color': 'black'}" ></b-icon> 
+      <p v-bind:style="{  'font-style':homeTheme[homeThemeIndex].fontStyle ,'padding':'10px'}">   {{ item }}</p>
 
       </div>
         <!--  Tumblrs  -->
             <div><p :style="{'font-size':'18px', 'margin':'10px'}">Tumblrs</p></div>
-      <div    v-on:click="openDrawer( item.name,item.img)" v-show="itemVisible(item.name)" v-for="item in usersInSearch" :key="item.name" class="dropdown-item">
+      <div    v-on:click="openDrawer( item.name,item.img)" v-show="itemVisible(item.name)" v-for="item in usersInSearch" v-bind:key="item.name" class="dropdown-item">
         <!-- <img :src="item.img" class="dropdown-item-flag" /> -->
         <div class="dropdown-item-flag">
 <avatar username= item.name
-        :src= item.img
-        :size = 30
-        :rounded=false        
+        v-bind:src= item.img
+        v-bind:size = 30
+        v-bind:rounded=false        
         ></avatar>
         </div>
         
-      <p :style="{  'font-style':homeTheme[homeThemeIndex].fontStyle}">   {{ item.name }}</p>
+      <p v-bind:style="{  'font-style':homeTheme[homeThemeIndex].fontStyle}">   {{ item.name }}</p>
 
       </div>
     </div>
@@ -106,7 +105,6 @@ export default {
       let currentName = item.toLowerCase()
       let currentInput = this.inputValue.toLowerCase()
       return currentName.includes(currentInput)
-     // return item.includes(this.inputValue)
     },
     
     toggleDropdown () {
@@ -118,14 +116,9 @@ export default {
       }
     },
     openDrawer(name,avatar){
-      console.log("opeeeeeeeeeeeeen")
       this.showBlogDrawer=!this.showBlogDrawer;
       Vue.set(this.tumblrsObj, 'name',name);
       Vue.set(this.tumblrsObj, 'avatar',avatar);
-      // this.tumblrsObj.name=name;
-      // this.tumblrsObj.avatar=avatar;
-      console.log( this.tumblrsObj.name)
-      
     }
     
   },

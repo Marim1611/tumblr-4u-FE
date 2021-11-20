@@ -105,7 +105,7 @@ export default {
     if (e.key === "." ) {
         this. $_go_to_top();
      }else if(e.key === "k" ){ 
-        this$_scroll_up();
+        this.$_scroll_up();
      }else if(e.key === "j" ){
         this.$_Scroll_down();
      }

@@ -1,22 +1,22 @@
 <template>
  
 <div id="navDiv"  > 
-   <nav id = 'navbar' :style="{'background-color': homeTheme[homeThemeIndex].backgroundColor}">
+   <nav id = 'navbar' v-bind:style="{'background-color': homeTheme[homeThemeIndex].backgroundColor}">
   <div id="navItem" v-on:click= "showDrawer=!showDrawer">
       <b-icon id="icon" icon="justify" font-scale="1.5"  aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor, 'float': 'right'}" ></b-icon> 
-         <v-navigation-drawer id="homeDrawer" v-model="showDrawer" app :style="{'background-color': homeTheme[homeThemeIndex].backgroundColor}" >
+         <v-navigation-drawer id="homeDrawer" v-model="showDrawer" app v-bind:style="{'background-color': homeTheme[homeThemeIndex].backgroundColor}" >
                       <ul id = 'navbar' >
                           <li>
-  <b-icon id="iconD" icon="x" font-scale="1.5"  aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor, 'float': 'right'}" ></b-icon>
+  <b-icon id="iconD" icon="x" font-scale="1.5"  aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor, 'float': 'right'}" ></b-icon>
                           </li>
                           <li>
- <v-btn elevation="2" >   <b-icon id="icon" icon="pencil-fill" font-scale="1.5"  aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor, 'float': 'right'}" ></b-icon> Create post</v-btn>
+ <v-btn elevation="2" >   <b-icon id="icon" icon="pencil-fill" font-scale="1.5"  aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor, 'float': 'right'}" ></b-icon> Create post</v-btn>
                           </li>
                           <li>
                               <router-link to="/" class="nav-item nav-link" style="text-decoration: none"> 
                          <div>
                             <b-icon id="iconD" icon="house-door-fill" font-scale="1.5"  aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor}" ></b-icon> 
-                          <p id="pD" :style="{'color': homeTheme[homeThemeIndex].fontColor}">Dashboard</p>
+                          <p id="pD" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}">Dashboard</p>
                            </div>    
             
                  
@@ -25,7 +25,7 @@
                                 <li>
                                   <div>
 <b-icon id="iconD" icon="compass" font-scale="1.5"  aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon> 
-                     <p id="pD" :style="{'color': homeTheme[homeThemeIndex].fontColor,  'font-style':homeTheme[homeThemeIndex].fontStyle,'text-decoration': 'none'}">Explore</p>   
+                     <p id="pD" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor,  'font-style':homeTheme[homeThemeIndex].fontStyle,'text-decoration': 'none'}">Explore</p>   
         
                                   </div>
         
@@ -34,8 +34,8 @@
         <li>
           <!-- <router-link to="/inbox" class="nav-item nav-link" style="text-decoration: none" >  -->
           <div>
- <b-icon id="iconD"  icon="envelope-fill" font-scale="1.5" aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon>    
-       <p id="pD" :style="{'color': homeTheme[homeThemeIndex].fontColor, 'font-style':homeTheme[homeThemeIndex].fontStyle, 'text-decoration': 'none'}">Inbox</p>   
+ <b-icon id="iconD"  icon="envelope-fill" font-scale="1.5" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon>    
+       <p id="pD" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor, 'font-style':homeTheme[homeThemeIndex].fontStyle, 'text-decoration': 'none'}">Inbox</p>   
 
           </div>
            
@@ -43,16 +43,16 @@
          </li>       
          <li>
            <div>
- <b-icon id="iconD"  icon="emoji-laughing" font-scale="1.5" aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon> 
-                       <p id="pD" :style="{'color': homeTheme[homeThemeIndex].fontColor,  'font-style':homeTheme[homeThemeIndex].fontStyle,'text-decoration': 'none'}">Messaging</p>   
+ <b-icon id="iconD"  icon="emoji-laughing" font-scale="1.5" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon> 
+                       <p id="pD" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor,  'font-style':homeTheme[homeThemeIndex].fontStyle,'text-decoration': 'none'}">Messaging</p>   
 
            </div>
              
    </li> 
          <li>
            <div>
- <b-icon id="iconD"  icon="lightning-fill" font-scale="1.5" aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon> 
-                            <p id="pD" :style="{'color': homeTheme[homeThemeIndex].fontColor, 'font-style':homeTheme[homeThemeIndex].fontStyle, 'text-decoration': 'none'}">Activity</p>   
+ <b-icon id="iconD"  icon="lightning-fill" font-scale="1.5" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon> 
+                            <p id="pD" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor, 'font-style':homeTheme[homeThemeIndex].fontStyle, 'text-decoration': 'none'}">Activity</p>   
 
            </div>
              
@@ -61,8 +61,8 @@
           
           <!-- <router-link to="/likes"  style="text-decoration: none">  -->
            <div>
- <b-icon id="iconD"  icon="Heart-fill" font-scale="1.5" aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon>    
-                                <p id="pD" :style="{'color': homeTheme[homeThemeIndex].fontColor,  'font-style':homeTheme[homeThemeIndex].fontStyle,'text-decoration': 'none'}">Likes</p>   
+ <b-icon id="iconD"  icon="Heart-fill" font-scale="1.5" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon>    
+                                <p id="pD" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor,  'font-style':homeTheme[homeThemeIndex].fontStyle,'text-decoration': 'none'}">Likes</p>   
 
            </div>
            
@@ -71,8 +71,8 @@
            <li>
           <!-- <router-link to="/inbox" class="nav-item nav-link" style="text-decoration: none">  -->
             <div>
-  <b-icon id="iconD"  icon="person-plus-fill" font-scale="1.5" aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon>    
-                                <p id="pD" :style="{'color': homeTheme[homeThemeIndex].fontColor,  'font-style':homeTheme[homeThemeIndex].fontStyle,'text-decoration': 'none'}">Followings</p>   
+  <b-icon id="iconD"  icon="person-plus-fill" font-scale="1.5" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon>    
+                                <p id="pD" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor,  'font-style':homeTheme[homeThemeIndex].fontStyle,'text-decoration': 'none'}">Followings</p>   
 
             </div>
           
@@ -82,7 +82,7 @@
           <!-- <router-link to="/inbox" class="nav-item nav-link" style="text-decoration: none" >  -->
            <div>
    <b-icon id="iconD"  icon="gear-fill" font-scale="1.5" aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon>    
-                                <p id="pD" :style="{'color': homeTheme[homeThemeIndex].fontColor, 'text-decoration': 'none'}">Settings</p>   
+                                <p id="pD" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor, 'text-decoration': 'none'}">Settings</p>   
            </div>
          
             <!-- </router-link>  -->
@@ -91,8 +91,8 @@
           <!-- <router-link to="/inbox" class="nav-item nav-link" style="text-decoration: none">  -->
             
             <div>
-   <b-icon id="iconD"  icon="question-circle-fill" font-scale="1.5" aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon>    
-                                <p id="pD" :style="{'color': homeTheme[homeThemeIndex].fontColor, 'font-style':homeTheme[homeThemeIndex].fontStyle, 'text-decoration': 'none'}">Help</p>   
+   <b-icon id="iconD"  icon="question-circle-fill" font-scale="1.5" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon>    
+                                <p id="pD" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor, 'font-style':homeTheme[homeThemeIndex].fontStyle, 'text-decoration': 'none'}">Help</p>   
 
             </div>
          
@@ -100,8 +100,8 @@
          </li> 
            <li v-on:click="changePalete()" >
              <div>
-  <b-icon id="iconD"  icon="brush-fill" font-scale="1.5" aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon>    
-                                <p id="pD" :style="{'color': homeTheme[homeThemeIndex].fontColor,  'font-style':homeTheme[homeThemeIndex].fontStyle,'text-decoration': 'none'}">Change Palette</p>   
+  <b-icon id="iconD"  icon="brush-fill" font-scale="1.5" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon>    
+                                <p id="pD" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor,  'font-style':homeTheme[homeThemeIndex].fontStyle,'text-decoration': 'none'}">Change Palette</p>   
              </div>
          </li> 
                           </ul>     
@@ -119,7 +119,7 @@
 
        <div id='spacer'></div>
        <div id="navItem" v-on:click ="showSearch=!showSearch">
-                 <b-icon id="icon" icon="search" font-scale="1.5"  aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor}" ></b-icon> 
+                 <b-icon id="icon" icon="search" font-scale="1.5"  aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}" ></b-icon> 
 
        </div>        
 </nav>
@@ -128,9 +128,6 @@
 </template>
 
 <script>
- 
-// import DropdownList from './AccountDropDownList.vue';
-// import NewPostItem from './HomePageNewPost.vue';
 import SearchBar  from './HomePageSearchBar.vue';
  
 export default {

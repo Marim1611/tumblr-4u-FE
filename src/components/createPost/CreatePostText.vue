@@ -72,9 +72,8 @@
 import CreatePostTextEditor from "./CreatePostTextEditor.vue";
 export default {
   props: {
-    textPost: {
-      type: Boolean,
-    },
+    textPost: Boolean,
+    
   },
   components: {
   'CreatePostTextEditor':CreatePostTextEditor,

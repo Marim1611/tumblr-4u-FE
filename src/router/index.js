@@ -7,7 +7,7 @@ import SignIn from '../components/SignIn.vue'
 import SignUp from '../components/SignUp.vue'
 import WelcomePage from '../components/WelcomePage.vue'
 import DashBoard from '../components/homePage/HomePageNewPost.vue'
-import NewBlog from '../components/blog/CreateBlogPage'
+import NewBlog from '../components/blog/CreateNewBlogPage'
 import CreatedBlog from '../components/blog/CreatedBlogPage'
 Vue.use(VueRouter);
 const routes = [

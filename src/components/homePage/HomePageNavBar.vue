@@ -81,12 +81,7 @@ import SearchBar  from './HomePageSearchBar.vue';
  
 export default {
   name: 'HomeNavbar',
-  methods: {
-    updateTheme: function(newTheme){
-      this.newTheme= newTheme;
-
-    },
-  },
+  
     data: function () {
       return {
         newPost:false,

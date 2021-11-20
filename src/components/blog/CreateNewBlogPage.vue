@@ -22,7 +22,7 @@
         <input  v-model="privacy" id="input-privacy" :disabled="validated == 1" >
         <p7><strong> Password protect this blog<br/></strong>
           This blog can only be viewed by people who enter this password: <br /></p7>
-            <input type="checkbox" id="password"  @change="$_access_privacy()">
+            <input type="checkbox" id="password"  v-on:change="$_access_privacy()">
   </div>
   <component v-bind:is="component"></component>
  <router-link to="/blog/created">

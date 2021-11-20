@@ -52,7 +52,6 @@ export default {
   data() {
     return {
       autogrow: null,
-
       postContent: null,
       postTitle: null,
       imgChosen: false,

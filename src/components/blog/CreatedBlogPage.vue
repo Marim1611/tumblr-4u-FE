@@ -14,8 +14,7 @@
           <button id="button-edit-appearance">Edit Appearance</button>
           <button id="button-mass-post-editor">Mass Post Editor</button>
     </div>
-       <!-- <img src="@/assets/file-slash.PNG"/> -->
-
+     
   </div>
 </template>
 
