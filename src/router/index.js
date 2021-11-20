@@ -1,7 +1,7 @@
 //import { createRouter, createWebHistory } from 'vue-router'
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Explore from '../components/HelloWorld.vue'
+import Explore from '../components/HelloWorld.vue' 
 import Home from '../components/homePage/HomePage.vue'
 import SignIn from '../components/SignIn.vue'
 import SignUp from '../components/SignUp.vue'
@@ -44,6 +44,7 @@ const routes = [
         name: 'dashBoard',
         component:DashBoard
       },
+ 
       {
         path: '/new/blog',
         name: 'newBlog',
@@ -55,6 +56,7 @@ const routes = [
         name: 'createdBlog',
         component:CreatedBlog
       },
+
   
 ]
 

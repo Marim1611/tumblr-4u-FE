@@ -1,13 +1,16 @@
 <template>
-    <div id="Heading">
+    <div class="Heading img">
      <Header/>
-      <b-container class="bv-example-row">
+     <h1 class="Main">Temblr4U</h1>
+      <b-container class="bv-example-row tt">
         
-  <b-row>
-    <b-col></b-col>
-
-    <b-col>
-      <h1>Temblr4U</h1>
+    <b-row>
+   
+       <b-col></b-col>
+       
+    <b-col col lg="3">
+      
+ 
       <p>Make stuff, look at stuff,</p>
       <p>talk about stuff, find your people.</p>
       <div>
@@ -21,25 +24,28 @@
              </router-link>
           
       </div>
-      <div class="striped-border"></div>
-      <h6>By continuing with the options below, you agree to Tumblr’s Terms of Service and have read the Privacy Policy</h6>
+      
+      <h6 class="privacy">By continuing with the options below, you agree to Tumblr’s Terms of Service and have read the Privacy Policy</h6>
+      <div class="striped-border"></div>  
+      <br>
 
       <div>
-          <b-button size="lg" class="buttonBot"  block variant="light"><i class="bi bi-google"></i> Continue with Google</b-button>
+          <b-button size="lg" class="buttonBot"  block variant="light"><b-icon icon="google"></b-icon> Continue with Google</b-button>
       </div>
       <div>
-          <b-button size="lg" class="buttonBot" block variant="light">Continue with Apple</b-button>
+          <b-button size="lg" class="buttonBot" block variant="light"> Continue with Apple</b-button>
+      </div>
+      <div class="d7k">
+         
       </div>
       
-
     </b-col>
+     <b-col></b-col>
 
-    <b-col></b-col>
   </b-row>
 </b-container>
 
     </div>
-    
 </template>
 <script>
 import Header from './WelcomePageHeader.vue'
@@ -59,11 +65,32 @@ export default {
 </script>
 
 <style scoped>
+.Main{
+  margin-top:50px;
+  font-size: 5rem;
+  /*transition: all 0.15s ease 0s;*/
+  
+}
+.privacy{
+  font-size:0.85rem;
+  line-height: 1.5;
 
+}
+
+.Heading{
+  font-family: 'Ubuntu', sans-serif;
+  color:white;
+  background-image: url("../images/Home-Background.jpg");
+  background-position: center;
+  background-size: cover;
+  height: 100%; 
+  width:100%;
+  line-height: 1;
+ 
+}
 #Heading{
   font-family: 'Ubuntu', sans-serif;
   margin-top: 20px;
-  
   line-height: 1.5;
   text-align: center;
 }
@@ -77,9 +104,13 @@ export default {
   font-size: 1rem;
 }
 .striped-border{ 
-  border: 1px solid #000; 
+  border: 2px solid #D3E4CD; 
   width: 115px; 
   margin: auto; 
-  
 }
+.d7k{
+
+  height: 5.1rem;
+}
+ 
 </style>

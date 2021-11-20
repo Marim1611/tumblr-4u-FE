@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import { BootstrapVue, BootstrapVueIcons, IconsPlugin  } from 'bootstrap-vue'
 import { store } from './store/store';
-import vuetify from './plugins/vuetify'
+import vuetify from './plugins/vuetify' 
 import VueMaterial from "vue-material";
 import "vue-material/dist/vue-material.min.css";
 import "vue-material/dist/theme/default.css";
@@ -16,7 +16,6 @@ Vue.use(BootstrapVueIcons);
 Vue.config.productionTip = false;
 Vue.use(IconsPlugin) 
 Vue.use(router)
- 
 
 new Vue({
   el: "#app",

@@ -12,10 +12,14 @@
             <div class="NavBarRight">
                 <b-navbar-nav class="navButtons">
                     <div>
-                            <b-button v-on:click="$emit('log')" size="lg" class="navButtons" pill variant="success">Log in</b-button>
+                        <router-link to="/signIn" > 
+                            <b-button  size="lg" class="navButtons" pill variant="success">Log in</b-button>
+                        </router-link>
                     </div>
                     <div>
-                            <b-button v-on:click="$emit('s')"  size="lg" class="navButtons" pill variant="outline-primary">Sign up</b-button>
+                            <router-link to="/signUp">
+                            <b-button   size="lg" class="navButtons" pill variant="outline-primary">Sign up</b-button>
+                            <router-link>
                     </div>
                      
                     
