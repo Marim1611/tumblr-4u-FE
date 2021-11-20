@@ -11,62 +11,7 @@
         
         <b-col lg="3" >
           
-<!-- <div> from here </div> -->
-          <div class="TheForm">
-            <b-form  v-if="show">
-              <b-input-group size="sm" class="mb-2">
-                <b-input-group-prepend is-text>
-                  <b-icon  icon="envelope"></b-icon>
-                </b-input-group-prepend>
-                <b-form-input 
-                    id="input-1"
-                    v-model="userEmail"
-                    placeholder="Email">
-                </b-form-input>
-              </b-input-group>
-                <b-input-group size="sm" class="mb-2"> 
-                  <b-input-group-prepend is-text>
-                    <b-icon icon="shield-lock"></b-icon>
-                  </b-input-group-prepend>
-                  <b-form-input
-                      type="password" 
-                      id="input-2" 
-                      v-model="userPassword"
-                      aria-describedby="password-help-block" 
-                      placeholder="Password">
-                  </b-form-input>
-                </b-input-group>
-                
-              <b-input-group size="sm" class="mb-4"> 
-                <b-input-group-prepend is-text>
-                    <b-icon icon="person-circle"></b-icon>
-                  </b-input-group-prepend>
-                  <b-form-input
-                  v-model="userBlogName"
-                  placeholder="Blog name"
-                ></b-form-input>
 
-
-              </b-input-group>
-                
-                  
-              
-                
-              
-              <h6>By clicking "sign up", or continuing with the other options below, you agree to Tumblr’s Terms of Service and have read the Privacy Policy</h6>
-             
-              <b-button v-if="!ShareData"  v-on:click="Submit($event)" size="lg" class="buttonTop" type="submit" block variant="info">Sign up</b-button>
-          
-             <router-link v-else to="/home"  > 
-              <b-button  v-on:click.prevent='doNoThing' size="lg" class="buttonTop" type="submit" block variant="info">Sign up</b-button>
-          </router-link> 
-          </b-form>
-
-
-          </div>
-
-<!-- <div> to there </div> -->
-          
           <form @submit.prevent="Validation">
             <div class="form-group">
               <input type="text"
@@ -101,7 +46,11 @@
             </div>
             
               <h6 class="privacy">By clicking "sign up", or continuing with the other options below, you agree to Tumblr’s Terms of Service and have read the Privacy Policy</h6>
-           <router-link to='/home' >
+              <button v-if="!cleanEmail" class="btn btn-primary buttonTop" type="submit">Sign up</button>
+              <button v-else-if="!cleanPassword" class="btn btn-primary buttonTop" type="submit">Sign up</button>
+              <button v-else-if="!cleanBlogName" class="btn btn-primary buttonTop" type="submit">Sign up</button>
+
+           <router-link v-else to='/home' >
             <button  class="btn btn-primary buttonTop" type="submit">Sign up</button>
             </router-link>
 					</form>
@@ -110,11 +59,8 @@
           <div>
           <b-button size="lg" class="buttonBot"  block variant="light"><b-icon icon="google"></b-icon> Continue with Google</b-button>
       </div>
-      <div>
-          <b-button size="lg" class="buttonBot" block variant="light"> Continue with Apple</b-button>
-      </div>
-
-          
+      
+    
       <div class="d7k"></div>
       </b-col>
   <b-col></b-col>
@@ -147,6 +93,9 @@ export default {
 			emailError: false,
       blogError:false,
       errors:[],
+      cleanEmail:false,
+      cleanPassword:false,
+      cleanBlogName:false
 
     }
   },
@@ -164,53 +113,6 @@ export default {
             'message': 'you forgot to enter Email.'
         });
     }
-// =======
-//       show: true,
-//       ShareData: false,
-//       InputError:false,
-//       ErrorMsg:''
-//     }
-//   },
-//   methods:{
-//     doNoThing: function()
-//     {
-//      console.log(this.ShareData)
-
-//     },
-//      Submit:function(event){
-
-//       //IF the fields are empty the counter value will be 0 
-//       if(!this.userEmail)
-//       {
-//         this.ErrorMsg='you forgot to enter Email';
-//          this.InputError=true;
-//          event.preventDefult();
-//       }
-//       else if(!this.userPassword)
-//       {
-//         this.ErrorMsg='you forgot to enter Password';
-//         this.InputError=true;
-//         event.preventDefault();
-//       }
-//       else if(!this.userBlogName)
-//       {
-//         this.ErrorMsg='you forgot to enter Blog Name';
-//         this.InputError=true;
-//         event.preventDefault();
-//       }
-      
-
-//       //Email Validation
-//       var  apos=this.userEmail.indexOf('@');
-//       console.log(apos);
-//       var dotpos=this.userEmail.indexOf('.');
-//       console.log(dotpos);
-//       if(apos<1||dotpos-apos<2){
-//         this.ErrorMsg='The Mail should contain @ and . ';
-//         this.InputError=true;
-//         event.preventDefault();
-//       }
-// >>>>>>> main
       
     else if(apos<1||dotpos-apos<2){
       this.emailError = true;
@@ -225,6 +127,7 @@ export default {
 						'message': 'Validated.'
 					});
 					document.getElementById('feedback-1').className = "valid-feedback";
+          this.cleanEmail=true;
 				}
 
         //password validation
@@ -256,6 +159,7 @@ export default {
 						'message': 'Validated.'
 					});
 					document.getElementById('feedback-2').className = "valid-feedback";
+          this.cleanPassword=true;
     }
 
     //blog
@@ -273,38 +177,13 @@ export default {
 						'message': 'Validated.'
 					});
 					document.getElementById('feedback-3').className = "valid-feedback";
+          this.cleanBlogName=true;
     }
     
       
     } 
     },
     
-// =======
-//       this.ErrorMsg = "The password should be between 7 : 15 charachters.\n";
-//       this.InputError=true;
-//       event.preventDefult();  
-
-//     }
-
-//       else if (illegalChars.test(this.userPassword.value)) {
-//       this.ErrorMsg = "The password contains illegal characters.\n";
-//       this.InputError=true;
-//       event.preventDefult();
-//     } 
-//     else if ( (this.userPassword.search(/[a-zA-Z]+/)==-1) || (this.userPassword.search(/[0-9]+/)==-1) ) {
-//         this.ErrorMsg = "The password must contain at least one numeral.\n";
-//         this.InputError=true;
-//         event.preventDefult();
-//     }
-//    if( !this.InputError)
-//    this.ShareData=true;
-  
-   
-// }
-      
-   
-//   },
-// >>>>>>> main
   computed:{
      ...mapFields([
       'user.email',

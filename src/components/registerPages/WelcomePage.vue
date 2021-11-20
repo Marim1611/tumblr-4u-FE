@@ -1,12 +1,11 @@
 <template>
     <div class="Heading img">
      <Header/>
-     <h1 class="Main">Tumblr4U</h1>
       <b-container class="bv-example-row tt">
-        
-    <b-row>
-   
-       <b-col></b-col>
+        <h1 class="Main">Tumblr4U</h1>
+    <b-row> 
+      
+      <b-col></b-col>
        
     <b-col col lg="3">
       
@@ -68,7 +67,8 @@ export default {
 .Main{
   margin-top:50px;
   font-size: 5rem;
-  /*transition: all 0.15s ease 0s;*/
+  text-align: center;
+  
   
 }
 .privacy{
