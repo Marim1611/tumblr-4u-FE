@@ -1,10 +1,11 @@
 <template>
   <div>
-    <div class="dropdown">
+    <div class="dropdown"
+    >
       <div
         id="input_container"
         v-bind:style="{
-          background: homeTheme[homeThemeIndex].cardColor,
+          'background-color': homeTheme[homeThemeIndex].cardColor,
           'border-radius': '4px',
           'border-color': homeTheme[homeThemeIndex].fontColor,
         }"
@@ -24,7 +25,7 @@
           type="text"
           placeholder="Search Tumblr"
           v-bind:style="{
-            background: homeTheme[homeThemeIndex].cardColor,
+            'background-color': homeTheme[homeThemeIndex].cardColor,
             color: homeTheme[homeThemeIndex].fontColor,
           }"
         />
@@ -161,7 +162,7 @@ export default {
         },
         {
           name: "Merna",
-          img: "http://i.imgur.com/NeRJgd9.png",
+          img: "https://64.media.tumblr.com/ff6dd3486dd2fee8dff0acd0b937366a/6772020191e59538-4e/s640x960/bba93fe58569441392b77f831cad960169f11bda.jpg",
           coverImg:
             "https://64.media.tumblr.com/511d1c6162b006d519670ec642d5bae9/98396c886dff04ae-83/s640x960/2c89deda482294956a9726a993138b9d430ca2d6.jpg",
         },
@@ -236,13 +237,17 @@ export default {
 }
 .dropdown-input,
 .dropdown-selected {
+  cursor: text;
   width: 100%;
   padding: 10px 10px;
   border-radius: 8px;
   line-height: 1.5em;
   outline: none;
 }
-
+.dropdown-input{
+  text-align: left;
+  padding-left:20px;
+}
 .dropdown-input:focus,
 .dropdown-selected:hover {
   background: #fff;
@@ -250,7 +255,8 @@ export default {
 }
 
 .dropdown-input::placeholder {
-  opacity: 0.7;
+  color: #fff;
+  text-align: left;
 }
 .dropdown-selected {
   font-weight: bold;
@@ -295,17 +301,18 @@ export default {
   padding: 0 0 0 20px;
   margin: 0 20px;
   border: 2px solid wheat;
-
+  cursor: text;
   direction: rtl;
   width: 500px;
 }
 
 #icon {
+  
   position: absolute;
-  bottom: 2px;
+  bottom:20%;
   left: 5px;
   width: 24px;
   height: 24px;
-  color: black;
+  
 }
 </style>

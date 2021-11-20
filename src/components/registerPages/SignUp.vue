@@ -150,7 +150,7 @@ export default {
     else if ( (this.userPassword.search(/[a-zA-Z]+/)==-1) || (this.userPassword.search(/[0-9]+/)==-1) ) {
         this.passwordError = true;
 					this.errors.push({
-						'message': 'The password contains illegal characters.'
+						'message': 'The password should contains both numbers and letters'
 					});
     }
     else{

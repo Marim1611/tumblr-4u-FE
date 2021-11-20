@@ -1,6 +1,5 @@
 <template>
-<md-dialog v-bind:md-active.sync="postToBegin" v-bind:md-close-on-esc="true">
-    <md-dialog-content>
+
 <div id = 'parentDiv'>
     <div id = 'postItem'>
         <div id="circle" class ='text' style=" background-color:white;">
@@ -46,25 +45,15 @@
      </div>    
 </div>
 
-   </md-dialog-content>
-  </md-dialog>
+  
 </template>
 
 <script>
 export default {
   name: 'NewPost',
-  props:{
-      openCircles:Boolean
-  },
-  computed: {
-    postToBegin: {
-      get() {
-        return this.openCircles;
-      },
-      set(newVal) {
-        return newVal;
-      },
-    },
+  data : function () {
+    return {
+    }
   }
 }
 </script>
@@ -107,5 +96,4 @@ position: absolute;
       color: white;
       font-size: 20px;
  }  
- 
 </style>

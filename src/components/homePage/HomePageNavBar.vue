@@ -90,14 +90,14 @@
           <li>
             <router-link to="" class="nav-item nav-link">
               <b-icon
-                v-on:click="newPost = true"
+                v-on:click="newPost = !newPost"
                 id="icon"
                 icon="pencil-fill"
                 font-scale="1.5"
                 aria-hidden="true"
                 v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
               ></b-icon>
-              <NewPost v-bind:openCircles="newPost" />
+              <NewPost v-show="newPost"/>
             </router-link>
           </li>
         </div>
@@ -238,6 +238,7 @@ SearchBar {
 }
 
 .searchBarClass{
+  cursor: text;
   position: absolute;
   left: 40px;
 }
