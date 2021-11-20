@@ -101,7 +101,9 @@
             </div>
             
               <h6 class="privacy">By clicking "sign up", or continuing with the other options below, you agree to Tumblr’s Terms of Service and have read the Privacy Policy</h6>
+           <router-link to='/home' >
             <button  class="btn btn-primary buttonTop" type="submit">Sign up</button>
+            </router-link>
 					</form>
           <div class="striped-border"></div>
           <br>
