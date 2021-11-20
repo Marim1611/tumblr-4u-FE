@@ -1,7 +1,7 @@
 <template>
     <div class="Heading img">
      <Header/>
-     <h1 class="Main">Temblr4U</h1>
+     <h1 class="Main">Tumblr4U</h1>
       <b-container class="bv-example-row tt">
         
     <b-row>
@@ -80,7 +80,7 @@ export default {
 .Heading{
   font-family: 'Ubuntu', sans-serif;
   color:white;
-  background-image: url("../images/Home-Background.jpg");
+  background-image: url("../../assets/images/HomeBackground.jpg");
   background-position: center;
   background-size: cover;
   height: 100%; 

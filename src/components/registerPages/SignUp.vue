@@ -314,9 +314,6 @@ export default {
 
    
   },
-
-  
-
   props: {
 
     msg: String
@@ -341,7 +338,7 @@ export default {
 
   font-family: 'Ubuntu', sans-serif;
   color:white;
-  background-image: url("../images/Home-Background.jpg");
+  background-image: url("../../assets/images/HomeBackground.jpg");
   background-position: center;
   background-size: cover;
   height: 100%; 

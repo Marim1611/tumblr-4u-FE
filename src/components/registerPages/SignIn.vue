@@ -101,7 +101,7 @@
 
 import {mapFields} from 'vuex-map-fields';
 import Header from './WelcomePageHeader.vue'
- 
+  
 export default {
 
   name: 'SignIn',
@@ -195,10 +195,7 @@ export default {
 components: {
       'Header':Header 
   },
-components: {
-      'Header':Header 
-  },
-  
+ 
 }
   
 </script>
@@ -217,7 +214,7 @@ components: {
 
   font-family: 'Ubuntu', sans-serif;
   color:white;
-  background-image: url("../images/Home-Background.jpg");
+  background-image: url("../../assets/images/HomeBackground.jpg");
   background-position: center;
   background-size: cover;
   height: 100%; 
