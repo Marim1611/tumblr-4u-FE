@@ -22,14 +22,13 @@ export const store = new Vuex.Store({
         homeThemeIndex:0,
         homeTheme: [
  
-            {backgroundColor: '#001935',fontColor:'white', cardColor:'#4080bf', fontStyle: 'normal'},
-            {backgroundColor: 'black',fontColor:'lime', cardColor:'#222222', fontStyle: 'italic'},
-            {backgroundColor: 'black',fontColor:'#ff6400', cardColor:'#221000', fontStyle: 'oblique'},
-            {backgroundColor: '#1A2735',fontColor:'#BFBFBF', cardColor:'#36465D', fontStyle: 'Arial'},
-            {backgroundColor: 'black',fontColor:'#CF43ED', cardColor:'#0C0C0C', fontStyle: 'italic'}, 
-            {backgroundColor: '#1a1a00',fontColor:'#808000', cardColor:'#ffff66', fontStyle: 'italic'}, 
-            {backgroundColor: 'black',fontColor:'#CF43ED', cardColor:'#0C0C0C', fontStyle: 'italic'}, 
-            {backgroundColor: 'black',fontColor:'#CF43ED', cardColor:'#0C0C0C', fontStyle: 'italic'},   
+            {backgroundColor: '#001935',fontColor:'white', cardColor:'#4080bf', fontStyle: 'Helvetica'},
+            {backgroundColor: 'black',fontColor:'lime', cardColor:'#222222', fontStyle: 'Times New Roman'},
+            {backgroundColor: 'black',fontColor:'#ff6400', cardColor:'#221000', fontStyle: 'Lucida Console'},
+            {backgroundColor: '#1A2735',fontColor:'#BFBFBF', cardColor:'#36465D', fontStyle: 'Fantasy'},
+            {backgroundColor: 'black',fontColor:'#CF43ED', cardColor:'#0C0C0C', fontStyle: 'Garamond'}, 
+            {backgroundColor: '#1a1a00',fontColor:'#808000', cardColor:'#ffff66', fontStyle: 'Georgia'}, 
+               
  
         ]      , 
         blogs:[ {

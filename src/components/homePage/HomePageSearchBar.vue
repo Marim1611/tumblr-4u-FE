@@ -13,7 +13,7 @@
 <div v-if="!inputValue" v-show="isClicked" class="dropdown-list">
       <div v-for="item in interestsList" v-bind:key="item.name" class="dropdown-item">
         <img :src="item.img" class="dropdown-item-flag" />
-      <p v-bind:style="{  'font-style':homeTheme[homeThemeIndex].fontStyle}">   {{ item.name }}</p>
+      <p v-bind:style="{  'font-family':homeTheme[homeThemeIndex].fontStyle}">   {{ item.name }}</p>
       
       </div>
        
@@ -23,7 +23,7 @@
       <div><p v-bind:style="{'font-size':'18px', 'margin':'10px'}"> Go to #{{this.inputValue}}</p></div>
         <div  v-show="itemVisible(item)" v-for="item in autoComplete" v-bind:key="item.name" class="dropdown-item">
          <b-icon   icon="search" font-scale="1"  aria-hidden="true"  v-bind:style="{'color': 'black'}" ></b-icon> 
-      <p v-bind:style="{  'font-style':homeTheme[homeThemeIndex].fontStyle ,'padding':'10px'}">   {{ item }}</p>
+      <p v-bind:style="{  'font-family':homeTheme[homeThemeIndex].fontStyle ,'padding':'10px'}">   {{ item }}</p>
 
       </div>
         <!--  Tumblrs  -->
@@ -39,7 +39,7 @@
         ></avatar>
         </div>
          -->
-      <p v-bind:style="{  'font-style':homeTheme[homeThemeIndex].fontStyle}">   {{ item.name }}</p>
+      <p v-bind:style="{  'font-family':homeTheme[homeThemeIndex].fontStyle}">   {{ item.name }}</p>
 
       </div>
     </div>

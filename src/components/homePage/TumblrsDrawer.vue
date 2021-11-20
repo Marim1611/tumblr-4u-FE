@@ -67,7 +67,7 @@
        
                 <div id='item' >
                   <li >
-                 <p  v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-style':homeTheme[homeThemeIndex].fontStyle, 'display': 'inline-block', 'margin':'auto 3px' }">{{ item }} </p>
+                 <p  v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle, 'display': 'inline-block', 'margin':'auto 3px' }">{{ item }} </p>
                     </li>  
                 </div>
             </li>
@@ -89,7 +89,7 @@
        
                 <div id='item' >
                   <li >
-                 <p  v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-style':homeTheme[homeThemeIndex].fontStyle, 'display': 'inline-block', 'margin':'auto 3px' }">{{ item }} </p>
+                 <p  v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle, 'display': 'inline-block', 'margin':'auto 3px' }">{{ item }} </p>
                     </li>  
                 </div>
             </li>
