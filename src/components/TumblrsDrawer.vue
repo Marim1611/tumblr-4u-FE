@@ -1,6 +1,7 @@
 <template>
   <div>
-      <v-navigation-drawer id="blogDrawer" v-bind:width="600" v-bind:right=true v-model= "showBlogDrawer" app  >
+    
+      <v-navigation-drawer id="blogDrawer" v-bind:width="600" v-bind:right=true  app  >
         <div id="coverImg" v-bind:style="{ backgroundImage: 'url(' + image + ')' }">
            <nav id = 'navbar' >
            <ul id = 'navbar'> 
@@ -9,7 +10,7 @@
                     <b-icon v-on:click="showBlogDrawer=false" id="icon" icon="x" font-scale="2"  aria-hidden="true"></b-icon> 
                 </li>
               
-                <li v-if="!isOpenSearch" >
+                <li class='searchLi' v-if="!isOpenSearch" >
                     <p class= "searchP" :style="{'color':'white','font-size' :'20px'}">{{this.tumblrsObj.name}}</p>   
                    <!-- <div id='spacer'  class= "searchP"></div> -->
                    <v-spacer class= "searchP"></v-spacer>
@@ -19,7 +20,7 @@
                 
                 <!-- <li v-if="isOpenSearch">
                 </li> -->
-                   <li  v-else>
+                   <li  class= "searchDP" v-else>
                     <div id="input_container" >
       <b-icon v-on:click="isOpenSearch = false"  id="iconS" icon="search" font-scale="1.5"  aria-hidden="true" ></b-icon> 
 
@@ -106,21 +107,10 @@
       </div>
 
            
-        <p :style="{'font-size':'60px', 'color':'black','font-weight':'bold','left':'%50'}">{{this.tumblrsObj.name}}</p>
+        <p class ="userName" :style="{'font-size':'60px', 'color':'black','font-weight':'bold','left':'%50'}">{{this.tumblrsObj.name}}</p>
    </div>
-    </div>
-     
-       
-        
-    
- 
-    
-      
-   
+    </div>   
       </v-navigation-drawer>
-      
-  
-    
   </div>
 </template>
 
@@ -142,7 +132,7 @@ export default {
       isOpendotted:false,
        isOpenShare:false,
        isOpenSearch:false,
-       showBlogDrawer:true,
+       showBlogDrawer:false,
       dottedItems:["Archive","Ask","Report","Block","Close"],
       shareItems:["Facebook","Twitter"],
       image:'https://helpx.adobe.com/content/dam/help/en/stock/how-to/visual-reverse-image-search/jcr_content/main-pars/image/visual-reverse-image-search-v2_intro.jpg'
@@ -155,16 +145,15 @@ export default {
       ///TODO:change in user followers
        if (this.isFollow.status == "Follow")
        { 
-         console.log(this.isFollow.status);
+ 
 Vue.set(this.isFollow, 'status','Unfollow');
-  console.log(this.isFollow.status);
     
        }
       
       else if (this.isFollow.status == "Unfollow")
        {
       Vue.set(this.isFollow, 'status','Follow');
-      console.log("^^^^^^^^^^^")
+      
        }
 
     },

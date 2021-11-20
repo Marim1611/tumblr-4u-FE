@@ -29,7 +29,7 @@
       </div>
         <!--  Tumblrs  -->
             <div><p :style="{'font-size':'18px', 'margin':'10px'}">Tumblrs</p></div>
-      <div    v-on:click="openDrawer( item.name,item.img)" v-show="itemVisible(item.name)" v-for="item in usersInSearch" :key="item.name" class="dropdown-item">
+      <div    ref='OOO' v-on:click="openDrawer( item.name,item.img)" v-show="itemVisible(item.name)" v-for="item in usersInSearch" :key="item.name" class="dropdown-item">
         <!-- <img :src="item.img" class="dropdown-item-flag" /> -->
         <div class="dropdown-item-flag">
 <avatar username= item.name
@@ -124,7 +124,7 @@ export default {
       Vue.set(this.tumblrsObj, 'avatar',avatar);
       // this.tumblrsObj.name=name;
       // this.tumblrsObj.avatar=avatar;
-      console.log( this.tumblrsObj.name)
+       console.log( this.tumblrsObj.name)
       
     }
     

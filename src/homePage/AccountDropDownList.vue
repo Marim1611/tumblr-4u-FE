@@ -5,7 +5,7 @@
    
     <transition name="fade" appear>
         
-        <div v-on:click.prevent="toggleDropdown">
+        <div class='toggle' v-on:click.prevent="toggleDropdown">
           <div class="sub-menu" v-if="isOpen" :style="{'background-color': homeTheme[homeThemeIndex].cardColor}">
         <li id =" header"  >
               <p  id ="pHeader" :style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-style':homeTheme[homeThemeIndex].fontStyle}">Account </p>
@@ -19,7 +19,7 @@
         <div v-for="(item, i) in accountItems" :key="i" class="menu-item"  >
             <li>
         <!-- <router-link :to="item.route"   id= "item">  -->
-                <div id='item' v-on:click="changePalete(item.title)">
+                <div id='item' ref='accountItem' v-on:click="changePalete(item.title)">
                   <li >
                    <b-icon id="iconList"  :icon="item.icon" font-scale="1.5" aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor, 'display': 'inline-block'}"></b-icon>
               <!-- <v-spacer :style="{'display': 'inline-block' , 'width' :'30px'}"></v-spacer> -->
@@ -44,17 +44,16 @@
 export default {
   name: 'Dropdown',
   props: {
-    title: String,
+    
     accountItems: Array
 
   },
   methods:{
+    
     changePalete: function (title){
         
       if(title == "Change palette")
       {
-    console.log( this.isOpen);
-
         this.$store.commit('changePalette');
       }
      
