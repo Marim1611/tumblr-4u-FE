@@ -1,17 +1,25 @@
 <template>
   <div id="homeDiv" v-bind:style="{'background-color': homeTheme[homeThemeIndex].backgroundColor}">
-<!--    
-  <NavBar/>  -->
+ 
   <MatchMedia query="(max-width: 480px)" v-slot="{ matches }">
     <MobileNavBar v-if="matches" /> 
+
+
     <div v-else>
          <NavBar/> 
-<div id="divider" v-bind:style="{'background-color': homeTheme[homeThemeIndex].fontColor}"  ></div>
+         <div id="posts">
+           <div id="divider" v-bind:style="{'background-color': homeTheme[homeThemeIndex].fontColor}"  ></div>
+
+<div id="createPost">
   <CreatPostSection/>
+</div>
+
   <div id="dashBoard"  v-for="(post, i) in dashBoardPosts" :key="i" >
 
    <DashBoard v-bind:post="post" />
   </div>
+         </div>
+
     </div>
  
     
@@ -68,6 +76,17 @@ height: 100%;
   flex-direction: column;
   flex-grow: 1;
   margin-bottom: 20px;
+  padding-left:200px ;
+  background-color:red;
+  
    
+}
+#posts{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+#createPost{
+  padding-right: 100px;
 }
 </style>

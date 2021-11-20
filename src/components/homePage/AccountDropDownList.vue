@@ -11,9 +11,10 @@
                 <p  id ="pHeader"  v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-style':homeTheme[homeThemeIndex].fontStyle}">Logout</p>
 
         </li>
-      <li>
-          <v-divider v-bind:style="{'color':' homeTheme[homeThemeIndex].fontColor '}" ></v-divider>
-      </li>
+       <li>
+                    <div id="divider" v-bind:style="{'background-color': homeTheme[homeThemeIndex].fontColor}"  ></div>
+
+       </li>
           
         <div v-for="(item, i) in accountItems" :key="i" class="menu-item"  >
             <li>
@@ -33,7 +34,10 @@
         </div>
         <li>
           <router-link to="/new/blog"> 
-     <v-btn   elevation="2" >new plog</v-btn>
+          <div v-bind:style="{'margin':'7px'}">
+<v-btn   elevation="2" >new blog</v-btn>
+          </div>
+     
 </router-link>
             </li>
       </div>
@@ -95,7 +99,10 @@ export default {
 {
    overflow-x: auto;
 }
-
+#divider{
+  width: 100%;
+  height: 1px;
+}
 nav .menu-item .sub-menu {
   position: absolute;
    

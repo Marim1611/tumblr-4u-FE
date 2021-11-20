@@ -5,70 +5,78 @@
         <li>
           <button v-on:click="textUpload">
             <b-icon
+            v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"  
               icon="type"
               class="border rounded p-2"
               font-scale="3"
             ></b-icon>
 
-            <p>Text</p>
+            <p  v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"  >Text</p>
           </button>
         </li>
         <li>
           <button v-on:click="imageUpload">
             <b-icon
+             v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"  
               icon="camera"
               class="border rounded p-2"
               font-scale="3"
             ></b-icon>
-            <p>Photo</p>
+            <p  v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"  >Photo</p>
           </button>
         </li>
         <li>
           <button v-on:click="quoteUpload">
             <b-icon
+             v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"  
               icon="chat-quote-fill"
               class="border rounded p-2"
               font-scale="3"
             ></b-icon>
-            <p>Quote</p>
+            <p  v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"  >Quote</p>
           </button>
         </li>
         <li>
           <button v-on:click="linkUpload">
-            <b-icon icon="link45deg" class="border rounded p-2" font-scale="3">
+            <b-icon icon="link45deg" class="border rounded p-2" font-scale="3"
+             v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"  >
+              
             </b-icon>
-            <p>Link</p>
+            <p  v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"  >Link</p>
           </button>
         </li>
         <li>
           <button v-on:click="chatUpload">
             <b-icon
+             v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"  
               icon=" chat-dots-fill"
               class="border rounded p-2"
               font-scale="3"
             ></b-icon>
 
-            <p>Chat</p>
+            <p  v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"  >Chat</p>
           </button>
         </li>
         <li>
           <button v-on:click="audioUpload">
             <b-icon
+             v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"  
               icon=" headphones"
               class="border rounded p-2"
               font-scale="3"
             ></b-icon>
-            <p>Audio</p>
+            <p  v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"  >Audio</p>
           </button>
         </li>
         <li>
           <button v-on:click="videoUpload">
             <b-icon
+             v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"  
               icon="camera-reels"
               class="border rounded p-2"
               font-scale="3"
             ></b-icon>
-            <p>Video</p>
+            <p  v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"  >Video</p>
           </button>
         </li>
       </ul>
@@ -170,6 +178,8 @@ export default {
         homeThemeIndex: function(){
             return this.$store.state.homeThemeIndex;
         },
+         
+   
   },
 };
 </script>

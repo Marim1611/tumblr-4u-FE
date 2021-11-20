@@ -17,24 +17,25 @@
          
             icon="type-bold"
             
-            font-scale="0.5"
+            font-scale="2"
           ></b-icon>
        
-        <button
-          v-on:click="italicButton"
+        
+          <b-icon
+           v-on:click="italicButton"
           v-bind:class="{
             'is-active': editor.isActive('italic'),
           }"
           class="editButtons"
-        >
-          <b-icon
             icon="type-italic"
-            class="border rounded p-2"
-            font-scale="1.2"
+            font-scale="2"
           ></b-icon>
-        </button>
+         
 
-        <button
+
+        <b-icon
+        icon="type-h3"
+            font-scale="2"
           v-on:click="headlineButton"
           v-bind:class="{
             'is-active': editor.isActive('heading', { level: 3 }),
@@ -42,59 +43,55 @@
           class="editButtons"
         >
           H
-        </button>
-        <button
-          v-on:click="strikedButton"
+        </b-icon>
+          <b-icon
+           v-on:click="strikedButton"
           v-bind:class="{
             'is-active': editor.isActive('strike'),
           }"
           class="editButtons"
-        >
-          <b-icon
             icon="type-strikethrough"
-            class="border rounded p-2"
-            font-scale="1.2"
+            
+            font-scale="2"
           ></b-icon>
-        </button>
-        <button
-          v-on:click="orderedListButton"
+     
+          <b-icon
+           v-on:click="orderedListButton"
           v-bind:class="{
             'is-active': editor.isActive('orderedList'),
           }"
           class="editButtons"
-        >
-          <b-icon
             icon=" list-ol"
-            class="border rounded p-2"
+         
             font-scale="2"
           ></b-icon>
-        </button>
-        <button
+       
+        
+          <b-icon
+          
           v-on:click="unorderedListButton"
           v-bind:class="{
             'is-active': editor.isActive('bulletList'),
           }"
           class="editButtons"
-        >
-          <b-icon
             icon="  list-ul"
-            class="border rounded p-2"
+           
             font-scale="2"
           ></b-icon>
-        </button>
-        <button
-          v-on:click="blockQuoteButton"
+ 
+        
+          <b-icon
+            v-on:click="blockQuoteButton"
           v-bind:class="{
             'is-active': editor.isActive('blockquote'),
           }"
           class="editButtons"
-        >
-          <b-icon
+        
             icon=" arrow-bar-right"
-            class="border rounded p-2"
-            font-scale="1.2"
+           
+            font-scale="2"
           ></b-icon>
-        </button>
+     
       </bubble-menu>
     </div>
     <EditorContent v-bind:editor="editor" />
@@ -108,8 +105,8 @@ import Placeholder from "@tiptap/extension-placeholder";
 
 export default {
   components: {
-    'EditorContent':EditorContent,
-    'BubbleMenu':BubbleMenu,
+    EditorContent,
+    BubbleMenu,
   },
 
   data() {
@@ -174,11 +171,16 @@ export default {
     },
     headlineButton() {
       if (this.orderedListChosen == true) {
-        this.orderedListChosen = false;
+        this.orderedListChosen = !this.orderedListChosen;
+        this.unorderedListChosen = false;
+
         this.editor.chain().focus().toggleOrderedList().run();
+       
       }
       if (this.unorderedListChosen == true) {
-        this.unorderedListChosen = false;
+        this.unorderedListChosen = !this.unorderedListChosen;
+        this.orderedListChosen = false;
+
         this.editor.chain().focus().toggleBulletList().run();
       }
 
@@ -191,10 +193,15 @@ export default {
     },
     orderedListButton() {
       this.orderedListChosen = !this.orderedListChosen;
+      this.unorderedListChosen = false;
+
       this.editor.chain().focus().toggleOrderedList().run();
     },
+
     unorderedListButton() {
       this.unorderedListChosen = !this.unorderedListChosen;
+      this.orderedListChosen = false;
+
       this.editor.chain().focus().toggleBulletList().run();
     },
     blockQuoteButton() {
@@ -226,6 +233,7 @@ export default {
   border-radius: 15px;
   border: none;
   width: 30px;
+  padding: 6px;
   height: 30px;
   text-align: center;
   line-height: 30px;

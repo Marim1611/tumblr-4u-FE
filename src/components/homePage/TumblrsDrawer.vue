@@ -1,7 +1,7 @@
 <template>
   <div>
       <v-navigation-drawer id="blogDrawer" v-bind:width="600" v-bind:right=true v-model= "showBlogDrawer" app  >
-        <div id="coverImg" v-bind:style="{ backgroundImage: 'url(' + image + ')' }">
+        <div id="coverImg" v-bind:style="{ backgroundImage: 'url(' + this.tumblrsObj.coverImg + ')' }">
            <nav id = 'navbar' >
            <ul id = 'navbar'> 
               <div id="iconsDiv">
@@ -10,11 +10,14 @@
                 </li>
               
                 <li v-if="!isOpenSearch" >
-                    <p class= "searchP"  v-bind:style="{'color':'white','font-size' :'20px'}">{{this.tumblrsObj.name}}</p>   
+                  <div id="input_container" >
                    <!-- <div id='spacer'  class= "searchP"></div> -->
-                   <v-spacer class= "searchP"></v-spacer>
-                   <b-icon  class= "searchP" v-on:click="isOpenSearch = true"  id="icon" icon="search" font-scale="2"  aria-hidden="true"></b-icon> 
+                  
+                  <b-icon  class= "searchP" v-on:click="isOpenSearch = true"  id="icon" icon="search" font-scale="2"  aria-hidden="true"></b-icon> 
+           <v-spacer class= "searchP"></v-spacer>
+            <p class= "searchP"  v-bind:style="{'color':'white','font-size' :'20px','margin':'7px'}">{{this.tumblrsObj.name}}</p>   
 
+</div>
                 </li>
                 
                 <!-- <li v-if="isOpenSearch">
@@ -43,7 +46,8 @@
                 </li> -->
                 <li>
                   
-                     <v-btn v-on:click="toggleFollow"  elevation="2" >{{this.isFollow.status}}</v-btn>
+                  
+              <v-btn v-on:click="toggleFollow"  elevation="2" >{{this.isFollow.status}}</v-btn>
                  
                 
 
@@ -136,7 +140,6 @@ export default {
       showBlogDrawer:true,
       dottedItems:["Archive","Ask","Report","Block","Close"],
       shareItems:["Facebook","Twitter"],
-      image:'https://helpx.adobe.com/content/dam/help/en/stock/how-to/visual-reverse-image-search/jcr_content/main-pars/image/visual-reverse-image-search-v2_intro.jpg'
     }
    
   },
@@ -206,9 +209,8 @@ export default {
       
 }
 #spacer{
-  flex-grow: 7;
-  flex-shrink: 2;
-  width:200px;
+ 
+  width:300px;
 }
 #icon{
   color:white;

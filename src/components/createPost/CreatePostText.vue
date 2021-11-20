@@ -9,7 +9,7 @@
         font-scale="1"
       ></b-icon> -->
   <!-- </div> -->
-  <md-dialog v-bind:md-active.sync="postToBegin" v-bind:md-close-on-esc="false">
+  <md-dialog v-bind:md-active.sync="postToBegin" >
     <md-dialog-content>
       <!-- <md-dialog-title>mariemzayn22</md-dialog-title> -->
       <v-textarea
@@ -44,7 +44,7 @@
       <div class="footerBtns">
         <button class="closeBtn" v-on:click="closeTextBox">Close</button>
         <!-- <div class="postOptions"> -->
-        <v-btn
+        <button
           v-bind:disabled="disablePosting"
           v-bind:class="{
             disabledBtn: this.disablePosting,
@@ -53,7 +53,7 @@
           v-on:click="postDone"
         >
           Post
-        </v-btn>
+        </button>
         <!-- <v-divider />
           <button>
             <b-icon
@@ -139,7 +139,6 @@ export default {
   },
 };
 </script>
-
 <style>
 .v-textarea textarea {
   max-width: 30vw;
@@ -169,16 +168,14 @@ input[type="text"] {
 .footerBtns {
   display: flex;
   flex-direction: row;
-  /* justify-content: left; */
 }
 
 .footerBtns button {
   border: none;
   border-radius: 1.9px;
-  /* width: 4vw; */
   margin-top: 10px;
   padding: 5px 7px;
-  font-size: 13px;
+
   font-weight: 700;
 }
 .postOptions {
@@ -186,39 +183,33 @@ input[type="text"] {
   margin-top: 10px;
   display: flex;
   flex-direction: row;
-  /* padding: 0;
-  margin: 0;  */
+ 
   position: absolute;
   right: 24px;
-  /* color: white; */
-
-  /* text-align: center; */
+  
 }
-/* #icon {
-  flex-direction: row;
-  color: gray;
-  float: right;
-} */
+
 .nonDisabledBtn {
-  /* background-color: transparent; */
   background-color: #00b8ff;
   position: absolute;
   right: 24px;
   color: white;
   cursor: pointer;
+  font-size: 13px;
 }
 .closeBtn {
   background-color: #9da6af;
   color: white;
   cursor: pointer;
+  font-size: 13px;
 }
 
 .disabledBtn {
-  /* background-color: transparent; */
   background-color: #00b8ff;
   position: absolute;
   right: 24px;
   color: hsla(0, 0%, 100%, 0.5);
   cursor: default;
+  font-size: 13px;
 }
 </style>
