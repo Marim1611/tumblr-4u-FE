@@ -30,8 +30,11 @@
               </div>
             </div>
             <h6 class="privacy">By clicking "log in", or continuing with the other options below, you agree to Tumblr’s Terms of Service and have read the Privacy Policy</h6>
-               
-            <button  class="btn btn-primary buttonBot" type="submit">Log in</button>
+             <button v-if="!cleanEmail" class="btn btn-info buttonTop" type="submit">Log in</button>
+              <button v-else-if="!cleanPassword" class="btn btn-info buttonTop" type="submit">Log in</button>  
+            <router-link v-else to='/home' >
+            <button  class="btn btn-info buttonTop" type="submit">Log in</button>
+            </router-link>
             
 					</form>
           <a class="pass" href="#">ForgotPassowrd</a>
@@ -40,55 +43,8 @@
    <div>
           <b-button size="lg" class="buttonBot"  block variant="light"><b-icon icon="google"></b-icon> Continue with Google</b-button>
       </div>
-      <div>
-          <b-button size="lg" class="buttonBot" block variant="light"> Continue with Apple</b-button>
-      </div>
-  
    <div class="d7k"></div>
-<!-- =======
-          <h1>Tumblr4U</h1>
- 
-          <p v-if="InputError" class="DynamiError">{{this.ErrorMsg}}</p>
-          <div class="TheForm">
-            <b-form  v-if="show">
-              <b-input-group size="sm" class="mb-2">
-                <b-input-group-prepend is-text>
-                  <b-icon  icon="envelope"></b-icon>
-                </b-input-group-prepend>
-                <b-form-input 
-                    id="input-1"
-                    v-model="email"
-                    placeholder="Email">
-                </b-form-input>
-              </b-input-group>
-                <b-input-group size="sm" class="mb-2"> 
-                  <b-input-group-prepend is-text>
-                    <b-icon icon="shield-lock"></b-icon>
-                  </b-input-group-prepend>
-                  <b-form-input
-                      type="password" 
-                      id="input-2" 
-                      v-model="password"
-                      aria-describedby="password-help-block" 
-                      placeholder="Password">
-                  </b-form-input>
-                </b-input-group>
-                  
-              
-              <h6>By clicking "log in", or continuing with the other options below, you agree to Tumblr’s Terms of Service and have read the Privacy Policy</h6>
-               <router-link to="/home" > 
-              <b-button v-on:click="Submit($event)"  size="lg" class="buttonTop" type="submit" block variant="info">Log in</b-button>
-   </router-link>
-                 
- 
-          </b-form>
 
-          </div>
-          
-          <div class="striped-border"></div>
-          
-
->>>>>>> main -->
         </b-col>
         <b-col></b-col>
       </b-row>
@@ -115,6 +71,8 @@ export default {
 
       passwordError: false,
 			emailError: false,
+      cleanEmail:false,
+      cleanPassword:false,
 			
 
       errors: [],
@@ -159,6 +117,7 @@ export default {
 						'message': 'Validated.'
 					});
 					document.getElementById('feedback-1').className = "valid-feedback";
+          this.cleanEmail=true;
 				}
 
         //password validation
@@ -189,6 +148,7 @@ export default {
 						'message': 'Validated.'
 					});
 					document.getElementById('feedback-2').className = "valid-feedback";
+          this.cleanPassword=true;
     }
     },
       },
@@ -239,13 +199,15 @@ components: {
  
 .formInput
 {
-  margin: 5px auto 5px auto;
+  margin: 8px auto 5px auto;
   height: 45px;
   width:90%;
 }
 .buttonTop{
   margin:20px 0 20px 0 ;
   width: 230px;
+  font-weight: bold;
+  color: black;
 }
 
 .privacy{
@@ -253,13 +215,14 @@ components: {
   line-height: 1.5;
 }
 .d7k{
- height:5rem;
+ height:6rem;
 }
 
 .buttonBot{
   text-align:left ;
   margin-bottom:10px ;
   font-size: 1rem;
+  font-weight: bold;
 }
 
 </style>

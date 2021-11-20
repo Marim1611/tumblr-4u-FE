@@ -46,12 +46,12 @@
             </div>
             
               <h6 class="privacy">By clicking "sign up", or continuing with the other options below, you agree to Tumblr’s Terms of Service and have read the Privacy Policy</h6>
-              <button v-if="!cleanEmail" class="btn btn-primary buttonTop" type="submit">Sign up</button>
-              <button v-else-if="!cleanPassword" class="btn btn-primary buttonTop" type="submit">Sign up</button>
-              <button v-else-if="!cleanBlogName" class="btn btn-primary buttonTop" type="submit">Sign up</button>
+              <button v-if="!cleanEmail" class="btn btn-info buttonTop" type="submit">Sign up</button>
+              <button v-else-if="!cleanPassword" class="btn btn-info buttonTop" type="submit">Sign up</button>
+              <button v-else-if="!cleanBlogName" class="btn btn-info buttonTop" type="submit">Sign up</button>
 
            <router-link v-else to='/home' >
-            <button  class="btn btn-primary buttonTop" type="submit">Sign up</button>
+            <button  class="btn btn-info buttonTop" type="submit">Sign up</button>
             </router-link>
 					</form>
           <div class="striped-border"></div>
@@ -172,7 +172,7 @@ export default {
     }
     else
     {
-      document.getElementById('password').className = "form-control is-valid";
+      document.getElementById('blog').className = "form-control is-valid";
 					this.errors.push({
 						'message': 'Validated.'
 					});
@@ -239,18 +239,21 @@ export default {
 .buttonTop{
   margin:20px 0 20px 0 ;
   width: 230px;
+  font-weight: bold;
+  color: black;
 }
 .buttonBot{
   text-align:left ;
   margin-bottom:10px ;
   font-size: 1rem;
+  font-weight: bold;
 }
 .privacy{
   font-size:0.8rem;
   line-height: 1.5;
 }
 .d7k{
- height:1.2rem;
+ height:4.5rem;
 }
 
 

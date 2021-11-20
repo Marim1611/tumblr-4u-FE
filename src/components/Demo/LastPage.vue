@@ -1,16 +1,16 @@
 <template>
-    <div class="Heading">
-      <b-container class="bv-example-row">
+  <div class="last">
+    
+     <b-container class="bv-example-row">
         
     <b-row> 
-      <h1 class="Main">Tumblr4U</h1>
+      <h1 class="Main">Okay, it’s not actually hard to explain.</h1>
       <b-col></b-col>
        
       <b-col lg="3">
       
  
-      <p class="prag">Make stuff, look at stuff,</p>
-      <p class="prag">talk about stuff, find your people.</p>
+      <p class="prag">We lied. But now you understand this thing. So come on in.</p>
       <div>
         <router-link to="/signUp" >
           <b-button  size="lg" class="buttonTop"  block variant="info">Sign up</b-button>
@@ -37,28 +37,33 @@
 
   </b-row>
 </b-container>
-    </div>
+  </div>
 </template>
+
 <script>
+
 export default {
-
-  name: 'WelcomePage',
-
-  props: {
-
-    msg: String
-
-  },
+  name: 'LastPage',
   components: {
-
-  },
+     
+  }
+  
 }
 </script>
 
+
 <style scoped>
-.Main{
+ .last{
+    background-image: url("../../assets/images/HomeBackground.jpg");
+    background-position: center;
+    background-size: cover;
+    height: 100%; 
+    width:100%;
+    color:white;
+ }
+ .Main{
   margin-top:50px;
-  font-size: 5rem;
+  font-size: 4rem;
   text-align: center;
   
   
@@ -82,12 +87,7 @@ export default {
   text-align: center;
  
 }
-#Heading{
-  font-family: 'Ubuntu', sans-serif;
-  margin-top: 20px;
-  line-height: 1.5;
-  text-align: center;
-}
+
 .buttonTop{
   margin-bottom:20px ;
   width: 230px;
