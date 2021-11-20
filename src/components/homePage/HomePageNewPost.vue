@@ -1,5 +1,5 @@
 <template>
-<md-dialog v-bind:md-active.sync="postToBegin" v-bind:md-close-on-esc="false">
+<md-dialog v-bind:md-active.sync="postToBegin" v-bind:md-close-on-esc="true">
     <md-dialog-content>
 <div id = 'parentDiv'>
     <div id = 'postItem'>
@@ -53,9 +53,18 @@
 <script>
 export default {
   name: 'NewPost',
-  data : function () {
-    return {
-    }
+  props:{
+      openCircles:Boolean
+  },
+  computed: {
+    postToBegin: {
+      get() {
+        return this.openCircles;
+      },
+      set(newVal) {
+        return newVal;
+      },
+    },
   }
 }
 </script>
@@ -98,4 +107,5 @@ position: absolute;
       color: white;
       font-size: 20px;
  }  
+ 
 </style>

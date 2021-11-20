@@ -1,5 +1,5 @@
 <template>
-  <md-dialog v-bind:md-active.sync="postToBegin" v-bind:md-close-on-esc="false">
+  <md-dialog v-bind:md-active.sync="postToBegin" >
     <md-dialog-content>
       <CreatePostUploadImage />
       <div v-if="imgChosen">
@@ -20,7 +20,7 @@
 
       <div class="footerBtns">
         <button class="closeBtn" v-on:click="closeTextBox">Close</button>
-        <v-btn
+        <button
           v-bind:disabled="disablePosting"
           v-bind:class="{
             disabledBtn: this.disablePosting,
@@ -29,7 +29,7 @@
           v-on:click="postDone"
         >
           Post
-        </v-btn>
+        </button>
       </div>
     </md-dialog-content>
   </md-dialog>
@@ -109,7 +109,6 @@ export default {
   width: 30vw;
   min-height: 30vh;
   max-height: 100%;
-  padding: 0;
 }
 #header {
   display: flex;
@@ -131,7 +130,7 @@ input[type="text"] {
   border-radius: 1.9px;
   margin-top: 10px;
   padding: 5px 7px;
-  font-size: 13px;
+
   font-weight: 700;
 }
 .postOptions {
@@ -139,8 +138,10 @@ input[type="text"] {
   margin-top: 10px;
   display: flex;
   flex-direction: row;
+ 
   position: absolute;
   right: 24px;
+  
 }
 
 .nonDisabledBtn {
@@ -149,11 +150,13 @@ input[type="text"] {
   right: 24px;
   color: white;
   cursor: pointer;
+  font-size: 13px;
 }
 .closeBtn {
   background-color: #9da6af;
   color: white;
   cursor: pointer;
+  font-size: 13px;
 }
 
 .disabledBtn {
@@ -162,5 +165,6 @@ input[type="text"] {
   right: 24px;
   color: hsla(0, 0%, 100%, 0.5);
   cursor: default;
+  font-size: 13px;
 }
 </style>

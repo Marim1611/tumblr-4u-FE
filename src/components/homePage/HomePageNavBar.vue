@@ -27,27 +27,27 @@
          <div id="iconsDiv">
  <li>
           <router-link to="/home" class="nav-item nav-link"> 
-             <b-icon id="icon" icon="house-door-fill" font-scale="1.5"  aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor}" ></b-icon> 
+             <b-icon id="icon" icon="house-door-fill" font-scale="1.5"  aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}" ></b-icon> 
             </router-link>
         </li>
         <li>
           <router-link to="/explore" class="nav-item nav-link"> 
-             <b-icon id="icon" icon="compass" font-scale="1.5"  aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon> 
+             <b-icon id="icon" icon="compass" font-scale="1.5"  aria-hidden="true"  v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon> 
             </router-link>
         </li>
         <li>
           <router-link to="" class="nav-item nav-link"> 
-            <b-icon id="icon"  icon="envelope-fill" font-scale="1.5" aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon>    
+            <b-icon id="icon"  icon="envelope-fill" font-scale="1.5" aria-hidden="true"  v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon>    
             </router-link> 
          </li>       
          <li>
             <router-link to="" class="nav-item nav-link"> 
-              <b-icon id="icon"  icon="emoji-laughing" font-scale="1.5" aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon> 
+              <b-icon id="icon"  icon="emoji-laughing" font-scale="1.5" aria-hidden="true"  v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon> 
        </router-link> 
          </li> 
          <li>
             <router-link to="" class="nav-item nav-link"> 
-              <b-icon id="icon"  icon="lightning-fill" font-scale="1.5" aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon> 
+              <b-icon id="icon"  icon="lightning-fill" font-scale="1.5" aria-hidden="true"  v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon> 
         </router-link> 
          </li> 
          <li>
@@ -58,8 +58,8 @@
          </li> 
          <li>
             <router-link to="" class="nav-item nav-link"> 
-              <b-icon v-on:click="newPost = !newPost" id="icon"  icon= "pencil-fill" font-scale="1.5" aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon> 
-               <NewPost v-if="newPost"/> 
+              <b-icon v-on:click="newPost=true" id="icon"  icon= "pencil-fill" font-scale="1.5" aria-hidden="true"  v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon> 
+               <NewPost v-bind:openCircles="newPost"/> 
                </router-link>  
          </li> 
          </div>

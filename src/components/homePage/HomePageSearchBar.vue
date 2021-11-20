@@ -28,16 +28,17 @@
       </div>
         <!--  Tumblrs  -->
             <div><p :style="{'font-size':'18px', 'margin':'10px'}">Tumblrs</p></div>
-      <div    v-on:click="openDrawer( item.name,item.img)" v-show="itemVisible(item.name)" v-for="item in usersInSearch" v-bind:key="item.name" class="dropdown-item">
+      <div    v-on:click="openDrawer( item.name,item.img, item.coverImg)" v-show="itemVisible(item.name)" v-for="item in usersInSearch" v-bind:key="item.name" class="dropdown-item">
         <!-- <img :src="item.img" class="dropdown-item-flag" /> -->
-        <div class="dropdown-item-flag">
+        <img :src="item.img" class="dropdown-item-flag" />
+        <!-- <div class="dropdown-item-flag">
 <avatar username= item.name
         v-bind:src= item.img
         v-bind:size = 30
         v-bind:rounded=false        
         ></avatar>
         </div>
-        
+         -->
       <p v-bind:style="{  'font-style':homeTheme[homeThemeIndex].fontStyle}">   {{ item.name }}</p>
 
       </div>
@@ -53,7 +54,7 @@
 
 <script>
 import TumblrDrawer from './TumblrsDrawer.vue'
-import Avatar from 'vue-avatar' 
+//import Avatar from 'vue-avatar' 
 import Vue from 'vue'
 export default {
   data: function ()  {
@@ -61,34 +62,37 @@ export default {
       showBlogDrawer:false,
       inputValue: '',
       isClicked:false,
-      tumblrsObj:{name: '',avatar:''},
+      tumblrsObj:{name: '',avatar:'',coverImg:''},
       interestsList: [
                     {
             name: "crafts",
-            img:"https://img.icons8.com/office/50/000000/instagram-new.png"
+            img:"https://64.media.tumblr.com/6eb8d7c15856ffa76b0a6b5bdb35f2de/5cf38a736b98badf-f9/s640x960/0762f14581a4a9bf7599fc7899b35cd909878bde.jpg"
                     },
                   {
             name: "embroidery",
-             img:"https://img.icons8.com/office/50/000000/instagram-new.png"
+             img:"https://64.media.tumblr.com/497a6f202f642d914081723f42b3688c/tumblr_pocj2z2m6F1sst4ed_1280.jpg"
                     },
                      {
             name: "crochet",
-             img:"https://img.icons8.com/office/50/000000/instagram-new.png"
+             img:"https://64.media.tumblr.com/b9a38eb82f59f226df54f746e9ce1193/03dd693220f8205b-41/s640x960/54f78a4ffa63f468c6648ac14f0921b3c9fccb9a.jpg"
                     },
       ],
       usersInSearch: [
                     {
             name: "Moatasem",
-            img:"https://pe-images.s3.amazonaws.com/basics/cc/image-size-resolution/resize-images-for-print/image-cropped-8x10.jpg"
+            img:"https://pe-images.s3.amazonaws.com/basics/cc/image-size-resolution/resize-images-for-print/image-cropped-8x10.jpg",
+            coverImg:"https://64.media.tumblr.com/b4d4c2744e85a37c68d2b719d8d41317/57f5781bde74b4d8-0e/s640x960/777e2d9c3327ec8b2cab9fc7cf60e0ee3a5f24a0.jpg"
                     },
                   {
             name: "Sara",
              img:"https://boostlikes-bc85.kxcdn.com/blog/wp-content/uploads/2018/04/Short-URL-Illustration.jpg"
-                    },
+                  ,coverImg:'https://64.media.tumblr.com/511d1c6162b006d519670ec642d5bae9/98396c886dff04ae-83/s640x960/2c89deda482294956a9726a993138b9d430ca2d6.jpg'
+                  },
                      {
             name: "Merna",
              img:"http://i.imgur.com/NeRJgd9.png"
-                    },
+                   ,coverImg:"https://64.media.tumblr.com/511d1c6162b006d519670ec642d5bae9/98396c886dff04ae-83/s640x960/2c89deda482294956a9726a993138b9d430ca2d6.jpg"
+                   },
       ], 
         autoComplete: [
                'cat','car','sports','hanmade','fashion','pets','friends','tarvel','Art'
@@ -98,7 +102,7 @@ export default {
   },
   components:{
      'TumblrDrawer':TumblrDrawer,
-     'Avatar':Avatar
+    //  'Avatar':Avatar
   },
   methods: {
     itemVisible (item) {
@@ -115,9 +119,10 @@ export default {
         this.isClicked = false
       }
     },
-    openDrawer(name,avatar){
+    openDrawer(name,avatar,cover){
       this.showBlogDrawer=!this.showBlogDrawer;
       Vue.set(this.tumblrsObj, 'name',name);
+       Vue.set(this.tumblrsObj, 'coverImg',cover);
       Vue.set(this.tumblrsObj, 'avatar',avatar);
     }
     
@@ -175,6 +180,8 @@ export default {
 }
 .dropdown-list{
       /* overflow-y: auto; */
+  z-index:3;
+  transform: translate3d(0px, 20px, 0px);
   position: absolute;
   width: 100%;
   max-height: 500px;
@@ -195,10 +202,15 @@ export default {
   background: #edf2f7;
 }
 .dropdown-item-flag{
+  max-width: 40px;
+  max-height: 40px;
+  margin: auto 12px auto 0px;
+}
+/* .dropdown-item-flag{
   max-width: 24px;
   max-height: 18px;
   margin: auto 12px auto 0px;
-}
+} */
 #input_container {
     position:relative;
     padding:0 0 0 20px;

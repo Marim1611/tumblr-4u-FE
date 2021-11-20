@@ -22,10 +22,13 @@ export const store = new Vuex.Store({
         homeThemeIndex:0,
         homeTheme: [
  
-            {backgroundColor: '#001935',fontColor:'white', cardColor:'#add8e6', fontStyle: 'normal'},
+            {backgroundColor: '#001935',fontColor:'white', cardColor:'#4080bf', fontStyle: 'normal'},
             {backgroundColor: 'black',fontColor:'lime', cardColor:'#222222', fontStyle: 'italic'},
             {backgroundColor: 'black',fontColor:'#ff6400', cardColor:'#221000', fontStyle: 'oblique'},
             {backgroundColor: '#1A2735',fontColor:'#BFBFBF', cardColor:'#36465D', fontStyle: 'Arial'},
+            {backgroundColor: 'black',fontColor:'#CF43ED', cardColor:'#0C0C0C', fontStyle: 'italic'}, 
+            {backgroundColor: '#1a1a00',fontColor:'#808000', cardColor:'#ffff66', fontStyle: 'italic'}, 
+            {backgroundColor: 'black',fontColor:'#CF43ED', cardColor:'#0C0C0C', fontStyle: 'italic'}, 
             {backgroundColor: 'black',fontColor:'#CF43ED', cardColor:'#0C0C0C', fontStyle: 'italic'},   
  
         ]      , 
@@ -51,10 +54,10 @@ export const store = new Vuex.Store({
  
         updateField,
         changePalette: state => {
-            if (state.homeThemeIndex < 4){
+            if (state.homeThemeIndex < 5){
                 state.homeThemeIndex+=1;
             }    
-         else if (state.homeThemeIndex >= 4){
+         else if (state.homeThemeIndex >= 5){
             state.homeThemeIndex=0;
          }
          
