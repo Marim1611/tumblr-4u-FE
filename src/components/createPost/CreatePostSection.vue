@@ -93,25 +93,25 @@
     <br />
     <br /> -->
 
-    <HomeCreatePostImage
+    <CreatePostImage
       v-bind:imagePost="imageChosen"
       v-on:closeimageBox="closeImage($event)"
     />
 
-    <HomeCreatePostText
+    <CreatePostText
       v-bind:textPost="textChosen"
       v-on:closeTextBox="closeText($event)"
-    ></HomeCreatePostText>
+    ></CreatePostText>
   </div>
 </template>
 
 <script>
-import HomeCreatePostImage from "./HomeCreatePostImage.vue";
-import HomeCreatePostText from "./HomeCreatePostText.vue";
+import CreatePostImage from "./CreatePostImage.vue";
+import CreatePostText from "./CreatePostText.vue";
 export default {
   components: {
-    HomeCreatePostImage,
-    HomeCreatePostText,
+    'CreatePostImage' :CreatePostImage ,
+   'CreatePostText': CreatePostText,
   },
   data() {
     return {

@@ -26,7 +26,7 @@
 import { MatchMedia } from "vue-component-media-queries";
 import MobileNavBar from './HomePageMobileNavBar.vue'
 import NavBar from './HomePageNavBar.vue';  
-import CreatPostSection from '../components/HomeCreatePost/HomeCreatePostSection.vue'
+import CreatPostSection from '../createPost/CreatePostSection.vue'
 import DashBoard from './HomePageViewPost.vue'
 
 export default {

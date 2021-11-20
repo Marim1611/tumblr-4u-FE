@@ -22,7 +22,7 @@
         v-model="postTitle"
       ></v-textarea>
 
-      <HomeCreatePostTextEditor v-on:childToParent="onTextClick" />
+      <CreatePostTextEditor v-on:childToParent="onTextClick" />
       <input type="text" placeholder="#tags" id="theTags" />
       <md-divider></md-divider>
       <!-- <v-divider /> -->
@@ -69,7 +69,7 @@
 </template>
 
 <script>
-import HomeCreatePostTextEditor from "./HomeCreatePostTextEditor.vue";
+import CreatePostTextEditor from "./CreatePostTextEditor.vue";
 export default {
   props: {
     textPost: {
@@ -77,7 +77,7 @@ export default {
     },
   },
   components: {
-    HomeCreatePostTextEditor,
+  'CreatePostTextEditor':CreatePostTextEditor,
   },
 
   data() {

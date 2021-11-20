@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import TumblrDrawer from '../components/TumblrsDrawer.vue'
+import TumblrDrawer from './TumblrsDrawer.vue'
 import Avatar from 'vue-avatar' 
 import Vue from 'vue'
 export default {

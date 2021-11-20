@@ -1,7 +1,7 @@
 <template>
   <md-dialog v-bind:md-active.sync="postToBegin" v-bind:md-close-on-esc="false">
     <md-dialog-content>
-      <HomeCreatePostUploadImage />
+      <CreatePostUploadImage />
       <div v-if="imgChosen">
         <v-textarea
           name="input-7-1"
@@ -13,7 +13,7 @@
           v-model="postTitle"
         ></v-textarea>
 
-        <HomeCreatePostTextEditor v-on:childToParent="onTextClick" />
+        <CreatePostTextEditor v-on:childToParent="onTextClick" />
         <input type="text" placeholder="#tags" id="theTags" />
         <md-divider></md-divider>
       </div>
@@ -36,9 +36,8 @@
 </template>
 
 <script>
-import HomeCreatePostUploadImage from "./HomeCreatePostUploadImage.vue";
-import HomeCreatePostTextEditor from "./HomeCreatePostTextEditor.vue";
-
+import CreatePostUploadImage from "./CreatePostUploadImage.vue";
+ 
 export default {
   props: {
     imagePost: {
@@ -46,8 +45,8 @@ export default {
     },
   },
   components: {
-    HomeCreatePostUploadImage,
-    HomeCreatePostTextEditor,
+    'CreatePostUploadImage':CreatePostUploadImage,
+     
   },
 
   data() {
