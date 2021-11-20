@@ -9,7 +9,7 @@
         font-scale="1"
       ></b-icon> -->
   <!-- </div> -->
-  <md-dialog v-bind:md-active.sync="postToBegin" >
+  <md-dialog v-bind:md-active.sync="postToBegin">
     <md-dialog-content>
       <!-- <md-dialog-title>mariemzayn22</md-dialog-title> -->
       <v-textarea
@@ -73,10 +73,9 @@ import CreatePostTextEditor from "./CreatePostTextEditor.vue";
 export default {
   props: {
     textPost: Boolean,
-    
   },
   components: {
-  'CreatePostTextEditor':CreatePostTextEditor,
+    CreatePostTextEditor: CreatePostTextEditor,
   },
 
   data() {
@@ -140,6 +139,16 @@ export default {
 };
 </script>
 <style>
+.v-text-field.v-text-field--enclosed:not(.v-text-field--rounded) {
+  border-radius: 0;
+  outline: none;
+  border: none;
+}
+
+.theme--light.v-text-field--filled > .v-input__control > .v-input__slot {
+  background: white;
+  border: none;
+}
 .v-textarea textarea {
   max-width: 30vw;
   font-size: 36px;
@@ -183,10 +192,9 @@ input[type="text"] {
   margin-top: 10px;
   display: flex;
   flex-direction: row;
- 
+
   position: absolute;
   right: 24px;
-  
 }
 
 .nonDisabledBtn {
