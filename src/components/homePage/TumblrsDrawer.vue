@@ -203,6 +203,10 @@
 <script>
 import Avatar from "vue-avatar";
 import Vue from "vue";
+/**
+ * @displayName TumblrDrawer with profile view of a tumblr user -not the current user- should appear when current user clicks on some user in the search drop down list
+ * @example [none]
+ */
 export default {
   name: "TumblrDrawer",
   components: {
@@ -223,6 +227,11 @@ export default {
     };
   },
   methods: {
+     /**
+     * Function to toggle the follow button to follow or unfollow user in the drawer profile
+     * @public This is a public method
+     * @param {none}
+     */
     toggleFollow() {
       if (this.isFollow.status == "Follow")
         Vue.set(this.isFollow, "status", "Unfollow");
@@ -231,14 +240,25 @@ export default {
     },
   },
   computed: {
+     /**
+     * Function to get the home page color theme array from the store
+     * @public This is a public method
+     * @param {none}
+     */
     homeTheme: function () {
       return this.$store.state.homeTheme;
     },
+     /**
+     * Function to get the home page colortheme Index from the store
+     * @public This is a public method
+     * @param {none}
+     */
     homeThemeIndex: function () {
       return this.$store.state.homeThemeIndex;
     },
   },
   props: {
+    
     tumblrsObj: Object,
   },
 };

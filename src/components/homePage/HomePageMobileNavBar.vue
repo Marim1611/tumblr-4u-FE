@@ -129,13 +129,21 @@
 
 <script>
 import SearchBar  from './HomePageSearchBar.vue';
- 
+ /**
+ * @displayName Home page Navigation Bar for mobile view
+ * @example [none]
+ */
 export default {
   name: 'HomeNavbar',
   components:{
       'SearchBar':SearchBar
   },
   methods: {
+     /**
+     * Function to fire event from the store to change theme color of website on click the brus icon in the drawer 
+     * @public This is a public method
+     * @param {none}
+     */
      changePalete: function ( ){
     // fire mutation
         this.$store.commit('changePalette');
@@ -151,9 +159,19 @@ export default {
     }, 
      
   computed: {
+     /**
+     * Function to get the home page color theme array from the store
+     * @public This is a public method
+     * @param {none}
+     */
         homeTheme: function(){
             return this.$store.state.homeTheme;
         },
+         /**
+     * Function to get the home page colortheme Index from the store
+     * @public This is a public method
+     * @param {none}
+     */
         homeThemeIndex: function(){
             return this.$store.state.homeThemeIndex;
         },

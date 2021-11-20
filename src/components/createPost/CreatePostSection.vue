@@ -1,82 +1,137 @@
 <template>
   <div>
-    <div class="CreatePost" v-bind:style="{'background-color': homeTheme[homeThemeIndex].cardColor}">
+    <div
+      class="CreatePost"
+      v-bind:style="{ 'background-color': homeTheme[homeThemeIndex].cardColor }"
+    >
       <ul>
         <li>
           <button v-on:click="textUpload">
             <b-icon
-            v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"  
+              v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
               icon="type"
               class="border rounded p-2"
               font-scale="3"
             ></b-icon>
 
-            <p  v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor, 'font-family': homeTheme[homeThemeIndex].fontStyle }"  >Text</p>
+            <p
+              v-bind:style="{
+                color: homeTheme[homeThemeIndex].fontColor,
+                'font-family': homeTheme[homeThemeIndex].fontStyle,
+              }"
+            >
+              Text
+            </p>
           </button>
         </li>
         <li>
           <button v-on:click="imageUpload">
             <b-icon
-             v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"  
+              v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
               icon="camera"
               class="border rounded p-2"
               font-scale="3"
             ></b-icon>
-            <p  v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor, 'font-family': homeTheme[homeThemeIndex].fontStyle }"  >Photo</p>
+            <p
+              v-bind:style="{
+                color: homeTheme[homeThemeIndex].fontColor,
+                'font-family': homeTheme[homeThemeIndex].fontStyle,
+              }"
+            >
+              Photo
+            </p>
           </button>
         </li>
         <li>
           <button v-on:click="quoteUpload">
             <b-icon
-             v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"  
+              v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
               icon="chat-quote-fill"
               class="border rounded p-2"
               font-scale="3"
             ></b-icon>
-            <p  v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor, 'font-family': homeTheme[homeThemeIndex].fontStyle }"  >Quote</p>
+            <p
+              v-bind:style="{
+                color: homeTheme[homeThemeIndex].fontColor,
+                'font-family': homeTheme[homeThemeIndex].fontStyle,
+              }"
+            >
+              Quote
+            </p>
           </button>
         </li>
         <li>
           <button v-on:click="linkUpload">
-            <b-icon icon="link45deg" class="border rounded p-2" font-scale="3"
-             v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"  >
-              
+            <b-icon
+              icon="link45deg"
+              class="border rounded p-2"
+              font-scale="3"
+              v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
+            >
             </b-icon>
-            <p  v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor, 'font-family': homeTheme[homeThemeIndex].fontStyle }"  >Link</p>
+            <p
+              v-bind:style="{
+                color: homeTheme[homeThemeIndex].fontColor,
+                'font-family': homeTheme[homeThemeIndex].fontStyle,
+              }"
+            >
+              Link
+            </p>
           </button>
         </li>
         <li>
           <button v-on:click="chatUpload">
             <b-icon
-             v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"  
+              v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
               icon=" chat-dots-fill"
               class="border rounded p-2"
               font-scale="3"
             ></b-icon>
 
-            <p  v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor, 'font-family': homeTheme[homeThemeIndex].fontStyle }"  >Chat</p>
+            <p
+              v-bind:style="{
+                color: homeTheme[homeThemeIndex].fontColor,
+                'font-family': homeTheme[homeThemeIndex].fontStyle,
+              }"
+            >
+              Chat
+            </p>
           </button>
         </li>
         <li>
           <button v-on:click="audioUpload">
             <b-icon
-             v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"  
+              v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
               icon=" headphones"
               class="border rounded p-2"
               font-scale="3"
             ></b-icon>
-            <p  v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor, 'font-family': homeTheme[homeThemeIndex].fontStyle }"  >Audio</p>
+            <p
+              v-bind:style="{
+                color: homeTheme[homeThemeIndex].fontColor,
+                'font-family': homeTheme[homeThemeIndex].fontStyle,
+              }"
+            >
+              Audio
+            </p>
           </button>
         </li>
         <li>
           <button v-on:click="videoUpload">
             <b-icon
-             v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"  
+              v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
               icon="camera-reels"
               class="border rounded p-2"
               font-scale="3"
             ></b-icon>
-            <p  v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor, 'font-family': homeTheme[homeThemeIndex].fontStyle }"  >Video</p>
+            <p
+              v-bind:style="{
+                color: homeTheme[homeThemeIndex].fontColor,
+                'font-family': homeTheme[homeThemeIndex].fontStyle,
+              }"
+            >
+              Video
+            </p>
           </button>
         </li>
       </ul>
@@ -116,10 +171,16 @@
 <script>
 import CreatePostImage from "./CreatePostImage.vue";
 import CreatePostText from "./CreatePostText.vue";
+
+/**
+ * @displayName Create post section
+ * @example [none]
+ */
+
 export default {
   components: {
-    'CreatePostImage' :CreatePostImage ,
-   'CreatePostText': CreatePostText,
+    CreatePostImage: CreatePostImage,
+    CreatePostText: CreatePostText,
   },
   data() {
     return {
@@ -142,44 +203,73 @@ export default {
     // SelfieTextHide: function () {
     //   this.selfieText = false;
     // },
+
+    /**
+     * Function to open the text upload box
+     * @public This is a public method
+     * @param {none}
+     */
     textUpload: function () {
       this.textChosen = true;
     },
-    closeText: function (text) {
+
+    /**
+     * Function to close the text upload box and return to the main page
+     * @public This is a public method
+     * @param {Boolean} textClosed
+     */
+    closeText: function (textClosed) {
       // console.log(text);
-      this.textChosen = text;
+      this.textChosen = textClosed;
     },
+
+    /**
+     * Function to open the image upload box
+     * @public This is a public method
+     * @param {none}
+     */
     imageUpload: function () {
       this.imageChosen = true;
     },
-    closeImage: function (img) {
-      this.imageChosen = img;
+
+    /**
+     * Function to close the image upload box and return to the main page
+     * @public This is a public method
+     * @param {Boolean} imgClosed
+     */
+    closeImage: function (imgClosed) {
+      this.imageChosen = imgClosed;
     },
-    videoUpload: function () {
-      this.video = true;
-    },
-    audioUpload: function () {
-      this.audio = true;
-    },
-    linkUpload: function () {
-      this.link = true;
-    },
-    quoteUpload: function () {
-      this.quote = true;
-    },
-    chatUpload: function () {
-      this.chat = true;
-    },
+
+    
+    // videoUpload: function () {
+    //   this.video = true;
+    // },
+    // audioUpload: function () {
+    //   this.audio = true;
+    // },
+    // linkUpload: function () {
+    //   this.link = true;
+    // },
+    // quoteUpload: function () {
+    //   this.quote = true;
+    // },
+    // chatUpload: function () {
+    //   this.chat = true;
+    // },
   },
   computed: {
-        homeTheme: function(){
-            return this.$store.state.homeTheme;
-        },
-        homeThemeIndex: function(){
-            return this.$store.state.homeThemeIndex;
-        },
-         
-   
+    /**
+     * Function to adjust the theme of the section 
+     * @public This is a public method
+     * @param {none}
+     */
+    homeTheme: function () {
+      return this.$store.state.homeTheme;
+    },
+    homeThemeIndex: function () {
+      return this.$store.state.homeThemeIndex;
+    },
   },
 };
 </script>

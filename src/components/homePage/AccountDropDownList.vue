@@ -49,7 +49,10 @@
 </template>
 
 <script>
- 
+/**
+ * @displayName AccountDropdownList is a drop down list appears when user clicks on account icon in the nav bar it shows list of options user will be able to click on all of them
+ * @example [none]
+ */
 export default {
   name: 'Dropdown',
   props: {
@@ -58,13 +61,28 @@ export default {
 
   },
   methods:{
+     /**
+     * Function fire event in the store to change colortheme of the website - it switches between 6 themes -when user click on the brush icon in account drop down list in the nav bar
+     * @public This is a public method
+     * @param {none}
+     */
     changePalete(title){
       if(title == "Change palette")
         this.$store.commit('changePalette');
     },
+    /**
+     * Function to control openning the account dropdown list
+     * @public This is a public method
+     * @param {none}
+     */
      toggleDropdown () {
       this.isOpen = !this.isOpen
     },
+    /**
+     * Function to control closing the account dropdown list if user clicks outside it
+     * @public This is a public method
+     * @param {none}
+     */
     close (e) {
       if (!this.$el.contains(e.target)) {
         this.isOpen = false
@@ -78,9 +96,19 @@ export default {
     }
   },
   computed: {
+     /**
+     * Function to get the home page color theme array from the store
+     * @public This is a public method
+     * @param {none}
+     */
         homeTheme: function(){
             return this.$store.state.homeTheme;
         },
+         /**
+     * Function to get the home page colortheme Index from the store
+     * @public This is a public method
+     * @param {none}
+     */
         homeThemeIndex: function(){
             return this.$store.state.homeThemeIndex;
         },

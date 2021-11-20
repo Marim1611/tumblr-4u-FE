@@ -1,5 +1,5 @@
 <template>
-  <md-dialog v-bind:md-active.sync="postToBegin" >
+  <md-dialog v-bind:md-active.sync="postToBegin">
     <md-dialog-content>
       <CreatePostUploadImage />
       <div v-if="imgChosen">
@@ -37,7 +37,10 @@
 
 <script>
 import CreatePostUploadImage from "./CreatePostUploadImage.vue";
- 
+/**
+ * @displayName Create post for images
+ * @example [none]
+ */
 export default {
   props: {
     imagePost: {
@@ -45,8 +48,7 @@ export default {
     },
   },
   components: {
-    'CreatePostUploadImage':CreatePostUploadImage,
-     
+    CreatePostUploadImage: CreatePostUploadImage,
   },
 
   data() {
@@ -58,21 +60,42 @@ export default {
     };
   },
   methods: {
+    /**
+     * Function to close the image upload section for create post
+     * @public This is a public method
+     * @param {none}
+     */
     closeTextBox() {
       this.$emit("closeimageBox", false);
       this.postContent = null;
       this.postTitle = null;
     },
 
+    /**
+     * Function to recieve the content written inside the post from the text editor file
+     * @public This is a public method
+     * @param {Boolean} content --> boolean sent from the create post section when clicking on image post to start uploading one
+     */
     onTextClick(content) {
       this.postContent = content;
     },
+
+    /**
+     * Function to publish the post and save its content
+     * @public This is a public method
+     * @param {none}
+     */
     postDone() {
       console.log(this.$refs.titleRefs.$el.outerHTML);
     },
   },
 
   computed: {
+    /**
+     * Function to know if the image upload post should appear or not
+     * @public This is a public method
+     * @param {none}
+     */
     postToBegin: {
       get() {
         return this.imagePost;
@@ -81,7 +104,11 @@ export default {
         return newVal;
       },
     },
-
+    /**
+     * Function to know if the post containing content to be displayed or not and activate or deactivate the post button according to this
+     * @public This is a public method
+     * @param {none}
+     */
     disablePosting() {
       if (
         this.postContent === null &&
@@ -138,10 +165,9 @@ input[type="text"] {
   margin-top: 10px;
   display: flex;
   flex-direction: row;
- 
+
   position: absolute;
   right: 24px;
-  
 }
 
 .nonDisabledBtn {

@@ -110,7 +110,10 @@
 import DropdownList from "./AccountDropDownList.vue";
 import NewPostItem from "./HomePageNewPost.vue";
 import SearchBar from "./HomePageSearchBar.vue";
-
+/**
+ * @displayName Home page Navigation Bar 
+ * @example [none]
+ */
 export default {
   name: "HomeNavbar",
 
@@ -158,9 +161,19 @@ export default {
     SearchBar: SearchBar,
   },
   computed: {
+    /**
+     * Function to get the home page color theme array from the store
+     * @public This is a public method
+     * @param {none}
+     */
     homeTheme: function () {
       return this.$store.state.homeTheme;
     },
+    /**
+     * Function to get the home page colortheme Index from the store
+     * @public This is a public method
+     * @param {none}
+     */
     homeThemeIndex: function () {
       return this.$store.state.homeThemeIndex;
     },

@@ -123,9 +123,14 @@
 </template>
 
 <script>
+
 import TumblrDrawer from "./TumblrsDrawer.vue";
 //import Avatar from 'vue-avatar'
 import Vue from "vue";
+/**
+ * @displayName SearchBar of the home page shows list of user intersts if he didn't type any thing otherwise show realted other users or tags
+ * @example [none]
+ */
 export default {
   data: function () {
     return {
@@ -185,20 +190,39 @@ export default {
     //  'Avatar':Avatar
   },
   methods: {
+     /**
+     * Function to make the items visible only that appear in the dropdown list to match what the user type in the search bar
+     * @public This is a public method
+     * @param {none}
+     */
     itemVisible(item) {
       let currentName = item.toLowerCase();
       let currentInput = this.inputValue.toLowerCase();
       return currentName.includes(currentInput);
     },
-
+   /**
+     * Function to control openning the search dropdown list
+     * @public This is a public method
+     * @param {none}
+     */
     toggleDropdown() {
       this.isClicked = !this.isClicked;
     },
+     /**
+     * Function to control closing the search dropdown list if user clicks outside it
+     * @public This is a public method
+     * @param {none}
+     */
     close(e) {
       if (!this.$el.contains(e.target)) {
         this.isClicked = false;
       }
     },
+     /**
+     * Function to open the drawer profile of the some user that appears in the search dropdown list when you click on the user
+     * @public This is a public method
+     * @param {none}
+     */
     openDrawer(name, avatar, cover) {
       this.showBlogDrawer = !this.showBlogDrawer;
       Vue.set(this.tumblrsObj, "name", name);
@@ -207,9 +231,19 @@ export default {
     },
   },
   computed: {
+     /**
+     * Function to get the home page color theme array from the store
+     * @public This is a public method
+     * @param {none}
+     */
     homeTheme: function () {
       return this.$store.state.homeTheme;
     },
+     /**
+     * Function to get the home page colortheme Index from the store
+     * @public This is a public method
+     * @param {none}
+     */
     homeThemeIndex: function () {
       return this.$store.state.homeThemeIndex;
     },

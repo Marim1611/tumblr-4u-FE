@@ -14,7 +14,6 @@
       <!-- <md-dialog-title>mariemzayn22</md-dialog-title> -->
       <v-textarea
         name="input-7-1"
-        filled
         placeholder="Title"
         auto-grow
         rows="2"
@@ -70,6 +69,10 @@
 
 <script>
 import CreatePostTextEditor from "./CreatePostTextEditor.vue";
+/**
+ * @displayName Create post for text
+ * @example [none]
+ */
 export default {
   props: {
     textPost: Boolean,
@@ -102,15 +105,31 @@ export default {
     //   if (selectedIndex === 1) this.selectedPostOption = "Mariem";
     // },
 
+    /**
+     * Function to close the text upload section for create post
+     * @public This is a public method
+     * @param {none}
+     */
     closeTextBox() {
       this.$emit("closeTextBox", false);
       this.postContent = null;
       this.postTitle = null;
     },
 
+    /**
+     * Function to recieve the content written inside the post from the text editor file
+     * @public This is a public method
+     * @param {Boolean} content --> boolean sent from the create post section when clicking on text post to start uploading one
+     */
     onTextClick(content) {
       this.postContent = content;
     },
+
+    /**
+     * Function to publish the post and save its content
+     * @public This is a public method
+     * @param {none}
+     */
     postDone() {
       console.log(this.$refs.titleRefs.$el.outerHTML);
       // console.log(this.postContent);
@@ -118,6 +137,11 @@ export default {
   },
 
   computed: {
+    /**
+     * Function to know if the text upload post should appear or not
+     * @public This is a public method
+     * @param {none}
+     */
     postToBegin: {
       get() {
         return this.textPost;
@@ -127,6 +151,11 @@ export default {
       },
     },
 
+    /**
+     * Function to know if the post containing content to be displayed or not and activate or deactivate the post button according to this
+     * @public This is a public method
+     * @param {none}
+     */
     disablePosting() {
       if (
         this.postContent === null &&
@@ -139,17 +168,30 @@ export default {
 };
 </script>
 <style>
+.v-text-field.v-text-field--enclosed:not(.v-text-field--rounded)
+  > .v-input__control
+  > .v-input__slot,
+.v-text-field.v-text-field--enclosed .v-text-field__details {
+  padding: 0;
+}
+
+v-input:focus {
+  border: none;
+  outline: none;
+}
 .v-text-field.v-text-field--enclosed:not(.v-text-field--rounded) {
   border-radius: 0;
   outline: none;
   border: none;
+  padding: 0;
 }
 
 .theme--light.v-text-field--filled > .v-input__control > .v-input__slot {
   background: white;
   border: none;
+  padding: 0;
 }
-.v-textarea textarea {
+.v-textarea > textarea {
   max-width: 30vw;
   font-size: 36px;
   font-weight: 400;

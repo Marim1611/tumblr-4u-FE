@@ -37,7 +37,10 @@ import MobileNavBar from "./HomePageMobileNavBar.vue";
 import NavBar from "./HomePageNavBar.vue";
 import CreatPostSection from "../createPost/CreatePostSection.vue";
 import DashBoard from "./HomePageViewPost.vue";
-
+/**
+ * @displayName Home page that contains dashboard and create post compnents 
+ * @example [none]
+ */
 export default {
   name: "HomePage",
   components: {
@@ -51,9 +54,19 @@ export default {
     homeTheme: function () {
       return this.$store.state.homeTheme;
     },
+     /**
+     * Function to get the home page colortheme Index from the store
+     * @public This is a public method
+     * @param {none}
+     */
     homeThemeIndex: function () {
       return this.$store.state.homeThemeIndex;
     },
+     /**
+     * Function to get post data from the store to show them in post card in the home page
+     * @public This is a public method
+     * @param {none}
+     */
     dashBoardPosts: function () {
       return this.$store.state.blogs;
     },
