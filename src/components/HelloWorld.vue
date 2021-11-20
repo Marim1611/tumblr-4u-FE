@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import NavBar from '../homePage/HomePageNavBar'; 
+import NavBar from '../components/homePage/HomePageNavBar.vue'; 
 export default {
   name: 'HelloWorld',
   components: {

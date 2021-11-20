@@ -2,6 +2,7 @@
 <div class='root '>
    <Header/>
     <b-container class="bv-example-row ">
+
       <b-row>
         <h1 class="Main">Tumblr4U</h1>
         <b-col></b-col>
@@ -44,6 +45,50 @@
       </div>
   
    <div class="d7k"></div>
+<!-- =======
+          <h1>Tumblr4U</h1>
+ 
+          <p v-if="InputError" class="DynamiError">{{this.ErrorMsg}}</p>
+          <div class="TheForm">
+            <b-form  v-if="show">
+              <b-input-group size="sm" class="mb-2">
+                <b-input-group-prepend is-text>
+                  <b-icon  icon="envelope"></b-icon>
+                </b-input-group-prepend>
+                <b-form-input 
+                    id="input-1"
+                    v-model="email"
+                    placeholder="Email">
+                </b-form-input>
+              </b-input-group>
+                <b-input-group size="sm" class="mb-2"> 
+                  <b-input-group-prepend is-text>
+                    <b-icon icon="shield-lock"></b-icon>
+                  </b-input-group-prepend>
+                  <b-form-input
+                      type="password" 
+                      id="input-2" 
+                      v-model="password"
+                      aria-describedby="password-help-block" 
+                      placeholder="Password">
+                  </b-form-input>
+                </b-input-group>
+                  
+              
+              <h6>By clicking "log in", or continuing with the other options below, you agree to Tumblr’s Terms of Service and have read the Privacy Policy</h6>
+               <router-link to="/home" > 
+              <b-button v-on:click="Submit($event)"  size="lg" class="buttonTop" type="submit" block variant="info">Log in</b-button>
+   </router-link>
+                 
+ 
+          </b-form>
+
+          </div>
+          
+          <div class="striped-border"></div>
+          
+
+>>>>>>> main -->
         </b-col>
         <b-col></b-col>
       </b-row>
@@ -74,6 +119,7 @@ export default {
 
       errors: [],
  
+
     }
   },
 
@@ -117,8 +163,7 @@ export default {
 
         //password validation
       var illegalChars = /[\W_]/; // allow only letters and numbers
- 
- 
+
   
       if ((this.userPassword.length < 7) || (this.userPassword.length > 15)) {
        this.passwordError = true;
@@ -150,6 +195,9 @@ export default {
 components: {
       'Header':Header 
   },
+components: {
+      'Header':Header 
+  },
   
 }
   
@@ -178,6 +226,7 @@ components: {
   text-align: center
  
 }
+ 
 
 .striped-border{ 
   border: 2px solid white;
@@ -201,7 +250,6 @@ components: {
   margin:20px 0 20px 0 ;
   width: 230px;
 }
- 
 
 .privacy{
   font-size:0.8rem;
@@ -210,11 +258,11 @@ components: {
 .d7k{
  height:5rem;
 }
+
 .buttonBot{
   text-align:left ;
   margin-bottom:10px ;
   font-size: 1rem;
 }
- 
 
 </style>

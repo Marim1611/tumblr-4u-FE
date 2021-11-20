@@ -1,12 +1,14 @@
 //import { createRouter, createWebHistory } from 'vue-router'
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Explore from '../components/HelloWorld.vue'
-import Home from '../homePage/HomePage.vue'
+import Explore from '../components/HelloWorld.vue' 
+import Home from '../components/homePage/HomePage.vue'
 import SignIn from '../components/SignIn.vue'
 import SignUp from '../components/SignUp.vue'
 import WelcomePage from '../components/WelcomePage.vue'
-import DashBoard from '../homePage/HomePageNewPost.vue'
+import DashBoard from '../components/homePage/HomePageNewPost.vue'
+import NewBlog from '../components/blog/CreateNewBlogPage'
+import CreatedBlog from '../components/blog/CreatedBlogPage'
 Vue.use(VueRouter);
 const routes = [
   {
@@ -42,6 +44,19 @@ const routes = [
         name: 'dashBoard',
         component:DashBoard
       },
+ 
+      {
+        path: '/new/blog',
+        name: 'newBlog',
+        component:NewBlog
+      },
+  
+      {
+        path: '/blog/created',
+        name: 'createdBlog',
+        component:CreatedBlog
+      },
+
   
 ]
 

@@ -1,6 +1,8 @@
 <template>
 <div id="TheHeader">
+ 
     <b-navbar class="NavBar" toggleable="sm" type="dark" variant="faded">
+ 
         <b-navbar-brand class="NavBarBrand" href="#">T4U</b-navbar-brand>
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
         <b-collapse id="nav-collapse" is-nav>
@@ -11,8 +13,10 @@
             </b-navbar-nav>
             <div class="NavBarRight">
                 <b-navbar-nav class="navButtons">
+ 
                      <b-button size="md" class="navButtons"  variant="success">Log in</b-button>
                     <b-button size="md" class="navButtons"  variant="primary">Sign up</b-button>
+ 
                 </b-navbar-nav>
             </div>
             

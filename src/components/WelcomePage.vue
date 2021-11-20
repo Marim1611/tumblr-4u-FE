@@ -1,6 +1,4 @@
 <template>
-    
-      
     <div class="Heading img">
      <Header/>
      <h1 class="Main">Temblr4U</h1>
@@ -12,6 +10,7 @@
        
     <b-col col lg="3">
       
+ 
       <p>Make stuff, look at stuff,</p>
       <p>talk about stuff, find your people.</p>
       <div>
@@ -43,14 +42,10 @@
     </b-col>
      <b-col></b-col>
 
-    
   </b-row>
 </b-container>
 
     </div>
-    
-    
-    
 </template>
 <script>
 import Header from './WelcomePageHeader.vue'
@@ -91,6 +86,12 @@ export default {
   height: 100%; 
   width:100%;
   line-height: 1;
+ 
+}
+#Heading{
+  font-family: 'Ubuntu', sans-serif;
+  margin-top: 20px;
+  line-height: 1.5;
   text-align: center;
 }
 .buttonTop{
@@ -106,10 +107,10 @@ export default {
   border: 2px solid #D3E4CD; 
   width: 115px; 
   margin: auto; 
-  
 }
 .d7k{
 
   height: 5.1rem;
 }
+ 
 </style>
