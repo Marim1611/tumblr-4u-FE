@@ -1,8 +1,8 @@
 <template>
 
   <div id="app">
-     <router-view/> 
-       
+     <!--<router-view/> -->
+       <CreatedBlog/>
         
      
 
@@ -14,15 +14,16 @@
 <script>
  
  
- 
+// import NewBlog from './components/blog/CreateNewBlogPage'
+import CreatedBlog from './components/blog/CreatedBlogPage'
 export default {
 
   name: 'App',
  
 
   components: {
-
-     
+//NewBlog
+  CreatedBlog   
   },
   data(){
 
