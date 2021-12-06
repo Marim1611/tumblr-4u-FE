@@ -27,7 +27,7 @@ export const store = new Vuex.Store({
             {backgroundColor: 'black',fontColor:'#ff6400', cardColor:'#221000', fontStyle: 'Lucida Console'},
             {backgroundColor: '#1A2735',fontColor:'#BFBFBF', cardColor:'#36465D', fontStyle: 'Fantasy'},
             {backgroundColor: 'black',fontColor:'#CF43ED', cardColor:'#0C0C0C', fontStyle: 'Garamond'}, 
-            {backgroundColor: '#1a1a00',fontColor:'#808000', cardColor:'#ffff66', fontStyle: 'Georgia'}, 
+            {backgroundColor: '#1a1a00',fontColor:'#ffff66', cardColor:'#808000', fontStyle: 'Georgia'}, 
                
  
         ]      , 

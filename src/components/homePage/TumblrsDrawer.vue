@@ -192,7 +192,8 @@
               padding: 'auto',
             }"
           >
-            {{ this.tumblrsObj.name }}
+            <!-- {{ this.tumblrsObj.name }} -->
+            {{ name }}
           </p>
         </div>
       </div>
@@ -202,6 +203,7 @@
 
 <script>
 import Avatar from "vue-avatar";
+import { fetchName } from '@/services/fetchers'
 import Vue from "vue";
 /**
  *  TumblrDrawer with profile view of a tumblr user -not the current user- should appear when current user clicks on some user in the search drop down list
@@ -216,6 +218,7 @@ export default {
     return {
       isFollow: { status: "Follow" },
       inputValue: "",
+      name:"",
       avatarPhoto:
         "https://assets.tumblr.com/images/default_avatar/octahedron_closed_128.png",
       isOpendotted: false,
@@ -261,6 +264,15 @@ export default {
     
     tumblrsObj: Object,
   },
+   async created() {
+    try {
+      this.name = await fetchName()
+    }
+    catch(error){
+      this.name = 'server error :('
+    }
+  }
+  
 };
 </script>
 
