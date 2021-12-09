@@ -10,57 +10,36 @@
         </b-col>
         
         <b-col lg="3" >
-          
+           <form @submit.prevent="handel">
+            <div class="error" v-if="emptyError">You do have to fill this stuff out, you know.</div>
+            <div class="error" v-else-if="emailError">You forgot to enter your email!</div>
+            <div class="error" v-else-if="passwordError">You forgot to enter your password!</div>
+            <div class="error" v-else-if="blogError">You forgot to enter your blog Name!</div>
+            <div class="error" v-else-if="invalidEmail">That's not a valid email address. Please try again.</div>
+            <div class="error" v-else-if="invalidPassword">The password should be between 7 : 15 charachters.</div>
+            <div class="error" v-else-if="lenghtError">The password should be between 8 : 15 charachters.</div>
+            <div class="error" v-else-if="invalidtext">please Fill all inputs.</div>
 
-          <form @submit.prevent="Validation">
-            <div class="form-group">
-              <input type="text"
-               class="form-control formInput" 
-               v-bind:class="{ 'is-invalid': emailError }" 
-               id="mail" placeholder="Email" v-model="userEmail">
-              <div class="invalid-feedback" id="feedback-1" v-if="errors[0]">
-                {{ errors[0].message }}
-              </div>
-            </div>
 
-            <div class="form-group">
-              <input 
-              type="password" 
-              class="form-control formInput" 
-              v-bind:class="{ 'is-invalid': passwordError }" 
-              id="password" placeholder="Password" v-model="userPassword">
-              <div class="invalid-feedback" id="feedback-2" v-if="errors[1]">
-                {{ errors[1].message }}
-              </div>
+            <div class="mb-3">
+              <input type="text" class="form-control formInput" id="inputemail" placeholder="Email" v-model="userEmail" @blur="validateEmail">
             </div>
+            <div class="mb-3">
+              <input type="password" class="form-control formInput" id="pass" placeholder="Password" v-model="userPassword" @blur="validatePassword">
+            </div>
+            <div class="mb-3">
+              <input type="text" class="form-control formInput " id="blog" placeholder="Blog Name" v-model="userBlogName" @blur="validateBlogName">
+               
+            </div>
+            <h6 class="privacy">By clicking "log in", or continuing with the other options below, you agree to Tumblr’s Terms of Service and have read the Privacy Policy</h6>
+              <button  class="btn btn-info buttonTop" type="submit">Sign up</button>
 
-            <div class="form-group">
-            <input 
-            type="text" 
-            class="form-control formInput" 
-            v-bind:class="{ 'is-invalid': blogError }" 
-            id="blog" placeholder="Blog Name" v-model="userBlogName">
-            <div class="invalid-feedback" id="feedback-3" v-if="errors[2]">
-              {{ errors[2].message }}
-            </div>
-            </div>
-            
-              <h6 class="privacy">By clicking "sign up", or continuing with the other options below, you agree to Tumblr’s Terms of Service and have read the Privacy Policy</h6>
-              <button v-if="!cleanEmail" class="btn btn-info buttonTop" type="submit">Sign up</button>
-              <button v-else-if="!cleanPassword" class="btn btn-info buttonTop" type="submit">Sign up</button>
-              <button v-else-if="!cleanBlogName" class="btn btn-info buttonTop" type="submit">Sign up</button>
-
-           <router-link v-else to='/home' >
-            <button  class="btn btn-info buttonTop" type="submit">Sign up</button>
-            </router-link>
-					</form>
+          </form>
           <div class="striped-border"></div>
           <br>
           <div>
           <b-button size="lg" class="buttonBot"  block variant="light"><b-icon icon="google"></b-icon> Continue with Google</b-button>
-      </div>
-      
-    
+          </div>
       <div class="d7k"></div>
       </b-col>
   <b-col></b-col>
@@ -75,8 +54,9 @@
 </template>
 
 <script>
-import {mapFields} from 'vuex-map-fields';
+
 import Header from './WelcomePageHeader.vue'
+
 /**
  *   A complete SignUp template    
  * @example [none]
@@ -90,14 +70,19 @@ export default {
       userEmail: '',
       userPassword: '',
       userBlogName: '',
- 
+      emptyError:'',
       passwordError: false,
 			emailError: false,
       blogError:false,
-      errors:[],
       cleanEmail:false,
       cleanPassword:false,
-      cleanBlogName:false
+      cleanBlogName:false,
+      invalidEmail:false,
+      invalidPassword:false,
+      lenghtError:false,
+      invalidtext:false,
+
+ 
     }
   },
   methods:{
@@ -105,105 +90,73 @@ export default {
       * Gets Called When user clicks Sign up button
       * @public
      */
-    Validation:function(){
-      this.errors = [];
+     validateEmail(){
+       if(!this.userEmail&&!this.userPassword&&!this.userBlogName)
+       {
+         this.emptyError=true;
+       }
+      //validate Email
       var  apos=this.userEmail.indexOf('@');
       var dotpos=this.userEmail.indexOf('.');
       // email validate
       //IF the fields are empty the counter value will be 0 
-    if(!this.userEmail)
-    {
-        this.emailError = true;
-        this.errors.push({
-            'message': 'you forgot to enter Email.'
-        });
-    }
-      
-    else if(apos<1||dotpos-apos<2){
-      this.emailError = true;
-        this.errors.push({
-        'message': 'The Mail should contain @ and .'
-        });
-    }
-				
-		else {
-					document.getElementById('mail').className = "form-control is-valid";
-					this.errors.push({
-						'message': 'Validated.'
-					});
-					document.getElementById('feedback-1').className = "valid-feedback";
-          this.cleanEmail=true;
-				}
-        //password validation
-      var illegalChars = /[\W_]/; // allow only letters and numbers
- 
- 
-  
-      if ((this.userPassword.length < 7) || (this.userPassword.length > 15)) {
-       this.passwordError = true;
-					this.errors.push({
-						'message': 'The password should be between 7 : 15 charachters.'
-					});
-    }
-      else if (illegalChars.test(this.userPassword.value)) {
-        this.passwordError = true;
-					this.errors.push({
-						'message': 'The password contains illegal characters.'
-					});
-    } 
-    else if ( (this.userPassword.search(/[a-zA-Z]+/)==-1) || (this.userPassword.search(/[0-9]+/)==-1) ) {
-        this.passwordError = true;
-					this.errors.push({
-						'message': 'The password contains illegal characters.'
-					});
-    }
+      if(apos<1||dotpos-apos<2){
+      this.emptyError=false;
+      this.invalidEmail = true;  
+      }
+      else{
+        this.invalidEmail=false;
+        this.cleanEmail=true;
+      }
+     },
+     validatePassword(){
+         //password validation
+      if ((this.userPassword.length < 8) || (this.userPassword.length > 15)) {
+        this.lenghtError=true;	
+     }
+     
     else{
-      document.getElementById('password').className = "form-control is-valid";
-					this.errors.push({
-						'message': 'Validated.'
-					});
-					document.getElementById('feedback-2').className = "valid-feedback";
+          this.lenghtError=false;
           this.cleanPassword=true;
     }
-    //blog
-    if(!this.userBlogName)
-    {
+
+     },
+     validateBlogName(){
+       if(!this.userBlogName){
         this.blogError = true;
-        this.errors.push({
-            'message': 'you forgot to enter Blg Name.'
-        });
+      }else{
+        this.cleanBlogName=true;
+      }
+
+     },
+
+     handel:function()
+     {
+
+      if(this.cleanEmail&&this.cleanPassword&&this.cleanBlogName){
+      let email=this.userEmail
+      let password=this.userPassword
+      let blogname=this.userBlogName
+      console.log("signup dipatch function")
+      this.$store.dispatch('signup',{email,password,blogname})
+      .then(()=>this.$router.push('/home'))
+      .catch(err=>console.log(err))
     }
-    else
-    {
-      document.getElementById('blog').className = "form-control is-valid";
-					this.errors.push({
-						'message': 'Validated.'
-					});
-					document.getElementById('feedback-3').className = "valid-feedback";
-          this.cleanBlogName=true;
-    }
+    else{
+        this.invalidtext=true;
+      }
     
       
     } 
-    },
-    
-  computed:{
-     ...mapFields([
-      'user.email',
-      'user.password',
-      'user.blogName'
-    ]),
-    
-   
   },
   props: {
     msg: String
   },
   components: {
-      'Header':Header 
+      'Header':Header ,
+     
   },
-}
-  
+};
 </script>
 
 
@@ -249,5 +202,14 @@ export default {
 }
 .d7k{
  height:4.5rem;
+}
+.error{
+    background: rgba(0,0,0,.25);
+    border-radius: 3px;
+    color: #fff;
+    font-size: .875rem;
+    font-weight: 400;
+    margin: 15px 0;
+    padding: 14px 15px;
 }
 </style>
