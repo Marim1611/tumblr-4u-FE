@@ -8,35 +8,24 @@
         <b-col></b-col>
 
         <b-col col lg="3">
-          <form @submit.prevent="Validation">
-            <div class="form-group">
-              <input type="text"
-               class="form-control formInput" 
-               v-bind:class="{ 'is-invalid': emailError }" 
-               id="mail" placeholder="Email" v-model="userEmail">
-              <div class="invalid-feedback" id="feedback-1" v-if="errors[0]">
-                {{ errors[0].message }}
-              </div>
+          <form @submit.prevent="handel">
+            <div class="error" v-if="emptyError">You do have to fill this stuff out, you know.</div>
+            <div class="error" v-else-if="emailError">You forgot to enter your email!</div>
+            <div class="error" v-else-if="passwordError">You forgot to enter your password!</div>
+            <div class="mb-3">
+              <input type="text" class="form-control " id="exampleInputEmail1" placeholder="Email" v-model="userEmail">
+              
             </div>
-
-            <div class="form-group">
-              <input 
-              type="password" 
-              class="form-control formInput" 
-              v-bind:class="{ 'is-invalid': passwordError }" 
-              id="password" placeholder="Password" v-model="userPassword">
-              <div class="invalid-feedback" id="feedback-2" v-if="errors[1]">
-                {{ errors[1].message }}
-              </div>
+            <div class="mb-3">
+              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" v-model="userPassword">
             </div>
             <h6 class="privacy">By clicking "log in", or continuing with the other options below, you agree to Tumblr’s Terms of Service and have read the Privacy Policy</h6>
-             <button v-if="!cleanEmail" class="btn btn-info buttonTop" type="submit">Log in</button>
-              <button v-else-if="!cleanPassword" class="btn btn-info buttonTop" type="submit">Log in</button>  
-            <router-link v-else to='/home' >
-            <button  class="btn btn-info buttonTop" type="submit">Log in</button>
-            </router-link>
+             <button  class="btn btn-info buttonTop" type="submit">Log in</button>
+          </form>
+         
             
-					</form>
+
+           
           <a class="pass" href="#">ForgotPassowrd</a>
    <div class="striped-border"></div>
    <br>
@@ -54,109 +43,56 @@
 </template>
 
 <script>
-import {mapFields} from 'vuex-map-fields';
 import Header from './WelcomePageHeader.vue'
-/**
- * A complete LogIn template    
- * @example [none]
- */
-  
+
 export default {
-  name: 'SignIn',
-  data(){
-    return{
-      
-      userEmail: '',
-      userPassword:'',
-     
-      passwordError: false,
-			emailError: false,
-      cleanEmail:false,
-      cleanPassword:false,
+  
+  data: () => ({
+    userPassword: '',
+    userEmail: '',
+    emptyError:false,
+    passwordError: false,
+		emailError: false,
+    cleanEmail:false,
+    cleanPassword:false,
 			
       errors: [],
- 
-    }
-  },
-  computed:{
-    ...mapFields([
-      'user.email',
-      'user.password',
-    ]),
-  },
-  methods:{
-    /** 
-      * Gets Called When user clicks Sign up button
-      * @public
-     */
-    Validation:function(){
-      this.errors = [];
-      var  apos=this.userEmail.indexOf('@');
-      var dotpos=this.userEmail.indexOf('.');
-      // email validate
-      //IF the fields are empty the counter value will be 0 
-    if(!this.userEmail)
-    {
-        this.emailError = true;
-        this.errors.push({
-            'message': 'you forgot to enter Email.'
-        });
-    }
-      
-    else if(apos<1||dotpos-apos<2){
-      this.emailError = true;
-        this.errors.push({
-        'message': 'The Mail should contain @ and .'
-        });
-    }
-				
-		else {
-					document.getElementById('mail').className = "form-control is-valid";
-					this.errors.push({
-						'message': 'Validated.'
-					});
-					document.getElementById('feedback-1').className = "valid-feedback";
-          this.cleanEmail=true;
-				}
-        //password validation
-      var illegalChars = /[\W_]/; // allow only letters and numbers
+  }),
   
-      if ((this.userPassword.length < 7) || (this.userPassword.length > 15)) {
-       this.passwordError = true;
-					this.errors.push({
-						'message': 'The password should be between 7 : 15 charachters.'
-					});
-    }
-      else if (illegalChars.test(this.userPassword.value)) {
-        this.passwordError = true;
-					this.errors.push({
-						'message': 'The password contains illegal characters.'
-					});
-    } 
-    else if ( (this.userPassword.search(/[a-zA-Z]+/)==-1) || (this.userPassword.search(/[0-9]+/)==-1) ) {
-        this.passwordError = true;
-					this.errors.push({
-						'message': 'The password contains illegal characters.'
-					});
-    }
-    else{
-      document.getElementById('password').className = "form-control is-valid";
-					this.errors.push({
-						'message': 'Validated.'
-					});
-					document.getElementById('feedback-2').className = "valid-feedback";
-          this.cleanPassword=true;
-    }
-    },
-      },
-components: {
-      'Header':Header 
-  },
- 
-}
-  
-</script>
+  methods: {
+    handel(){
+        this.errors = [];
+      if(!this.userEmail&&!this.userPassword)
+      {
+          this.emptyError = true;
+      }
+      else if(!this.userEmail&&this.userPassword)
+      {
+        this.emptyError=false;
+        this.emailError=true;
+      }
+      else if(!this.userPassword&&this.userEmail)
+      {
+        this.emptyError=false;
+        this.passwordError=true;
+      }
+      else{
+        let email=this.userEmail
+        let password=this.userPassword
+        this.$store.dispatch('login',{email,password})
+        .then(()=>this.$router.push('/home'))
+        .catch(err => console.log(err))
+      }
 
+    }, 
+      
+    },
+  components:{
+    Header,
+   
+  },
+};
+</script>
 
 <style scoped>
 .pass{
@@ -211,5 +147,14 @@ components: {
   margin-bottom:10px ;
   font-size: 1rem;
   font-weight: bold;
+}
+.error{
+    background: rgba(0,0,0,.25);
+    border-radius: 3px;
+    color: #fff;
+    font-size: .875rem;
+    font-weight: 400;
+    margin: 15px 0;
+    padding: 14px 15px;
 }
 </style>
