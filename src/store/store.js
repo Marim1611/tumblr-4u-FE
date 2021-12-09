@@ -5,8 +5,8 @@ import { getField, updateField } from 'vuex-map-fields';
 
 
 Vue.use(Vuex);
-//const baseURL = "http://localhost:3001/Users";
-const baseURL = "http://tumblr4u.eastus.cloudapp.azure.com:5000";
+const baseURL = "http://localhost:8080";
+//const baseURL = "http://tumblr4u.eastus.cloudapp.azure.com:5000";
 export const store = new Vuex.Store({
     strict: true,
     state: {
@@ -107,8 +107,8 @@ export const store = new Vuex.Store({
         return new Promise((resolve, reject) => {
               commit('auth_request')
               axios.post(baseURL+"/signup",{
-                Email: user.email,
-                Password: user.password,
+                email: user.email,
+                password: user.password,
                 Blog_Name:user.blogname,
 
               })
