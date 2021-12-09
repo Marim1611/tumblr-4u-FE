@@ -5,6 +5,7 @@ import { getField, updateField } from 'vuex-map-fields';
 
 
 Vue.use(Vuex);
+const baseURL = "http://localhost:3001/Users";
 export const store = new Vuex.Store({
     strict: true,
     state: {
@@ -81,7 +82,7 @@ export const store = new Vuex.Store({
         login({commit}, user){
             return new Promise((resolve, reject) => {
               commit('auth_request')
-              axios.post('http://localhost:3001/Users',{
+              axios.post(baseURL,{
                 Email: user.email,
                 Password: user.password
 
@@ -104,7 +105,7 @@ export const store = new Vuex.Store({
       signup({ commit }, user) {
         return new Promise((resolve, reject) => {
               commit('auth_request')
-              axios.post('http://localhost:3001/Users',{
+              axios.post(baseURL,{
                 Email: user.email,
                 Password: user.password,
                 Blog_Name:user.blogname,

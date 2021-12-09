@@ -66,6 +66,23 @@
       "Email": "asdasdasd@gmail.com",
       "Password": "asdasdasd",
       "id": 11
+    },
+    {
+      "Email": "asdasdasd@gmail.com",
+      "Password": "qwadasd",
+      "id": 12
+    },
+    {
+      "Email": "asdasdas@g.com",
+      "Password": "asdasasdasd",
+      "Blog_Name": "asdasdas",
+      "id": 13
+    },
+    {
+      "Email": "asdasd@g.com",
+      "Password": "asdasd11",
+      "Blog_Name": "adasdasdasd",
+      "id": 14
     }
   ]
 }
