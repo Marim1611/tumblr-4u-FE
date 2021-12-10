@@ -83,8 +83,8 @@ export const store = new Vuex.Store({
             return new Promise((resolve, reject) => {
               commit('auth_request')
               api().post("/login",{
-                Email: user.email,
-                Password: user.password
+                email: user.email,
+                password: user.password
 
               })
               .then(resp => {
@@ -109,7 +109,7 @@ export const store = new Vuex.Store({
               api().post("/signup",{
                 email: user.email,
                 password: user.password,
-                Blog_Name:user.blogname,
+                blogName:user.blogname,
 
               })
               .then(resp => {
