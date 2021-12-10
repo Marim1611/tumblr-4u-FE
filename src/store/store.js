@@ -2,11 +2,10 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
 import { getField, updateField } from 'vuex-map-fields';
-
+import api from '../api';
 
 Vue.use(Vuex);
 //const baseURL = "http://localhost:8080";
-const baseURL = "http://tumblr4u.eastus.cloudapp.azure.com";
 export const store = new Vuex.Store({
     strict: true,
     state: {
@@ -83,7 +82,7 @@ export const store = new Vuex.Store({
         login({commit}, user){
             return new Promise((resolve, reject) => {
               commit('auth_request')
-              axios.post(baseURL+"/login",{
+              api().post("/login",{
                 Email: user.email,
                 Password: user.password
 
@@ -107,8 +106,7 @@ export const store = new Vuex.Store({
       signup({ commit }, user) {
         return new Promise((resolve, reject) => {
               commit('auth_request')
-              console.log(baseURL+"/signup")
-              axios.post(baseURL+"/signup",{
+              api().post("/signup",{
                 email: user.email,
                 password: user.password,
                 Blog_Name:user.blogname,
