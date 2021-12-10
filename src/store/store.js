@@ -5,8 +5,8 @@ import { getField, updateField } from 'vuex-map-fields';
 
 
 Vue.use(Vuex);
-const baseURL = "http://localhost:8080";
-//const baseURL = "http://tumblr4u.eastus.cloudapp.azure.com:5000";
+//const baseURL = "http://localhost:8080";
+const baseURL = "http://tumblr4u.eastus.cloudapp.azure.com";
 export const store = new Vuex.Store({
     strict: true,
     state: {
@@ -97,6 +97,7 @@ export const store = new Vuex.Store({
                 resolve(resp)
               })
               .catch(err => {
+                console.log(err)
                 commit('auth_error')
                 localStorage.removeItem('token')
                 reject(err)
@@ -106,6 +107,7 @@ export const store = new Vuex.Store({
       signup({ commit }, user) {
         return new Promise((resolve, reject) => {
               commit('auth_request')
+              console.log(baseURL+"/signup")
               axios.post(baseURL+"/signup",{
                 email: user.email,
                 password: user.password,

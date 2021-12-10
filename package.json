@@ -1,6 +1,7 @@
 {
   "name": "tumblr-4u",
   "version": "0.1.0",
+  "proxy": "http://tumblr4u.eastus.cloudapp.azure.com:5000/",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
