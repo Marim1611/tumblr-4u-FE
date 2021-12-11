@@ -4,6 +4,7 @@ import axios from 'axios';
 import { getField, updateField } from 'vuex-map-fields';
 
 
+
 Vue.use(Vuex);
 const baseURL = "http://localhost:3001/Users";
 export const store = new Vuex.Store({
@@ -15,9 +16,9 @@ export const store = new Vuex.Store({
       user: {
         email: "",
         password: "",
-        blogname:""
-        },
- 
+        blogname: "",
+        age:0
+      },
         // we need to replace this with bodyColor in DB as each user has his theme color
         homeThemeIndex:0,
         homeTheme: [
@@ -73,19 +74,17 @@ export const store = new Vuex.Store({
           },
           auth_error(state){
             state.status = 'error'
-          },
-        
- 
-       
+      },
+            
+
     },
     actions: {
-        login({commit}, user){
+      login({ commit }, user) {
             return new Promise((resolve, reject) => {
               commit('auth_request')
               axios.post(baseURL,{
                 Email: user.email,
                 Password: user.password
-
               })
               .then(resp => {
                 const token = resp.data.token
@@ -106,12 +105,12 @@ export const store = new Vuex.Store({
         return new Promise((resolve, reject) => {
               commit('auth_request')
               axios.post(baseURL,{
-                Email: user.email,
-                Password: user.password,
-                Blog_Name:user.blogname,
-
+                Email:this.state.user.email,
+                Password: this.state.user.password,
+                Blog_Name: this.state.user.blogname,
+                Age:user.age,
               })
-              .then(resp => {
+                .then(resp => {
                 const token = resp.data.token
                 const user = resp.data.user
                 localStorage.setItem('token', token)
@@ -126,6 +125,9 @@ export const store = new Vuex.Store({
               })
             })
         
-      }
+      },
+      
+
+      
     }
 });

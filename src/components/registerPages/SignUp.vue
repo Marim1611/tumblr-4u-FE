@@ -12,23 +12,21 @@
         <b-col lg="3" >
            <form @submit.prevent="handel">
             <div class="error" v-if="emptyError">You do have to fill this stuff out, you know.</div>
-            <div class="error" v-else-if="emailError">You forgot to enter your email!</div>
-            <div class="error" v-else-if="passwordError">You forgot to enter your password!</div>
-            <div class="error" v-else-if="blogError">You forgot to enter your blog Name!</div>
+            <div class="error" v-else-if="emptyEamil">You forgot to enter your email!</div>
+            <div class="error" v-else-if="emptypassword">You forgot to enter your password!</div>
+            <div class="error" v-else-if="emptyBlog">You forgot to enter your blog Name!</div>
             <div class="error" v-else-if="invalidEmail">That's not a valid email address. Please try again.</div>
             <div class="error" v-else-if="invalidPassword">The password should be between 7 : 15 charachters.</div>
-            <div class="error" v-else-if="lenghtError">The password should be between 8 : 15 charachters.</div>
-            <div class="error" v-else-if="invalidtext">please Fill all inputs.</div>
-
+          
 
             <div class="mb-3">
-              <input type="text" class="form-control formInput" id="inputemail" placeholder="Email" v-model="userEmail" @blur="validateEmail">
+              <input type="text" class="form-control formInput" id="email" placeholder="Email" v-model="email"  >
             </div>
             <div class="mb-3">
-              <input type="password" class="form-control formInput" id="pass" placeholder="Password" v-model="userPassword" @blur="validatePassword">
+              <input type="password" class="form-control formInput" id="pass" placeholder="Password" v-model="password" >
             </div>
             <div class="mb-3">
-              <input type="text" class="form-control formInput " id="blog" placeholder="Blog Name" v-model="userBlogName" @blur="validateBlogName">
+              <input type="text" class="form-control formInput " id="blog" placeholder="Blog Name" v-model="blogname" >
                
             </div>
             <h6 class="privacy">By clicking "log in", or continuing with the other options below, you agree to Tumblr’s Terms of Service and have read the Privacy Policy</h6>
@@ -48,14 +46,17 @@
   </b-row>
 </b-container>
 </div>        
+
        
-         
+        
 
 </template>
 
 <script>
 
 import Header from './WelcomePageHeader.vue'
+import { mapFields } from 'vuex-map-fields';
+
 
 /**
  *   A complete SignUp template    
@@ -65,23 +66,15 @@ export default {
   name: 'SignUp',
   data(){
     return{
-      
-     
-      userEmail: '',
-      userPassword: '',
-      userBlogName: '',
       emptyError:'',
-      passwordError: false,
-			emailError: false,
-      blogError:false,
+      emptyEamil:false,
+      emptypassword:false,
+      emptyBlog:false,
       cleanEmail:false,
       cleanPassword:false,
       cleanBlogName:false,
       invalidEmail:false,
       invalidPassword:false,
-      lenghtError:false,
-      invalidtext:false,
-
  
     }
   },
@@ -90,72 +83,76 @@ export default {
       * Gets Called When user clicks Sign up button
       * @public
      */
-     validateEmail(){
-       if(!this.userEmail&&!this.userPassword&&!this.userBlogName)
-       {
-         this.emptyError=true;
-       }
-      //validate Email
-      var  apos=this.userEmail.indexOf('@');
-      var dotpos=this.userEmail.indexOf('.');
-      // email validate
-      //IF the fields are empty the counter value will be 0 
-      if(apos<1||dotpos-apos<2){
-      this.emptyError=false;
-      this.invalidEmail = true;  
-      }
-      else{
-        this.invalidEmail=false;
-        this.cleanEmail=true;
-      }
-     },
-     validatePassword(){
-         //password validation
-      if ((this.userPassword.length < 8) || (this.userPassword.length > 15)) {
-        this.lenghtError=true;	
-     }
-     
-    else{
-          this.lenghtError=false;
-          this.cleanPassword=true;
-    }
-
-     },
-     validateBlogName(){
-       if(!this.userBlogName){
-        this.blogError = true;
-      }else{
-        this.cleanBlogName=true;
-      }
+     resetflags(){
+      this.emptyEamil=false;
+      this.emptypassword=false;
+      this.emptyBlog=false;
+      this.invalidPassword=false;
+      this.invalidEmail=false;
 
      },
 
      handel:function()
      {
+       if(this.email===''&&this.password===''&&this.blogname==='')
+       {
+         this.emptyError=true;
+       }
+       else if(!this.email)
+       {
+         this.resetflags()
+         this.emptyEamil=true;
+       }
+       else if(!this.password){
+         this.resetflags()
+         this.emptypassword=true;
+       }
+       else if(!this.blogname){
+         this.resetflags()
+         this.emptyBlog=true
+       }
 
+       var mailformat = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+      if(this.email.match(mailformat))
+      {
+      this.cleanEmail=true;
+      }
+      else{
+        this.resetflags()
+        this.invalidEmail=true;
+      }
+      var passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
+      if(this.password.match(passw)){ 
+        this.cleanPassword=true;
+      }
+      else{ 
+        this.resetflags()
+        this.invalidPassword=true;
+      }
+      this.cleanBlogName=true;
       if(this.cleanEmail&&this.cleanPassword&&this.cleanBlogName){
-      let email=this.userEmail
-      let password=this.userPassword
-      let blogname=this.userBlogName
-      console.log("signup dipatch function")
-      this.$store.dispatch('signup',{email,password,blogname})
-      .then(()=>this.$router.push('/home'))
-      .catch(err=>console.log(err))
-    }
-    else{
-        this.invalidtext=true;
+        this.$router.push('/age');
       }
     
       
-    } 
+    } ,
+    
   },
   props: {
     msg: String
   },
   components: {
       'Header':Header ,
+      
      
   },
+  computed:{
+    ...mapFields([
+      'user.email',
+      'user.password',
+      'user.blogname' 
+    ])
+  }
 };
 </script>
 
@@ -168,7 +165,7 @@ export default {
 .root{
   font-family: 'Ubuntu', sans-serif;
   color:white;
-  background-image: url("../../assets/images/HomeBackground.jpg");
+  background-image: url("../../assets/images/1.jpg");
   background-position: center;
   background-size: cover;
   height: 100%; 

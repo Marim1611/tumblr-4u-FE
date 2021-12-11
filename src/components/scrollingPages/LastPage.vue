@@ -54,7 +54,7 @@ export default {
 
 <style scoped>
  .last{
-    background-image: url("../../assets/images/HomeBackground.jpg");
+    background-image: url("../../assets/images/1.jpg");
     background-position: center;
     background-size: cover;
     height: 100%; 
@@ -78,7 +78,7 @@ export default {
 .Heading{
   font-family: 'Ubuntu', sans-serif;
   color:white;
-  background-image: url("../../assets/images/HomeBackground.jpg");
+  background-image: url("../../assets/images/1.jpg");
   background-position: center;
   background-size: cover;
   height: 100%; 

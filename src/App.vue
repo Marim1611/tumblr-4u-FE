@@ -3,7 +3,7 @@
   <div id="app">
      <router-view/>
        <!-- <CreatedBlog/> -->
-        
+      
      
 
      
@@ -16,20 +16,27 @@
  
 // import NewBlog from './components/blog/CreateNewBlogPage'
 //import CreatedBlog from './components/blog/CreatedBlogPage'
+
 export default {
 
   name: 'App',
  
 
   components: {
+    
+    
    
   },
   data(){
 
     return{
+      user:{}
 
        
     }
+    
+  },
+  methods:{
     
   }
 }

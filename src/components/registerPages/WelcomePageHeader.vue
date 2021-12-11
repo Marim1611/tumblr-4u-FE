@@ -3,7 +3,7 @@
  
     <b-navbar class="NavBar" toggleable="sm" type="dark" variant="faded">
         
-        <router-link to="/home">
+        <router-link to="/">
         <b-navbar-brand class="NavBarBrand bra" >T4U</b-navbar-brand>
         </router-link>
 
@@ -48,9 +48,10 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 #TheHeader{
-    background-image: url("../../assets/images/HomeBackground.jpg");
-    background-position: center;
-    background-size: cover;
+    position: fixed; 
+    top: 0; 
+    width: 100%; 
+
 }
 .NavBarBrand{
     padding: 0 0 0 20px;

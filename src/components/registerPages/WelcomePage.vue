@@ -1,14 +1,12 @@
 <template>
-    <div class="Heading">
+<body>
+  <div class="Heading" id="h">
+    <Header/>
       <b-container class="bv-example-row">
-        
     <b-row> 
       <h1 class="Main">Tumblr4U</h1>
       <b-col></b-col>
-       
       <b-col lg="3">
-      
- 
       <p class="prag">Make stuff, look at stuff,</p>
       <p class="prag">talk about stuff, find your people.</p>
       <div>
@@ -38,19 +36,54 @@
   </b-row>
 </b-container>
     </div>
+</body>
+    
 </template>
 <script>
+import Header from './WelcomePageHeader.vue'
 export default {
   name: 'WelcomePage',
   props: {
     msg: String
   },
-  components: {
+  data(){
+    return{
+      img: '',
+      x:0,
+    }
   },
+  components: {
+    Header
+  },
+  methods:{
+    
+  },
+  mounted(){
+     var img=[ "../../assets/images/1.jpg",
+                "../../assets/images/2.jpg"];
+      //var size = this.img.length;
+      // var x = Math.floor(size * Math.random());
+       let x=0;
+       this.img=img[x];
+       document.body.style.backgroundImage="url('" + img[x]+ "')";
+       console.log(this.img)
+
+
+      alert(x);
+     /* var element = document.getElementsByClassName('Heading')[0];
+      element[0].style["background-image"] = "url("+ img[x] + ") no-repeat;";*/
+    
+  }
+
 }
 </script>
 
 <style scoped>
+body{
+background-image: url("../../assets/images/6.jpg");
+  background-position: center;
+  background-size: cover;
+}
 .Main{
   margin-top:50px;
   font-size: 5rem;
@@ -66,9 +99,7 @@ export default {
 .Heading{
   font-family: 'Ubuntu', sans-serif;
   color:white;
-  background-image: url("../../assets/images/HomeBackground.jpg");
-  background-position: center;
-  background-size: cover;
+  
   height: 100%; 
   width:100%;
   line-height: 1;

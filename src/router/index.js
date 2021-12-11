@@ -5,11 +5,13 @@ import Explore from '../components/HelloWorld.vue'
 import Home from '../components/homePage/HomePage.vue'
 import SignIn from '../components/registerPages/SignIn.vue'
 import SignUp from '../components/registerPages/SignUp.vue'
+import Age from '../components/registerPages/Age.vue'
 //import WelcomePage from '../components/registerPages/WelcomePage.vue'
 import Render from '../components/renderOrder/Render.vue'
 import DashBoard from '../components/homePage/HomePageNewPost.vue'
 import NewBlog from '../components/blog/CreateNewBlogPage'
 import CreatedBlog from '../components/blog/CreatedBlogPage'
+
 Vue.use(VueRouter);
 const routes = [
   {
@@ -27,6 +29,12 @@ const routes = [
     path: '/signUp',
     name: 'SignUp',
     component: SignUp,
+  },
+  
+  {
+    path: '/age',
+    name: 'age',
+    component:Age,
   },
    {
         path: '/home',

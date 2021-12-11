@@ -4,7 +4,8 @@
       "id": 0,
       "Email": "",
       "Password": "",
-      "Blog_Name": ""
+      "Blog_Name": "",
+      "Age": 0
     },
     {
       "Email": "asdasd@gmail.com",
@@ -83,6 +84,31 @@
       "Password": "asdasd11",
       "Blog_Name": "adasdasdasd",
       "id": 14
+    },
+    {
+      "Age": "42546",
+      "id": 15
+    },
+    {
+      "Email": "fsdfdsaf@sadas.com",
+      "Password": "assdasdsadASSd!1",
+      "Blog_Name": "sadasdasdas",
+      "Age": "500",
+      "id": 16
+    },
+    {
+      "Email": "nourdx73@gmail.com",
+      "Password": "asdsadW@ewe2ewd",
+      "Blog_Name": "SADASDFAF",
+      "Age": 0,
+      "id": 17
+    },
+    {
+      "Email": "nourdx73@gmail.com",
+      "Password": "sadasdasdDD1",
+      "Blog_Name": "asdsadsad",
+      "Age": "4",
+      "id": 18
     }
   ]
 }

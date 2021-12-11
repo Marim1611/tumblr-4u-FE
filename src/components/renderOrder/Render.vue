@@ -1,6 +1,5 @@
 <template>
   <div class="hello">
-     <Header/> 
      <WelcomePage/>
      <SecondPage/>
      <ThirdPage/>
@@ -14,7 +13,7 @@
 </template>
 
 <script>
-import Header from '../registerPages/WelcomePageHeader.vue'; 
+//import Header from '../registerPages/WelcomePageHeader.vue'; 
 import WelcomePage from '../registerPages/WelcomePage.vue';
 import SecondPage from '../scrollingPages/SecondPage.vue';
 import ThirdPage from '../scrollingPages/ThirdPage.vue';
@@ -25,7 +24,7 @@ import LastPage from '../scrollingPages/LastPage.vue'
 export default {
   name: 'Render',
   components: {
-    'Header':Header,
+   // 'Header':Header,
     'WelcomePage':WelcomePage,
     'SecondPage':SecondPage,
     'ThirdPage':ThirdPage,
@@ -39,7 +38,9 @@ export default {
 
 <style scoped> 
 .hello{
+  
     margin-top:0;
+
 }
  
 </style>
