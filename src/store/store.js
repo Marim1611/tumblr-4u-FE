@@ -52,14 +52,12 @@ export const store = new Vuex.Store({
                 }
         ]
      },
- 
     getters: {
         getField,
         isLoggedIn: state => !!state.token,
         authStatus: state => state.status,
     },
     mutations: {
- 
         updateField,
         changePalette: state => {
             if (state.homeThemeIndex < 5){
@@ -67,8 +65,7 @@ export const store = new Vuex.Store({
             }    
          else if (state.homeThemeIndex >= 5){
             state.homeThemeIndex=0;
-         }
-         
+         } 
         },
         auth_request(state){
             state.status = 'loading'
@@ -80,10 +77,7 @@ export const store = new Vuex.Store({
           },
           auth_error(state){
             state.status = 'error'
-          },
-        
- 
-       
+          },     
     },
     actions: {
         login({commit}, user){
@@ -94,13 +88,13 @@ export const store = new Vuex.Store({
                 password: user.password
 
               })
-              .then(resp => {
-                const token = resp.data.token
-                const user = resp.data.user
+              .then(res => {
+                const token = res.data
+                const user = res.data.user
                 localStorage.setItem('token', token)
                 axios.defaults.headers.common['Authorization'] = token
                 commit('auth_success', token, user)
-                resolve(resp)
+                resolve(res)
               })
               .catch(err => {
                 console.log(err)
@@ -119,13 +113,13 @@ export const store = new Vuex.Store({
                 blogName:user.blogname,
 
               })
-              .then(resp => {
-                const token = resp.data.token
-                const user = resp.data.user
+              .then(res => {
+                const token = res.data
+                const user = res.data.user
                 localStorage.setItem('token', token)
                 axios.defaults.headers.common['Authorization'] = token
                 commit('auth_success', token, user)
-                resolve(resp)
+                resolve(res)
               })
               .catch(err => {
                 commit('auth_error')
