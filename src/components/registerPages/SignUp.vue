@@ -1,8 +1,6 @@
 <template>
  
-<div  class='root imgg'
- v-bind:style="{
-          'background-image': 'url(' + this.BgImg + ')'}">
+<div  class='root imgg'>
    <Header/>
   <b-container class="bv-example-row tt ">
 
@@ -14,23 +12,21 @@
         <b-col lg="3" >
            <form @submit.prevent="handel">
             <div class="error" v-if="emptyError">You do have to fill this stuff out, you know.</div>
-            <div class="error" v-else-if="emailError">You forgot to enter your email!</div>
-            <div class="error" v-else-if="passwordError">You forgot to enter your password!</div>
-            <div class="error" v-else-if="blogError">You forgot to enter your blog Name!</div>
+            <div class="error" v-else-if="emptyEamil">You forgot to enter your email!</div>
+            <div class="error" v-else-if="emptypassword">You forgot to enter your password!</div>
+            <div class="error" v-else-if="emptyBlog">You forgot to enter your blog Name!</div>
             <div class="error" v-else-if="invalidEmail">That's not a valid email address. Please try again.</div>
             <div class="error" v-else-if="invalidPassword">The password should be between 7 : 15 charachters.</div>
-            <div class="error" v-else-if="lenghtError">The password should be between 8 : 15 charachters.</div>
-            <div class="error" v-else-if="invalidtext">please Fill all inputs.</div>
-
+          
 
             <div class="mb-3">
-              <input type="text" class="form-control formInput" id="inputemail" placeholder="Email" v-model="userEmail" @blur="validateEmail">
+              <input type="text" class="form-control formInput" id="email" placeholder="Email" v-model="email"  >
             </div>
             <div class="mb-3">
-              <input type="password" class="form-control formInput" id="pass" placeholder="Password" v-model="userPassword" @blur="validatePassword">
+              <input type="password" class="form-control formInput" id="pass" placeholder="Password" v-model="password" >
             </div>
             <div class="mb-3">
-              <input type="text" class="form-control formInput " id="blog" placeholder="Blog Name" v-model="userBlogName" @blur="validateBlogName">
+              <input type="text" class="form-control formInput " id="blog" placeholder="Blog Name" v-model="blogname" >
                
             </div>
             <h6 class="privacy">By clicking "log in", or continuing with the other options below, you agree to Tumblr’s Terms of Service and have read the Privacy Policy</h6>
@@ -50,14 +46,17 @@
   </b-row>
 </b-container>
 </div>        
+
        
-         
+        
 
 </template>
 
 <script>
 
 import Header from './WelcomePageHeader.vue'
+import { mapFields } from 'vuex-map-fields';
+
 
 /**
  *   A complete SignUp template    
@@ -67,117 +66,93 @@ export default {
   name: 'SignUp',
   data(){
     return{
-      
-     
-      userEmail: '',
-      userPassword: '',
-      userBlogName: '',
       emptyError:'',
-      passwordError: false,
-			emailError: false,
-      blogError:false,
+      emptyEamil:false,
+      emptypassword:false,
+      emptyBlog:false,
       cleanEmail:false,
       cleanPassword:false,
       cleanBlogName:false,
       invalidEmail:false,
       invalidPassword:false,
-      lenghtError:false,
-      invalidtext:false,
-        BgImg: 'https://64.media.tumblr.com/099f01a86e5759bd8334bfdd94635ae9/158bebd370292d52-b6/s2048x3072/72df139b72c143cbd31b114c104cbd4748c3091b.jpg',
-      BgImgArr:[
-        'https://64.media.tumblr.com/efbd27f441e38e06d7c2190d056abe28/7cccea89cd4ff555-db/s2048x3072/4673da8d46acaf5de6099e61e6677bca96de4212.jpg',
-        'https://64.media.tumblr.com/1b13f73d9b0a27c02ffea53362a218c0/96c25cb1cd24aabb-e8/s2048x3072/9c3410c5ba67850caf806f4bcdfedc3fe0858966.gifv',
-        'https://64.media.tumblr.com/9d271075dec7039f8b5f4cf6c9f33553/5083fe0e81419438-7f/s2048x3072/865e19b20166e34bb757aef1b8121a2f65951a7d.jpg',
-        'https://64.media.tumblr.com/a18c8063bf9d095d99f12b51d3dd1eda/57803298a6ae7123-0a/s2048x3072/4cd2dfcda39290bb863362524cf4c5a2744a7153.gifv',
-        'https://64.media.tumblr.com/cb5c5b500a09ec8b1b06dc5f38d2a564/ebd30be416be6463-98/s2048x3072/8c3ca34b6787d531dc521884d6cbf6222a2c534e.png',
-        'https://64.media.tumblr.com/30091e762bc39bd78af9fcbe085e5aad/931ffa15335e62a0-72/s2048x3072/9bf85a831ddbd10e553a76bbfcd8359fe9790237.png',
-        'https://64.media.tumblr.com/1b13f73d9b0a27c02ffea53362a218c0/96c25cb1cd24aabb-e8/s2048x3072/9c3410c5ba67850caf806f4bcdfedc3fe0858966.gifv',
-      'https://64.media.tumblr.com/0fc248402402e455676c5c00d23a4a4d/6b09ff75a24d3918-71/s2048x3072/388270a681f884bdd22f665048a5f5c370222815.jpg'
-     ]
-
  
     }
   },
-   created() {
-  this.BgImg=this.randomImg();
-  }, 
   methods:{
     /** 
       * Gets Called When user clicks Sign up button
       * @public
      */
-     validateEmail(){
-       if(!this.userEmail&&!this.userPassword&&!this.userBlogName)
-       {
-         this.emptyError=true;
-       }
-      //validate Email
-      var  apos=this.userEmail.indexOf('@');
-      var dotpos=this.userEmail.indexOf('.');
-      // email validate
-      //IF the fields are empty the counter value will be 0 
-      if(apos<1||dotpos-apos<2){
-      this.emptyError=false;
-      this.invalidEmail = true;  
-      }
-      else{
-        this.invalidEmail=false;
-        this.cleanEmail=true;
-      }
-     },
-     validatePassword(){
-         //password validation
-      if ((this.userPassword.length < 8) || (this.userPassword.length > 15)) {
-        this.lenghtError=true;	
-     }
-     
-    else{
-          this.lenghtError=false;
-          this.cleanPassword=true;
-    }
-
-     },
-     validateBlogName(){
-       if(!this.userBlogName){
-        this.blogError = true;
-      }else{
-        this.cleanBlogName=true;
-      }
+     resetflags(){
+      this.emptyEamil=false;
+      this.emptypassword=false;
+      this.emptyBlog=false;
+      this.invalidPassword=false;
+      this.invalidEmail=false;
 
      },
 
      handel:function()
      {
+       if(this.email===''&&this.password===''&&this.blogname==='')
+       {
+         this.emptyError=true;
+       }
+       else if(!this.email)
+       {
+         this.resetflags()
+         this.emptyEamil=true;
+       }
+       else if(!this.password){
+         this.resetflags()
+         this.emptypassword=true;
+       }
+       else if(!this.blogname){
+         this.resetflags()
+         this.emptyBlog=true
+       }
 
+       var mailformat = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+      if(this.email.match(mailformat))
+      {
+      this.cleanEmail=true;
+      }
+      else{
+        this.resetflags()
+        this.invalidEmail=true;
+      }
+      var passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
+      if(this.password.match(passw)){ 
+        this.cleanPassword=true;
+      }
+      else{ 
+        this.resetflags()
+        this.invalidPassword=true;
+      }
+      this.cleanBlogName=true;
       if(this.cleanEmail&&this.cleanPassword&&this.cleanBlogName){
-      let email=this.userEmail
-      let password=this.userPassword
-      let blogname=this.userBlogName
-      console.log("signup dipatch function")
-      this.$store.dispatch('signup',{email,password,blogname})
-      .then(()=>this.$router.push('/home'))
-      .catch(err=>console.log(err))
-    }
-    else{
-        this.invalidtext=true;
+        this.$router.push('/age');
       }
     
       
     } ,
-    randomImg() {
-        console.log(   Math.floor(Math.random() * this.BgImgArr.length))
-      return this.BgImgArr[
-        Math.floor(Math.random() * this.BgImgArr.length)
-      ];
-    }
+    
   },
   props: {
     msg: String
   },
   components: {
       'Header':Header ,
+      
      
   },
+  computed:{
+    ...mapFields([
+      'user.email',
+      'user.password',
+      'user.blogname' 
+    ])
+  }
 };
 </script>
 
@@ -190,7 +165,6 @@ export default {
 .root{
   font-family: 'Ubuntu', sans-serif;
   color:white;
-  background-image: url("../../assets/images/HomeBackground.jpg");
   background-position: center;
   background-size: cover;
   height: 100%; 

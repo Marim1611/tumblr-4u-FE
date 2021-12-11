@@ -1,8 +1,8 @@
 <template>
-<div class='root '
- v-bind:style="{
-          'background-image': 'url(' + this.BgImg + ')'}">
-   <Header/>
+
+  
+  <div class='root'>
+    <Header/>
     <b-container class="bv-example-row ">
 
       <b-row>
@@ -12,14 +12,16 @@
         <b-col col lg="3">
           <form @submit.prevent="handel">
             <div class="error" v-if="emptyError">You do have to fill this stuff out, you know.</div>
-            <div class="error" v-else-if="emailError">You forgot to enter your email!</div>
-            <div class="error" v-else-if="passwordError">You forgot to enter your password!</div>
+            <div class="error" v-else-if="emptyEamil">You forgot to enter your Email!</div>
+            <div class="error" v-else-if="emailError">You entered invalid Email</div>
+            <div class="error" v-else-if="emptyPassword">You forgot to enter your password!</div>
+            <div class="error" v-else-if="passwordError">Your password is week it should be between 6 to 20 characters which contain at least one numeric digit, one uppercase and one lowercase letter </div>
             <div class="mb-3">
-              <input type="text" class="form-control " id="exampleInputEmail1" placeholder="Email" v-model="userEmail">
+              <input type="text" class="form-control formInput" id="exampleInputEmail1" placeholder="Email" v-model="userEmail" @focus="resetEmailFlages">
               
             </div>
             <div class="mb-3">
-              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" v-model="userPassword">
+              <input type="password" class="form-control formInput" id="exampleInputPassword1" placeholder="Password" v-model="userPassword" @focus="resetPasswordFlags">
             </div>
             <h6 class="privacy">By clicking "log in", or continuing with the other options below, you agree to Tumblr’s Terms of Service and have read the Privacy Policy</h6>
              <button  class="btn btn-info buttonTop" type="submit">Log in</button>
@@ -27,12 +29,16 @@
          
             
 
-           
+           <router-link to= "/forgotpassword">
           <a class="pass" href="#">ForgotPassowrd</a>
+          </router-link>
+
    <div class="striped-border"></div>
    <br>
    <div>
-          <b-button size="lg" class="buttonBot"  block variant="light"><b-icon icon="google"></b-icon> Continue with Google</b-button>
+     <router-link to= "">
+          <b-button size="lg" class="buttonBot"  block variant="light" ><b-icon icon="google"></b-icon> Continue with Google</b-button>
+          </router-link>
       </div>
    <div class="d7k"></div>
 
@@ -41,6 +47,8 @@
       </b-row>
     </b-container>
 </div>
+
+
 
 </template>
 
@@ -57,58 +65,70 @@ export default {
 		emailError: false,
     cleanEmail:false,
     cleanPassword:false,
+    emptyEamil:false,
+    emptyPassword:false,
 			
       errors: [],
-       BgImg: 'https://64.media.tumblr.com/099f01a86e5759bd8334bfdd94635ae9/158bebd370292d52-b6/s2048x3072/72df139b72c143cbd31b114c104cbd4748c3091b.jpg',
-      BgImgArr:[
-        'https://64.media.tumblr.com/efbd27f441e38e06d7c2190d056abe28/7cccea89cd4ff555-db/s2048x3072/4673da8d46acaf5de6099e61e6677bca96de4212.jpg',
-        'https://64.media.tumblr.com/1b13f73d9b0a27c02ffea53362a218c0/96c25cb1cd24aabb-e8/s2048x3072/9c3410c5ba67850caf806f4bcdfedc3fe0858966.gifv',
-        'https://64.media.tumblr.com/9d271075dec7039f8b5f4cf6c9f33553/5083fe0e81419438-7f/s2048x3072/865e19b20166e34bb757aef1b8121a2f65951a7d.jpg',
-        'https://64.media.tumblr.com/a18c8063bf9d095d99f12b51d3dd1eda/57803298a6ae7123-0a/s2048x3072/4cd2dfcda39290bb863362524cf4c5a2744a7153.gifv',
-        'https://64.media.tumblr.com/cb5c5b500a09ec8b1b06dc5f38d2a564/ebd30be416be6463-98/s2048x3072/8c3ca34b6787d531dc521884d6cbf6222a2c534e.png',
-        'https://64.media.tumblr.com/30091e762bc39bd78af9fcbe085e5aad/931ffa15335e62a0-72/s2048x3072/9bf85a831ddbd10e553a76bbfcd8359fe9790237.png',
-        'https://64.media.tumblr.com/1b13f73d9b0a27c02ffea53362a218c0/96c25cb1cd24aabb-e8/s2048x3072/9c3410c5ba67850caf806f4bcdfedc3fe0858966.gifv',
-      'https://64.media.tumblr.com/0fc248402402e455676c5c00d23a4a4d/6b09ff75a24d3918-71/s2048x3072/388270a681f884bdd22f665048a5f5c370222815.jpg'
-     ]
   }),
   
   methods: {
+    resetPasswordFlags(){
+      this.emptyPassword=false;
+      this.passwordError=false;
+    },
+    resetEmailFlages(){
+      this.emailError=false;
+      this.emptyEamil=false;
+
+    },
     handel(){
-        this.errors = [];
-      if(!this.userEmail&&!this.userPassword)
-      {
-          this.emptyError = true;
+      this.emptyError=false;
+
+      if(!this.userEmail&&!this.userPassword){
+        this.emptyError=true;
       }
-      else if(!this.userEmail&&this.userPassword)
-      {
-        this.emptyError=false;
-        this.emailError=true;
+      else if(this.userEmail&&!this.userPassword){
+        this.emptyPassword=true;
       }
-      else if(!this.userPassword&&this.userEmail)
+      else if(this.userPassword&&!this.userEmail){
+        this.emptyEamil=true;
+      }
+
+      var mailformat = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+      if(!this.userEmail){
+        this.emptyEamil=true;
+      }
+      if(this.userEmail.match(mailformat))
       {
-        this.emptyError=false;
+      this.cleanEmail=true;
+      }
+      else
+      {
+        if(this.emptyPassword===false)
+          this.emailError=true;
+        else
+          this.emailError=false;
+      }
+      var passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
+      if(this.userPassword.match(passw)){ 
+        this.cleanPassword=true;
+      }
+      else{ 
         this.passwordError=true;
       }
-      else{
+      if(this.cleanEmail&&this.cleanPassword){
+
         let email=this.userEmail
         let password=this.userPassword
         this.$store.dispatch('login',{email,password})
         .then(()=>this.$router.push('/home'))
         .catch(err => console.log(err))
+
       }
 
+    }, 
+      
     },
-     randomImg() {
-        console.log(   Math.floor(Math.random() * this.BgImgArr.length))
-      return this.BgImgArr[
-        Math.floor(Math.random() * this.BgImgArr.length)
-      ];
-    }   
-    },
-     created() {
-  this.BgImg=this.randomImg();
-  }, 
-
   components:{
     Header,
    
@@ -127,7 +147,6 @@ export default {
 .root{
   font-family: 'Ubuntu', sans-serif;
   color:white;
-  background-image: url("../../assets/images/HomeBackground.jpg");
   background-position: center;
   background-size: cover;
   height: 100%; 
@@ -147,9 +166,11 @@ export default {
  
 .formInput
 {
-  margin: 8px auto 5px auto;
+  margin: 8px auto 2px auto;
   height: 45px;
   width:90%;
+  border-radius:3px;
+  
 }
 .buttonTop{
   margin:20px 0 20px 0 ;

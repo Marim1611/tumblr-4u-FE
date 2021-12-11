@@ -9,7 +9,6 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
     strict: true,
     state: {
-
         status: "",
         token: localStorage.getItem('token') || "",
       user: {
@@ -17,6 +16,7 @@ export const store = new Vuex.Store({
         password: "",
         blogname:""
         },
+        age:0,
  
         // we need to replace this with bodyColor in DB as each user has his theme color
         homeThemeIndex:0,
@@ -56,6 +56,7 @@ export const store = new Vuex.Store({
         getField,
         isLoggedIn: state => !!state.token,
         authStatus: state => state.status,
+
     },
     mutations: {
         updateField,
@@ -80,54 +81,74 @@ export const store = new Vuex.Store({
           },     
     },
     actions: {
-        login({commit}, user){
-            return new Promise((resolve, reject) => {
-              commit('auth_request')
-              api().post("/login",{
-                email: user.email,
-                password: user.password
-
-              })
-              .then(res => {
-                const token = res.data
-                const user = res.data.user
-                localStorage.setItem('token', token)
-                axios.defaults.headers.common['Authorization'] = token
-                commit('auth_success', token, user)
-                resolve(res)
-              })
-              .catch(err => {
-                console.log(err)
-                commit('auth_error')
-                localStorage.removeItem('token')
-                reject(err)
-              })
-            })
-      },
-      signup({ commit }, user) {
+      login({ commit }, user) {
         return new Promise((resolve, reject) => {
-              commit('auth_request')
-              api().post("/signup",{
-                email: user.email,
-                password: user.password,
-                blogName:user.blogname,
-
-              })
-              .then(res => {
-                const token = res.data
-                const user = res.data.user
-                localStorage.setItem('token', token)
-                axios.defaults.headers.common['Authorization'] = token
-                commit('auth_success', token, user)
-                resolve(res)
-              })
-              .catch(err => {
-                commit('auth_error')
-                localStorage.removeItem('token')
-                reject(err)
-              })
-            })
+          commit('auth_request')
+          api().post('login',{
+            email: user.email,
+            password: user.password
+          })
+          .then(res => {
+            const token = res.data
+            console.log(res.data)
+            const user = res.data.user
+            localStorage.setItem('token', token)
+            api().defaults.headers.common['Authorization'] = token 
+            commit('auth_success', token, user)
+            resolve(res)
+          })
+          .catch(err => {
+            alert(err)
+            commit('auth_error')
+            localStorage.removeItem('token')
+            reject(err)
+          
+          })
+        })
+  },
+  signup({ commit }, user) {
+    return new Promise((resolve, reject) => {
+          commit('auth_request')
+          api().post('signup',{
+            email:this.state.user.email,
+            password: this.state.user.password,
+            blogName: this.state.user.blogname,
+            age:user.age,
+          })
+            .then(res => {
+            const token = res.data
+            const user = res.data.user
+            localStorage.setItem('token', token)
+            axios.defaults.headers.common['Authorization'] = token
+            commit('auth_success', token, user)
+            resolve(res)
+          })
+          .catch(err => {
+            commit('auth_error')
+            localStorage.removeItem('token')
+            reject(err)
+          })
+        })
+    
+  },
+  forgotpassword({ commit }, user) {
+    return new Promise((resolve, reject) => {
+      commit('auth_request')
+      api.post('forgot_password', {
+        Email:user.email
+      })
+        .then(resp => {
+          this.state.msg = resp.message;
+          resolve(resp)
         
-      }
+        })
+        .catch(err => {
+          alert(err.error)
+          reject(err)
+      })
+    })
+  }
+       
+    
     }
 });
