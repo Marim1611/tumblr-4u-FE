@@ -7,8 +7,8 @@
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
-    "test": "jest",
-    "db:serve": "json-server --watch db.json --port=3001"
+    "db:serve": "json-server --watch db.json --port=3001",
+    "test": "jest"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
@@ -61,16 +61,20 @@
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-plugin-unit-jest": "^4.5.15",
+    "@vue/cli-plugin-unit-mocha": "^4.5.15",
     "@vue/cli-service": "~4.5.0",
     "@vue/server-test-utils": "^1.3.0",
-    "@vue/test-utils": "^1.2.2",
+    "@vue/test-utils": "^1.3.0",
     "babel-eslint": "^10.1.0",
-    "babel-jest": "^27.3.1",
+    "babel-jest": "^27.4.4",
     "bootstrap": "^4.6.1",
+    "chai": "^4.3.4",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
     "jest": "^27.3.1",
     "jquery": "^3.6.0",
+    "jsdom": "^19.0.0",
+    "jsdom-global": "^3.0.2",
     "json-server": "^0.17.0",
     "node-sass": "^6.0.1",
     "popper.js": "^1.16.1",
@@ -98,10 +102,28 @@
       {
         "files": [
           "**/__tests__/*.{j,t}s?(x)",
-          "**/tests/unit/**/*.spec.{j,t}s?(x)"
+          "**/tests/unit/**/*.test.{j,t}s?(x)"
         ],
         "env": {
           "jest": true
+        }
+      },
+      {
+        "files": [
+          "**/__tests__/*.{j,t}s?(x)",
+          "**/tests/unit/**/*.test.{j,t}s?(x)"
+        ],
+        "env": {
+          "jest": true
+        }
+      },
+      {
+        "files": [
+          "**/__tests__/*.{j,t}s?(x)",
+          "**/tests/unit/**/*.spec.{j,t}s?(x)"
+        ],
+        "env": {
+          "mocha": true
         }
       }
     ]
@@ -113,17 +135,27 @@
   ],
   "jest": {
     "moduleNameMapper": {
-      "^vue$": "vue/dist/vue.common.js"
+      "^@/(.*)$": "<rootDir>/src/$1"
     },
     "moduleFileExtensions": [
       "js",
+      "json",
       "vue"
     ],
     "transform": {
-      "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
-      ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest"
+      ".*\\.(vue)$": "vue-jest",
+      "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
     },
-    "preset": "@vue/cli-plugin-unit-jest"
+    "preset": "@vue/cli-plugin-unit-jest",
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "**/*.{js,vue}",
+      "!**/node_modules/**"
+    ],
+    "coverageReporters": [
+      "html",
+      "text-summary"
+    ]
   },
   "msw": {
     "workerDirectory": "public"

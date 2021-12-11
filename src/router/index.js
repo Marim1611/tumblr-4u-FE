@@ -6,6 +6,7 @@ import Home from '../components/homePage/HomePage.vue'
 import SignIn from '../components/registerPages/SignIn.vue'
 import SignUp from '../components/registerPages/SignUp.vue'
 import Age from '../components/registerPages/Age.vue'
+import forgotPassword from '../components/registerPages/forgotPassword.vue'
 //import WelcomePage from '../components/registerPages/WelcomePage.vue'
 import Render from '../components/renderOrder/Render.vue'
 import DashBoard from '../components/homePage/HomePageNewPost.vue'
@@ -36,6 +37,11 @@ const routes = [
     name: 'age',
     component:Age,
   },
+  {
+    path: '/forgotPassword',
+    name: 'forgotPassword',
+    component:forgotPassword,
+  },
    {
         path: '/home',
         name: 'Home',
@@ -64,7 +70,8 @@ const routes = [
         path: '/blog/created',
         name: 'createdBlog',
         component:CreatedBlog
-      },
+  },
+      
 
   
 ]

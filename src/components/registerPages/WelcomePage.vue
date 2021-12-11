@@ -26,7 +26,9 @@
       <br>
 
       <div>
-          <b-button size="lg" class="buttonBot"  block variant="light"><b-icon icon="google"></b-icon> Continue with Google</b-button>
+          <form @submit.prevent="handel">
+          <b-button @click="handel" size="lg" class="buttonBot"  block variant="light"><b-icon icon="google"></b-icon> Continue with Google</b-button>
+          </form>
       </div>
       <div class="d7k">
       </div>
@@ -41,6 +43,7 @@
 </template>
 <script>
 import Header from './WelcomePageHeader.vue'
+import api from '../../api'
 export default {
   name: 'WelcomePage',
   props: {
@@ -56,6 +59,12 @@ export default {
     Header
   },
   methods:{
+    handel(){
+      api.post('google/login')
+      
+      
+
+    },
     
   },
   mounted(){
@@ -69,7 +78,7 @@ export default {
        console.log(this.img)
 
 
-      alert(x);
+      
      /* var element = document.getElementsByClassName('Heading')[0];
       element[0].style["background-image"] = "url("+ img[x] + ") no-repeat;";*/
     

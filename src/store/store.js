@@ -2,17 +2,19 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
 import { getField, updateField } from 'vuex-map-fields';
+import api from '../api';
 
 
 
 Vue.use(Vuex);
-const baseURL = "http://localhost:3001/Users";
+//const baseURL = "http://localhost:3001/Users";
 export const store = new Vuex.Store({
     strict: true,
     state: {
 
         status: "",
-        token: localStorage.getItem('token') || "",
+      token: localStorage.getItem('token') || "",
+        msg:"",
       user: {
         email: "",
         password: "",
@@ -82,7 +84,7 @@ export const store = new Vuex.Store({
       login({ commit }, user) {
             return new Promise((resolve, reject) => {
               commit('auth_request')
-              axios.post(baseURL,{
+              api.post('login',{
                 Email: user.email,
                 Password: user.password
               })
@@ -90,7 +92,7 @@ export const store = new Vuex.Store({
                 const token = resp.data.token
                 const user = resp.data.user
                 localStorage.setItem('token', token)
-                axios.defaults.headers.common['Authorization'] = token
+                api.defaults.headers.common['Authorization'] = token 
                 commit('auth_success', token, user)
                 resolve(resp)
               })
@@ -104,7 +106,7 @@ export const store = new Vuex.Store({
       signup({ commit }, user) {
         return new Promise((resolve, reject) => {
               commit('auth_request')
-              axios.post(baseURL,{
+              api.post('signup',{
                 Email:this.state.user.email,
                 Password: this.state.user.password,
                 Blog_Name: this.state.user.blogname,
@@ -126,6 +128,23 @@ export const store = new Vuex.Store({
             })
         
       },
+      forgotpassword({ commit }, user) {
+        return new Promise((resolve, reject) => {
+          commit('auth_request')
+          api.post('forgot_password', {
+            Email:user.email
+          })
+            .then(resp => {
+              this.state.msg = resp.message;
+              resolve(resp)
+            
+            })
+            .catch(err => {
+              alert(err.error)
+              reject(err)
+          })
+        })
+      }
       
 
       
