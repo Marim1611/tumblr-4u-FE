@@ -47,13 +47,15 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 #TheHeader{
-   background-color:  #001935;;
+   position: fixed; 
+    top: 0; 
+    width: 100%;
     background-position: center;
     background-size: cover;
 }
 .NavBarBrand{
     padding: 0 0 0 20px;
-     color: #001935;
+     
 }
 .NavBar{
    
