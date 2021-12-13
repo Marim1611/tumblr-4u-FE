@@ -84,20 +84,22 @@
           </li>
           <li>
             <router-link to="" class="nav-item nav-link">
-              <DropdownList :accountItems="accountItems" />
+              <DropdownList   />
             </router-link>
           </li>
           <li>
             <router-link to="" class="nav-item nav-link">
               <b-icon
-                v-on:click="newPost = !newPost"
+                v-on:click="newPostOpen"
+               
                 id="icon"
                 icon="pencil-fill"
                 font-scale="1.5"
                 aria-hidden="true"
                 v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
               ></b-icon>
-              <NewPost v-show="newPost"/>
+               <!-- v-show="newPost"   -->
+              <NewPost v-show="newPost" v-on:hideFunc="hideCirclesNewPost($event)"/>
             </router-link>
           </li>
         </div>
@@ -121,38 +123,7 @@ export default {
     return {
       newPost: false,
       color: "red",
-      accountItems: [
-        {
-          title: "Likes",
-          route: "/likes",
-          icon: "Heart-fill",
-        },
-        {
-          title: "Follwings",
-          route: "/followings",
-          icon: "person-plus-fill",
-        },
-        {
-          title: "Settings",
-          route: "/settings",
-          icon: "gear-fill",
-        },
-        {
-          title: "Help",
-          route: "/help",
-          icon: "question-circle-fill",
-        },
-        {
-          title: "Key-shortcuts",
-          route: " ",
-          icon: "grip-horizontal",
-        },
-        {
-          title: "Change palette",
-          route: " ",
-          icon: "brush-fill",
-        },
-      ],
+     
     };
   },
   components: {
@@ -177,7 +148,19 @@ export default {
     homeThemeIndex: function () {
       return this.$store.state.homeThemeIndex;
     },
+     
+    
   },
+
+  methods:{
+    newPostOpen(){
+      this.newPost = true;
+    },
+    hideCirclesNewPost (hide) {
+     this.newPost = hide;
+    },
+    
+  }
 };
 </script>
 

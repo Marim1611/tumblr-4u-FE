@@ -1,10 +1,12 @@
 import axios from 'axios'
-
+//const baseUrl="http://tumblr4u.eastus.cloudapp.azure.com:5000";
+const baseUrl=''
 export const fetchMessage = async function (){
-  const response = await axios.get('/message')
+  const response = await axios.get(baseUrl+'/message')
   return response.data.message
 }
-export const fetchName = async function (){
-    const response = await axios.get('/nameDrawer')
-    return response.data.name
+export const fetchSearchResults = async function (){
+    const response = await axios.get(baseUrl+'/autoCompleteSearchDash')
+    return response.data.searchResults
   }
+ 
