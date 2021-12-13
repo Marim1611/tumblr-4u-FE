@@ -5,12 +5,17 @@ import Explore from '../components/HelloWorld.vue'
 import Home from '../components/homePage/HomePage.vue'
 import SignIn from '../components/registerPages/SignIn.vue'
 import SignUp from '../components/registerPages/SignUp.vue'
+import Age from '../components/registerPages/Age.vue'
+import forgotPassword from '../components/registerPages/ForgetPassword.vue'
 //import WelcomePage from '../components/registerPages/WelcomePage.vue'
 import Render from '../components/renderOrder/Render.vue'
 import DashBoard from '../components/homePage/HomePageNewPost.vue'
 import NewBlog from '../components/blog/CreateNewBlogPage'
 import CreatedBlog from '../components/blog/CreatedBlogPage'
 import SearchResults from '../components/search/SearchResultsPage'
+import Trending from '../components/registerPages/Trending'
+
+ 
 Vue.use(VueRouter);
 const routes = [
   {
@@ -28,6 +33,17 @@ const routes = [
     path: '/signUp',
     name: 'SignUp',
     component: SignUp,
+  },
+  
+  {
+    path: '/age',
+    name: 'age',
+    component:Age,
+  },
+  {
+    path: '/forgotPassword',
+    name: 'forgotPassword',
+    component:forgotPassword,
   },
    {
         path: '/home',
@@ -52,11 +68,17 @@ const routes = [
         name: 'newBlog',
         component:NewBlog
       },
+      {
+        path: '/trending',
+        name: 'trending',
+        component:Trending
+      },
   
       {
         path: '/blog/created',
         name: 'createdBlog',
         component:CreatedBlog
+ 
       },
       {
         path: '/search',
@@ -64,7 +86,10 @@ const routes = [
         component:SearchResults,
         props: true
       },
-
+ 
+  },
+      
+ 
   
 ]
 
@@ -77,3 +102,4 @@ export default router;
 
 
 
+ 

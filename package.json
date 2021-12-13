@@ -1,13 +1,15 @@
 {
   "name": "tumblr-4u",
   "version": "0.1.0",
+  "proxy": "http://tumblr4u.eastus.cloudapp.azure.com:5000/",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
-    "test": "jest"
+    "test": "jest",
+    "db:serve": "json-server --watch db.json --port=3001"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
@@ -35,6 +37,7 @@
     "sass-loader": "^10.1.1",
     "tiptap-extensions": "^1.35.2",
     "v-easy-dialog": "^1.0.6",
+    "vee-validate": "^3.4.14",
     "vue": "^2.6.14",
     "vue-avatar": "^2.3.3",
     "vue-class-component": "^7.2.6",
@@ -69,6 +72,7 @@
     "eslint-plugin-vue": "^6.2.2",
     "jest": "^27.3.1",
     "jquery": "^3.6.0",
+    "json-server": "^0.17.0",
     "node-sass": "^6.0.1",
     "popper.js": "^1.16.1",
     "sass": "^1.43.4",
