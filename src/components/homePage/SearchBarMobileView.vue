@@ -2,37 +2,24 @@
   <div>
     <div class="dropdown"
     >
-      <div
-        id="input_container"
-        v-bind:style="{
-          'background-color': homeTheme[homeThemeIndex].cardColor,
-          'border-radius': '4px',
-          'border-color': homeTheme[homeThemeIndex].fontColor,
-        }"
-      >
-        <b-icon
-          id="icon"
-          icon="search"
-          font-scale="1.5"
-          aria-hidden="true"
-          v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
-        ></b-icon>
-
-        <input
-          id="search"
-          name="wordName"
-          v-model.trim="inputValue"
+     <div id="searchBar">
+          <form id="search-form">
+    <div class="search"
+       >
+      <input type="text" name="search" class="round"
+         v-model.trim="inputValue"
           v-on:keyup.enter="goToSearchPage"
           v-on:click="isClicked = !isClicked"
-          class="dropdown-input"
-          type="text"
           placeholder="Search Tumblr"
-          v-bind:style="{
-            'background-color': homeTheme[homeThemeIndex].cardColor,
-            color: homeTheme[homeThemeIndex].fontColor,
-          }"
-        />
-      </div>
+       v-bind:style="{
+          'background-color': homeTheme[homeThemeIndex].cardColor,
+            }" />
+      
+    </div>
+</form>
+
+     </div>
+      
       <!-- interests  -->
       <div v-on:click.prevent="toggleDropdown">
         <div v-if="!inputValue" v-show="isClicked" class="dropdown-list">
@@ -119,8 +106,8 @@
       </div>
     </div>
     <TumblrDrawer
+      v-if="showBlogDrawer"
       v-bind:tumblrsObj="tumblrsObj"
-        v-bind:showBlogDrawer="showBlogDrawer"
     ></TumblrDrawer>
   </div>
 </template>
@@ -153,7 +140,6 @@ export default {
     //  'Avatar':Avatar
   },
   methods: {
-    
      /**
      * Function to make the items visible only that appear in the dropdown list to match what the user type in the search bar
      * @public This is a public method
@@ -188,9 +174,7 @@ export default {
      * @param {none}
      */
     openDrawer(name, avatar, cover) {
-      this.showBlogDrawer = true;
-      console.log("FFFFFFFFFFffffffff")
-      console.log(  this.showBlogDrawer)
+      this.showBlogDrawer = !this.showBlogDrawer;
       Vue.set(this.tumblrsObj, "name", name);
       Vue.set(this.tumblrsObj, "coverImg", cover);
       Vue.set(this.tumblrsObj, "avatar", avatar);
@@ -198,6 +182,7 @@ export default {
     goToSearchPage()
     {
       //TODO: CHANGE IF INPUT IS EMPTY GO TO EXPLORE => RECOMMENDED FOR YOU
+      
       if (this.inputValue)
       this.$router.push({ name: 'search', params: {inputValue: this.inputValue  }})
       // this.$router.push({ path: '/search', searchWord: this.inputValue }); 
@@ -248,6 +233,38 @@ export default {
 </script>
 
 <style scoped>
+.round {
+    width: 100%;
+    border-radius: 15px;
+    border: 1px #000 solid;
+    padding: 5px 5px 5px 25px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5;
+}
+#searchBar{
+    margin-top:10px;
+}
+.corner {
+    position: absolute;
+    top: 3px;
+    left: 5px;
+    height: 20px;
+    width: 20px;
+    z-index: 10;
+    border-radius: 10px;
+    border: none;
+    background: #000; /* Set the bg image here. with "no-repeat" */
+}
+
+
+.search {
+    position: relative;
+    width: 220px;
+    height: 30px;
+    position: relative; padding: 0 0 0 20px; margin: 0 20px;
+}
 .dropdown {
   position: relative;
   /* width: 100%;
@@ -317,15 +334,7 @@ export default {
   max-height: 18px;
   margin: auto 12px auto 0px;
 } */
-#input_container {
-  position: relative;
-  padding: 0 0 0 20px;
-  margin: 0 20px;
-  border: 2px solid wheat;
-  cursor: text;
-  direction: rtl;
-  width: 500px;
-}
+ 
 
 #icon {
   

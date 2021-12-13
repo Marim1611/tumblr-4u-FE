@@ -6,7 +6,13 @@
     }"
   >
     <MatchMedia query="(max-width: 480px)" v-slot="{ matches }">
-      <MobileNavBar v-if="matches" />
+      <div v-if="matches">
+ <MobileNavBar />
+  <div id="dashBoard" v-for="(post, i) in dashBoardPosts" :key="i">
+            <DashBoard v-bind:post="post" v-bind:maxWidth="postCardWidth"  />
+          </div>
+      </div>
+     
 
       <div v-else>
         <NavBar />
@@ -19,11 +25,11 @@
           ></div>
 
           <div id="homePageCreatePost">
-            <CreatPostSection />
+            <CreatePostSection />
           </div>
 
           <div id="dashBoard" v-for="(post, i) in dashBoardPosts" :key="i">
-            <DashBoard v-bind:post="post" />
+            <DashBoard v-bind:post="post" v-bind:maxWidth="postCardWidth"  />
           </div>
         </div>
       </div>
@@ -35,17 +41,22 @@
 import { MatchMedia } from "vue-component-media-queries";
 import MobileNavBar from "./HomePageMobileNavBar.vue";
 import NavBar from "./HomePageNavBar.vue";
-import CreatPostSection from "../createPost/CreatePostSection.vue";
-import DashBoard from "./HomePageViewPost.vue";
+import CreatePostSection from "../createPost/CreatePostSection.vue";
+import DashBoard from "../general/ViewPostCard.vue";
 /**
- *  Home page that contains dashboard and create post compnents 
+ *  Home page that contains dashboard and create post components 
  * @example [none]
  */
 export default {
   name: "HomePage",
+  data : function () {
+    return {
+     postCardWidth:"540px"
+    }
+  },
   components: {
     NavBar: NavBar,
-    CreatPostSection: CreatPostSection,
+    CreatePostSection: CreatePostSection,
     DashBoard: DashBoard,
     MobileNavBar: MobileNavBar,
     MatchMedia: MatchMedia,

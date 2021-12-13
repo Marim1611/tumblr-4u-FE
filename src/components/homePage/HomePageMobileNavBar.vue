@@ -98,7 +98,7 @@
          
             <!-- </router-link>  -->
          </li> 
-           <li v-on:click="changePalete()" >
+           <li v-on:click="changePalette()" >
              <div id="itemID">
   <b-icon id="iconD"  icon="brush-fill" font-scale="1.5" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon>    
                                 <p id="pD" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor,  'font-family':homeTheme[homeThemeIndex].fontStyle,'text-decoration': 'none'}">Change Palette</p>   
@@ -128,7 +128,7 @@
 </template>
 
 <script>
-import SearchBar  from './HomePageSearchBar.vue';
+import SearchBar  from './SearchBarMobileView.vue';
  /**
  *  Home page Navigation Bar for mobile view
  * @example [none]
@@ -140,11 +140,11 @@ export default {
   },
   methods: {
      /**
-     * Function to fire event from the store to change theme color of website on click the brus icon in the drawer 
+     * Function to fire event from the store to change theme color of website on click the brush icon in the drawer 
      * @public This is a public method
      * @param {none}
      */
-     changePalete: function ( ){
+     changePalette: function ( ){
     // fire mutation
         this.$store.commit('changePalette');
     }
@@ -168,7 +168,7 @@ export default {
             return this.$store.state.homeTheme;
         },
          /**
-     * Function to get the home page colortheme Index from the store
+     * Function to get the home page color theme Index from the store
      * @public This is a public method
      * @param {none}
      */
@@ -180,10 +180,7 @@ export default {
 </script>
 
 <style scoped>
-#homeDrawer{
-    width: 90%;
-    display: flex;
-}
+ 
 #navDiv{
   display: flex;
   width: 100%;
