@@ -4,8 +4,7 @@
          <b-icon id="icon"  icon="person-fill" font-scale="2" aria-hidden="true"  :style="{'color': homeTheme[homeThemeIndex].fontColor, 'cursor':'pointer' }"></b-icon> 
    
     <transition name="fade" appear>
-        <div v-on:click.prevent="toggleDropdown"
-        v-on:click="makeMeShown">
+        <div v-on:click.prevent="toggleDropdown">
           <div id ="content" class="sub-menu" v-if="isOpen" :style="{'background-color': homeTheme[homeThemeIndex].cardColor}">
         <li id ="header"  >
               <p  id ="pHeader" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle}">Account </p>
@@ -116,13 +115,13 @@
 
  </td>
                     </tr>
-                    <tr>
+                  
                       <div v-show="openBlogFeatures[i]" id="blogFeatures">
    <p v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle }" >posts</p>
    <p v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle }">followers</p>
    <p v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle}">Activity</p>
  </div>
-                    </tr>
+                  
               <!-- <v-spacer :style="{'display': 'inline-block' , 'width' :'30px'}"></v-spacer> -->
              
        <!-- </router-link> -->
@@ -159,7 +158,8 @@ export default {
     title: String,
 
   },
-  methods:{
+  methods:
+  {
       hideLogoutDialog (hide) {
      this.openLogout = hide;
     },
@@ -169,7 +169,7 @@ export default {
      * @param {none}
      */
     changePalette(){
-      this.isOpen=true;
+
         this.$store.commit('changePalette');
     },
     /**
@@ -179,33 +179,20 @@ export default {
      */
      toggleDropdown () {
       this.isOpen = !this.isOpen
-          console.log("you called me")
-  
-    },
-    makeMeShown()
-    {
-    console.log("kjjkkkkkk")
-    console.log( this.isOpen)
-    this.isOpen=true
-     console.log( this.isOpen)
     },
     /**
      * Function to control closing the account dropdown list if user clicks outside it
      * @public This is a public method
      * @param {none}
      */
-    close (e) {
-      if (!this.$el.contains(e.target)) {
-        this.isOpen = false
-      }
-    }  
+    
     },
   data: function () {
     return {
       openLogout:false,
       isOpen: false,
-      openBlogFeatures:[],
-      openKeyDrawer:false,
+       openKeyDrawer:false,
+      openBlogFeatures:[], 
       blogs:[   
               {
                 name: "crafts",
@@ -241,15 +228,11 @@ export default {
         },
   },
    mounted () {
-      
-    document.addEventListener('click', this.close)
     let blogNum=3;
     for( let i =0; i< blogNum ; i++)
     this.openBlogFeatures[i]=false;
   },
-  beforeDestroy () {
-    document.removeEventListener('click',this.close)
-  }
+  
 }
 </script>
 
@@ -257,7 +240,6 @@ export default {
 .sub-menu
 {
     overflow-y: scroll;
-   
 }
 #divider{
   width: 100%;
@@ -358,6 +340,7 @@ nav .menu-item .sub-menu {
     margin-right: 20px;
 }
 #blogFeatures{
+  position: relative;
    padding :0px 20px 0px 20px;
 }
 </style>
