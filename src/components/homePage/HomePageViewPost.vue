@@ -29,7 +29,7 @@
         <!--content & tags of card-->
         <div class="content" v-html="post.content" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"></div>
         <div class="tag-container">
-          <a href="" class="tags" v-for="tag in blogs.Tags" :key="tag">{{ tag }}</a>
+          <a href="" class="tags" v-for="tag in post.Tags" :key="tag">{{ tag }}</a>
         </div>
 
         <!--footer of card-->
@@ -125,10 +125,13 @@
           
 
       </div>
-  </div>
+    </div>
 </template>
-
 <script>
+/** 
+ *  Post Card in the home page
+ * @example [none]
+ */
 export default {
   data() {
       return{
@@ -145,14 +148,17 @@ export default {
       }
   },
   methods:{
-    /** gets started when user clicks on ... button on post and shows options
+   /** Function that shows a drop down list of clickable options in the post when clicking on the 3-points icon in the post
+    * @public This is a public method
+    * @param {none}
     */
    postOption: function(){
      this.showDropDown = !this.showDropDown;
    },
    /**
-    * gets started when user clicks on close button
-    * it closes the dropdown menu in post
+    * Function that close the drop down list of options in the post when clicking on the close button in the list
+    * @public This is a public method
+    * @param {none}
     */
    closeDropDown:function(){
      this.showDropDown = false;
@@ -314,6 +320,7 @@ padding: 0px 10px;
 .options{
   width: 25px;
   height : 25px;
+  cursor: pointer;
 }
 .dropdown{
   position: relative;
@@ -366,11 +373,9 @@ a:link{
 a:hover{
   text-decoration: underline;
 }
-
 .dropdown-content :hover{
   background: #eee;
 }
-
 .cyan{
   color: #00b8ff;
 }

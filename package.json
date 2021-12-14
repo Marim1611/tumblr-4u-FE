@@ -1,18 +1,5 @@
 {
-  "jest": {
-      "moduleNameMapper": {
-        "^vue$": "vue/dist/vue.common.js"
-      },
-    "moduleFileExtensions": [
-      "js",
-      "json",
-      "vue"
-    ],
-    "transform": {
-      "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
-      ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest"
-    }
-  },
+  
   "name": "tumblr-4u",
   "version": "0.1.0",
   "private": true,
@@ -23,6 +10,8 @@
     "test": "jest"
   },
   "dependencies": {
+    "@babel/core": "^7.16.0",
+    "@babel/preset-env": "^7.16.4",
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/vue-fontawesome": "^2.0.6",
@@ -31,7 +20,24 @@
     "bootstrap-vue": "^2.21.2",
     "core-js": "^3.6.5",
     "vue": "^2.6.14",
-    "vuex": "^3.6.2"
+    "vue-avatar": "^2.3.3",
+    "vue-class-component": "^7.2.6",
+    "vue-cli-plugin-vuetify": "^2.4.3",
+    "vue-clipboard2": "^0.3.3",
+    "vue-component-media-queries": "^1.0.0",
+    "vue-functional-data-merge": "^3.1.0",
+    "vue-js-modal": "^2.0.1",
+    "vue-material": "^1.0.0-beta-15",
+    "vue-picture-input": "^2.1.6",
+    "vue-router": "^3.5.3",
+    "vue-simple-search-dropdown": "^1.0.1",
+    "vue-textarea-autogrow-directive": "^0.2.0",
+    "vuejs-dialog": "^1.4.2",
+    "vuejs-medium-editor": "^1.2.6",
+    "vuetify": "^2.5.14",
+    "vuetify-loader": "^1.7.3",
+    "vuex": "^3.6.2",
+    "vuex-map-fields": "^1.4.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
@@ -60,5 +66,22 @@
     "> 1%",
     "last 2 versions",
     "not dead"
-  ]
+  ],
+  "jest": {
+    "moduleNameMapper": {
+      "^vue$": "vue/dist/vue.common.js"
+    },
+    "moduleFileExtensions": [
+      "js",
+      "vue"
+    ],
+    "transform": {
+      "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
+      ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest"
+    },
+    "preset": "@vue/cli-plugin-unit-jest"
+  },
+  "msw": {
+    "workerDirectory": "public"
+  }
 }

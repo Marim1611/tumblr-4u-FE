@@ -1,13 +1,13 @@
  <template>
   <div id="searchCard" v-show="forMe">
      
-      <div class="container" v-bind:style="{'background-color': homeTheme[homeThemeIndex].cardColor}" >
+      <div class="container" v-bind:style="{'background-color': homeTheme[homeThemeIndex].cardColor, 'max-width': this.maxWidth }" >
         <!--header of card-->
         <div class="header">
           <img class="profile" src="https://64.media.tumblr.com/54a1c708b6e6f778e6d6a62122b87264/dd15ee49758e1917-0f/s64x64u_c1/591674a52eaa19af57c763479bdbddcfa2219db8.jpg" alt="">
           <div class="name-follow">
-            <a href="" class="name">{{post.id}} </a>
-            <a href="" v-on:click.prevent="followUnfollow" v-show="!follow" class="cyan">Follow</a>
+            <a href="" class="name" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}">{{post.id}} </a>
+            <a href="" v-on:click.prevent="followUnfollow" v-show="!follow" v-bind:style="{'color': homeTheme[homeThemeIndex].focused}">Follow</a>
           </div>
 
           <div class="dropdown">
@@ -29,7 +29,7 @@
         <!--content & tags of card-->
         <div class="content" v-html="post.content" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"></div>
         <div class="tag-container">
-          <a href="" class="tags" v-for="tag in blogs.Tags" :key="tag">{{ tag }}</a>
+          <a href="" class="tags" v-for="tag in post.Tags" :key="tag">{{ tag }}</a>
         </div>
 
         <!--footer of card-->
@@ -125,10 +125,13 @@
           
 
       </div>
-  </div>
+    </div>
 </template>
-
 <script>
+/** 
+ *  Post Card in the home page
+ * @example [none]
+ */
 export default {
   data() {
       return{
@@ -145,14 +148,17 @@ export default {
       }
   },
   methods:{
-    /** gets started when user clicks on ... button on post and shows options
+   /** Function that shows a drop down list of clickable options in the post when clicking on the 3-points icon in the post
+    * @public This is a public method
+    * @param {none}
     */
    postOption: function(){
      this.showDropDown = !this.showDropDown;
    },
    /**
-    * gets started when user clicks on close button
-    * it closes the dropdown menu in post
+    * Function that close the drop down list of options in the post when clicking on the close button in the list
+    * @public This is a public method
+    * @param {none}
     */
    closeDropDown:function(){
      this.showDropDown = false;
@@ -202,7 +208,8 @@ export default {
    }
   },
   props:{
-      post:Object
+      post:Object,
+      maxWidth:String
   },
    computed: {
         homeTheme: function(){
@@ -314,6 +321,7 @@ padding: 0px 10px;
 .options{
   width: 25px;
   height : 25px;
+  cursor: pointer;
 }
 .dropdown{
   position: relative;
@@ -366,14 +374,10 @@ a:link{
 a:hover{
   text-decoration: underline;
 }
-
 .dropdown-content :hover{
   background: #eee;
 }
 
-.cyan{
-  color: #00b8ff;
-}
 .header .name-follow{
   display: inline;
   flex-grow: 1;
@@ -393,10 +397,11 @@ a:hover{
 
 #searchCard{
   
+  
   width: 100%;
 }
 .container{
-  max-width: 540px; 
+ 
   background: #ffffff;
   border-radius: 3px;
   display: inline-block;
