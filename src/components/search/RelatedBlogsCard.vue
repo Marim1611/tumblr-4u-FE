@@ -166,6 +166,7 @@ export default {
 } 
 #fButton:hover {
   text-decoration: underline;
+  position: relative;
 }
 h5{
     padding: 15px 0 0 0 ;
@@ -186,7 +187,8 @@ h5{
  width:40px
 }
 #divider2 {
-  width: 350px;
+   
   height: 0.5px;
+  position: relative;
 }
 </style>

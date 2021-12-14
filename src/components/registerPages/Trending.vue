@@ -33,7 +33,7 @@
   </div>
   <b-col>
 <div id="dashBoard" v-for="(post, i) in dashBoardPosts" :key="i">
-            <DashBoard v-bind:post="post" />
+            <DashBoard v-bind:post="post" v-bind:maxWidth="postCardWidth"/>
           </div>
   </b-col>
    
@@ -41,13 +41,19 @@
 </template>
 
 <script>
-import DashBoard from "../homePage/HomePageViewPost.vue";
+import DashBoard from "../general/ViewPostCard.vue";
 /**
  *  Home page that contains dashboard and create post compnents 
  * @example [none]
  */
 export default {
   name: "HomePage",
+  data(){
+    return{
+      postCardWidth:"540px"
+    }
+  },
+
   components: {
      DashBoard: DashBoard,
   },

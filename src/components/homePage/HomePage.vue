@@ -15,7 +15,7 @@
      
 
       <div v-else>
-        <NavBar />
+        <NavBar/>
         <div id="posts">
           <div
             id="divider"
@@ -108,6 +108,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  
 }
 #homePageCreatePost {
   padding:  30px 200px 150px 250px;

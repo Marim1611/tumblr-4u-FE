@@ -4,17 +4,15 @@
          <b-icon id="icon"  icon="person-fill" font-scale="2" aria-hidden="true"  :style="{'color': homeTheme[homeThemeIndex].fontColor, 'cursor':'pointer' }"></b-icon> 
    
     <transition name="fade" appear>
-        <div v-on:click.prevent="toggleDropdown">
+        <div v-on:click.prevent="toggleDropdown"
+        v-on:click="makeMeShown">
           <div id ="content" class="sub-menu" v-if="isOpen" :style="{'background-color': homeTheme[homeThemeIndex].cardColor}">
-        <li id =" header"  >
+        <li id ="header"  >
               <p  id ="pHeader" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle}">Account </p>
                 <p  id ="pHeader"  v-on:click="openLogout=true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle}">Logout</p>
 
         </li>
-       <li>
-                    <div id="divider" v-bind:style="{'background-color': homeTheme[homeThemeIndex].fontColor}"  ></div>
-
-       </li>
+       
          <!-- start account items list  -->
         <div>
             <li>
@@ -80,24 +78,20 @@
             
         </div>
         <!-- end -->
-        <li>
-          <router-link to="/new/blog"> 
-          <div v-bind:style="{'margin':'7px'}">
-<v-btn   elevation="2" >new blog</v-btn>
-          </div>
-     
+          <li id ="header"    >
+              <p  id ="pHeader" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle}">Tumblrs </p>
+                <router-link to="/new/blog"> 
+                <p  id ="pHeader"   v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle}">+ New</p>
 </router-link>
-            </li>
-              <li>
-                    <div id="divider" v-bind:style="{'background-color': homeTheme[homeThemeIndex].fontColor}"  ></div>
-
-       </li>
+        </li>
+         <!-- blogs -->
+         
           <div v-for="(blog, i) in blogs" :key="'A'+ i" class="menu-item">
                   <li >
                      <tbody>
                     <tr>
                        <td>
-                             <div class="avatarStyle">
+          <div class="avatarStyle">
                 <avatar
               username="Jane Doe"
                v-bind:rounded=false
@@ -118,7 +112,7 @@
 
 
  <td>
-       <b-icon id="iconList" v-on:click="openBlogFeatures[index] = !openBlogFeatures[index]"  icon="person-lines-fill" font-scale="1" aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor, 'display': 'inline-block'}"></b-icon>
+       <b-icon id="iconList" v-on:click="openBlogFeatures[i] = !openBlogFeatures[i]"  icon="person-lines-fill" font-scale="1" aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor, 'display': 'inline-block'}"></b-icon>
 
  </td>
                     </tr>
@@ -175,6 +169,7 @@ export default {
      * @param {none}
      */
     changePalette(){
+      this.isOpen=true;
         this.$store.commit('changePalette');
     },
     /**
@@ -184,6 +179,15 @@ export default {
      */
      toggleDropdown () {
       this.isOpen = !this.isOpen
+          console.log("you called me")
+  
+    },
+    makeMeShown()
+    {
+    console.log("kjjkkkkkk")
+    console.log( this.isOpen)
+    this.isOpen=true
+     console.log( this.isOpen)
     },
     /**
      * Function to control closing the account dropdown list if user clicks outside it
@@ -269,6 +273,9 @@ nav .menu-item .sub-menu {
   border-radius: 5px;
   
 }
+.sub-menu{
+ box-shadow: 0px 5px 10px rgb(163, 162, 162);
+}
 
 .fade-enter-active,
 .fade-leave-active {
@@ -315,14 +322,16 @@ nav .menu-item .sub-menu {
   width: 200px;
 } 
 #item:hover {
-  background: #464747;
+  background:rgb(163, 162, 162);
  
 }
 #dropDown{
    position: relative;
   display: inline-block;
 }
-
+#header{
+  background-color: #656868be;
+}
 #pHeader{
   display :inline-block;
   padding-left: 20px;
@@ -345,6 +354,8 @@ nav .menu-item .sub-menu {
 }
 #blogName{
   vertical-align:middle;
+  margin-left: 20px;
+    margin-right: 20px;
 }
 #blogFeatures{
    padding :0px 20px 0px 20px;

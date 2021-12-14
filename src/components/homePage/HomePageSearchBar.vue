@@ -38,6 +38,7 @@
         <div v-if="!inputValue" v-show="isClicked" class="dropdown-list">
           <div
             v-for="item in interestsList"
+            v-on:click="searchMe(item.name)"
             v-bind:key="item.name"
             class="dropdown-item"
           >
@@ -60,11 +61,13 @@
           </div>
           <div
             v-show="itemVisible(item)"
+            v-on:click="searchMe(item)"
             v-for="item in tags"
             v-bind:key="item"
             class="dropdown-item"
           >
             <b-icon
+            class="iconS"
               icon="search"
               font-scale="1"
               aria-hidden="true"
@@ -73,7 +76,7 @@
             <p
               v-bind:style="{
                 'font-style': homeTheme[homeThemeIndex].fontStyle,
-                padding: '10px',
+                
               }"
             >
               {{ item }}
@@ -198,10 +201,19 @@ export default {
     goToSearchPage()
     {
       //TODO: CHANGE IF INPUT IS EMPTY GO TO EXPLORE => RECOMMENDED FOR YOU
+      
       if (this.inputValue)
-      this.$router.push({ name: 'search', params: {inputValue: this.inputValue  }})
+  {
+      
+    this.$router.push({ name: 'search', params: {searchWord: this.inputValue, word: this.inputValue}})
+
+  }
+      
       // this.$router.push({ path: '/search', searchWord: this.inputValue }); 
        
+    },
+    searchMe(interest){
+          this.$router.push({ name: 'search', params: {searchWord: interest, word: interest}})
     }
   },
   computed: {
@@ -274,7 +286,9 @@ export default {
   background: #fff;
   border-color: #e2e8f0;
 }
-
+.iconS{
+  margin: 5px;
+}
 .dropdown-input::placeholder {
   color: #fff;
   text-align: left;
@@ -284,7 +298,7 @@ export default {
   cursor: pointer;
 }
 .dropdown-list {
-  /* overflow-y: auto; */
+   
   z-index: 3;
   transform: translate3d(0px, 20px, 0px);
   position: absolute;
@@ -296,10 +310,10 @@ export default {
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
     0 4px 6px -2px rgba(0, 0, 0, 0.05);
   border-radius: 8px;
+  height: 300px;
 }
 .dropdown-item {
   display: flex;
-  overflow-y: scroll;
   width: 100%;
   padding: 11px 16px;
   cursor: pointer;

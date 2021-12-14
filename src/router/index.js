@@ -81,14 +81,13 @@ const routes = [
  
       },
       {
-        path: '/search',
+        path: '/search/:word',
         name: 'search',
         component:SearchResults,
         props: true
       },
  
-  },
-      
+    
  
   
 ]
