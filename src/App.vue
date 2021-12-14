@@ -1,8 +1,17 @@
 <template>
 
   <div id="app">
-     <router-view/>
-       <!-- <CreatedBlog/> -->
+     <!--       <router-view/> 
+       -->
+
+            <!--<router-link to="/new/blog" >
+                 </router-link>-->
+
+
+       <CreatedBlogPage/>
+       <!--
+      -->
+
         
      
 
@@ -15,15 +24,17 @@
  
  
 // import NewBlog from './components/blog/CreateNewBlogPage'
-//import CreatedBlog from './components/blog/CreatedBlogPage'
+import CreatedBlogPage from './components/blog/CreatedBlogPage.vue'
+//import SignUp from './components/registerPages/SignUp.vue'
 export default {
 
   name: 'App',
  
 
   components: {
-   
-  },
+    //'SignUp':SignUp 
+    CreatedBlogPage
+ },
   data(){
 
     return{

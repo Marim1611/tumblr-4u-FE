@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import DashBoard from "../homePage/HomePageViewPost.vue";
+//import DashBoard from "../homePage/HomePageViewPost.vue";
 /**
  *  Home page that contains dashboard and create post compnents 
  * @example [none]
@@ -49,7 +49,7 @@ import DashBoard from "../homePage/HomePageViewPost.vue";
 export default {
   name: "HomePage",
   components: {
-     DashBoard: DashBoard,
+    // DashBoard: DashBoard,
   },
   computed: {
     homeTheme: function () {

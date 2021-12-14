@@ -87,10 +87,8 @@ const routes = [
         props: true
       },
  
-  },
-      
- 
   
+      
 ]
 
 const router = new VueRouter({
