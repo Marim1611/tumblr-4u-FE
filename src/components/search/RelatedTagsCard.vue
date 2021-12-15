@@ -133,8 +133,10 @@ export default {
 #fButton{
   font-size: 16px;
   font-weight: bold;  
+   position: relative;
 }
 #sButton{
+   position: relative;
   font-size: 16px;
   font-weight: bold;  
  margin: 15px 30px 30px 10px;
@@ -181,6 +183,7 @@ export default {
 } 
 #fButton:hover {
   text-decoration: underline;
+ 
 }
 h5{
     padding: 15px 0 0 0 ;
@@ -201,7 +204,7 @@ h5{
  width:40px
 }
 #divider2 {
-  width: 350px;
+position: relative;
   height: 0.5px;
 }
 </style>

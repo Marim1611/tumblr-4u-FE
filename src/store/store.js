@@ -22,34 +22,53 @@ export const store = new Vuex.Store({
         homeThemeIndex:0,
         homeTheme: [
  
-            {backgroundColor: '#001935',fontColor:'white', cardColor:'#5c7e97', fontStyle: 'Helvetica'},
-            {backgroundColor: 'black',fontColor:'lime', cardColor:'#222222', fontStyle: 'Times New Roman'},
-            {backgroundColor: 'black',fontColor:'#ff6400', cardColor:'#221000', fontStyle: 'Lucida Console'},
-            {backgroundColor: '#1A2735',fontColor:'#BFBFBF', cardColor:'#36465D', fontStyle: 'Fantasy'},
-            {backgroundColor: 'black',fontColor:'#CF43ED', cardColor:'#0C0C0C', fontStyle: 'Garamond'}, 
-            {backgroundColor: '#1a1a00',fontColor:'#ffff66', cardColor:'#808000', fontStyle: 'Georgia'}, 
-               
+           
+          {backgroundColor: '#001935',fontColor:'white', cardColor:'#5c7e97' ,fontColor2:'#1A314D', fontStyle: 'Helvetica'},
+          {backgroundColor: 'black',fontColor:'lime', cardColor:'#222222',fontColor2:'#15C406', fontStyle: 'Times New Roman'},
+          {backgroundColor: 'black',fontColor:'#ff6400', cardColor:'#221000', fontColor2:'#ff6400',fontStyle: 'Lucida Console'},
+          {backgroundColor: '#1A2735',fontColor:'#BFBFBF', cardColor:'#36465D', fontColor2:'#BFBFBF',fontStyle: 'Fantasy'},
+          {backgroundColor: 'black',fontColor:'#CF43ED', cardColor:'#0C0C0C',fontColor2:'#CF43ED', fontStyle: 'Garamond'}, 
+          {backgroundColor: '#1a1a00',fontColor:'#ffff66', cardColor:'#808000',fontColor2:'#ffff66', fontStyle: 'Georgia'}, 
+              
  
         ]      , 
         blogs:[ 
           {
-            id:'cataster',
-            content:['It\'s his egg now','Source: reddit.com','<img width="100%" src= "https://64.media.tumblr.com/a1362a8780e69316449a57b4e722dafb/1f7bec866c979eb4-8b/s640x960/63de62baab4af139600f4eb008e70b23bbab7889.jpg" alt=""><strong>Every morning, we get a chance to be different.</strong> A chance to change. A chance to be better. Your past is your past. Leave it there. Get on with the future part. Nicole Williams'],
+            id: 'sillydegu',
+            content:['It\'s his egg now','Source: reddit.com','<img width="100%" src="https://64.media.tumblr.com/a1362a8780e69316449a57b4e722dafb/1f7bec866c979eb4-8b/s640x960/63de62baab4af139600f4eb008e70b23bbab7889.jpg" alt=""><strong>Every morning, we get a chance to be different.</strong> A chance to change. A chance to be better. Your past is your past. Leave it there. Get on with the future part. Nicole Williams'],
             Tags:['#Nicole Williams','#relationship','#love','#breakup','#heartbreak','#moving on','#strength','#recovery','#healing','#self compassion','#self respect','#personal development','#personal growth','#growth mindset','#mindfulness','#live in the now','#live in the present','#change','#breaking patterns','#second chance','#new chance','#new day','#let go of the past','#it’s not too late','#leave the past in the past','#quotes'],
-            notes:['2,962','5,138','1,439']
+            notes:5138,
+            URL:"https://64.media.tumblr.com/a1362a8780e69316449a57b4e722dafb/1f7bec866c979eb4-8b/s640x960/63de62baab4af139600f4eb008e70b23bbab7889.jpg"
             },
-          {
-            id:'cataster',
-            content:['It\'s his egg now','Source: reddit.com','<img width="100%" src="https://64.media.tumblr.com/eb7f04ce18aa06c84b653829eea3a252/3e53fe6da9921150-fb/s640x960/7e1cb8b752e64ab2180513c5f01b92211d72a77d.jpg" alt=""><strong>Every morning, we get a chance to be different.</strong> A chance to change. A chance to be better. Your past is your past. Leave it there. Get on with the future part. Nicole Williams'],
-            Tags:['#Nicole Williams','#relationship','#love','#breakup','#heartbreak','#moving on','#strength','#recovery','#healing','#self compassion','#self respect','#personal development','#personal growth','#growth mindset','#mindfulness','#live in the now','#live in the present','#change','#breaking patterns','#second chance','#new chance','#new day','#let go of the past','#it’s not too late','#leave the past in the past','#quotes'],
-            notes:['2,962','5,138','1,439']
-            },
+             {
+        id:'cataster',
+        content:['It\'s his egg now','Source: reddit.com','<img width="100%" src="https://64.media.tumblr.com/eb7f04ce18aa06c84b653829eea3a252/3e53fe6da9921150-fb/s640x960/7e1cb8b752e64ab2180513c5f01b92211d72a77d.jpg" alt=""><strong>Every morning, we get a chance to be different.</strong> A chance to change. A chance to be better. Your past is your past. Leave it there. Get on with the future part. Nicole Williams'],
+        Tags:['#Nicole Williams','#relationship','#love','#breakup','#heartbreak','#moving on','#strength','#recovery','#healing','#self compassion','#self respect','#personal development','#personal growth','#growth mindset','#mindfulness','#live in the now','#live in the present','#change','#breaking patterns','#second chance','#new chance','#new day','#let go of the past','#it’s not too late','#leave the past in the past','#quotes'],
+        notes:2962,
+        URL: "https://catasters.tumblr.com/post/669903012557373440"
+        },
+       
             {
                 id: 'sillydegu',
                 content:['It\'s his egg now','Source: reddit.com','<img width="100%" src="https://www.theme-junkie.com/wp-content/uploads/Old-Black-and-White-Backgrounds-1.jpg" alt=""><strong>Every morning, we get a chance to be different.</strong> A chance to change. A chance to be better. Your past is your past. Leave it there. Get on with the future part. Nicole Williams'],
                 Tags:['#Nicole Williams','#relationship','#love','#breakup','#heartbreak','#moving on','#strength','#recovery','#healing','#self compassion','#self respect','#personal development','#personal growth','#growth mindset','#mindfulness','#live in the now','#live in the present','#change','#breaking patterns','#second chance','#new chance','#new day','#let go of the past','#it’s not too late','#leave the past in the past','#quotes'],
-                notes:['2,962','5,138','1,439']
-                }
+                notes:5138,
+                URL:"https://akiema.tumblr.com/post/669598235133886464/december-is-here-and-this-cutie-loves-it"
+                },
+                {
+                    id: 'sillydegu',
+                    content:['It\'s his egg now','Source: reddit.com','<img width="100%" src="https://www.theme-junkie.com/wp-content/uploads/Old-Black-and-White-Backgrounds-1.jpg" alt=""><strong>Every morning, we get a chance to be different.</strong> A chance to change. A chance to be better. Your past is your past. Leave it there. Get on with the future part. Nicole Williams'],
+                    Tags:['#Nicole Williams','#relationship','#love','#breakup','#heartbreak','#moving on','#strength','#recovery','#healing','#self compassion','#self respect','#personal development','#personal growth','#growth mindset','#mindfulness','#live in the now','#live in the present','#change','#breaking patterns','#second chance','#new chance','#new day','#let go of the past','#it’s not too late','#leave the past in the past','#quotes'],
+                    notes:5138,
+                    URL:"https://akiema.tumblr.com/post/669598235133886464/december-is-here-and-this-cutie-loves-it"
+                    },
+                    {
+                        id: 'sillydegu',
+                        content:['It\'s his egg now','Source: reddit.com','<img width="100%" src="https://www.theme-junkie.com/wp-content/uploads/Old-Black-and-White-Backgrounds-1.jpg" alt=""><strong>Every morning, we get a chance to be different.</strong> A chance to change. A chance to be better. Your past is your past. Leave it there. Get on with the future part. Nicole Williams'],
+                        Tags:['#Nicole Williams','#relationship','#love','#breakup','#heartbreak','#moving on','#strength','#recovery','#healing','#self compassion','#self respect','#personal development','#personal growth','#growth mindset','#mindfulness','#live in the now','#live in the present','#change','#breaking patterns','#second chance','#new chance','#new day','#let go of the past','#it’s not too late','#leave the past in the past','#quotes'],
+                        notes:5138,
+                        URL:"https://akiema.tumblr.com/post/669598235133886464/december-is-here-and-this-cutie-loves-it"
+                        }
         ]
      },
     getters: {

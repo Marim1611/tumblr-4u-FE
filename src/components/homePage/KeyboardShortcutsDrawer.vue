@@ -125,4 +125,7 @@ p{
     justify-content: center;
     border-radius: 5px;
 }
+#blogDrawer{
+   box-shadow: 0px 5px 10px rgb(43, 42, 42);
+}
 </style>

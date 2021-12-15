@@ -2,12 +2,12 @@
  
 <div id="navDiv"  > 
    <nav id = 'navbar' v-bind:style="{'background-color': homeTheme[homeThemeIndex].backgroundColor}">
-  <div id="navItem" v-on:click= "showDrawer=!showDrawer">
-      <b-icon id="icon" icon="justify" font-scale="1.5"  aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor, 'float': 'right'}" ></b-icon> 
+  <div id="navItem" >
+      <b-icon id="icon" v-on:click= "showDrawer=!showDrawer" icon="justify" font-scale="1.5"  aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor, 'float': 'right'}" ></b-icon> 
          <v-navigation-drawer id="homeDrawer" v-model="showDrawer" app v-bind:style="{'background-color': homeTheme[homeThemeIndex].backgroundColor}" >
                       <ul id = 'navbar' >
                           <li>
-  <b-icon id="iconD" icon="x" font-scale="1.5"  aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor, 'float': 'right'}" ></b-icon>
+  <b-icon id="iconD" icon="x" v-on:click= "showDrawer=false" font-scale="1.5"  aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor, 'float': 'right'}" ></b-icon>
                           </li>
                           <li>
  <v-btn elevation="2" >   <b-icon id="icon" icon="pencil-fill" font-scale="1.5"  aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor, 'float': 'right'}" ></b-icon> Create post</v-btn>
@@ -104,6 +104,51 @@
                                 <p id="pD" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor,  'font-family':homeTheme[homeThemeIndex].fontStyle,'text-decoration': 'none'}">Change Palette</p>   
              </div>
          </li> 
+            <!-- blogs  -->
+             <div v-for="(blog, i) in blogs" :key="'A'+ i" class="menu-item">
+                  <li >
+                     <tbody>
+                    <tr>
+                       <td>
+          <div class="avatarStyle">
+                <avatar
+              username="Jane Doe"
+               v-bind:rounded=false
+              v-bind:src="blog.img"
+              v-bind:size="40"
+            ></avatar>
+            </div>
+             </td>
+                   <td>
+                     <div id="blogName">
+                       
+<p id="pBlog" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle, 'margin':'auto 3px' }">{{ blog.name }} </p> 
+   <p v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle,'margin':'auto 3px' }">title </p>      
+                     
+                     </div>
+                     
+ </td>
+
+
+ <td>
+       <b-icon v-if="openBlogFeatures[i]" id="iconList" v-on:click="openFeatures(i)"  icon="chevron-up" font-scale="1" aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor, 'display': 'inline-block'}"></b-icon>
+       <b-icon v-else id="iconList" v-on:click="openFeatures(i)"  icon="chevron-down" font-scale="1" aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor, 'display': 'inline-block'}"></b-icon>
+
+ </td>
+                    </tr>
+                  
+                      <div v-show="openBlogFeatures[i]" id="blogFeatures">
+   <p v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle }" >posts</p>
+   <p v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle }">followers</p>
+   <p v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle}">Activity</p>
+ </div>
+                  
+        </tbody>
+            </li>
+        </div>
+ <!-- end of blogs  -->
+
+
                           </ul>     
                     </v-navigation-drawer>
        </div>
@@ -128,6 +173,7 @@
 </template>
 
 <script>
+import Avatar from "vue-avatar";
 import SearchBar  from './SearchBarMobileView.vue';
  /**
  *  Home page Navigation Bar for mobile view
@@ -136,7 +182,8 @@ import SearchBar  from './SearchBarMobileView.vue';
 export default {
   name: 'HomeNavbar',
   components:{
-      'SearchBar':SearchBar
+      'SearchBar':SearchBar,
+       Avatar: Avatar,
   },
   methods: {
      /**
@@ -147,14 +194,33 @@ export default {
      changePalette: function ( ){
     // fire mutation
         this.$store.commit('changePalette');
+    },
+    openFeatures(i){
+      this.openBlogFeatures[i] = !this.openBlogFeatures[i]
     }
   },
     data: function() {
       return {
-        showDrawer:"false",
-        showSearch:"false",
+        arrowIcon:false,
+        showDrawer:false,
+        showSearch:false,
         newPost:false,
         color:"red",
+           openBlogFeatures:[], 
+      blogs:[   
+              {
+                name: "crafts",
+                img: "https://64.media.tumblr.com/6eb8d7c15856ffa76b0a6b5bdb35f2de/5cf38a736b98badf-f9/s640x960/0762f14581a4a9bf7599fc7899b35cd909878bde.jpg",
+              },
+              {
+                name: "embroidery",
+                img: "https://64.media.tumblr.com/497a6f202f642d914081723f42b3688c/tumblr_pocj2z2m6F1sst4ed_1280.jpg",
+              },
+              {
+                name: "crochet",
+                img: "https://64.media.tumblr.com/b9a38eb82f59f226df54f746e9ce1193/03dd693220f8205b-41/s640x960/54f78a4ffa63f468c6648ac14f0921b3c9fccb9a.jpg",
+              },
+                    ] 
       }
     }, 
      
