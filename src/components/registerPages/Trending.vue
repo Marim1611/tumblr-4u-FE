@@ -41,7 +41,9 @@
 </template>
 
 <script>
+ 
 import DashBoard from "../general/ViewPostCard.vue";
+ 
 /**
  *  Home page that contains dashboard and create post compnents 
  * @example [none]
@@ -55,7 +57,7 @@ export default {
   },
 
   components: {
-     DashBoard: DashBoard,
+    // DashBoard: DashBoard,
   },
   computed: {
     homeTheme: function () {

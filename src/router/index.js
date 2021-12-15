@@ -86,10 +86,8 @@ const routes = [
         component:SearchResults,
         props: true
       },
- 
-    
- 
   
+      
 ]
 
 const router = new VueRouter({
