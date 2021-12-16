@@ -1,5 +1,6 @@
 <template>
 <body style="background-color:#001935;">
+      <HomePageNavBar/>
 <b-container class="bv-example-row box" >
           <h1> create a new blog </h1>
       <p1> This additional blog can be managed by multiple authors or set to private.<br />
@@ -11,8 +12,9 @@
       <h class="h11">  Title <br /></h>
       <h   class="h11">  URL  <br /></h>
       <h   class="h11">  Privacy  <br /></h>
+         <v-btn class="button-create"  v-if="!router_flag"  @click="go_validations" >create blog</v-btn>
+                <router-link v-else to="/blog/created" >  </router-link>
 
-        <v-btn class="button-create" @click="go_validations" >create blog</v-btn>
     </b-col>
     <b-col cols="8">
         <form class="the-form" >
@@ -43,10 +45,7 @@
             <p>
                 you can change this at any time
             </p>
-            <router-link to='/blog/created'>
-             <v-btn class="button-cancel">cancel</v-btn>
-             </router-link>
-      
+       <v-btn class="button-cancel">cancel</v-btn>
 
     </b-col>
   </b-row>
@@ -58,15 +57,24 @@
 
 <script>
 //import CreatedBlog from './CreatedBlogPage.vue'
+import HomePageNavBar from '../homePage/HomePageNavBar.vue'
+
+
 export default {
   name: 'CreateBlog',
     components: {
   //'created-blog':CreatedBlog
+    HomePageNavBar 
+
   },
   props: {
     
   },
   methods: {
+      /*
+      *makes textbox of password enabled when the its label accessed
+      *@public
+      */ 
     access_privacy(){
       if(this.validated==0)
         this.validated=1;
@@ -78,11 +86,17 @@ export default {
       }
         
     },
+      /*
+      *does not permit user to create a blog except he enters the title and 
+      *url and url without special characters
+      *@public
+      */ 
     go_validations(){
         var illegalChars = /[\W_]/; // allow only letters and numbers
       if(this.title==" " && this.url==" " ){
         this.isHidden_url=0;
         this.isHidden_title=0;
+
       }
       else if(this.title=="" && this.url!="" &&illegalChars.test(this.url)!=1){
         this.isHidden_title=0;
@@ -95,13 +109,16 @@ export default {
       else if(illegalChars.test(this.url) ){// special char
             this.special_char_detected=0;
             this.isHidden_url=1;
+
       }
       else{
         this.isHidden_url=1;
         this.isHidden_title=1;
-         this.special_char_detected=1;
+        this.special_char_detected=1;
+        this.router_flag=1;
       }
       
+
     }
    
  },
@@ -114,7 +131,9 @@ export default {
       isHidden_title:1,
       isHidden_url:1,
       special_char_detected:1,
-      pass:""
+      pass:"",
+      router_flag:0
+      //BE needs title,url,pass
     }
   }
 }
@@ -132,25 +151,29 @@ export default {
     top:-10px;
     border:1px solid whitesmoke ;
     margin: 15px;
+
 }
-/*.the-form{
-    background-color: rgb(228, 209, 209);
-}*/
 .end{
+
     height: 600px;
+
 }
+      /*
+      *make the form in shape of a box 
+      *@public
+      */ 
 .box{
     background-color: white;
     position: relative;
     top: 100px;
     border-radius: 25px;
-  border: 2px solid #73AD21;
-  height:550px;
+    border: 2px solid #73AD21;
+    height:550px;
 }
 .button-create{
- position: relative;
+    position: relative;
     top: 100px;
-        color: cornflowerblue;
+    color: cornflowerblue;
 }
 .titlee{
     border-color: black;

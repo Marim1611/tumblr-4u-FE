@@ -1,7 +1,7 @@
 //import { createRouter, createWebHistory } from 'vue-router'
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Explore from '../components/HelloWorld.vue' 
+import Explore from '../components/explore/Explore'
 import Home from '../components/homePage/HomePage.vue'
 import SignIn from '../components/registerPages/SignIn.vue'
 import SignUp from '../components/registerPages/SignUp.vue'
@@ -86,10 +86,8 @@ const routes = [
         component:SearchResults,
         props: true
       },
- 
-    
- 
   
+      
 ]
 
 const router = new VueRouter({
