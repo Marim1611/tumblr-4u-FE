@@ -20,9 +20,7 @@ export const store = new Vuex.Store({
  
         // we need to replace this with bodyColor in DB as each user has his theme color
         homeThemeIndex:0,
-        homeTheme: [
- 
-           
+        homeTheme: [          
           {backgroundColor: '#001935',fontColor:'white', cardColor:'#5c7e97' ,fontColor2:'#1A314D', fontStyle: 'Helvetica'},
           {backgroundColor: 'black',fontColor:'lime', cardColor:'#222222',fontColor2:'#15C406', fontStyle: 'Times New Roman'},
           {backgroundColor: 'black',fontColor:'#ff6400', cardColor:'#221000', fontColor2:'#ff6400',fontStyle: 'Lucida Console'},
@@ -108,9 +106,8 @@ export const store = new Vuex.Store({
             password: user.password
           })
           .then(res => {
-            const token = res.data
-            console.log(res.data)
-            const user = res.data.user
+            const token =res.data.res.data
+            const user = res.data.res.data.user
             localStorage.setItem('token', token)
             api().defaults.headers.common['Authorization'] = token 
             commit('auth_success', token, user)
@@ -135,8 +132,8 @@ export const store = new Vuex.Store({
             age:user.age,
           })
             .then(res => {
-            const token = res.data
-            const user = res.data.user
+            const token = res.data.res.data
+            const user = res.data.res.data.user
             localStorage.setItem('token', token)
             axios.defaults.headers.common['Authorization'] = token
             commit('auth_success', token, user)

@@ -24,6 +24,7 @@
           v-model.trim="inputValue"
           v-on:keyup.enter="goToSearchPage"
           v-on:click="isClicked = !isClicked"
+          autocomplete="off"
           class="dropdown-input"
           type="text"
           placeholder="Search Tumblr"
@@ -129,10 +130,11 @@
 </template>
 
 <script>
-
+import axios from 'axios';
+ 
 import TumblrDrawer from "./TumblrsDrawer.vue";
 //import Avatar from 'vue-avatar'
-import { fetchSearchResults } from '@/services/fetchers'
+//import { fetchSearchResults } from '@/services/fetchers'
 import Vue from "vue";
 /**
  *  SearchBar of the home page shows list of user interests if he didn't type any thing otherwise show related other users or tags
@@ -237,20 +239,21 @@ export default {
   props: {
     // interestsList: Array
   },
+  async created() {
+     try {
+      const res1 =await axios.get('http://localhost:8081/searchResults');  
+      const res2 = await axios.get('http://localhost:8081/tags');
+      const res3 = await axios.get('http://localhost:8081/interests');
+
+      this.usersInSearch = res1.data;
+      this.tags= res2.data;
+      this.interestsList= res3.data;
+    } catch (e) {
+      console.error(e);
+    }
+  },
   async mounted() {
     document.addEventListener("click", this.close);
-     try {
-     this.searchResults  = await fetchSearchResults()
-     console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
-      this.tags = this.searchResults[0]
-      this.interestsList=this.searchResults[2]
-      this.usersInSearch=this.searchResults[1]
-
-      
-    }
-    catch(error){
-       console.log("server error :((((((((")
-    }
   },
   beforeDestroy() {
     document.removeEventListener("click", this.close);
