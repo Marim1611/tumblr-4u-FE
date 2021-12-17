@@ -5,7 +5,7 @@
       'background-color': homeTheme[homeThemeIndex].backgroundColor,
     }"
   >
-    <MatchMedia query="(max-width: 480px)" v-slot="{ matches }">
+    <MatchMedia query="(max-width: 1000px)" v-slot="{ matches }">
       <div v-if="matches">
  <MobileNavBar />
   <div id="dashBoard" v-for="(post, i) in dashBoardPosts" :key="i">

@@ -6,7 +6,7 @@
     }"
   >
     
-    <MatchMedia query="(max-width: 480px)" v-slot="{ matches }">
+    <MatchMedia query="(max-width: 1000px)" v-slot="{ matches }">
       <MatchMedia query="(max-width: 1286px)" v-slot="{ match }">
       <MobileNavBar v-if="matches" />
 

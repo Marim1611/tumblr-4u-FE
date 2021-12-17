@@ -154,11 +154,11 @@
        </div>
 
        <div id='spacer'></div>
-       <div id="img"  v-show="showSearch">
+       <div id="img"  v-show="!showSearch">
       <img   src="https://img.icons8.com/nolan/64/tumblr.png"/>
      
        </div>
-       <div v-show="!showSearch">
+       <div v-show="showSearch">
           <SearchBar/> 
        </div>
 
