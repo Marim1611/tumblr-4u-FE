@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+//import axios from 'axios';
  //import api from '../../api';
 import NavBar from '../homePage/HomePageNavBar.vue';
 //import axios from 'axios'; 
@@ -85,16 +85,15 @@ export default {
     return {
          postCardWidth1:"650px",
          postCardWidth2:"300px",  
-         dashBoardPosts:[]
+        //  dashBoardPosts:[]
         
     }
   },
   
   computed:{
-    
-    //     dashBoardPosts: function () {
-    //   return this.$store.state.blogs;
-    // },
+    dashBoardPosts: function () {
+      return this.$store.state.blogs;
+    },
     homeTheme: function(){
             return this.$store.state.homeTheme;
         },
@@ -106,18 +105,18 @@ export default {
     props:{
         searchWord:String
     },
-     async created() {
-    try {
+  //    async created() {
+  //   try {
      
-       console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")   
-       const res =await axios.get('http://localhost:3000/autoCompleteSearchDash')
-      this.dashBoardPosts = res.data.resultPostHashTag;
-       console.log(res.data)
-    } catch (e) {
-        console.log("^^^^^^^^^^^^^^^^^^")
-      console.error(e);
-    }
-  },
+  //      console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")   
+  //      const res =await axios.get('http://localhost:3000/autoCompleteSearchDash')
+  //     this.dashBoardPosts = res.data.resultPostHashTag;
+  //      console.log(res.data)
+  //   } catch (e) {
+  //       console.log("^^^^^^^^^^^^^^^^^^")
+  //     console.error(e);
+  //   }
+  // },
 }
 </script>
 
