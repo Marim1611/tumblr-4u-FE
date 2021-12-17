@@ -116,7 +116,7 @@
 
 import TumblrDrawer from "./TumblrsDrawer.vue";
 //import Avatar from 'vue-avatar'
-import axios from 'axios';
+//import axios from 'axios';
 
 import Vue from "vue";
 /**
@@ -214,19 +214,7 @@ export default {
   async mounted() {
     document.addEventListener("click", this.close);
   },
-   async created() {
-     try {
-      const res1 = await axios.get('http://localhost:8081/searchResults');
-      const res2 = await axios.get('http://localhost:8081/tags');
-      const res3 = await axios.get('http://localhost:8081/interests');
 
-      this.usersInSearch = res1.data;
-      this.tags= res2.data;
-      this.interestsList= res3.data;
-    } catch (e) {
-      console.error(e);
-    }
-  },
   beforeDestroy() {
     document.removeEventListener("click", this.close);
   },

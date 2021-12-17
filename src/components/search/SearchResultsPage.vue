@@ -60,7 +60,10 @@
 </template>
 
 <script>
-import NavBar from '../homePage/HomePageNavBar.vue'; 
+import axios from 'axios';
+ //import api from '../../api';
+import NavBar from '../homePage/HomePageNavBar.vue';
+//import axios from 'axios'; 
 // import { MatchMedia } from "vue-component-media-queries";
 // import MobileNavBar from "../homePage/HomePageMobileNavBar.vue";
 import PostCard from "../general/ViewPostCard.vue";
@@ -82,15 +85,16 @@ export default {
     return {
          postCardWidth1:"650px",
          postCardWidth2:"300px",  
+         dashBoardPosts:[]
         
     }
   },
   
   computed:{
     
-        dashBoardPosts: function () {
-      return this.$store.state.blogs;
-    },
+    //     dashBoardPosts: function () {
+    //   return this.$store.state.blogs;
+    // },
     homeTheme: function(){
             return this.$store.state.homeTheme;
         },
@@ -102,6 +106,18 @@ export default {
     props:{
         searchWord:String
     },
+     async created() {
+    try {
+     
+       console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")   
+       const res =await axios.get('http://localhost:3000/autoCompleteSearchDash')
+      this.dashBoardPosts = res.data.resultPostHashTag;
+       console.log(res.data)
+    } catch (e) {
+        console.log("^^^^^^^^^^^^^^^^^^")
+      console.error(e);
+    }
+  },
 }
 </script>
 

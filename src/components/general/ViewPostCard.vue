@@ -27,9 +27,9 @@
           </div>
         </div>
         <!--content & tags of card-->
-        <div class="content" v-html="post.content" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"></div>
+        <div class="content" v-html="post.postHtml" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"></div>
         <div class="tag-container">
-          <a href="" class="tags" v-for="tag in post.Tags" :key="tag">{{ tag }}</a>
+          <a href="" class="tags" v-for="tag in post.tags" :key="tag">{{ tag }}</a>
         </div>
 
         <!--footer of card-->

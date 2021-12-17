@@ -5,8 +5,9 @@ import { getField, updateField } from 'vuex-map-fields';
 import api from '../api';
 
 Vue.use(Vuex);
-//const baseURL = "http://localhost:8080";
+const baseURL = "http://localhost:8080";
 export const store = new Vuex.Store({
+    baseURL:baseURL,
     strict: true,
     state: {
         status: "",
@@ -14,7 +15,9 @@ export const store = new Vuex.Store({
       user: {
         email: "",
         password: "",
-        blogname:""
+        blogname:"", 
+        id:"",
+        colorTheme:""
         },
         age:0,
         // we need to replace this with bodyColor in DB as each user has his theme color

@@ -20,16 +20,7 @@ Vue.use(router)
 Vue.use(VueClipboard)  //for copy
  
 
-// NEW
-if (process.env.NODE_ENV === 'development') {
-  const { worker } = require('./mocks/browser')
-  worker.start()
-}
-// else if (process.env.NODE_ENV === 'production') {
-  //TODO:change to real server
-//   const { worker } = 'http://tumblr4u.eastus.cloudapp.azure.com:5000'
-//   worker.start()
-// }
+ 
 
 new Vue({
   el: "#app",
