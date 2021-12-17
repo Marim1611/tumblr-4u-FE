@@ -10,30 +10,31 @@
             <div class="Posts" v-if="post_flag">
                  <CreatePostSection/>  
             </div>
-              <!--<div class="postss">
+
+            <div class="postss">
                     <ul class="pst">
-                    <li class="posts_list" v-for="post of posts  " :key="post.id">
+                    <li class="posts_list" v-for="post of posts" :key="post.id">
                          <div class="row">
                             <div class="col">
-                            <div class="username-post">{{ post.username }}<br/>  </div>
-                             <v-img class="imgggg" :src="post.image_link" ></v-img>    
-                             <div class="comment" {{post.comment}} ></div>     
-                            <div class="note"> {{post_count}} {{ post.note}} </div> -->
-
-                            <!--</div>
-                            <div class="col">
-                            <button class="three-dots" v-on:click="three_dots_handler"><b-icon  icon="three-dots-vertical"></b-icon></button>
-                            <div class="three-dots-box"  v-if="three_dots_flag">
-                            <button class="R">Report</button>
-                            <button class="B">Block</button>
-                            <button class="C">Close</button>
+                              <div class="username-post">{{ post.username }}<br/>  </div>
+                              <v-img class="imgggg" :src="post.image_link" ></v-img>    
+                              <div class="comment" {{post.comment}} ></div>     
+                              <div class="note">{{ post.notes_cnt}} notes </div> 
                             </div>
-                            </div> 
-                          </div>-->
-                          
-                   <!-- </li>
+
+                            <!--<div class="col">
+                              <button class="three-dots" v-on:click="three_dots_handler"><b-icon  icon="three-dots-vertical"></b-icon></button>
+                              <div class="three-dots-box"  v-if="three_dots_flag">
+                              <button class="R">Report</button>
+                              <button class="B">Block</button>
+                              <button class="C">Close</button>
+                              </div>
+                            </div> -->
+
+                         </div>        
+                    </li>
                     </ul>
-                </div>-->
+            </div>
             
             <div class="Followers" v-if="followers_flag==true">
                 <p id="p1"> {{followers_count}} Followers  </p> 
@@ -47,28 +48,30 @@
                             <div class="username-follower">{{ follower.username }}<br/>  </div>
                             <div class="title-follower">{{follower.title}} </div>
                             </div>
+
                             <div class="col">
-                            <button class="three-dots" v-on:click="three_dots_handler"><b-icon  icon="three-dots-vertical"></b-icon></button>
-                            <div class="three-dots-box"  v-if="three_dots_flag"><!--to be  handeled-->
-                            <button class="R">Report</button>
-                            <button class="B">Block</button>
-                            <button class="C">Close</button>
+                              <button class="three-dots" v-on:click="three_dots_handler"><b-icon  icon="three-dots-vertical"></b-icon></button>
+                              <div class="three-dots-box"  v-if="three_dots_flag"><!--to be  handeled-->
+                                <button class="R">Report</button>
+                                <button class="B">Block</button>
+                                <button class="C">Close</button>
+                              </div>
                             </div>
-                            </div>
-                         </div>
+
+                          </div>
                     </li>
                     </ul>
-                </div>
-            </div>
-        </div>
+                 </div>
+              </div>
+         </div> 
 
         <div class="col-4 " >
-                <div class="form-group">
+              <div class="form-group">
                      <button class="button-follower" v-on:click="button_follower_action"> Followers &emsp; &emsp;&nbsp;&emsp;&emsp;&emsp;&emsp;&emsp;{{followers_count}}</button>
-                </div>
-                <div class="form-group">
+              </div>
+              <div class="form-group">
                      <button class="button-post" v-on:click="button_post_action"> Posts &emsp;&emsp;&emsp; &nbsp; &nbsp;&nbsp;&emsp;&emsp;&emsp;&emsp;&emsp;{{post_count}}</button>
-                </div>
+              </div>
                 <!--<div class="form-group">
                      <button class="button-queue" v-on:click="button_queue_action"> queue &emsp;&emsp;&emsp; &nbsp;&nbsp;&emsp;&emsp;&emsp;&emsp;&emsp;{{queue_count}}</button>
                 </div>-->
@@ -129,8 +132,8 @@ three_dots_handler(){
   },
   async created(){
     try {
-      const res = await axios.get(`http://localhost:3001/Followers`);
-      const res2 = await axios.get(`http://localhost:3001/Posts`);
+      const res = await axios.get(`http://localhost:3002/Followers`);
+      const res2 = await axios.get(`http://localhost:3002/Posts`);
 
       this.followers = res.data;
       this.followers_count = this.followers.length;

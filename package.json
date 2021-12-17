@@ -9,7 +9,7 @@
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
     "test": "jest",
-    "db:serve": "json-server --watch db.json --port=3001"
+    "db:serve": "json-server --watch db.json --port=3002"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",

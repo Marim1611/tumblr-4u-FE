@@ -127,21 +127,21 @@
       "image_link":	"https://media.istockphoto.com/photos/blue-and-red-links-with-silver-chain-teamwork-concept-picture-id1290685170",
       "username":	"mohamed",
       "comment":"lool",
-      "notes"	:5
+      "notes_cnt": 5
     } ,	
     {      
         "id":	3,
         "image_link":	"https://media.istockphoto.com/photos/blue-and-red-links-with-silver-chain-teamwork-concept-picture-id1290685170",
         "username":	"ali",
         "comment":"lool",
-        "notes"	:6
+        "notes_cnt": 6
     },
     {     
        "id":	4,
        "image_link":	"https://media.istockphoto.com/photos/blue-and-red-links-with-silver-chain-teamwork-concept-picture-id1290685170",
        "username":	"osama",
        "comment":"lool",
-       "notes"	:6
+       "notes_cnt": 6
     }
   ]
 
