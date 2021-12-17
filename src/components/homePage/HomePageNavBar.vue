@@ -53,23 +53,12 @@
             </router-link>
           
             <router-link to="" class="nav-item nav-link">
-              <b-icon
-                id="icon"
-                icon="emoji-laughing"
-                font-scale="1.5"
-                aria-hidden="true"
-                v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
-              ></b-icon>
+             <ChatList/>
             </router-link>
           
             <router-link to="" class="nav-item nav-link">
-              <b-icon
-                id="icon"
-                icon="lightning-fill"
-                font-scale="1.5"
-                aria-hidden="true"
-                v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
-              ></b-icon>
+                <NotificationList />
+             
             </router-link>
          
             <router-link to="" class="nav-item nav-link">
@@ -97,6 +86,7 @@
                     
  
                 </b-navbar-nav>
+              
             </div>
             
         </b-collapse>
@@ -108,6 +98,8 @@
 import DropdownList from "./AccountDropDownList.vue";
 import NewPostItem from "./HomePageNewPost.vue";
 import SearchBar from "./HomePageSearchBar.vue";
+import NotificationList from '../notifications/NotificationDropdownList.vue'
+import ChatList from '../chat/ChatDropdownList.vue'
 /**
  *  Home page Navigation Bar 
  * @example [none]
@@ -119,6 +111,7 @@ export default {
     return {
       newPost: false,
       color: "red",
+      notificationOpen:false
      
     };
   },
@@ -126,6 +119,8 @@ export default {
     DropdownList: DropdownList,
     NewPost: NewPostItem,
     SearchBar: SearchBar,
+    NotificationList:NotificationList,
+    ChatList:ChatList
   },
   computed: {
     /**
