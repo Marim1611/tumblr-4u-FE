@@ -2,13 +2,9 @@
  <div v-bind:style="{
       'background-color': homeTheme[homeThemeIndex].backgroundColor,
     }">
-      <MatchMedia query="(max-width: 480px)" v-slot="{ matches }">
-      
- <MobileNavBar v-if="matches"/>
-  
     
-     
-        <NavBar v-else />
+    <div>
+      <NavBar />
  <div
             id="divider"
             v-bind:style="{
@@ -20,13 +16,13 @@
       
     <b-row> 
        
-        <h1 v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor,'font-family':homeTheme[homeThemeIndex].fontStyle}">{{this.inputValue}}        </h1>
+        <h1 v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor,'font-family':homeTheme[homeThemeIndex].fontStyle}">{{this.$route.params.word}}</h1>
  
            
              <b-icon id="icon"  icon="grid-1x2-fill" font-scale="2" aria-hidden="true"  :style="{'color': homeTheme[homeThemeIndex].fontColor, 'cursor':'pointer' }"></b-icon> 
    
      
-    <b-col/>
+    <b-col />
         
        <b-col id="postsList">
             <div id="dashBoard" v-for="(post, i) in dashBoardPosts" :key="i">
@@ -49,15 +45,14 @@
                  <RelatedBlogs/>
             
        </b-col>
-     
-    
-     
-
   </b-row>
 </b-container>
+      
+    </div>
+  
+    
+      
 
-     
-         </MatchMedia>
       
  </div>
 
@@ -65,9 +60,12 @@
 </template>
 
 <script>
-import NavBar from '../homePage/HomePageNavBar.vue'; 
-import { MatchMedia } from "vue-component-media-queries";
-import MobileNavBar from "../homePage/HomePageMobileNavBar.vue";
+//import axios from 'axios';
+ //import api from '../../api';
+import NavBar from '../homePage/HomePageNavBar.vue';
+//import axios from 'axios'; 
+// import { MatchMedia } from "vue-component-media-queries";
+// import MobileNavBar from "../homePage/HomePageMobileNavBar.vue";
 import PostCard from "../general/ViewPostCard.vue";
 import RelatedTags from "./RelatedTagsCard.vue";
 import RelatedBlogs from "./RelatedBlogsCard.vue"
@@ -75,8 +73,8 @@ export default {
     name:'search',
    components: {
     NavBar:NavBar,
-    MatchMedia: MatchMedia,
-    MobileNavBar: MobileNavBar,
+    // MatchMedia: MatchMedia,
+    // MobileNavBar: MobileNavBar,
     PostCard:PostCard,
     RelatedTags:RelatedTags,
     RelatedBlogs:RelatedBlogs
@@ -87,10 +85,13 @@ export default {
     return {
          postCardWidth1:"650px",
          postCardWidth2:"300px",  
+        //  dashBoardPosts:[]
+        
     }
   },
+  
   computed:{
-        dashBoardPosts: function () {
+    dashBoardPosts: function () {
       return this.$store.state.blogs;
     },
     homeTheme: function(){
@@ -102,8 +103,20 @@ export default {
     
   },
     props:{
-        inputValue:String
+        searchWord:String
     },
+  //    async created() {
+  //   try {
+     
+  //      console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")   
+  //      const res =await axios.get('http://localhost:3000/autoCompleteSearchDash')
+  //     this.dashBoardPosts = res.data.resultPostHashTag;
+  //      console.log(res.data)
+  //   } catch (e) {
+  //       console.log("^^^^^^^^^^^^^^^^^^")
+  //     console.error(e);
+  //   }
+  // },
 }
 </script>
 

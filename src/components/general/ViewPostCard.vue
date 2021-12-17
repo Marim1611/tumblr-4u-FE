@@ -6,8 +6,8 @@
         <div class="header">
           <img class="profile" src="https://64.media.tumblr.com/54a1c708b6e6f778e6d6a62122b87264/dd15ee49758e1917-0f/s64x64u_c1/591674a52eaa19af57c763479bdbddcfa2219db8.jpg" alt="">
           <div class="name-follow">
-            <a href="" class="name">{{post.id}} </a>
-            <a href="" v-on:click.prevent="followUnfollow" v-show="!follow" class="cyan">Follow</a>
+            <a href="" class="name" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}">{{post.id}} </a>
+            <a href="" v-on:click.prevent="followUnfollow" v-show="!follow" v-bind:style="{'color': homeTheme[homeThemeIndex].focused}">Follow</a>
           </div>
 
           <div class="dropdown">
@@ -27,9 +27,9 @@
           </div>
         </div>
         <!--content & tags of card-->
-        <div class="content" v-html="post.content[2]" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"></div>
+        <div class="content" v-html="post.postHtml" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"></div>
         <div class="tag-container">
-          <a href="" class="tags" v-for="tag in post.Tags" :key="tag">{{ tag }}</a>
+          <a href="" class="tags" v-for="tag in post.tags" :key="tag">{{ tag }}</a>
         </div>
 
         <!--footer of card-->
@@ -377,9 +377,7 @@ a:hover{
 .dropdown-content :hover{
   background: #eee;
 }
-.cyan{
-  color: #00b8ff;
-}
+
 .header .name-follow{
   display: inline;
   flex-grow: 1;
@@ -399,7 +397,7 @@ a:hover{
 
 #searchCard{
   
-  min-height: 100vh;
+  
   width: 100%;
 }
 .container{

@@ -243,7 +243,7 @@
 
           <p id="userName">
             <!-- {{ this.tumblrsObj.name }} -->
-          {{ this.showBlogDrawer }}
+          {{ this.tumblrsObj.name }}
           </p>
         </div>
 

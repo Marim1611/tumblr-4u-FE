@@ -24,6 +24,7 @@
           v-model.trim="inputValue"
           v-on:keyup.enter="goToSearchPage"
           v-on:click="isClicked = !isClicked"
+          autocomplete="off"
           class="dropdown-input"
           type="text"
           placeholder="Search Tumblr"
@@ -37,8 +38,9 @@
       <div v-on:click.prevent="toggleDropdown">
         <div v-if="!inputValue" v-show="isClicked" class="dropdown-list">
           <div
-            v-for="item in interestsList"
-            v-bind:key="item.name"
+            v-for="(item,i) in interestsList"
+            v-on:click="searchMe(item.name)"
+            v-bind:key="i"
             class="dropdown-item"
           >
             <img :src="item.img" class="dropdown-item-flag" />
@@ -60,11 +62,13 @@
           </div>
           <div
             v-show="itemVisible(item)"
+            v-on:click="searchMe(item)"
             v-for="item in tags"
             v-bind:key="item"
             class="dropdown-item"
           >
             <b-icon
+            class="iconS"
               icon="search"
               font-scale="1"
               aria-hidden="true"
@@ -73,7 +77,7 @@
             <p
               v-bind:style="{
                 'font-style': homeTheme[homeThemeIndex].fontStyle,
-                padding: '10px',
+                
               }"
             >
               {{ item }}
@@ -126,10 +130,11 @@
 </template>
 
 <script>
-
+import axios from 'axios';
+ //import api from '../../api';
 import TumblrDrawer from "./TumblrsDrawer.vue";
 //import Avatar from 'vue-avatar'
-import { fetchSearchResults } from '@/services/fetchers'
+//import { fetchSearchResults } from '@/services/fetchers'
 import Vue from "vue";
 /**
  *  SearchBar of the home page shows list of user interests if he didn't type any thing otherwise show related other users or tags
@@ -198,10 +203,19 @@ export default {
     goToSearchPage()
     {
       //TODO: CHANGE IF INPUT IS EMPTY GO TO EXPLORE => RECOMMENDED FOR YOU
+      
       if (this.inputValue)
-      this.$router.push({ name: 'search', params: {inputValue: this.inputValue  }})
+  {
+      
+    this.$router.push({ name: 'search', params: {searchWord: this.inputValue, word: this.inputValue}})
+
+  }
+      
       // this.$router.push({ path: '/search', searchWord: this.inputValue }); 
        
+    },
+    searchMe(interest){
+          this.$router.push({ name: 'search', params: {searchWord: interest, word: interest}})
     }
   },
   computed: {
@@ -225,20 +239,31 @@ export default {
   props: {
     // interestsList: Array
   },
+    async created() {
+    try {
+      // const res = 
+       console.log("*&%###################")
+       
+         await axios.post('http://localhost:3000/autoCompleteSearchDash',{
+         wordName:this.inputValue, userId: "4444"}).then(res => {
+            this.usersInSearch = res.data.resultBlogs;
+            this.tags= res.data.resultHashTag;
+            this.interestsList= res.data.resultFollowedTag;
+          console.log(res.data)    
+          })
+         
+     //  const res =await axios.get('http://localhost:3000/autoCompleteSearchDash')
+      
+     
+        
+   //  this.interestsList= res.data;
+    } catch (e) {
+        console.log("^^^^^^^^^^^^^^^^^^")
+      console.error(e);
+    }
+  },
   async mounted() {
     document.addEventListener("click", this.close);
-     try {
-     this.searchResults  = await fetchSearchResults()
-     console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
-      this.tags = this.searchResults[0]
-      this.interestsList=this.searchResults[2]
-      this.usersInSearch=this.searchResults[1]
-
-      
-    }
-    catch(error){
-       console.log("server error :((((((((")
-    }
   },
   beforeDestroy() {
     document.removeEventListener("click", this.close);
@@ -274,7 +299,9 @@ export default {
   background: #fff;
   border-color: #e2e8f0;
 }
-
+.iconS{
+  margin: 5px;
+}
 .dropdown-input::placeholder {
   color: #fff;
   text-align: left;
@@ -284,7 +311,7 @@ export default {
   cursor: pointer;
 }
 .dropdown-list {
-  /* overflow-y: auto; */
+   
   z-index: 3;
   transform: translate3d(0px, 20px, 0px);
   position: absolute;
@@ -296,10 +323,10 @@ export default {
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
     0 4px 6px -2px rgba(0, 0, 0, 0.05);
   border-radius: 8px;
+  height: 300px;
 }
 .dropdown-item {
   display: flex;
-  overflow-y: scroll;
   width: 100%;
   padding: 11px 16px;
   cursor: pointer;

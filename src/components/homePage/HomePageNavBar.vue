@@ -168,9 +168,12 @@ export default {
 #navDiv {
   display: flex;
   width: 100%;
+   
+    
 }
 
 #navbar {
+  
   align-items: center;
   width: 100%;
   height: 20%;
@@ -188,7 +191,7 @@ ul {
 }
 li {
   position: relative;
-  padding: 10px;
+ margin:5px;
   list-style: none;
 }
 li.right {
@@ -203,6 +206,8 @@ li.right {
   flex-grow: 2;
   flex-shrink: 2;
   float: right;
+  margin-right: 10px;
+  
 }
 
 #icon {
@@ -239,3 +244,10 @@ SearchBar {
   left: 40px;
 }
 </style>
+
+
+
+
+
+
+

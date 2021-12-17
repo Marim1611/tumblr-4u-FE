@@ -116,7 +116,8 @@
 
 import TumblrDrawer from "./TumblrsDrawer.vue";
 //import Avatar from 'vue-avatar'
-import { fetchSearchResults } from '@/services/fetchers'
+//import axios from 'axios';
+
 import Vue from "vue";
 /**
  *  SearchBar of the home page shows list of user interests if he didn't type any thing otherwise show related other users or tags
@@ -212,19 +213,8 @@ export default {
   },
   async mounted() {
     document.addEventListener("click", this.close);
-     try {
-     this.searchResults  = await fetchSearchResults()
-     console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
-      this.tags = this.searchResults[0]
-      this.interestsList=this.searchResults[2]
-      this.usersInSearch=this.searchResults[1]
-
-      
-    }
-    catch(error){
-       console.log("server error :((((((((")
-    }
   },
+
   beforeDestroy() {
     document.removeEventListener("click", this.close);
   },
