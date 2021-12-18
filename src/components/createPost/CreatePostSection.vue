@@ -45,6 +45,7 @@
           </button>
         </li>
         <li>
+ 
           <button v-on:click="quoteUpload">
             <button class="iconAnimation">
               <b-icon
@@ -53,6 +54,7 @@
                 font-scale="2.5"
               ></b-icon>
             </button>
+ 
             <p
               v-bind:style="{
                 color: homeTheme[homeThemeIndex].fontColor,
@@ -65,6 +67,7 @@
         </li>
         <li>
           <button>
+ 
             <button class="iconAnimation">
               <b-icon
                 icon="link45deg"
@@ -73,6 +76,8 @@
               >
               </b-icon>
             </button>
+
+ 
             <p
               v-bind:style="{
                 color: homeTheme[homeThemeIndex].fontColor,
@@ -85,6 +90,7 @@
         </li>
         <li>
           <button>
+ 
             <button class="iconAnimation">
               <b-icon
                 v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
@@ -92,6 +98,7 @@
                 font-scale="2.5"
               ></b-icon>
             </button>
+ 
 
             <p
               v-bind:style="{
@@ -105,6 +112,7 @@
         </li>
         <li>
           <button>
+ 
             <button class="iconAnimation">
               <b-icon
                 v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
@@ -112,6 +120,7 @@
                 font-scale="2.5"
               ></b-icon>
             </button>
+ 
             <p
               v-bind:style="{
                 color: homeTheme[homeThemeIndex].fontColor,
@@ -124,6 +133,7 @@
         </li>
         <li>
           <button>
+ 
             <button class="iconAnimation">
               <b-icon
                 v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
@@ -131,6 +141,7 @@
                 font-scale="2.5"
               ></b-icon>
             </button>
+ 
             <p
               v-bind:style="{
                 color: homeTheme[homeThemeIndex].fontColor,
@@ -254,6 +265,7 @@ export default {
     closeImage: function (imgClosed) {
       this.imageChosen = imgClosed;
     },
+ 
     // videoUpload: function () {
     //   this.video = true;
     // },
@@ -287,6 +299,7 @@ export default {
 </script>
 
 <style scoped>
+ 
 .createPost {
   display: flex;
   align-items: center;
@@ -318,6 +331,8 @@ li {
   flex-grow: 2;
   flex-shrink: 2;
   float: right;
+
+ 
 }
 button {
   display: flex;
@@ -337,6 +352,7 @@ button {
   height: 100%;
   flex-grow: 4;
   flex-shrink: 4;
+ 
 }
 p {
   margin: 0;

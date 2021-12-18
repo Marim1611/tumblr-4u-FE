@@ -1,11 +1,8 @@
 <template>
-<div id="TheHeader">
- 
-    <b-navbar class="NavBar" toggleable="sm" type="dark" variant="faded">
-        
-        <router-link to="/trending">
+ <div id='parent'>
+      <div id="TheHeader">
+         <b-navbar class="NavBar" toggleable="sm" type="dark" variant="faded">        
         <b-navbar-brand class="NavBarBrand bra" >T4U</b-navbar-brand>
-        </router-link>
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
         <b-collapse id="nav-collapse" is-nav>
             <b-navbar-nav>
@@ -30,32 +27,79 @@
             
         </b-collapse>
     </b-navbar>
+     <div id="divider" v-bind:style="{'background-color': homeTheme[homeThemeIndex].fontColor}"  ></div>
 
-</div>
-
+       
+  </div>
+  <b-col>
+<div id="dashBoard" v-for="(post, i) in dashBoardPosts" :key="i">
+            <DashBoard v-bind:post="post" v-bind:maxWidth="postCardWidth"/>
+          </div>
+  </b-col>
+   
+            </div>
 </template>
 
 <script>
+ 
+import DashBoard from "../general/ViewPostCard.vue";
+ 
+/**
+ *  Home page that contains dashboard and create post compnents 
+ * @example [none]
+ */
 export default {
-  name: 'Header',
-  props: {
-    msg: String
-  }
-}
+  name: "HomePage",
+  data(){
+    return{
+      postCardWidth:"540px"
+    }
+  },
+
+  components: {
+    // DashBoard: DashBoard,
+  },
+  computed: {
+    homeTheme: function () {
+      return this.$store.state.homeTheme;
+    },
+    homeThemeIndex: function () {
+      return this.$store.state.homeThemeIndex;
+    },
+     dashBoardPosts: function () {
+      return this.$store.state.blogs;
+    },
+  },
+};
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+#dashBoard {
+  align-items: center;  
+  display: inline;
+  flex-direction: column;
+  flex-grow: 1;
+  margin-bottom: 20px;
+  margin-right:500px ;
+  padding-left: 500px;
+
+  /* background-color: red; */
+}
+#divider{
+  width: 100%;
+  height: 1px;
+}
+#parent{
+    background-color: #001935; 
+}
 #TheHeader{
-   position: fixed; 
-    top: 0; 
-    width: 100%;
+    background-color: #001935;
     background-position: center;
     background-size: cover;
 }
 .NavBarBrand{
     padding: 0 0 0 20px;
-     
+     color:navy;
 }
 .NavBar{
    

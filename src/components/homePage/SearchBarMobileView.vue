@@ -2,45 +2,30 @@
   <div>
     <div class="dropdown"
     >
-      <div
-        id="input_container"
-        v-bind:style="{
-          'background-color': homeTheme[homeThemeIndex].cardColor,
-          'border-radius': '4px',
-          'border-color': homeTheme[homeThemeIndex].fontColor,
-        }"
-      >
-        <b-icon
-          id="icon"
-          icon="search"
-          font-scale="1.5"
-          aria-hidden="true"
-          v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
-        ></b-icon>
-
-        <input
-          id="search"
-          name="wordName"
-          v-model.trim="inputValue"
+     <div id="searchBar">
+          <form id="search-form">
+    <div class="search"
+       >
+      <input type="text" name="search" class="round"
+         v-model.trim="inputValue"
           v-on:keyup.enter="goToSearchPage"
           v-on:click="isClicked = !isClicked"
-          autocomplete="off"
-          class="dropdown-input"
-          type="text"
           placeholder="Search Tumblr"
-          v-bind:style="{
-            'background-color': homeTheme[homeThemeIndex].cardColor,
-            color: homeTheme[homeThemeIndex].fontColor,
-          }"
-        />
-      </div>
+       v-bind:style="{
+          'background-color': homeTheme[homeThemeIndex].cardColor,
+            }" />
+      
+    </div>
+</form>
+
+     </div>
+      
       <!-- interests  -->
       <div v-on:click.prevent="toggleDropdown">
         <div v-if="!inputValue" v-show="isClicked" class="dropdown-list">
           <div
-            v-for="(item,i) in interestsList"
-            v-on:click="searchMe(item.name)"
-            v-bind:key="i"
+            v-for="item in interestsList"
+            v-bind:key="item.name"
             class="dropdown-item"
           >
             <img :src="item.img" class="dropdown-item-flag" />
@@ -62,13 +47,11 @@
           </div>
           <div
             v-show="itemVisible(item)"
-            v-on:click="searchMe(item)"
             v-for="item in tags"
             v-bind:key="item"
             class="dropdown-item"
           >
             <b-icon
-            class="iconS"
               icon="search"
               font-scale="1"
               aria-hidden="true"
@@ -77,7 +60,7 @@
             <p
               v-bind:style="{
                 'font-style': homeTheme[homeThemeIndex].fontStyle,
-                
+                padding: '10px',
               }"
             >
               {{ item }}
@@ -123,18 +106,18 @@
       </div>
     </div>
     <TumblrDrawer
+      v-if="showBlogDrawer"
       v-bind:tumblrsObj="tumblrsObj"
-        v-bind:showBlogDrawer="showBlogDrawer"
     ></TumblrDrawer>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
- //import api from '../../api';
+
 import TumblrDrawer from "./TumblrsDrawer.vue";
 //import Avatar from 'vue-avatar'
-//import { fetchSearchResults } from '@/services/fetchers'
+//import axios from 'axios';
+
 import Vue from "vue";
 /**
  *  SearchBar of the home page shows list of user interests if he didn't type any thing otherwise show related other users or tags
@@ -158,7 +141,6 @@ export default {
     //  'Avatar':Avatar
   },
   methods: {
-    
      /**
      * Function to make the items visible only that appear in the dropdown list to match what the user type in the search bar
      * @public This is a public method
@@ -193,9 +175,7 @@ export default {
      * @param {none}
      */
     openDrawer(name, avatar, cover) {
-      this.showBlogDrawer = true;
-      console.log("FFFFFFFFFFffffffff")
-      console.log(  this.showBlogDrawer)
+      this.showBlogDrawer = !this.showBlogDrawer;
       Vue.set(this.tumblrsObj, "name", name);
       Vue.set(this.tumblrsObj, "coverImg", cover);
       Vue.set(this.tumblrsObj, "avatar", avatar);
@@ -205,17 +185,9 @@ export default {
       //TODO: CHANGE IF INPUT IS EMPTY GO TO EXPLORE => RECOMMENDED FOR YOU
       
       if (this.inputValue)
-  {
-      
-    this.$router.push({ name: 'search', params: {searchWord: this.inputValue, word: this.inputValue}})
-
-  }
-      
+      this.$router.push({ name: 'search', params: {inputValue: this.inputValue  }})
       // this.$router.push({ path: '/search', searchWord: this.inputValue }); 
        
-    },
-    searchMe(interest){
-          this.$router.push({ name: 'search', params: {searchWord: interest, word: interest}})
     }
   },
   computed: {
@@ -239,32 +211,10 @@ export default {
   props: {
     // interestsList: Array
   },
-    async created() {
-    try {
-      // const res = 
-       console.log("*&%###################")
-       
-         await axios.post('http://localhost:3000/autoCompleteSearchDash',{
-         wordName:this.inputValue, userId: "4444"}).then(res => {
-            this.usersInSearch = res.data.resultBlogs;
-            this.tags= res.data.resultHashTag;
-            this.interestsList= res.data.resultFollowedTag;
-          console.log(res.data)    
-          })
-         
-     //  const res =await axios.get('http://localhost:3000/autoCompleteSearchDash')
-      
-     
-        
-   //  this.interestsList= res.data;
-    } catch (e) {
-        console.log("^^^^^^^^^^^^^^^^^^")
-      console.error(e);
-    }
-  },
   async mounted() {
     document.addEventListener("click", this.close);
   },
+
   beforeDestroy() {
     document.removeEventListener("click", this.close);
   },
@@ -273,6 +223,38 @@ export default {
 </script>
 
 <style scoped>
+.round {
+    width: 100%;
+    border-radius: 15px;
+    border: 1px #000 solid;
+    padding: 5px 5px 5px 25px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5;
+}
+#searchBar{
+    margin-top:10px;
+}
+.corner {
+    position: absolute;
+    top: 3px;
+    left: 5px;
+    height: 20px;
+    width: 20px;
+    z-index: 10;
+    border-radius: 10px;
+    border: none;
+    background: #000; /* Set the bg image here. with "no-repeat" */
+}
+
+
+.search {
+    position: relative;
+    width: 220px;
+    height: 30px;
+    position: relative; padding: 0 0 0 20px; margin: 0 20px;
+}
 .dropdown {
   position: relative;
   /* width: 100%;
@@ -299,9 +281,7 @@ export default {
   background: #fff;
   border-color: #e2e8f0;
 }
-.iconS{
-  margin: 5px;
-}
+
 .dropdown-input::placeholder {
   color: #fff;
   text-align: left;
@@ -311,7 +291,7 @@ export default {
   cursor: pointer;
 }
 .dropdown-list {
-   
+  /* overflow-y: auto; */
   z-index: 3;
   transform: translate3d(0px, 20px, 0px);
   position: absolute;
@@ -323,10 +303,10 @@ export default {
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
     0 4px 6px -2px rgba(0, 0, 0, 0.05);
   border-radius: 8px;
-  height: 300px;
 }
 .dropdown-item {
   display: flex;
+  overflow-y: scroll;
   width: 100%;
   padding: 11px 16px;
   cursor: pointer;
@@ -344,15 +324,7 @@ export default {
   max-height: 18px;
   margin: auto 12px auto 0px;
 } */
-#input_container {
-  position: relative;
-  padding: 0 0 0 20px;
-  margin: 0 20px;
-  border: 2px solid wheat;
-  cursor: text;
-  direction: rtl;
-  width: 500px;
-}
+ 
 
 #icon {
   
