@@ -14,7 +14,7 @@ import NewBlog from '../components/blog/CreateNewBlogPage'
 import CreatedBlog from '../components/blog/CreatedBlogPage'
 import SearchResults from '../components/search/SearchResultsPage'
 import Trending from '../components/registerPages/Trending'
-
+import Profile from '../components/profile/Profile.vue'
  
 Vue.use(VueRouter);
 const routes = [
@@ -85,6 +85,11 @@ const routes = [
         name: 'search',
         component:SearchResults,
         props: true
+      },
+      {
+        path: '/profile',
+        name: 'profile',
+        component:Profile,
       },
   
       
