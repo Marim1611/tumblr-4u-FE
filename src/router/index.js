@@ -15,6 +15,7 @@ import CreatedBlog from '../components/blog/CreatedBlogPage'
 import SearchResults from '../components/search/SearchResultsPage'
 import Trending from '../components/registerPages/Trending'
 import Profile from '../components/profile/Profile.vue'
+import Interests from '../components/registerPages/InterestsPage'
  
 Vue.use(VueRouter);
 const routes = [
@@ -91,6 +92,12 @@ const routes = [
         name: 'profile',
         component:Profile,
       },
+      {
+        path: '/getting_to_know_tumblr',
+        name: 'getting_to_know_tumblr',
+        component:Interests,
+      },
+      
   
       
 ]

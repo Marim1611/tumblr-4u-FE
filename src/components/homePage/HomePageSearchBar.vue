@@ -133,6 +133,7 @@
 import axios from 'axios';
  //import api from '../../api';
 import TumblrDrawer from "./TumblrsDrawer.vue";
+import Browser from '../../mocks/browser'
 //import Avatar from 'vue-avatar'
 //import { fetchSearchResults } from '@/services/fetchers'
 import Vue from "vue";
@@ -241,11 +242,8 @@ export default {
   },
     async created() {
     try {
-      // const res = 
-       console.log("*&%###################")
-       
-         await axios.post('http://localhost:3000/autoCompleteSearchDash',{
-         wordName:this.inputValue, userId: "4444"}).then(res => {
+    
+         await axios.get(Browser().baseURL+'/autoCompleteSearchDash').then(res => {
             this.usersInSearch = res.data.resultBlogs;
             this.tags= res.data.resultHashTag;
             this.interestsList= res.data.resultFollowedTag;

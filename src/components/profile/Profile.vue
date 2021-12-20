@@ -83,7 +83,6 @@
             />
           </div>
         </b-row>
-
         <b-row class="secondHalf">
           <h1 class="headers">{{ posts[0].title }}</h1>
         </b-row>
@@ -110,12 +109,12 @@
 <script>
 import axios from "axios";
 import ProfileCard from "./ProfileCard.vue";
-
+import Browser from '../../mocks/browser'
 export default {
   name: "Profile",
   async created() {
     try {
-      const resp = await axios.get("http://localhost:3000/Profile");
+      const resp = await axios.get(Browser().baseURL+"/Profile");
       this.posts = resp.data.Profile;
     } catch (e) {
       alert(e);
