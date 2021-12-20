@@ -5,9 +5,9 @@ import { getField, updateField } from 'vuex-map-fields';
 import api from '../api';
 
 Vue.use(Vuex);
-const baseURL = "http://localhost:8080";
+
 export const store = new Vuex.Store({
-    baseURL:baseURL,
+
     strict: true,
     state: {
         status: "",
@@ -24,12 +24,12 @@ export const store = new Vuex.Store({
         homeThemeIndex:0,
  
         homeTheme: [ 
-          {backgroundColor: '#001935',fontColor:'white', cardColor:'#5c7e97' ,fontColor2:'#1A314D', fontStyle: 'Helvetica', focused:'cyan'},
-          {backgroundColor: 'black',fontColor:'lime', cardColor:'#222222',fontColor2:'#15C406', fontStyle: 'Times New Roman',focused:'#64FF00'},
-          {backgroundColor: 'black',fontColor:'#ff6400', cardColor:'#221000', fontColor2:'#ff6400',fontStyle: 'Lucida Console', focused:'#6464C8'},
-          {backgroundColor: '#1A2735',fontColor:'#BFBFBF', cardColor:'#36465D', fontColor2:'#BFBFBF',fontStyle: 'Fantasy',focused:'#49A9EE'},
-          {backgroundColor: 'black',fontColor:'#CF43ED', cardColor:'#0C0C0C',fontColor2:'#CF43ED', fontStyle: 'Garamond',focused:'#CF43ED'}, 
-          {backgroundColor: '#1a1a00',fontColor:'#ffff66', cardColor:'#808000',fontColor2:'#ffff66', fontStyle: 'Georgia', focused:'#ffff66'}, 
+          {backgroundColor: '#001935',fontColor:'white', cardColor:'#5c7e97' ,fontColor2:'#1A314D', fontStyle: 'Helvetica', focused:'cyan',shadow:'rgb(163, 162, 162)'},
+          {backgroundColor: 'black',fontColor:'lime', cardColor:'#222222',fontColor2:'#15C406', fontStyle: 'Times New Roman',focused:'#64FF00',shadow:'#273224'},
+          {backgroundColor: 'black',fontColor:'#ff6400', cardColor:'#221000', fontColor2:'#ff6400',fontStyle: 'Lucida Console', focused:'#6464C8',shadow:'#321600'},
+          {backgroundColor: '#1A2735',fontColor:'#BFBFBF', cardColor:'#36465D', fontColor2:'#BFBFBF',fontStyle: 'Fantasy',focused:'#49A9EE',shadow:'#273224'},
+          {backgroundColor: 'black',fontColor:'#CF43ED', cardColor:'#0C0C0C',fontColor2:'#CF43ED', fontStyle: 'Garamond',focused:'#CF43ED',shadow:'#16131b'}, 
+          {backgroundColor: '#1a1a00',fontColor:'#ffff66', cardColor:'#808000',fontColor2:'#ffff66', fontStyle: 'Georgia', focused:'#ffff66',shadow:'#404f64'}, 
  
               
  

@@ -24,8 +24,7 @@
             </div>
             
               <p  id ="pName" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle}">{{this.userName}} </p>
-                    <b-icon id="arrow"  icon="chevron-down" font-scale="1" aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon>
-              <p v-on:click="newMsgClicked" id ="msgBtn" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle}">{{this.msgButton}} </p>
+               <p v-on:click="newMsgClicked" id ="msgBtn" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle}">{{this.msgButton}} </p>
 
         
         </li>
@@ -33,7 +32,7 @@
 
           
             <!-- newMsg IS not Clicked   -->
-            <div v-if="!newMsgCIslicked" >
+            <div id ="chats" v-if="!newMsgCIslicked" >
                  <!-- end -->
    <div id="chatItem" v-for="(friend, i) in chattingFriends" :key="i">
          <li>
@@ -48,20 +47,52 @@
             <div id="chatP">
                 <p  id ="pNameChat" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle}">{{friend.name}} </p>
         <p  id ="lastMsg" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle}">{{friend.lastMsg}} </p>
-
-            </div>
-            
+            </div>    
          </li>
                           <div id="divider" :style="{'background-color': homeTheme[homeThemeIndex].fontColor}"></div>
-
-         
-    
    </div>
           <!-- footer -->    
             </div>
 
             <!-- newMsg IS   Clicked   -->
-            <div v-else >?????</div>
+            <div v-else > 
+              <div id="sendMsg">
+                <p  id ="pNameChat" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle}">To: </p>
+                      <div  >
+            <input 
+            id="inputTo"
+            type="text" name="To" 
+             autocomplete="off" 
+         v-model.trim="inputValue"
+          v-bind:style="{
+            color: homeTheme[homeThemeIndex].fontColor,
+          }"/>
+                      </div>
+              </div>
+               <div id="date" :style="{'background-color': homeTheme[homeThemeIndex].shadow}">
+               <p  id ="pF" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle}"> Recently followed</p>
+              </div>
+               <div id="chatItem" v-for="(item, i) in recentlyFollowed" :key="i">
+         <li>
+<div class="avatarStyle">
+              <avatar
+              username="Jane Doe"
+               v-bind:rounded=true
+              v-bind:src="item.img"
+              v-bind:size="35"
+            ></avatar>
+            </div>
+            <div id="chatP">
+                <p  id ="pNameChat" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle}">{{item.name}} </p>
+        <p  id ="lastMsg" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle}">{{item.lastMsg}} </p>
+            </div>    
+         </li>
+                          <div id="divider" :style="{'background-color': homeTheme[homeThemeIndex].fontColor}"></div>
+   </div>
+                        <div>
+                
+              </div>
+            </div>
         
         <!-- end -->
 
@@ -88,23 +119,13 @@ export default {
   },
    data: function () {
     return {
-
+        inputValue:"",
         isOpen:false,
         newMsgCIslicked:false,
         msgButton:"New Message",
        listColors:["transparent","transparent","transparent","transparent"],
     img: "https://64.media.tumblr.com/6eb8d7c15856ffa76b0a6b5bdb35f2de/5cf38a736b98badf-f9/s640x960/0762f14581a4a9bf7599fc7899b35cd909878bde.jpg",
     userName:"mairm22",
-    all:[
-        {
-            date:"12 december ",
-            content:"reem mention you inhhhh bla bla bbla"
-        },
-        {
-            date:"12 december ",
-            content:"reem mention you inhhhh bla bla bbla"
-        }
-    ],
     chattingFriends:[
         {
             name:"reem",
@@ -115,7 +136,30 @@ export default {
             name:"reem",
             img:'https://www.theme-junkie.com/wp-content/uploads/Old-Black-and-White-Backgrounds-1.jpg',
             lastMsg:"goodbye!"
+        },
+         {
+            name:"reem",
+            img:'https://www.theme-junkie.com/wp-content/uploads/Old-Black-and-White-Backgrounds-1.jpg',
+            lastMsg:"goodbye!"
+        },
+         {
+            name:"reem",
+            img:'https://www.theme-junkie.com/wp-content/uploads/Old-Black-and-White-Backgrounds-1.jpg',
+            lastMsg:"goodbye!"
         }
+    ],
+     recentlyFollowed:[
+        {
+            name:"reem",
+            img:'https://www.theme-junkie.com/wp-content/uploads/Old-Black-and-White-Backgrounds-1.jpg',
+            lastMsg:"goodbye!"
+        },
+        {
+            name:"reem",
+            img:'https://www.theme-junkie.com/wp-content/uploads/Old-Black-and-White-Backgrounds-1.jpg',
+            lastMsg:"goodbye!"
+        },
+         
     ]
       
     }
@@ -187,6 +231,7 @@ export default {
 </script>
 
 <style scoped>
+ 
 #footer{
     text-align: center;
 }
@@ -197,7 +242,8 @@ export default {
  
 nav .menu-item .sub-menu {
   position: absolute;
-  height: 450px;
+ display: block;
+overflow: auto;
   top: calc(100% + 5px);
   left: 20%;
  
@@ -331,12 +377,10 @@ font-size: 12px;
 #content{
     
   position: absolute;
-    
+  
   z-index: 1;
 }
-#arrow{
-    margin:10px;
-}
+ 
 .avatarStyle {
   width: 25px;
   margin: 10px;
@@ -344,13 +388,34 @@ font-size: 12px;
   padding: 0px 0px 0px 5px;
  
 }
-#blogName{
-  vertical-align:middle;
-  margin-left: 20px;
-    margin-right: 20px;
+ 
+#sendMsg{
+  margin: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+
 }
-#blogFeatures{
-  position: relative;
-   padding :0px 20px 0px 20px;
+#inputTo{
+  cursor: text;
+  width: 100%;
+  border-radius: 8px;
+  line-height: 1.5em;
+  outline: none;
+}
+#date{
+  width: 100%;
+  height: 30px;
+  display: flex;
+  margin: 0px;
+  justify-content:flex-start;
+  text-align: center;
+  margin-top: 0px;
+  padding-top:0px ;
+}
+#pF{
+    font-size: 13px;
+  font-weight: none;
+  margin: 10px;
 }
 </style>

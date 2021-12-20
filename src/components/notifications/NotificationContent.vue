@@ -1,71 +1,76 @@
 <template>
-  <div class="menu-item" id="dropDown" v-on:click="isOpen = !isOpen">
-         <b-icon
-                id="icon"
+     <div v-if="this.content.length"   > 
+            <!-- start notifications items list  -->
+            <div id="notificationDiv">
+              
+            <div v-for="(item, i) in content"  :key="i" >
+              <div id="date" :style="{'background-color': homeTheme[homeThemeIndex].shadow}">
+              <p  id ="pDate" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle}">{{item.ago}}</p>
+              <p  id ="pDate" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle}"> {{item.date}}</p>
+              </div>
+
+              <div id="notifiedItem">
+                <div id="notifiedItemContent">
+                   <div class="avatarStyle">
+              <avatar
+              username="Jane Doe"
+               v-bind:rounded=false
+              v-bind:src="item.img"
+              v-bind:size="20"
+            ></avatar>
+            </div>
+
+              <p  id ="pDate" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle}">{{item.content}}</p>
+
+
+                </div>
+                
+
+             <div class="avatarPost">
+              <avatar
+              username="Jane Doe"
+               v-bind:rounded=false
+              v-bind:src="item.postImg"
+              v-bind:size="30"
+            ></avatar>
+            </div>
+
+              </div>
+            </div>
+        
+
+            </div>
+
+        <!-- end -->
+          <!-- footer -->
+
+            <div id="divider" :style="{'background-color': homeTheme[homeThemeIndex].fontColor}"></div>
+
+         <div id="footer">
+              
+              <p  id ="pHeader" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle}">
+                  See Everything </p>
+ 
+        </div>
+       
+
+       </div>
+       <div id="empty" v-else>
+             
+               <b-icon
+                id="iconEmpty"
                 icon="lightning-fill"
                 font-scale="1.5"
                 aria-hidden="true"
                 v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
               ></b-icon>
-    <transition name="fade" appear>
-        <div v-on:click.prevent="toggleDropdown">
-          <div id ="content" class="sub-menu" v-if="isOpen" :style="{'background-color': homeTheme[homeThemeIndex].cardColor}">
-    
-    
-        <li >
-             <div class="avatarStyle">
-              <avatar
-              username="Jane Doe"
-               v-bind:rounded=false
-              v-bind:src="this.img"
-              v-bind:size="20"
-            ></avatar>
-            </div>
-            
-              <p  id ="pHeader" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle}">{{this.userName}} </p>
-                    <b-icon id="arrow"  icon="chevron-down" font-scale="1" aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon>
-
-        </li>
-        <div id="divider" :style="{'background-color': homeTheme[homeThemeIndex].fontColor}"></div>
-       
-        <li id ="list"  >
-            <div v-on:click="openItem(0)" id="divList" v-bind:style="{'border-bottom': '4px solid '+this.listColors[0],
-             'border-right': '1px solid '+this.listColors[0]}">
-              <p  id ="plist" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle}">All </p>
-
-            </div>
-              <div v-on:click="openItem(1)" id="divList" v-bind:style="{'border-bottom': '4px solid '+this.listColors[1],
-             'border-right': '1px solid '+this.listColors[1]}">
-              <p  id ="plist" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle}">Mentions </p>
-
-            </div>
-              <div v-on:click="openItem(2)" id="divList" v-bind:style="{'border-bottom': '4px solid '+this.listColors[2],
-             'border-right': '1px solid '+this.listColors[2]}">
-              <p  id ="plist" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle}">Reblog </p>
-
-            </div>
-              <div v-on:click="openItem(3)" id="divList" v-bind:style="{'border-bottom': '4px solid '+this.listColors[3],
-             'border-right': '1px solid '+this.listColors[3]}">
-              <p  id ="plist" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle}">Replies </p>
-            </div>
-        </li>
-       <NotificationContent  v-bind:content="all" v-if="itemIsOpen[0]"/>
-        <NotificationContent v-bind:content="mentions" v-else-if="itemIsOpen[1]"/>
-        <NotificationContent v-bind:content="reblogs" v-else-if="itemIsOpen[2]"/>
-        <NotificationContent v-bind:content="replies" v-else-if="itemIsOpen[3]"/>
-        
-         
-        </div>
+                <p  id ="pHeader" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle}">
+                  No notifications yet Don't miss tumblr activities! </p>
          </div>
-      
-    </transition>
-    
-   </div>
 </template>
 
 <script>
 import Avatar from "vue-avatar";
-import NotificationContent from "./NotificationContent.vue"
  
  /**
  *  AccountDropdownList is a drop down list appears when user clicks on account icon in the nav bar it shows list of options user will be able to click on all of them
@@ -74,19 +79,18 @@ import NotificationContent from "./NotificationContent.vue"
 export default {
    components: {
     Avatar: Avatar,
-    NotificationContent:NotificationContent
+  },
+  props:{
+      content:Array
+
   },
   data: function () {
     return {
-      itemIsOpen:[true,false,false,false],
         isOpen:false,
-       listColors:["white","transparent","transparent","transparent"],
+       listColors:["transparent","transparent","transparent","transparent"],
     img: "https://64.media.tumblr.com/6eb8d7c15856ffa76b0a6b5bdb35f2de/5cf38a736b98badf-f9/s640x960/0762f14581a4a9bf7599fc7899b35cd909878bde.jpg",
     userName:"mairm22",
     index:0,
-    mentions:[],
-    reblogs:[],
-    replies:[],
     all:[
         {
             ago:"2 days ago",
@@ -132,11 +136,9 @@ export default {
               console.log(j)
               this.listColors[j] = "transparent"
               console.log(this.homeTheme[this.homeThemeIndex].fontColor)
-                this.itemIsOpen[j]=false;
          if (j == i)
          {
-
-             this.itemIsOpen[i]=true;
+              this.index=i;
               console.log("mree")
      if(this.listColors[i] == "transparent")
         this.listColors[i]=this.homeTheme[this.homeThemeIndex].fontColor
@@ -200,10 +202,12 @@ export default {
 }
 #date{
   width: 100%;
-  height: 40px;
+  height: 30px;
   display: flex;
   margin: 0px;
   justify-content: space-between;
+  margin-top: 0px;
+  padding-top:0px ;
 }
 #notifiedItemContent{
     width: 100%;
@@ -310,8 +314,8 @@ nav .menu-item .sub-menu {
  
 #divList {
    text-align: center;
+ 
    justify-content: center;
-   margin-bottom: 0px;
    
 }
 #pHeader{
