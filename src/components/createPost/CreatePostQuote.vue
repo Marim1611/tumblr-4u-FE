@@ -130,6 +130,9 @@ export default {
             type: "quote",
           })
           .then((res) => {
+            this.$emit("closeTextBox", false);
+            this.postContent = "";
+            this.postTitle = "";
             console.log(res.data);
           });
       } catch (e) {

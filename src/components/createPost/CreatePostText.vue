@@ -112,6 +112,7 @@ export default {
      * @param {none}
      */
 
+    postDone() {},
     async postDone() {
       try {
         await axios
@@ -120,6 +121,9 @@ export default {
             type: "text",
           })
           .then((res) => {
+            this.$emit("closeTextBox", false);
+            this.postContent = "";
+            this.postTitle = "";
             console.log(res.data);
           });
       } catch (e) {
@@ -151,10 +155,8 @@ export default {
       if (
         (this.postContent === "" || this.postContent === null) &&
         (this.postTitle === "" || this.postTitle === null)
-      )
-      {        return true;
-
-
+      ) {
+        return true;
       }
       return false;
     },
