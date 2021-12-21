@@ -8,29 +8,38 @@
   <div class="mainDiv">
     <div class="selectedItemsDone">
       <div class="btns">
-        <button class="skipButton">Skip</button>
+        <router-link to="/home">
+          <button class="skipButton">Skip</button>
+        </router-link>
 
-        <button
-          v-bind:class="{
-            nextClass: this.counter >= 5,
-            selectClass: this.counter < 5,
-          }"
+        <router-link
+          to="/home"
           v-bind:disabled="this.counter == 0"
+          tag="button"
         >
-          <span class="selectionInfo" v-if="this.counter < 5">
-            Select
-            <span class="counterInfo" v-if="this.counter < 5">
-              {{ 5 - this.counter }}
+          <button
+            v-bind:class="{
+              nextClass: this.counter >= 5,
+              selectClass: this.counter < 5,
+            }"
+            v-bind:disabled="this.counter == 0"
+            v-on:click="doneSelection"
+          >
+            <span class="selectionInfo" v-if="this.counter < 5">
+              Select
+              <span class="counterInfo" v-if="this.counter < 5">
+                {{ 5 - this.counter }}
+              </span>
             </span>
-          </span>
-          <progress
-            :value="counter"
-            :max="6"
-            v-if="this.counter < 5"
-          ></progress>
+            <progress
+              :value="counter"
+              :max="6"
+              v-if="this.counter < 5"
+            ></progress>
 
-          <span v-else> Next </span>
-        </button>
+            <span v-else> Next </span>
+          </button>
+        </router-link>
       </div>
 
       <div class="itemsDiv">
@@ -80,6 +89,9 @@
 </template>
 
 <script>
+import axios from "axios";
+import Browser from "../../mocks/browser";
+
 export default {
   data() {
     return {
@@ -378,6 +390,21 @@ export default {
       if (indexCard.length > 0) {
         var target = this.cards.indexOf(indexCard[0]);
         this.cards[target].selected = false;
+      }
+    },
+
+    async doneSelection() {
+      try {
+        await axios
+          .post(Browser().baseURL + "/interests", {
+            interests: this.selectedItems,
+          })
+          .then((res) => {
+            console.log(res.data);
+          });
+      } catch (e) {
+        console.log("^^^^^^^^^^^^^^^^^^");
+        console.error(e);
       }
     },
   },
