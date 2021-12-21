@@ -29,7 +29,7 @@ export const store = new Vuex.Store({
           {backgroundColor: 'black',fontColor:'#ff6400', cardColor:'#221000', fontColor2:'#ff6400',fontStyle: 'Lucida Console', focused:'#6464C8',shadow:'#321600'},
           {backgroundColor: '#1A2735',fontColor:'#BFBFBF', cardColor:'#36465D', fontColor2:'#BFBFBF',fontStyle: 'Fantasy',focused:'#49A9EE',shadow:'#273224'},
           {backgroundColor: 'black',fontColor:'#CF43ED', cardColor:'#0C0C0C',fontColor2:'#CF43ED', fontStyle: 'Garamond',focused:'#CF43ED',shadow:'#16131b'}, 
-          {backgroundColor: '#1a1a00',fontColor:'#ffff66', cardColor:'#808000',fontColor2:'#ffff66', fontStyle: 'Georgia', focused:'#ffff66',shadow:'#404f64'}, 
+          {backgroundColor: '#1a1a00',fontColor:'#ffff66', cardColor:'#808000',fontColor2:'#ffff66', fontStyle: 'Georgia', focused:'#ffff66',shadow:'#b8d15c'}, 
  
               
  

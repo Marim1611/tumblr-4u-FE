@@ -123,6 +123,7 @@
       </div>
     </div>
     <TumblrDrawer
+    v-if="showBlogDrawer"
       v-bind:tumblrsObj="tumblrsObj"
         v-bind:showBlogDrawer="showBlogDrawer"
          v-on:closeDrawer="closeDrawer($event)"
@@ -201,6 +202,7 @@ export default {
      * @param {none}
      */
     openDrawer(name, avatar, cover) {
+      console.log("why??????????")
       this.showBlogDrawer = true;
       Vue.set(this.tumblrsObj, "name", name);
       Vue.set(this.tumblrsObj, "coverImg", cover);
