@@ -13,7 +13,9 @@
         <b-col col lg="3">
           <form @submit.prevent="handel">
           <input type="number" class="form-control"   placeholder="How old are you ?" v-model="Age">
-          <button  class="btn btn-info btn-lg btn-block bb " type="submit">Sign up</button>
+        <router-link to ='/getting_to_know_tumblr' >         
+           <button  class="btn btn-info btn-lg btn-block bb " type="submit">Sign up</button>
+       </router-link>
           
           </form>
           

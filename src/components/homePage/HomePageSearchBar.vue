@@ -38,9 +38,9 @@
       <div v-on:click.prevent="toggleDropdown">
         <div v-if="!inputValue" v-show="isClicked" class="dropdown-list">
           <div
-            v-for="item in interestsList"
+            v-for="(item,i) in interestsList"
             v-on:click="searchMe(item.name)"
-            v-bind:key="item.name"
+            v-bind:key="i"
             class="dropdown-item"
           >
             <img :src="item.img" class="dropdown-item-flag" />
@@ -131,8 +131,9 @@
 
 <script>
 import axios from 'axios';
- 
+ //import api from '../../api';
 import TumblrDrawer from "./TumblrsDrawer.vue";
+import Browser from '../../mocks/browser'
 //import Avatar from 'vue-avatar'
 //import { fetchSearchResults } from '@/services/fetchers'
 import Vue from "vue";
@@ -239,16 +240,23 @@ export default {
   props: {
     // interestsList: Array
   },
-  async created() {
-     try {
-      const res1 =await axios.get('http://localhost:8081/searchResults');  
-      const res2 = await axios.get('http://localhost:8081/tags');
-      const res3 = await axios.get('http://localhost:8081/interests');
-
-      this.usersInSearch = res1.data;
-      this.tags= res2.data;
-      this.interestsList= res3.data;
+    async created() {
+    try {
+    
+         await axios.get(Browser().baseURL+'/autoCompleteSearchDash').then(res => {
+            this.usersInSearch = res.data.resultBlogs;
+            this.tags= res.data.resultHashTag;
+            this.interestsList= res.data.resultFollowedTag;
+          console.log(res.data)    
+          })
+         
+     //  const res =await axios.get('http://localhost:3000/autoCompleteSearchDash')
+      
+     
+        
+   //  this.interestsList= res.data;
     } catch (e) {
+        console.log("^^^^^^^^^^^^^^^^^^")
       console.error(e);
     }
   },

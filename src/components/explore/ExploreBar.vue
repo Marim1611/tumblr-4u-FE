@@ -17,7 +17,7 @@
        
        
         <h5 class="clickable barItem"><b-icon icon="grid1x2-fill" /></h5>
-        <h5 class="clickable barItem"><b-icon icon="view-list" /></h5>
+        <h5 class="clickable barItem"><b-icon icon="hdd-stack-fill" /></h5>
     </div>
 </template>
 
