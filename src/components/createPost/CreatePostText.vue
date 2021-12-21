@@ -12,7 +12,7 @@
   <md-dialog v-bind:md-active.sync="postToBegin" v-on:keyup.esc="closeTextBox">
     <md-dialog-content>
       <!-- <md-dialog-title>mariemzayn22</md-dialog-title> -->
-      
+
       <CreatePostTitleEditor v-on:childToParent="onTitleClick" />
       <CreatePostTextEditor v-on:childToParent="onTextClick" />
       <input type="text" placeholder="#tags" id="theTags" />
@@ -47,6 +47,8 @@
 <script>
 import CreatePostTextEditor from "./editors/textEditor.vue";
 import CreatePostTitleEditor from "./editors/titleEditor.vue";
+import axios from "axios";
+import Browser from "../../mocks/browser";
 
 /**
  *  Create post for text
@@ -58,7 +60,7 @@ export default {
   },
   components: {
     CreatePostTextEditor,
-    CreatePostTitleEditor
+    CreatePostTitleEditor,
   },
   data() {
     return {
@@ -72,8 +74,8 @@ export default {
       // selectedPostOption: "Post",
       autogrow: null,
       textChosen: this.textPost,
-      postContent: null,
-      postTitle: null,
+      postContent: "",
+      postTitle: "",
     };
   },
   methods: {
@@ -89,8 +91,8 @@ export default {
      */
     closeTextBox() {
       this.$emit("closeTextBox", false);
-      this.postContent = null;
-      this.postTitle = null;
+      this.postContent = "";
+      this.postTitle = "";
     },
     /**
      * Function to recieve the content written inside the post from the text editor file
@@ -101,17 +103,29 @@ export default {
       this.postContent = content;
     },
 
-    onTitleClick(content){
-      this.postTitle=content;
+    onTitleClick(content) {
+      this.postTitle = content;
     },
     /**
      * Function to publish the post and save its content
      * @public This is a public method
      * @param {none}
      */
-    postDone() {
-      console.log(this.$refs.titleRefs.$el.outerHTML);
-      // console.log(this.postContent);
+
+    async postDone() {
+      try {
+        await axios
+          .post(Browser().baseURL + "/createPost", {
+            postHtml: this.postTitle + this.postContent,
+            type: "text",
+          })
+          .then((res) => {
+            console.log(res.data);
+          });
+      } catch (e) {
+        console.log("^^^^^^^^^^^^^^^^^^");
+        console.error(e);
+      }
     },
   },
   computed: {
@@ -135,69 +149,19 @@ export default {
      */
     disablePosting() {
       if (
-        this.postContent === null &&
-        (this.postTitle === null || this.postTitle === "")
+        (this.postContent === "" || this.postContent === null) &&
+        (this.postTitle === "" || this.postTitle === null)
       )
-        return true;
+      {        return true;
+
+
+      }
       return false;
     },
   },
 };
 </script>
 <style scoped>
-/* .v-text-field.v-text-field--enclosed:not(.v-text-field--rounded)
-  > .v-input__control
-  > .v-input__slot,
-.v-text-field.v-text-field--enclosed .v-text-field__details {
-  padding: 0;
-}
-v-input:focus {
-  border: none;
-  outline: none;
-}
-.v-text-field.v-text-field--enclosed:not(.v-text-field--rounded) {
-  border-radius: 0;
-  outline: none;
-  border: none;
-  padding: 0;
-}
-.theme--light.v-text-field--filled > .v-input__control > .v-input__slot {
-  background: white;
-  border: none;
-  padding: 0;
-} */
-
-.v-input.v-textarea > .v-input__control > .v-input__slot:before {
-  border: none;
-}
-
-.primary--text:focus {
-  outline: none !important;
-  border: none !important;
-  display: none;
-}
-
-.v-text-field > .v-input__control > .v-input__slot:after {
-  background-color: transparent !important;
-  border-color: transparent !important;
-  border-style: none !important;
-  border-width: 0 !important;
-  transform: none !important;
-}
-
-.v-text-field.v-input--is-focused > .v-input__control > .v-input__slot:after {
-  transform: none !important  ;
-}
-
-.v-textarea > textarea {
-  max-width: 30vw;
-  font-size: 36px;
-  font-weight: 400;
-  outline: none;
-  border: none;
-  font-family: inherit;
-  resize: none;
-}
 .md-dialog .md-dialog-container {
   width: 30vw;
   min-height: 30vh;
