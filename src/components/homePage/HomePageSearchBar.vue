@@ -125,6 +125,7 @@
     <TumblrDrawer
       v-bind:tumblrsObj="tumblrsObj"
         v-bind:showBlogDrawer="showBlogDrawer"
+         v-on:closeDrawer="closeDrawer($event)"
     ></TumblrDrawer>
   </div>
 </template>
@@ -159,6 +160,12 @@ export default {
     //  'Avatar':Avatar
   },
   methods: {
+      closeDrawer: function (close) {
+      // console.log(text);
+            console.log("drqwer closse heree2");
+
+      this.showBlogDrawer = close;
+    },
     
      /**
      * Function to make the items visible only that appear in the dropdown list to match what the user type in the search bar
@@ -195,8 +202,6 @@ export default {
      */
     openDrawer(name, avatar, cover) {
       this.showBlogDrawer = true;
-      console.log("FFFFFFFFFFffffffff")
-      console.log(  this.showBlogDrawer)
       Vue.set(this.tumblrsObj, "name", name);
       Vue.set(this.tumblrsObj, "coverImg", cover);
       Vue.set(this.tumblrsObj, "avatar", avatar);

@@ -25,6 +25,15 @@
           ></div>
 
           <div id="homePageCreatePost">
+             <div class="avatarStyle"
+             v-on:click="openProfileDrawer=!openProfileDrawer">
+              <avatar
+              username="Jane Doe"
+               v-bind:rounded=false
+              v-bind:src="userImg"
+              v-bind:size="70"
+            ></avatar>
+            </div>
             <CreatePostSection />
           </div>
 
@@ -32,6 +41,11 @@
             <DashBoard v-bind:post="post" v-bind:maxWidth="postCardWidth"  />
           </div>
         </div>
+        <ProfileDrawer
+      v-bind:tumblrsObj="tumblrsObj"
+        v-bind:showBlogDrawer="openProfileDrawer"
+         v-on:closeDrawer="closeDrawer($event)"
+    />
       </div>
     </MatchMedia>
   </div>
@@ -43,6 +57,8 @@ import MobileNavBar from "./HomePageMobileNavBar.vue";
 import NavBar from "./HomePageNavBar.vue";
 import CreatePostSection from "../createPost/CreatePostSection.vue";
 import DashBoard from "../general/ViewPostCard.vue";
+import Avatar from "vue-avatar";
+import ProfileDrawer from "../profile/ProfileDrawer.vue"
 /**
  *  Home page that contains dashboard and create post components 
  * @example [none]
@@ -51,7 +67,13 @@ export default {
   name: "HomePage",
   data : function () {
     return {
-     postCardWidth:"540px"
+     postCardWidth:"540px",
+     userImg:"https://assets.tumblr.com/images/default_avatar/octahedron_closed_96.png",
+     openProfileDrawer:false,
+      tumblrsObj: { name: "Marim", 
+      avatar: "https://assets.tumblr.com/images/default_avatar/octahedron_closed_128.png",
+       coverImg: "https://assets.tumblr.com/images/default_header/optica_pattern_05_focused_v3.png?_v=671444c5f47705cce40d8aefd23df3b1" },
+     
     }
   },
   components: {
@@ -60,6 +82,8 @@ export default {
     DashBoard: DashBoard,
     MobileNavBar: MobileNavBar,
     MatchMedia: MatchMedia,
+    Avatar:Avatar,
+    ProfileDrawer:ProfileDrawer
   },
   computed: {
     homeTheme: function () {
@@ -82,6 +106,14 @@ export default {
       return this.$store.state.blogs;
     },
   },
+  methods:{
+     closeDrawer: function (close) {
+      // console.log(text);
+            console.log("drqwer closse heree2");
+
+      this.openProfileDrawer = close;
+    },
+  }
 };
 </script>
 
@@ -111,7 +143,18 @@ export default {
   
 }
 #homePageCreatePost {
+  width: 540px;
+  display: flex;
+  flex-direction: row;
   padding:  30px 200px 150px 250px;
-  position: relative;
+  justify-content: space-evenly;
 }
+.avatarStyle {
+  width: 25px;
+  margin-right: 60px;
+  cursor: pointer;
+  padding: 0px 0px 0px 5px;
+ 
+}
+
 </style>

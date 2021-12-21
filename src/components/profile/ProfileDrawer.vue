@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="drawerBg">
     <v-navigation-drawer
       id="blogDrawer"
       v-bind:width="600"
@@ -21,7 +21,10 @@
         <nav id="navbar">
           <ul id="navbar">
             <div id="iconsDiv">
-             <li>
+            
+
+            <div id="leftDiv">
+               <li>
                 <b-icon
                   v-on:click="closeDrawer"
                   id="icon"
@@ -30,8 +33,7 @@
                   aria-hidden="true"
                 ></b-icon>
               </li>
-
-              <li v-if="!isOpenSearch">
+                <li v-if="!isOpenSearch">
                 <div id="nameDiv" >
                   <p   class="searchP">    {{ this.tumblrsObj.name }}  </p>
                     
@@ -111,10 +113,12 @@
         </div>
                 </div>
               </li>
+            </div>
               <li>
                 <div v-if="!isOpenSearch" :style="{'width':'40px'}"></div>
               </li>
-              <li>
+              <div id="rightDiv">
+                <li>
                   <b-icon
                     class="searchP"
                     v-on:click="isOpenSearch = !isOpenSearch"
@@ -126,14 +130,7 @@
                   
                  
               </li>
-              <li>
-                <b-icon
-                  id="icon"
-                  icon="patch-plus-fill"
-                  font-scale="2"
-                  aria-hidden="true"
-                ></b-icon>
-              </li>
+              
               <li>
                 <b-icon
                   id="icon"
@@ -144,6 +141,18 @@
                 ></b-icon>
               </li>
               <li>
+                  <b-icon
+                    class="searchP"
+                    v-on:click="isOpenSearch = !isOpenSearch"
+                    id="icon"
+                    icon="gear-fill"
+                    font-scale="2"
+                    aria-hidden="true"
+                  ></b-icon>
+                  
+                 
+              </li>
+              <li>
                 <b-icon
                   id="icon"
                   v-on:click="toggleDotted"
@@ -152,14 +161,13 @@
                   aria-hidden="true"
                 ></b-icon>
               </li>
+
+              </div>
+              
               <!-- <li>
                     <b-icon id="icon" icon="three-dots" font-scale="2"  aria-hidden="true"></b-icon> 
                 </li> -->
-              <li>
-                <v-btn v-on:click="toggleFollow" elevation="2" small >{{
-                  this.isFollow.status
-                }}</v-btn>
-              </li>
+              
             </div>
           </ul>
         </nav>
@@ -231,15 +239,20 @@
             </div>
           </transition>
         </div>
+        
         <div id="avatarDiv">
-          <div class="avatarStyle">
-            <avatar
-              username="Jane Doe"
-              v-bind:src="this.tumblrsObj.avatar"
-              v-bind:size="100"
-            ></avatar>
+          <router-link to ="/profile"
+          >
+           <div id="profileImg">
+            <img
+              class="imgshape"
+              :src="this.tumblrsObj.avatar"
+              alt="Avatar"
+            />
           </div>
-
+          </router-link>
+          
+           
           <p id="userName">
             <!-- {{ this.tumblrsObj.name }} -->
           {{ this.tumblrsObj.name }}
@@ -257,7 +270,7 @@
 </template>
 
 <script>
-import Avatar from "vue-avatar";
+ 
  import PostCard from "../general/ViewPostCard.vue";
 import Vue from "vue";
 /**
@@ -267,7 +280,6 @@ import Vue from "vue";
 export default {
   name: "TumblrDrawer",
   components: {
-    Avatar: Avatar,
     PostCard:PostCard,
   },
   data: function () {
@@ -285,8 +297,9 @@ export default {
       isOpenSearch: false,
       openPopularTags:false,
       inputClicked:false,
-      dottedItems: ["Archive", "Ask", "Report", "Block", "Close"],
+      dottedItems: ["Archive", "Following", "Close"],
       shareItems: ["Facebook", "Twitter"],
+
       popularTags:["#art", "#crochet", "#baking", "#Block", "#Close","#art", "#crochet", "#baking"]
     };
   },
@@ -372,6 +385,23 @@ export default {
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover;
 }
+#profileImg {
+  text-align: center;
+  width: 110px;
+ 
+  margin: auto;
+  padding: auto;
+}
+.imgshape {
+  
+  border-radius: 50%;
+  position: relative;
+  top: 5px;
+  border-style: solid;
+  border-width: 5px;
+  border-color: white;
+}
+ 
 #avatarDiv {
   
    
@@ -380,9 +410,18 @@ export default {
   text-align: center;
   position: relative;
   justify-content: center;
-  margin-top: 65px;
-  margin-right:40px;
+  margin-top: 40px;
   
+  
+  
+}
+#rightDiv{
+  display: flex;
+  flex-direction: row;
+}
+#leftDiv{
+  display: flex;
+  flex-direction: row;
   
 }
 #searchList{
@@ -392,11 +431,11 @@ export default {
 .menu-item .sub-menu {
   position: absolute;
   /* top: 0; */
-  left: 48%;
+  left: 55%;
   /* left: 100px; */
   /* top: 20px; */
   /* right: 0; */
-  transform: translateX(100%) translateY(-42%);
+  transform: translateX(100%) translateY(-80%);
   width: max-content;
   border-radius: 5px;
 }
@@ -462,6 +501,8 @@ display: inline-block;
   flex-shrink: 2;
   float: right;
   height: 200px;
+  
+  justify-content: space-around;
 }
 ul {
   position: absolute;
