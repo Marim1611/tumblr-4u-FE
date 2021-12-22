@@ -11,7 +11,7 @@ module.exports = () => ({
   autoCompleteSearchDash,
   posts,
   features,
-  activity
+  activity,
   createPost,
   interests,
 });

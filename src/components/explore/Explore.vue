@@ -2,7 +2,7 @@
   <div
     id="homeDiv"
     v-bind:style="{
-      'background-color': homeTheme[homeThemeIndex].backgroundColor,
+      'background': homeTheme[homeThemeIndex].backgroundColor,
     }"
   >
     

@@ -2,7 +2,7 @@
   <div>
     <div
       class="createPost"
-      v-bind:style="{ 'background-color': homeTheme[homeThemeIndex].cardColor }"
+      v-bind:style="{ 'background': homeTheme[homeThemeIndex].cardColor }"
     >
       <ul>
         <li>
