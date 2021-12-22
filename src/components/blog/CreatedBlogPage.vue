@@ -1,77 +1,60 @@
 <template>
 <body style="background-color:#001935;">
+      <HomePageNavBar/>
 <div class="container">
-    <HomePageNavBar/>
     <br/><br/><br/>
   <div class="row">
-        <div class="col-1" > </div>
+        <div class="col-0" > </div>
 
-        <div class="col-7">
+        <div class="col-8">
             <div class="Posts" v-if="post_flag">
                  <CreatePostSection/>  
             </div>
-              <!--<div class="postss">
-                    <ul class="pst">
-                    <li class="posts_list" v-for="post of posts  " :key="post.id">
-                         <div class="row">
-                            <div class="col">
-                            <div class="username-post">{{ post.username }}<br/>  </div>
-                             <v-img class="imgggg" :src="post.image_link" ></v-img>    
-                             <div class="comment" {{post.comment}} ></div>     
-                            <div class="note"> {{post_count}} {{ post.note}} </div> -->
 
-                            <!--</div>
-                            <div class="col">
-                            <button class="three-dots" v-on:click="three_dots_handler"><b-icon  icon="three-dots-vertical"></b-icon></button>
-                            <div class="three-dots-box"  v-if="three_dots_flag">
-                            <button class="R">Report</button>
-                            <button class="B">Block</button>
-                            <button class="C">Close</button>
-                            </div>
-                            </div> 
-                          </div>-->
-                          
-                   <!-- </li>
+            <div class="postss" v-if="post_flag">
+                    <ul class="pst">
+                    <li class="posts_list" v-for="post of posts " :key="post.id">
+                       <ViewPostCard v-bind:post="post"
+                        v-bind:maxWidth="postCardWidth"
+                        ></ViewPostCard> 
+                    </li>
                     </ul>
-                </div>-->
+            </div>
             
             <div class="Followers" v-if="followers_flag==true">
                 <p id="p1"> {{followers_count}} Followers  </p> 
-               <!-- <input type="text" class="follower-search" placeholder=" Search your followers " v-on:change="search_follower">-->
+                <input type="text" class="follower-search" placeholder=" Search your followers " v-on:change="searchFollower">
                 <div class="follower_names">
                     <ul class="f_names">
                     <li class="names_list" v-for="follower of followers  " :key="follower.id">
-                         <div class="row">
-                            <div class="col">
-                            <v-img class="imggg" :src="follower.image_link" ></v-img>         
-                            <div class="username-follower">{{ follower.username }}<br/>  </div>
-                            <div class="title-follower">{{follower.title}} </div>
-                            </div>
-                            <div class="col">
-                            <button class="three-dots" v-on:click="three_dots_handler"><b-icon  icon="three-dots-vertical"></b-icon></button>
-                            <div class="three-dots-box"  v-if="three_dots_flag"><!--to be  handeled-->
-                            <button class="R">Report</button>
-                            <button class="B">Block</button>
-                            <button class="C">Close</button>
-                            </div>
-                            </div>
-                         </div>
+                        <Followers v-bind:image="follower.image_link"
+                        v-bind:username="follower.username"
+                        v-bind:title="follower.title"
+                        v-bind:followerFlag="follower.followerFlag"
+                        ></Followers>
                     </li>
                     </ul>
-                </div>
-            </div>
-        </div>
+                 </div>
+              </div>
+
+            <div class="Activity" v-if="activityFlag==true">
+                <Activity/>
+              </div>
+
+         </div> 
 
         <div class="col-4 " >
-                <div class="form-group">
+              <p id="u">{{Username}} <br/></p>
+              <p id="t" > {{Title}} </p> 
+              <div class="form-group">
                      <button class="button-follower" v-on:click="button_follower_action"> Followers &emsp; &emsp;&nbsp;&emsp;&emsp;&emsp;&emsp;&emsp;{{followers_count}}</button>
-                </div>
-                <div class="form-group">
+              </div>
+              <div class="form-group">
                      <button class="button-post" v-on:click="button_post_action"> Posts &emsp;&emsp;&emsp; &nbsp; &nbsp;&nbsp;&emsp;&emsp;&emsp;&emsp;&emsp;{{post_count}}</button>
-                </div>
-                <!--<div class="form-group">
-                     <button class="button-queue" v-on:click="button_queue_action"> queue &emsp;&emsp;&emsp; &nbsp;&nbsp;&emsp;&emsp;&emsp;&emsp;&emsp;{{queue_count}}</button>
-                </div>-->
+              </div>
+              <div class="form-group">
+                     <button class="button-activity" v-on:click="buttonActivityAction"> Activity <b-icon  icon="graph-up" class="graph-up"></b-icon> </button>
+              </div>
         </div>
 
    </div>
@@ -84,33 +67,50 @@
 import axios from "axios";
 import CreatePostSection from '../createPost/CreatePostSection.vue'
 import HomePageNavBar from '../homePage/HomePageNavBar.vue'
+import Activity from './Activity.vue'
+import Followers from './Followers.vue'
+import ViewPostCard from '../general/ViewPostCard.vue'
+import Browser from '../../mocks/browser'
+
 export default {
-  name: 'CreatedBlog',
+  name: 'CreatedBlogPage',
 
   props: {
+    Username:String,
+    Title:String
 },
   components: {  
   CreatePostSection,
-  HomePageNavBar 
+  HomePageNavBar,
+  Activity ,
+  Followers,
+  ViewPostCard,
   },
   methods: {
  button_follower_action(){
     this.followers_flag=true;
     this.post_flag=false;
+    this.activityFlag=false;
 
  },
  button_post_action(){
      this.post_flag=true;
      this.followers_flag=false;
+     this.activityFlag=false;
 
+ },
+ buttonActivityAction(){
+     this.post_flag=false;
+     this.followers_flag=false;
+     this.activityFlag=true
  },
 inc_followers_count(){
 
     this.followers_count++;
 },
-three_dots_handler(){
-    if(this.three_dots_flag)this.three_dots_flag=false;
-    else this.three_dots_flag=true;
+threeDotsHandler(){
+    if(this.threeDotsFlag)this.threeDotsFlag=false;
+    else this.threeDotsFlag=true;
 }
 
  },
@@ -123,25 +123,29 @@ three_dots_handler(){
         followers:[],
         posts:[],
         image:" ",
-        three_dots_flag:false
+        threeDotsFlag:false,
+        activityFlag:false,
+        searchFollower:" ",
+        postCardWidth:"540px"
 
     }
   },
   async created(){
-    try {
-      const res = await axios.get(`http://localhost:3001/Followers`);
-      const res2 = await axios.get(`http://localhost:3001/Posts`);
 
-      this.followers = res.data;
-      this.followers_count = this.followers.length;
-
-      this.posts = res2.data;
-      this.post_count=this.posts.length;
-
-    } catch (e) {
-      console.error(e);
-    }
-
+        try {
+    
+         await axios.get(Browser().baseURL+'/features').then(res => {
+            this.followers = res.data.followers;
+            this.posts= res.data.posts;
+            this.followers_count = this.followers.length;
+            this.post_count=this.posts.length;
+          //console.log(res.data)    
+          })
+        } catch (e) {
+            console.log("^^^^^^^^^^^^^^^^^^")
+        console.error(e);
+        }
+        
 
   }
 }
@@ -160,6 +164,10 @@ three_dots_handler(){
  background-color:#001935;
  color: white;
 }
+.button-activity{
+background-color:#001935;
+ color: white;
+}
 .button-test-follower{
  background-color:#001935;
  color: white;  
@@ -168,6 +176,8 @@ three_dots_handler(){
  background-color:#001935;
  color: white; 
 }
+
+
 .end{
     height: 700px;
 }
@@ -179,7 +189,7 @@ color: seashell;
 }
 .follower-search{
     position: relative;
-    left:180px;
+    left:530px;
     top:-40px;
     color:white;
     background-color: rgb(90, 81, 114);
@@ -189,18 +199,32 @@ color: seashell;
   margin: 0px;
   padding: 0px;
 }
-.names_list{
+.pst{
+  list-style-type: none;
   margin: 0px;
   padding: 0px;
+  position: relative;
+  left: 120px;
+}
+.names_list{
+  margin: 0px;
+}
+.follower_names{
+  margin: 0px;
+  padding: 10px;
   background-color: white;
-  color:black;
-  border-style: solid ;
+  border-radius: 10px;
+}
+.posts_list{
+  margin: 0px;
+  padding: 5px;
+
+
 }
 .Posts{
     position: relative;
-    left:-70px;
+    left:100px;
     top:-20px;
-
 }
 .imggg{
       border-radius: 8px;
@@ -209,28 +233,95 @@ color: seashell;
       top:20px;
       left: 5px;
 }
-.username-follower{
-    position: relative;
-    left: 65px;
-    top:-20px;
-    font-weight: bold;
+.imgggg{
+      border-radius: 8px;
+      width: 800px;
+      position: relative;
+      top:0px;
+      left: 0px;
+
 }
-.title-follower{
-    position: relative;
-    left: 65px;
-    top:-20px;
+.pp{
+      border-radius: 0px;
+      width: 100px;
+      height: 60px;
+      position: relative;
+      top:00px;
+      left: 00px;
 }
-.three-dots{
-    position: relative;
-    left: 270px;
-    top:10px;
-}
-.three-dots-box{
+
+.username-post{
+  font-weight: bold;
   position: relative;
-  left: 250px;
-  top: 20px;
+  top:0px;
+  left: 10px;
+}
+
+
+.three-dots-post{
+    position: relative;
+    left: 550px;
+    top:-15px;
+
+}
+.three-dots-box-posts{
+  position: relative;
+  left: 650px;
+  top:-420px;
   background-color: white;
   border-style: solid white ;
-  width: 70px;
+  width: 100px;
+  height: 80px;
+}
+
+.postss{
+  position: relative;
+  top: 100px;
+
+}
+.cls{
+  position: relative;
+  top: 10px;
+  left:10px;
+  font-weight: bold;
+
+}
+.cpy{
+  position: relative;
+  top: 10px;
+  left:00px;
+  font-weight: bold;
+
+}
+.comment{
+  position: relative;
+  top:0px;
+  left: 00px;
+}
+.note{
+  position: relative;
+  top:0px;
+  left: 00px;
+  color: darkseagreen;
+}
+.box{
+  position: relative;
+  top:0px;
+  background-color: white;
+  color:black;
+  border-style: solid ;
+}
+.graph-up{
+  position: relative;
+  left:130px ;
+}
+#u{
+color: white;
+font-size: 20px;
+}
+#t{
+color: rgb(201, 180, 180);
+position: relative;
+top:-10px;
 }
 </style>

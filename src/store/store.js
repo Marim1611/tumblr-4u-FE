@@ -24,12 +24,17 @@ export const store = new Vuex.Store({
         homeThemeIndex:0,
  
         homeTheme: [ 
+
           {backgroundColor: '#001935',fontColor:'white', cardColor:'#5c7e97' ,fontColor2:'#1A314D', fontStyle: 'Helvetica', focused:'cyan',shadow:'rgb(163, 162, 162)'},
-          {backgroundColor: 'black',fontColor:'lime', cardColor:'#222222',fontColor2:'#15C406', fontStyle: 'Times New Roman',focused:'#64FF00',shadow:'#273224'},
-          {backgroundColor: 'black',fontColor:'#ff6400', cardColor:'#221000', fontColor2:'#ff6400',fontStyle: 'Lucida Console', focused:'#6464C8',shadow:'#321600'},
+          {backgroundColor: 'linear-gradient(to top left, #33ccff 0%, #ff99cc 100%)',fontColor:'white', cardColor:'linear-gradient(to bottom, #3399ff 0%, #ff99cc 100%)' ,fontColor2:'#1A314D', fontStyle: 'Helvetica', focused:'pink',shadow:'rgb(163, 162, 162)'},
+
+          {backgroundColor: 'black',fontColor:'lime', cardColor:'#222222',fontColor2:'black', fontStyle: 'Times New Roman',focused:'#64FF00',shadow:'#273224'},
+          {backgroundColor: 'linear-gradient(to top right, #ffff99 0%, #ffcc99 100%)',fontColor:'#840000', cardColor:'linear-gradient(to top right, #ffff99 0%, #cc3300 100%)' ,fontColor2:'white', fontStyle: 'Helvetica', focused:'#840000',shadow:'rgb(163, 162, 162)'},
+
+          {backgroundColor: 'black',fontColor:'#ff6400', cardColor:'#221000', fontColor2:'black',fontStyle: 'Lucida Console', focused:'#ff6400',shadow:'#321600'},
           {backgroundColor: '#1A2735',fontColor:'#BFBFBF', cardColor:'#36465D', fontColor2:'#BFBFBF',fontStyle: 'Fantasy',focused:'#49A9EE',shadow:'#273224'},
           {backgroundColor: 'black',fontColor:'#CF43ED', cardColor:'#0C0C0C',fontColor2:'#CF43ED', fontStyle: 'Garamond',focused:'#CF43ED',shadow:'#16131b'}, 
-          {backgroundColor: '#1a1a00',fontColor:'#ffff66', cardColor:'#808000',fontColor2:'#ffff66', fontStyle: 'Georgia', focused:'#ffff66',shadow:'#b8d15c'}, 
+          {backgroundColor: '#1a1a00',fontColor:'#ffff66', cardColor:'#808000',fontColor2:'#1a1a00', fontStyle: 'Georgia', focused:'#1a1a00',shadow:'#b8d15c'}, 
  
               
  

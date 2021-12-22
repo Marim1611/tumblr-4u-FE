@@ -51,7 +51,7 @@
                     placeholder="Search"
                   />
                   <div v-if="!inputValue"  v-show="inputClicked"   v-bind:style="{
-                'background-color': homeTheme[homeThemeIndex].cardColor,
+                'background': homeTheme[homeThemeIndex].cardColor,
               }">
             <div
              class="sub-menu"
@@ -79,7 +79,7 @@
           </div>
         </div>
         <div v-else   v-bind:style="{
-                'background-color': homeTheme[homeThemeIndex].cardColor }">
+                'background': homeTheme[homeThemeIndex].cardColor }">
                   <div
              class="sub-menu"
              id="searchList"
@@ -171,7 +171,7 @@
               id="dottedList"
               v-if="isOpendotted"
               v-bind:style="{
-                'background-color': homeTheme[homeThemeIndex].cardColor,
+                'background': homeTheme[homeThemeIndex].cardColor,
               }"
             >
               <div v-for="(item, i) in dottedItems" :key="i" class="menu-item">
@@ -202,7 +202,7 @@
               class="sub-menu-share"
               v-if="isOpenShare"
               v-bind:style="{
-                'background-color': homeTheme[homeThemeIndex].cardColor,
+                'background': homeTheme[homeThemeIndex].cardColor,
               }"
             >
               <div

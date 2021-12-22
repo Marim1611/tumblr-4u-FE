@@ -1,16 +1,6 @@
 <template>
-  <div class="menu-item" id="dropDown" v-on:click="isOpen = !isOpen">
-     
-         <b-icon
-                id="icon"
-                icon="emoji-laughing"
-                font-scale="1.5"
-                aria-hidden="true"
-                v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
-              ></b-icon>
-    <transition name="fade" appear>
-        <div v-on:click.prevent="toggleDropdown">
-          <div id ="content" class="sub-menu" v-if="isOpen" :style="{'background': homeTheme[homeThemeIndex].cardColor}">
+   
+<div id ="content" class="sub-menu"  :style="{'background': homeTheme[homeThemeIndex].cardColor}">
     
         <!-- header -->   
         <li >
@@ -99,11 +89,7 @@
           <!-- footer -->    
 
         </div>
-         </div>
-      
-    </transition>
-    
-   </div>
+        
 </template>
 
 <script>

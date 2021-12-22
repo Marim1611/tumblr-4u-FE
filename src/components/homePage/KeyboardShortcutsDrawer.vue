@@ -2,7 +2,7 @@
   <div>
     <v-navigation-drawer
       v-bind:style="{
-          'background-color': homeTheme[homeThemeIndex].cardColor,
+          'background': homeTheme[homeThemeIndex].cardColor,
         }"
       id="blogDrawer"
       v-bind:width="400"

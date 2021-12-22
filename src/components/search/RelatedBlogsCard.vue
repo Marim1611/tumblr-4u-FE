@@ -1,10 +1,10 @@
 <template>
-    <div id="relatedTags" v-bind:style="{'background-color': homeTheme[homeThemeIndex].cardColor}" >
+    <div id="relatedTags" v-bind:style="{'background': homeTheme[homeThemeIndex].cardColor}" >
              <h5 v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor, 'font-family':homeTheme[homeThemeIndex].fontStyle }">Related Blogs</h5>
                 <div
             id="divider2"
             v-bind:style="{
-              'background-color': homeTheme[homeThemeIndex].fontColor,
+              'background': homeTheme[homeThemeIndex].fontColor,
             }"
           ></div>
            
@@ -36,7 +36,7 @@
             <div
             id="divider2"
             v-bind:style="{
-              'background-color': homeTheme[homeThemeIndex].fontColor,
+              'background': homeTheme[homeThemeIndex].fontColor,
             }"
           ></div> 
            <button id="sButton" type="button" v-bind:style="{'font-family':homeTheme[homeThemeIndex].fontStyle,'color': homeTheme[homeThemeIndex].fontColor }" >show more tags</button>

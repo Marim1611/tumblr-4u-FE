@@ -1,0 +1,46 @@
+{
+    "bFan":[
+        {
+            "image_link":"https://image.emojisky.com/860/604860-middle.png",
+            "username":"ahmed"
+        }
+    ],
+    "topPost":[
+        {
+          "image_link":	"https://image.emojisky.com/860/604860-middle.png",
+           "notes": 6,
+           "total_notes": 5
+        }
+      ],
+      "graph":
+        {
+            "weekly_note":{
+                "labels": [
+                    "day1",
+                    "day2",
+                    "day3",
+                    "day4",
+                    "day5",
+                    "day6",
+                     "day7"
+                ],
+                "datasets": [
+                    {
+                    "label":"weekly",   
+                    "backgroundColor": "rgb(170, 170, 216)",
+                    "data": [0, 1, 0, 3, 4, 0, 5,0]
+                    }
+                ]
+             }
+            
+        },
+
+        "statistics":{
+            "notesCnt":4,
+            "newFCnt":4,
+            "totalFCnt":4
+        }
+
+      
+  
+}
