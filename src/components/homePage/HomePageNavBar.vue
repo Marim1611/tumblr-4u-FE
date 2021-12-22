@@ -1,34 +1,28 @@
 <template>
-  <div id="navDiv">
-    <nav
-      id="navbar"
-      :style="{ 'background-color': homeTheme[homeThemeIndex].backgroundColor }"
-    >
-      <ul id="navbar">
-        <div id="img">
-          <li>
-            <img
+<b-navbar class="NavBar" toggleable="sm" type="dark" variant="faded"  :style="{ 'background-color': homeTheme[homeThemeIndex].backgroundColor }">
+        
+        <router-link to="/home">
+         
+        <b-navbar-brand class="NavBarBrand bra" >
+           <img
               src="https://img.icons8.com/color-glass/48/000000/tumblr.png"
               :style="{
                 'background-color': homeTheme[homeThemeIndex].fontColor,
               }"
             />
-          </li>
-        </div>
-        <div id="spacer">
-          <li></li>
-        </div>
-        <li class="searchBarClass">
-          <SearchBar />
-        </li>
+              </b-navbar-brand>
+        </router-link>
 
-        <div id="spacer">
-          <li></li>
-        </div>
+      
 
-        <div id="iconsDiv">
-          <li>
-            <router-link to="/home" class="nav-item nav-link">
+        <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+        <b-collapse id="nav-collapse" is-nav>
+            <b-navbar-nav>
+                 <SearchBar />
+            </b-navbar-nav>
+            <div class="iconsRight">
+                <b-navbar-nav class="navButtons">
+                   <router-link to="/home" class="nav-item nav-link">
               <b-icon
                 id="icon"
                 icon="house-door-fill"
@@ -37,8 +31,7 @@
                 v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
               ></b-icon>
             </router-link>
-          </li>
-          <li>
+          
             <router-link to="/explore" class="nav-item nav-link">
               <b-icon
                 id="icon"
@@ -48,8 +41,7 @@
                 v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
               ></b-icon>
             </router-link>
-          </li>
-          <li>
+         
             <router-link to="" class="nav-item nav-link">
               <b-icon
                 id="icon"
@@ -59,59 +51,55 @@
                 v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
               ></b-icon>
             </router-link>
-          </li>
-          <li>
+          
             <router-link to="" class="nav-item nav-link">
-              <b-icon
-                id="icon"
-                icon="emoji-laughing"
-                font-scale="1.5"
-                aria-hidden="true"
-                v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
-              ></b-icon>
+             <ChatList/>
             </router-link>
-          </li>
-          <li>
+          
             <router-link to="" class="nav-item nav-link">
-              <b-icon
-                id="icon"
-                icon="lightning-fill"
-                font-scale="1.5"
-                aria-hidden="true"
-                v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
-              ></b-icon>
+                <NotificationList />
+             
             </router-link>
-          </li>
-          <li>
+         
             <router-link to="" class="nav-item nav-link">
               <DropdownList   />
             </router-link>
-          </li>
-          <li>
+          
             <router-link to="" class="nav-item nav-link">
-              <b-icon
+              <div id="sq"   >
+ <b-icon
                 v-on:click="newPostOpen"
-               
+               class="pen"
                 id="icon"
                 icon="pencil-fill"
                 font-scale="1.5"
                 aria-hidden="true"
                 v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
               ></b-icon>
+              </div>
+             
                <!-- v-show="newPost"   -->
               <NewPost v-show="newPost" v-on:hideFunc="hideCirclesNewPost($event)"/>
             </router-link>
-          </li>
-        </div>
-      </ul>
-    </nav>
-  </div>
+                    
+                    
+                    
+ 
+                </b-navbar-nav>
+              
+            </div>
+            
+        </b-collapse>
+    </b-navbar>
+  
 </template>
 
 <script>
 import DropdownList from "./AccountDropDownList.vue";
 import NewPostItem from "./HomePageNewPost.vue";
 import SearchBar from "./HomePageSearchBar.vue";
+import NotificationList from '../notifications/NotificationDropdownList.vue'
+import ChatList from '../chat/ChatDropdownList.vue'
 /**
  *  Home page Navigation Bar 
  * @example [none]
@@ -123,6 +111,7 @@ export default {
     return {
       newPost: false,
       color: "red",
+      notificationOpen:false
      
     };
   },
@@ -130,6 +119,8 @@ export default {
     DropdownList: DropdownList,
     NewPost: NewPostItem,
     SearchBar: SearchBar,
+    NotificationList:NotificationList,
+    ChatList:ChatList
   },
   computed: {
     /**
@@ -165,30 +156,68 @@ export default {
 </script>
 
 <style scoped>
-#navDiv {
-  display: flex;
-  width: 100%;
-   
-    
+#TheHeader{
+   position: fixed; 
+    top: 0; 
+    width: 100%;
+    background-position: center;
+    background-size: cover;
 }
+.NavBarBrand{
+    padding: 0 0 0 20px;
+     
+}
+.pen{
+  margin-left:20px;
+ margin-right:20px;
+}
+.NavBar{
+   
+    padding:4.5 4.3  4.5rem;
+}
+.NavBarBrand{
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+.Brand:hover{
+    color: hotpink;
+}
+.iconsRight{
+    margin-left: auto;
+}
+.navButtons{
+    
+    margin-right:10px;
+    margin-left:10px;
+    font-weight: bold;
+    color: black;
+}
+ 
 
+
+
+
+
+ 
 #navbar {
+   justify-content: space-around;
   
-  align-items: center;
   width: 100%;
   height: 20%;
   position: relative;
+    flex-direction: row;
   display: flex;
 }
 
-ul {
+/* ul {
   position: absolute;
   display: flex;
   flex-direction: row;
   padding: 0;
   float: right;
   margin: 0;
-}
+} */
 li {
   position: relative;
  margin:5px;
@@ -197,13 +226,28 @@ li {
 li.right {
   float: right;
 }
-
+img {
+  flex-grow: 1;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  flex-shrink: 2;
+  order: 1;
+}
+.searchBarClass{
+   flex-grow: 3;
+  cursor: text;
+  position: absolute;
+  left: 40px;
+  order: 2;
+}
 #iconsDiv {
+  order: 3;
   display: flex;
   flex-direction: row;
   text-align: center;
   position: relative;
-  flex-grow: 2;
+  flex-grow: 4;
   flex-shrink: 2;
   float: right;
   margin-right: 10px;
@@ -216,13 +260,7 @@ li.right {
   cursor: pointer;
 }
 
-img {
-  flex-grow: 2;
-  margin: 0;
-  padding: 0;
-  cursor: pointer;
-  flex-shrink: 2;
-}
+
 #spacer {
   flex-grow: 7;
   flex-shrink: 2;
@@ -238,11 +276,7 @@ SearchBar {
   flex-grow: 3;
 }
 
-.searchBarClass{
-  cursor: text;
-  position: absolute;
-  left: 40px;
-}
+
 </style>
 
 

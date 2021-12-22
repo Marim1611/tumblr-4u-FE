@@ -334,7 +334,7 @@ export default {
   methods: {
     cardImage(bg) {
       return {
-        backgroundImage: ` radial-gradient(ellipse at center,transparent 0,rgba(0,0,0,.36) 100%),url(${require("../assets/images/InterestsImgs/" +
+        backgroundImage: ` radial-gradient(ellipse at center,transparent 0,rgba(0,0,0,.36) 100%),url(${require("../../assets/images/InterestsImgs/" +
           bg)})`,
       };
     },

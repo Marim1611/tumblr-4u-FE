@@ -1,7 +1,7 @@
 <template>
   <div class="menu-item" id="dropDown" v-on:click="isOpen = !isOpen">
      
-         <b-icon id="icon"  icon="person-fill" font-scale="2" aria-hidden="true"  :style="{'color': homeTheme[homeThemeIndex].fontColor, 'cursor':'pointer' }"></b-icon> 
+         <b-icon id="icon"  icon="person-fill" font-scale="1.8" aria-hidden="true"  :style="{'color': homeTheme[homeThemeIndex].fontColor, 'cursor':'pointer' }"></b-icon> 
    
     <transition name="fade" appear>
         <div v-on:click.prevent="toggleDropdown">

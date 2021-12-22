@@ -70,6 +70,8 @@ import HomePageNavBar from '../homePage/HomePageNavBar.vue'
 import Activity from './Activity.vue'
 import Followers from './Followers.vue'
 import ViewPostCard from '../general/ViewPostCard.vue'
+import Browser from '../../mocks/browser'
+
 export default {
   name: 'CreatedBlogPage',
 
@@ -82,8 +84,7 @@ export default {
   HomePageNavBar,
   Activity ,
   Followers,
-  ViewPostCard
-
+  ViewPostCard,
   },
   methods: {
  button_follower_action(){
@@ -130,21 +131,21 @@ threeDotsHandler(){
     }
   },
   async created(){
-    try {
-       const res = await axios.get(`http://localhost:3000/features`);
 
-      this.followers = res.data.followers;
-      //console.log(this.followers);
-      this.followers_count = this.followers.length;
-
-      this.posts = res.data.posts;
-      //console.log(this.posts[0].username);
-      this.post_count=this.posts.length;
-
-    } catch (e) {
-      console.error(e);
-    }
-
+        try {
+    
+         await axios.get(Browser().baseURL+'/features').then(res => {
+            this.followers = res.data.followers;
+            this.posts= res.data.posts;
+            this.followers_count = this.followers.length;
+            this.post_count=this.posts.length;
+          //console.log(res.data)    
+          })
+        } catch (e) {
+            console.log("^^^^^^^^^^^^^^^^^^")
+        console.error(e);
+        }
+        
 
   }
 }

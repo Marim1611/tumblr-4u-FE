@@ -1,64 +1,81 @@
 {
-  "resultHashTag": [
-      "deposit",
-      "Wooden",
-      "Handmade"
-  ],
-  "resultPostHashTag": [
-      {
-          "_id": "6199531b94c23324c69ea65d",
-          "blogId": "Metal",
-          "postHtml": "<img width='100' src='https://www.theme-junkie.com/wp-content/uploads/Old-Black-and-White-Backgrounds-1.jpg' alt=''><strong>Every morning, we get a chance to be different.</strong> A chance to change. A chance to be better. Your past is your past. Leave it there. Get on with the future part. Nicole Williams",
-          "type": "text",
-          "state": "published",
-          "tags": [
-              "deposit",
-              "hacking",
-              "morph"
-          ],
-          "__v": 0
-      },
-      {
-          "_id": "6199531b94c23324c69ea662",
-          "blogId": "discrete",
-          "postHtml": "<img width='100' src='https://www.theme-junkie.com/wp-content/uploads/Old-Black-and-White-Backgrounds-1.jpg' alt=''><strong>Every morning, we get a chance to be different.</strong> A chance to change. A chance to be better. Your past is your past. Leave it there. Get on with the future part. Nicole Williams",
-          "type": "text",
-          "state": "published",
-          "tags": [
-              "Wooden",
-              "Total",
-              "Mongolia"
-          ],
-          "__v": 0
-      },
-      {
-          "_id": "6199531b94c23324c69ea665",
-          "blogId": "mobile",
-          "postHtml": "<img width='100' src='https://www.theme-junkie.com/wp-content/uploads/Old-Black-and-White-Backgrounds-1.jpg' alt=''><strong>Every morning, we get a chance to be different.</strong> A chance to change. A chance to be better. Your past is your past. Leave it there. Get on with the future part. Nicole Williams",
-          "type": "text",
-          "state": "published",
-          "tags": [
-              "Chicken",
-              "Handmade",
-              "even-keeled"
-          ],
-          "__v": 0
-      }
-  ],
-  "resultBlogs": [
-      {
-          "_id": "619957113df6b45019c42d08",
-          "title": "Untitled",
-          "blockedBlogs": [],
-          "followers": [],
-          "name": "Debbie Waters",
-           "password": "5lPY1MzrztxAYI5",
-          "followedTags": [
-              "Chicken"
-          ],
-          "postsIds": [],
-          "__v": 32
-      }
-  ]
-}
- 
+    "resultHashTag": [
+        "deposit",
+        "Wooden",
+        "Handmade"
+    ],
+    "resultPostHashTag": [
+        {
+            "_id": "6199531b94c23324c69ea65d",
+            "blogId": "Metal",
+            "postHtml": "<img width='100' src='https://www.theme-junkie.com/wp-content/uploads/Old-Black-and-White-Backgrounds-1.jpg' alt=''><strong>Every morning, we get a chance to be different.</strong> A chance to change. A chance to be better. Your past is your past. Leave it there. Get on with the future part. Nicole Williams",
+            "type": "text",
+            "state": "published",
+            "tags": [
+                "deposit",
+                "hacking",
+                "morph"
+            ],
+            "__v": 0
+        },
+        {
+            "_id": "6199531b94c23324c69ea662",
+            "blogId": "discrete",
+            "postHtml": "<img width='100' src='https://www.theme-junkie.com/wp-content/uploads/Old-Black-and-White-Backgrounds-1.jpg' alt=''><strong>Every morning, we get a chance to be different.</strong> A chance to change. A chance to be better. Your past is your past. Leave it there. Get on with the future part. Nicole Williams",
+            "type": "text",
+            "state": "published",
+            "tags": [
+                "Wooden",
+                "Total",
+                "Mongolia"
+            ],
+            "__v": 0
+        },
+        {
+            "_id": "6199531b94c23324c69ea665",
+            "blogId": "mobile",
+            "postHtml": "<img width='100' src='https://www.theme-junkie.com/wp-content/uploads/Old-Black-and-White-Backgrounds-1.jpg' alt=''><strong>Every morning, we get a chance to be different.</strong> A chance to change. A chance to be better. Your past is your past. Leave it there. Get on with the future part. Nicole Williams",
+            "type": "text",
+            "state": "published",
+            "tags": [
+                "Chicken",
+                "Handmade",
+                "even-keeled"
+            ],
+            "__v": 0
+        }
+    ],
+    "resultBlogs": [
+        {
+            "_id": "619957113df6b45019c42d08",
+            "title": "Untitled",
+            "blockedBlogs": [],
+            "followers": [],
+            "img":"https://64.media.tumblr.com/avatar_7811e3d74829_96.pnj",
+            "coverImg":"https://64.media.tumblr.com/5872d44da462634b2733f9cd97321173/d47966b7ae32b4ba-11/s640x960/dd8ee08c70c9cd017206c1d5819c1e0902f184c4.jpg",
+            "name": "Debbie Waters",
+             "password": "5lPY1MzrztxAYI5",
+            "followedTags": [
+                "Chicken"
+            ],
+            "postsIds": [],
+            "__v": 32
+        },
+        {
+            "_id": "619957113df6b45019c42d08",
+            "title": "Untitled",
+            "blockedBlogs": [],
+            "followers": [],
+            "img":"https://64.media.tumblr.com/0e03e74b06a10b87f998f20f46825429/20a625fe02fb0ea9-91/s96x96u_c1/5c9ad7ccc0ccd4d94729276fbe19a986ce2ec840.pnj",
+            "coverImg":"https://64.media.tumblr.com/6fd98d405a975cfc12f366779cbda47f/80bb8df3b217d334-01/s640x960/4ab565a2a15714b5b69deec2f8df6d9d727c1014.jpg",
+            "name": "Mo3tasem Waters",
+             "password": "5lPY1MzrztxAYI5",
+            "followedTags": [
+                "Chicken"
+            ],
+            "postsIds": [],
+            "__v": 32
+        }
+    ]
+  }
+   

@@ -123,8 +123,10 @@
       </div>
     </div>
     <TumblrDrawer
+    v-if="showBlogDrawer"
       v-bind:tumblrsObj="tumblrsObj"
         v-bind:showBlogDrawer="showBlogDrawer"
+         v-on:closeDrawer="closeDrawer($event)"
     ></TumblrDrawer>
   </div>
 </template>
@@ -133,6 +135,7 @@
 import axios from 'axios';
  //import api from '../../api';
 import TumblrDrawer from "./TumblrsDrawer.vue";
+import Browser from '../../mocks/browser'
 //import Avatar from 'vue-avatar'
 //import { fetchSearchResults } from '@/services/fetchers'
 import Vue from "vue";
@@ -158,6 +161,12 @@ export default {
     //  'Avatar':Avatar
   },
   methods: {
+      closeDrawer: function (close) {
+      // console.log(text);
+            console.log("drqwer closse heree2");
+
+      this.showBlogDrawer = close;
+    },
     
      /**
      * Function to make the items visible only that appear in the dropdown list to match what the user type in the search bar
@@ -193,9 +202,8 @@ export default {
      * @param {none}
      */
     openDrawer(name, avatar, cover) {
+      console.log("why??????????")
       this.showBlogDrawer = true;
-      console.log("FFFFFFFFFFffffffff")
-      console.log(  this.showBlogDrawer)
       Vue.set(this.tumblrsObj, "name", name);
       Vue.set(this.tumblrsObj, "coverImg", cover);
       Vue.set(this.tumblrsObj, "avatar", avatar);
@@ -241,11 +249,8 @@ export default {
   },
     async created() {
     try {
-      // const res = 
-       console.log("*&%###################")
-       
-         await axios.post('http://localhost:3000/autoCompleteSearchDash',{
-         wordName:this.inputValue, userId: "4444"}).then(res => {
+    
+         await axios.get(Browser().baseURL+'/autoCompleteSearchDash').then(res => {
             this.usersInSearch = res.data.resultBlogs;
             this.tags= res.data.resultHashTag;
             this.interestsList= res.data.resultFollowedTag;

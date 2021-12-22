@@ -50,6 +50,7 @@
 <script>
  import Chart from "../../Chart.js";
  import axios from "axios";
+import Browser from '../../mocks/browser'
 
 export default {
 
@@ -91,20 +92,16 @@ export default {
   },
     async created(){
         try {
-        const response = await axios.get(`http://localhost:3000/activity`);
-
-        this.topPosts = response.data.topPost;
-        //console.log(this.topPosts);
-
-        this.bFans=response.data.bFan;
-       // console.log(this.bFans);
-
-        this.graph=response.data.graph;
-        console.log(this.graph);
-
-        this.statistics=response.data.statistics;
-
+    
+         await axios.get(Browser().baseURL+'/activity').then(res => {
+            this.topPosts = res.data.topPost;
+            this.bFans= res.data.bFan;
+            this.graph= res.data.graph;
+            this.statistics=res.data.statistics;
+          //console.log(res.data)    
+          })
         } catch (e) {
+            console.log("^^^^^^^^^^^^^^^^^^")
         console.error(e);
         }
     }

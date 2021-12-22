@@ -1,18 +1,19 @@
 <template>
   <div>
     <div
-      class="CreatePost"
+      class="createPost"
       v-bind:style="{ 'background-color': homeTheme[homeThemeIndex].cardColor }"
     >
       <ul>
         <li>
           <button v-on:click="textUpload">
-            <b-icon
-              v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
-              icon="type"
-              class="border rounded p-2"
-              font-scale="3"
-            ></b-icon>
+            <button class="iconAnimation">
+              <b-icon
+                v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
+                icon="type"
+                font-scale="2.5"
+              ></b-icon>
+            </button>
 
             <p
               v-bind:style="{
@@ -26,12 +27,13 @@
         </li>
         <li>
           <button v-on:click="imageUpload">
-            <b-icon
-              v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
-              icon="camera"
-              class="border rounded p-2"
-              font-scale="3"
-            ></b-icon>
+            <button class="iconAnimation">
+              <b-icon
+                v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
+                icon="camera"
+                font-scale="2.5"
+              ></b-icon>
+            </button>
             <p
               v-bind:style="{
                 color: homeTheme[homeThemeIndex].fontColor,
@@ -43,13 +45,16 @@
           </button>
         </li>
         <li>
-          <button>
-            <b-icon
-              v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
-              icon="chat-quote-fill"
-              class="border rounded p-2"
-              font-scale="3"
-            ></b-icon>
+ 
+          <button v-on:click="quoteUpload">
+            <button class="iconAnimation">
+              <b-icon
+                v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
+                icon="chat-quote-fill"
+                font-scale="2.5"
+              ></b-icon>
+            </button>
+ 
             <p
               v-bind:style="{
                 color: homeTheme[homeThemeIndex].fontColor,
@@ -62,13 +67,17 @@
         </li>
         <li>
           <button>
-            <b-icon
-              icon="link45deg"
-              class="border rounded p-2"
-              font-scale="3"
-              v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
-            >
-            </b-icon>
+ 
+            <button class="iconAnimation">
+              <b-icon
+                icon="link45deg"
+                font-scale="2.5"
+                v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
+              >
+              </b-icon>
+            </button>
+
+ 
             <p
               v-bind:style="{
                 color: homeTheme[homeThemeIndex].fontColor,
@@ -81,12 +90,15 @@
         </li>
         <li>
           <button>
-            <b-icon
-              v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
-              icon=" chat-dots-fill"
-              class="border rounded p-2"
-              font-scale="3"
-            ></b-icon>
+ 
+            <button class="iconAnimation">
+              <b-icon
+                v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
+                icon=" chat-dots-fill"
+                font-scale="2.5"
+              ></b-icon>
+            </button>
+ 
 
             <p
               v-bind:style="{
@@ -100,12 +112,15 @@
         </li>
         <li>
           <button>
-            <b-icon
-              v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
-              icon=" headphones"
-              class="border rounded p-2"
-              font-scale="3"
-            ></b-icon>
+ 
+            <button class="iconAnimation">
+              <b-icon
+                v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
+                icon=" headphones"
+                font-scale="2.5"
+              ></b-icon>
+            </button>
+ 
             <p
               v-bind:style="{
                 color: homeTheme[homeThemeIndex].fontColor,
@@ -118,12 +133,15 @@
         </li>
         <li>
           <button>
-            <b-icon
-              v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
-              icon="camera-reels"
-              class="border rounded p-2"
-              font-scale="3"
-            ></b-icon>
+ 
+            <button class="iconAnimation">
+              <b-icon
+                v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
+                icon="camera-reels"
+                font-scale="2.5"
+              ></b-icon>
+            </button>
+ 
             <p
               v-bind:style="{
                 color: homeTheme[homeThemeIndex].fontColor,
@@ -146,13 +164,12 @@
     <!--change this icon, w byghmez kaman lama ba hover!-->
     <!-- <b-icon
         icon="emoji-smile"
-        class="border rounded p-2"
-        font-scale="2"
+        
+        font-scale="2.5"
         style="color: #a3a3a3"
       ></b-icon>
       <span v-show="selfieText">Take a selfie</span>
     </button>
-
     <br />
     <br /> -->
 
@@ -165,22 +182,29 @@
       v-bind:textPost="textChosen"
       v-on:closeTextBox="closeText($event)"
     ></CreatePostText>
+
+    <CreatePostQuote
+      v-bind:quotePost="quoteChosen"
+      v-on:closeTextBox="closeQuote($event)"
+    >
+    </CreatePostQuote>
+    
   </div>
 </template>
 
 <script>
 import CreatePostImage from "./CreatePostImage.vue";
 import CreatePostText from "./CreatePostText.vue";
-
+import CreatePostQuote from "./CreatePostQuote.vue";
 /**
  *  Create post section
  * @example [none]
  */
-
 export default {
   components: {
-    CreatePostImage: CreatePostImage,
-    CreatePostText: CreatePostText,
+    CreatePostImage,
+    CreatePostText,
+    CreatePostQuote,
   },
   data() {
     return {
@@ -188,6 +212,7 @@ export default {
       selfieText: false,
       textChosen: false,
       imageChosen: false,
+      quoteChosen: false,
       video: false,
       audio: false,
       link: false,
@@ -203,7 +228,6 @@ export default {
     // SelfieTextHide: function () {
     //   this.selfieText = false;
     // },
-
     /**
      * Function to open the text upload box
      * @public This is a public method
@@ -212,17 +236,19 @@ export default {
     textUpload: function () {
       this.textChosen = true;
     },
-
     /**
      * Function to close the text upload box and return to the main page
      * @public This is a public method
      * @param {Boolean} textClosed
      */
-    closeText: function (textClosed) {
+    closeText(textClosed) {
       // console.log(text);
       this.textChosen = textClosed;
     },
 
+    closeQuote(quoteClosed) {
+      this.quoteChosen = quoteClosed;
+    },
     /**
      * Function to open the image upload box
      * @public This is a public method
@@ -231,7 +257,6 @@ export default {
     imageUpload: function () {
       this.imageChosen = true;
     },
-
     /**
      * Function to close the image upload box and return to the main page
      * @public This is a public method
@@ -240,7 +265,7 @@ export default {
     closeImage: function (imgClosed) {
       this.imageChosen = imgClosed;
     },
-
+ 
     // videoUpload: function () {
     //   this.video = true;
     // },
@@ -250,9 +275,9 @@ export default {
     // linkUpload: function () {
     //   this.link = true;
     // },
-    // quoteUpload: function () {
-    //   this.quote = true;
-    // },
+    quoteUpload() {
+      this.quoteChosen = true;
+    },
     // chatUpload: function () {
     //   this.chat = true;
     // },
@@ -274,7 +299,8 @@ export default {
 </script>
 
 <style scoped>
-.CreatePost {
+ 
+.createPost {
   display: flex;
   align-items: center;
   background-color: rgb(123, 123, 219);
@@ -289,7 +315,6 @@ export default {
   /* flex-grow: 2;
   flex-shrink: 2; */
 }
-
 ul {
   position: absolute;
   display: flex;
@@ -305,9 +330,10 @@ li {
   list-style: none;
   flex-grow: 2;
   flex-shrink: 2;
-   float: right;
-}
+  float: right;
 
+ 
+}
 button {
   display: flex;
   flex-direction: column;
@@ -326,27 +352,27 @@ button {
   height: 100%;
   flex-grow: 4;
   flex-shrink: 4;
-  
+ 
 }
-
 p {
   margin: 0;
   padding-top: 5px;
   flex-grow: 2;
   flex-shrink: 2;
 }
-
 .selfie {
   display: flex;
   flex-direction: row;
 }
-
 .selfie span {
   padding: 5px;
   color: #a3a3a3;
 }
-
 .changeOpacity {
   opacity: 0.5;
+}
+
+.iconAnimation:hover {
+  transform: scaleY(1.1);
 }
 </style>

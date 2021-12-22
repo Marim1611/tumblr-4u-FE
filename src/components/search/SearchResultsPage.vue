@@ -2,8 +2,6 @@
  <div v-bind:style="{
       'background-color': homeTheme[homeThemeIndex].backgroundColor,
     }">
-    
-    <div>
       <NavBar />
  <div
             id="divider"
@@ -11,23 +9,83 @@
               'background-color': homeTheme[homeThemeIndex].fontColor,
             }"
           ></div>
-      <b-container class="container">
-     
-      
-    <b-row> 
        
-        <h1 v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor,'font-family':homeTheme[homeThemeIndex].fontStyle}">{{this.$route.params.word}}</h1>
- 
-           
-             <b-icon id="icon"  icon="grid-1x2-fill" font-scale="2" aria-hidden="true"  :style="{'color': homeTheme[homeThemeIndex].fontColor, 'cursor':'pointer' }"></b-icon> 
-   
      
-    <b-col />
-        
-       <b-col id="postsList">
-            <div id="dashBoard" v-for="(post, i) in dashBoardPosts" :key="i">
+       
+ 
+ 
+ <div id="parentDiv">
+   <div id="leftSide">
+     <div class="main">
+     <h1 id="word" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor,'font-family':homeTheme[homeThemeIndex].fontStyle}">{{this.$route.params.word}}</h1>
+<div class="main2">
+<b-icon id="icon"  v-on:click="gridView" icon="grid-1x2-fill" font-scale="1.5" aria-hidden="true"  :style="{'color': homeTheme[homeThemeIndex].fontColor, 'cursor':'pointer' }"></b-icon> 
+  <b-icon id="icon" v-on:click="rowView"  icon="hdd-stack-fill" font-scale="1.5" aria-hidden="true"  :style="{'color': homeTheme[homeThemeIndex].fontColor, 'cursor':'pointer' }"></b-icon> 
+
+</div>
+ </div>
+
+     <div id="rowsView" v-if="showAsRows">
+             <div  id="dashBoard" v-for="(post, i) in dashBoardPosts" :key="i">
       <PostCard v-bind:post="post" v-bind:maxWidth="postCardWidth1" />
        </div>
+
+   </div>
+    <div id="gridView" v-else-if="showAsGrid">
+            <div class="flexV ">
+                 <MatchMedia query="(max-width: 1286px)" v-slot="{ match }">
+                <div v-if="match" class="left flexH">
+                  <div class="flexV">
+                    <div id="dashBoard" v-for="(post, i) in dashBoardPosts" :key="i">
+                        <PostCard v-if="i%2==0" v-bind:post="post" maxWidth="300px" />
+                    </div>
+                  </div>
+                  <div class="flexV">
+                    <div id="dashBoard" v-for="(post, i) in dashBoardPosts" :key="i">
+                        <PostCard v-if="i%2==1" v-bind:post="post" maxWidth="300px" />
+                    </div>
+                  </div>
+                </div>
+                <div class="left flexH" v-else>
+                  <div class="flexV">
+                    <div id="dashBoard" v-for="(post, i) in dashBoardPosts" :key="i">
+                        <PostCard v-if="i%3==0" v-bind:post="post" maxWidth="300px" />
+                    </div>
+                  </div>
+                  <div class="flexV">
+                    <div id="dashBoard" v-for="(post, i) in dashBoardPosts" :key="i">
+                        <PostCard v-if="i%3==1" v-bind:post="post" maxWidth="300px" />
+                    </div>
+                  </div>
+                  <div class="flexV">
+                    <div id="dashBoard" v-for="(post, i) in dashBoardPosts" :key="i">
+                        <PostCard v-if="i%3==2" v-bind:post="post" maxWidth="300px" />
+                    </div>
+                  </div>
+                </div>
+                  </MatchMedia>
+            </div>
+
+         </div>
+   
+         
+
+         </div>
+
+           
+          <div  id="sidePanel"  md="auto">
+          
+                <RelatedTags/>
+                 <RelatedBlogs/>
+       </div>
+         
+
+ </div>
+                   
+      
+
+      
+          
         <!-- <div class="row" v-for="(rowIdx,i) in Math.ceil(dashBoardPosts.length / 3)" :key="i">
      <b-row class="one-third column" v-for="(item,i) in dashBoardPosts.slice(3 * (rowIdx - 1), 3 * rowIdx)"  :key="'A'+i">
             
@@ -38,22 +96,11 @@
     
 </div> -->
          
-       </b-col>
-        <b-col  id="sidePanel" >
-          
-                <RelatedTags/>
-                 <RelatedBlogs/>
-            
-       </b-col>
-  </b-row>
-</b-container>
+     
+       
+       
       
-    </div>
-  
-    
-      
-
-      
+     
  </div>
 
   
@@ -68,12 +115,13 @@ import NavBar from '../homePage/HomePageNavBar.vue';
 // import MobileNavBar from "../homePage/HomePageMobileNavBar.vue";
 import PostCard from "../general/ViewPostCard.vue";
 import RelatedTags from "./RelatedTagsCard.vue";
-import RelatedBlogs from "./RelatedBlogsCard.vue"
+import RelatedBlogs from "./RelatedBlogsCard.vue";
+import { MatchMedia } from "vue-component-media-queries";
 export default {
     name:'search',
    components: {
     NavBar:NavBar,
-    // MatchMedia: MatchMedia,
+     MatchMedia: MatchMedia,
     // MobileNavBar: MobileNavBar,
     PostCard:PostCard,
     RelatedTags:RelatedTags,
@@ -83,8 +131,10 @@ export default {
   },
   data : function () {
     return {
-         postCardWidth1:"650px",
-         postCardWidth2:"300px",  
+         postCardWidth1:"540px",
+         postCardWidth2:"300px", 
+         showAsGrid:false,
+         showAsRows:true, 
         //  dashBoardPosts:[]
         
     }
@@ -105,6 +155,17 @@ export default {
     props:{
         searchWord:String
     },
+    methods:{
+      gridView(){
+        this.showAsGrid=true;
+        this.showAsRows=false;
+
+      },
+      rowView(){
+        this.showAsRows=true;
+        this.showAsGrid=false;
+      }
+    }
   //    async created() {
   //   try {
      
@@ -121,17 +182,33 @@ export default {
 </script>
 
 <style scoped>
+
  #dashBoard {
   align-items: center;  
   display: inline;
   flex-direction: column;
   flex-grow: 1;
-  margin-bottom: 70px;
+  margin-bottom: 20px;
+  margin-top: 0px;
   padding-left: 500px;
 }
+#parentDiv{
+   display:flex ;
+    flex-direction:row ;
+    justify-content: space-evenly;
+
+}
+#leftSide{
+    display:flex ;
+    flex-direction:column ;
+
+}
 #sidePanel{
+  margin: 20px;
+    display:flex ;
+    flex-direction:column ;
     
-    margin: 0px 10px 15px 250px;
+
 }
 #container{
     width:100%;
@@ -141,5 +218,50 @@ export default {
 #divider {
   width: 100%;
   height: 1px;
+}
+#word{
+   margin-top:50px;
+  font-size: 3rem;
+  text-align: left;
+}
+.main2{
+   margin-top:50px;
+   margin-left: 300px;
+}
+.main
+{
+    display: flex;
+    flex-direction: row;
+   
+}
+#icon{
+  margin: 20px;
+}
+ .left{
+  padding-right: 15px;
+}
+.right{
+  padding-left: 15px;
+}
+.flexH {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;  
+}
+.flexV {
+  display: flex;
+  flex-direction: column;
+    align-items: flex-start; 
+}
+
+#dashBoard {
+  align-items: center;  
+  display: inline;
+  flex-direction: column;
+  
+  margin-bottom: 5px;
+  padding-left: 10px;
+
+  /* background-color: red; */
 }
 </style>

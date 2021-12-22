@@ -1,22 +1,32 @@
 <template>
-  <!-- <div class="textBox"> -->
-  <!-- <div id="header"> -->
-  <!-- <p :style="{ 'flex-direction': 'row', color: 'gray' }">marimzayn</p> -->
-  <!-- <b-icon
-        id="icon"
-        icon="gear-fill"  
-        
-        font-scale="1"
-      ></b-icon> -->
-  <!-- </div> -->
   <md-dialog v-bind:md-active.sync="postToBegin" v-on:keyup.esc="closeTextBox">
     <md-dialog-content>
       <!-- <md-dialog-title>mariemzayn22</md-dialog-title> -->
-      
-      <CreatePostTitleEditor v-on:childToParent="onTitleClick" />
-      <CreatePostTextEditor v-on:childToParent="onTextClick" />
+      <CreatePostQuoteEditor v-on:childToParent="onTextClick" />
+
+      <div class="quoteSource">
+        <p></p>
+        <CreatePostQuoteSource v-on:childToParent="onTextClick" />
+      </div>
+
       <input type="text" placeholder="#tags" id="theTags" />
       <md-divider></md-divider>
+      <!-- <v-divider /> -->
+      <!-- <div class="footerBtns">
+        <button class="closeBtn">Close</button>
+        <div class="postOptions">
+          <button></button>
+          <v-divider />
+        </div>
+      </div> -->
+
+      <!-- <md-dialog-actions> -->
+
+      <!-- <md-button class="closeBtn" v-on:click="closeTextBox">Close</md-button>
+        <md-button class="md-primary" v-on:click="textChosen = false"
+          >Save</md-button
+        > -->
+      <!-- </md-dialog-actions> -->
       <div class="footerBtns">
         <button class="closeBtn" v-on:click="closeTextBox">Close</button>
         <!-- <div class="postOptions"> -->
@@ -45,20 +55,19 @@
 </template>
 
 <script>
-import CreatePostTextEditor from "./editors/textEditor.vue";
-import CreatePostTitleEditor from "./editors/titleEditor.vue";
-
+import CreatePostQuoteEditor from "./editors/quoteEditor.vue";
+import CreatePostQuoteSource from "./editors/qouteSourceEditor.vue";
 /**
  *  Create post for text
  * @example [none]
  */
 export default {
   props: {
-    textPost: Boolean,
+    quotePost: Boolean,
   },
   components: {
-    CreatePostTextEditor,
-    CreatePostTitleEditor
+    CreatePostQuoteEditor,
+    CreatePostQuoteSource,
   },
   data() {
     return {
@@ -71,7 +80,7 @@ export default {
       // ],
       // selectedPostOption: "Post",
       autogrow: null,
-      textChosen: this.textPost,
+      quoteChosen: this.quotePost,
       postContent: null,
       postTitle: null,
     };
@@ -100,10 +109,6 @@ export default {
     onTextClick(content) {
       this.postContent = content;
     },
-
-    onTitleClick(content){
-      this.postTitle=content;
-    },
     /**
      * Function to publish the post and save its content
      * @public This is a public method
@@ -122,7 +127,7 @@ export default {
      */
     postToBegin: {
       get() {
-        return this.textPost;
+        return this.quotePost;
       },
       set(newVal) {
         return newVal;
@@ -145,59 +150,6 @@ export default {
 };
 </script>
 <style scoped>
-/* .v-text-field.v-text-field--enclosed:not(.v-text-field--rounded)
-  > .v-input__control
-  > .v-input__slot,
-.v-text-field.v-text-field--enclosed .v-text-field__details {
-  padding: 0;
-}
-v-input:focus {
-  border: none;
-  outline: none;
-}
-.v-text-field.v-text-field--enclosed:not(.v-text-field--rounded) {
-  border-radius: 0;
-  outline: none;
-  border: none;
-  padding: 0;
-}
-.theme--light.v-text-field--filled > .v-input__control > .v-input__slot {
-  background: white;
-  border: none;
-  padding: 0;
-} */
-
-.v-input.v-textarea > .v-input__control > .v-input__slot:before {
-  border: none;
-}
-
-.primary--text:focus {
-  outline: none !important;
-  border: none !important;
-  display: none;
-}
-
-.v-text-field > .v-input__control > .v-input__slot:after {
-  background-color: transparent !important;
-  border-color: transparent !important;
-  border-style: none !important;
-  border-width: 0 !important;
-  transform: none !important;
-}
-
-.v-text-field.v-input--is-focused > .v-input__control > .v-input__slot:after {
-  transform: none !important  ;
-}
-
-.v-textarea > textarea {
-  max-width: 30vw;
-  font-size: 36px;
-  font-weight: 400;
-  outline: none;
-  border: none;
-  font-family: inherit;
-  resize: none;
-}
 .md-dialog .md-dialog-container {
   width: 30vw;
   min-height: 30vh;
@@ -251,5 +203,18 @@ input[type="text"] {
   color: hsla(0, 0%, 100%, 0.5);
   cursor: default;
   font-size: 13px;
+}
+
+.quoteSource {
+  display: flex;
+  flex-direction: row;
+  max-width: inherit;
+}
+.quoteSource p:before {
+  content: "\2014";
+}
+
+.quoteSource p {
+  text-align: center;
 }
 </style>
