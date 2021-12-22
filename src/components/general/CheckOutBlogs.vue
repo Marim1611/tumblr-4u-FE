@@ -172,7 +172,7 @@ export default {
 
 .sec:hover {
    cursor: pointer;
-   background-color: #aaa;
+ 
 } 
 #sButton:hover {
   text-decoration: underline;

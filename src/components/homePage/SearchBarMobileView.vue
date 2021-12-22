@@ -8,6 +8,7 @@
        >
       <input type="text" name="search" class="round"
          v-model.trim="inputValue"
+           autocomplete="off" 
           v-on:keyup.enter="goToSearchPage"
           v-on:click="isClicked = !isClicked"
           placeholder="Search Tumblr"
@@ -253,7 +254,9 @@ export default {
     position: relative;
     width: 220px;
     height: 30px;
-    position: relative; padding: 0 0 0 20px; margin: 0 20px;
+     
+    position: relative; 
+    margin: 20px;
 }
 .dropdown {
   position: relative;

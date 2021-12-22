@@ -16,7 +16,7 @@ import SearchResults from '../components/search/SearchResultsPage'
 import Trending from '../components/registerPages/Trending'
 import Profile from '../components/profile/Profile.vue'
 import Interests from '../components/registerPages/InterestsPage'
- 
+import Messaging from '../components/chat/MessagingMobileView.vue'
 Vue.use(VueRouter);
 const routes = [
   {
@@ -97,6 +97,11 @@ const routes = [
         name: 'getting_to_know_tumblr',
         component:Interests,
       },
+      {
+        path: '/messaging',
+        name: 'messaging',
+        component:Messaging
+      }
       
   
       
