@@ -237,7 +237,7 @@ export const store = new Vuex.Store({
     mutations: {
         updateField,
         changePalette: state => {
-            if (state.homeThemeIndex < 5){
+            if (state.homeThemeIndex < 8){
                 state.homeThemeIndex+=1;
             }    
          else if (state.homeThemeIndex >= 5){
