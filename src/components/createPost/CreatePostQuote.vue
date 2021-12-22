@@ -2,7 +2,7 @@
   <md-dialog v-bind:md-active.sync="postToBegin" v-on:keyup.esc="closeTextBox">
     <md-dialog-content>
       <!-- <md-dialog-title>mariemzayn22</md-dialog-title> -->
-      <CreatePostQuoteEditor v-on:childToParent="onTextClick" />
+      <CreatePostQuoteEditor v-on:childToParent="onTitleClick" />
 
       <div class="quoteSource">
         <p></p>
@@ -56,7 +56,10 @@
 
 <script>
 import CreatePostQuoteEditor from "./editors/quoteEditor.vue";
-import CreatePostQuoteSource from "./editors/qouteSourceEditor.vue";
+import CreatePostQuoteSource from "./editors/quoteSourceEditor.vue";
+import axios from "axios";
+import Browser from "../../mocks/browser";
+
 /**
  *  Create post for text
  * @example [none]
@@ -81,8 +84,8 @@ export default {
       // selectedPostOption: "Post",
       autogrow: null,
       quoteChosen: this.quotePost,
-      postContent: null,
-      postTitle: null,
+      postContent: "",
+      postTitle: "",
     };
   },
   methods: {
@@ -98,8 +101,8 @@ export default {
      */
     closeTextBox() {
       this.$emit("closeTextBox", false);
-      this.postContent = null;
-      this.postTitle = null;
+      this.postContent = "";
+      this.postTitle = "";
     },
     /**
      * Function to recieve the content written inside the post from the text editor file
@@ -109,14 +112,33 @@ export default {
     onTextClick(content) {
       this.postContent = content;
     },
+
+    onTitleClick(content) {
+      this.postTitle = content;
+    },
     /**
      * Function to publish the post and save its content
      * @public This is a public method
      * @param {none}
      */
-    postDone() {
-      console.log(this.$refs.titleRefs.$el.outerHTML);
-      // console.log(this.postContent);
+
+    async postDone() {
+      try {
+        await axios
+          .post(Browser().baseURL + "/createPost", {
+            postHtml: this.postTitle + this.postContent,
+            type: "quote",
+          })
+          .then((res) => {
+            this.$emit("closeTextBox", false);
+            this.postContent = "";
+            this.postTitle = "";
+            console.log(res.data);
+          });
+      } catch (e) {
+        console.log("^^^^^^^^^^^^^^^^^^");
+        console.error(e);
+      }
     },
   },
   computed: {
@@ -140,10 +162,11 @@ export default {
      */
     disablePosting() {
       if (
-        this.postContent === null &&
-        (this.postTitle === null || this.postTitle === "")
+        (this.postContent === "" || this.postContent === null) &&
+        (this.postTitle === "" || this.postTitle === null)
       )
         return true;
+      else if (this.postTitle === "" || this.postTitle === null) return true;
       return false;
     },
   },
