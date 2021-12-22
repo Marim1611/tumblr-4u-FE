@@ -15,9 +15,10 @@
             <button v-on:click="askOnly" v-bind:style="{'background-color':homeTheme[homeThemeIndex].cardColor }" class="dropdownItem">Asks</button>
         </div>
        
-       
-        <h5 class="clickable barItem"><b-icon icon="grid1x2-fill" /></h5>
-        <h5 class="clickable barItem"><b-icon icon="hdd-stack-fill" /></h5>
+        <h5 v-on:click="multiCol" v-show="!multi" class="clickable barItem"><b-icon icon="grid1x2" /></h5>
+        <h5 v-show="multi" class="clickable barItem"><b-icon icon="grid1x2-fill" /></h5>
+        <h5 v-on:click="singCol" v-show="multi" class="clickable barItem"><b-icon icon="hdd-stack" /></h5>
+        <h5 v-show="!multi" class="clickable barItem"><b-icon icon="hdd-stack-fill" /></h5>
     </div>
 </template>
 
@@ -33,6 +34,14 @@ export default {
   methods:{
    moreDropdown:function(){
        this.moreShow=!this.moreShow;
+   },
+   multiCol:function(){
+       this.$emit("multiCol",true);
+       this.multi=true;
+   },
+   singCol:function(){
+       this.$emit("singCol",false)
+       this.multi=false;
    },
    textOnly:function(){
         this.moreShow=!this.moreShow;
@@ -222,7 +231,8 @@ export default {
         chat:false,
         audio:false,
         video:false,
-        ask:false
+        ask:false,
+        multi:true
     }
   },
   

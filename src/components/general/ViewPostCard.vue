@@ -6,7 +6,7 @@
         <div class="header">
           <img class="profile" src="https://64.media.tumblr.com/54a1c708b6e6f778e6d6a62122b87264/dd15ee49758e1917-0f/s64x64u_c1/591674a52eaa19af57c763479bdbddcfa2219db8.jpg" alt="">
           <div class="name-follow">
-            <a href="" class="name" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}">{{post.id}} </a>
+            <a href="" class="name" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}">{{post.blogId}} </a>
             <a href="" v-on:click.prevent="followUnfollow" v-show="!follow" v-bind:style="{'color': homeTheme[homeThemeIndex].focused}">Follow</a>
           </div>
 
@@ -29,32 +29,50 @@
         <!--content & tags of card-->
         <div class="content" v-html="post.postHtml" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"></div>
         <div class="tag-container">
-          <a href="" class="tags" v-for="tag in post.tags" :key="tag">{{ tag }}</a>
+          <a v-bind:style="{'color': homeTheme[homeThemeIndex].focused}" href="" class="tags" v-for="tag in post.tags" :key="tag">#{{ tag }}</a>
         </div>
 
         <!--footer of card-->
         <div class="footer-flex">
-          <div class="notes" v-on:click="commentShow" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"> {{ post.notes }} notes</div> <!--onClick:300x510-->
+          <div class="notes" v-on:click="commentShow" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"> {{ post.notes_cnt }} notes</div> <!--onClick:300x510-->
           <!--comment dropdown menu-->
           <div class="v-flex comment-window" v-show="comment" v-bind:style="{'background': homeTheme[homeThemeIndex].cardColor}">
             
             <!--header of comment window-->
               <div class="h-flex border-bottom">
-              <b-icon class="clickable" v-on:click="noComment" icon="arrow-left" font-scale="2" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}" ></b-icon>
-              <p class="grow" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}">{{ post.notes }} notes</p>
-              <div class="no-padding" v-show="hash">
-              <b-icon class="clickable" v-on:click="subscribeConversation" v-show="!subscribe" icon="lightning" font-scale="2" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}" ></b-icon>
-              <b-icon class="clickable" v-on:click="subscribeConversation" v-show="subscribe" icon="lightning-fill" font-scale="2" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}" ></b-icon>
-              <b-icon class="clickable" v-on:click="hashtag" icon="hash" font-scale="2" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}" ></b-icon>
+                <b-icon class="clickable" v-on:click="noComment" icon="arrow-left" font-scale="2" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}" ></b-icon>
+                <p class="grow" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}">{{ post.notes_cnt }} notes</p>
+                <div class="no-padding" v-show="hash">
+                <b-icon class="clickable" v-on:click="subscribeConversation" v-show="!subscribe" icon="lightning" font-scale="2" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}" ></b-icon>
+                <b-icon class="clickable" v-on:click="subscribeConversation" v-show="subscribe" icon="lightning-fill" font-scale="2" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}" ></b-icon>
+                <b-icon class="clickable" v-on:click="hashtag" icon="hash" font-scale="2" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}" ></b-icon>
               </div>
             </div>
-            <!--body (comments or reactions)(of others)-->
+            <!-- reactions -->
+            <div class="clickable reactionsWind border-bottom v-flex text-left">
+              <div class="h-flex no-padding">
+                <img v-for="i in 8" :key="i" class="img-reactions" src="https://64.media.tumblr.com/51b7d5e9cfaa579ec94a17e618d96a1a/95b6dc889657dcc9-3c/s64x64u_c1/283ac5792129caa8fa116b4560861ff3431d7e3c.pnj">
+              </div> 
+              {{post.likes_cnt}} likes and {{post.reblogs_cnt}} reblogs
+            </div>
+            <!--body (comments)(of others)-->
             <div class="border-bottom grow v-flex comments">
-              
+              <div id="comments" class="no padding" v-for="(comment, i) in post.comments" :key="i">
+                <div class="h-flex">
+                  <img class="imgComment" v-bind:src="comment.avatar">
+                  <div class="borderComment" v-bind:style="{'border-color':homeTheme[homeThemeIndex].fontColor}">
+                    <h6 v-bind:style="{color:homeTheme[homeThemeIndex].fontColor}">{{comment.name}}</h6>
+                    <span v-bind:style="{color:homeTheme[homeThemeIndex].fontColor}">{{comment.content}}</span>
+                  </div>
+                  <div class="grow right clickable">
+                  <b-icon icon="three-dots" font-scale="1.5" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"/>
+                  </div>
+                </div>
+              </div>
             </div>
             <!--input comment-->
             <div class="h-flex">
-              <input class="grow" placeholder="Have something to say?" type="text">
+              <input class="grow " placeholder="Have something to say?" type="text">
               <button>Reply</button>
             </div>
           </div>
@@ -165,11 +183,11 @@ export default {
    },
    like:function(){
      this.heartFilled = !this.heartFilled;
-     this.post.notes +=1;
+     this.post.notes_cnt +=1;
    },
    unLike:function(){
      this.heartFilled = !this.heartFilled;
-     this.post.notes -=1;
+     this.post.notes_cnt -=1;
    },
    copy:function(){
      //time in milliseconds
@@ -226,6 +244,31 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.img-reactions{
+  width:25px;
+  border-radius: 5px;
+  margin-right: 5px;
+}
+.text-left{
+  text-align: left;
+}
+.reactionsWind{
+  margin: 10px 0px;
+  height: 68;
+}
+.right{
+  align-items: flex-end;
+}
+.imgComment{
+  border-radius:25px; 
+  height:25px; 
+  width:25px;
+}
+.borderComment{
+  border: 1px solid;
+  border-radius: 5px;
+  text-align:left;
+}
 .message-result{
   height: 135px;
   margin-bottom: 5px;
@@ -239,8 +282,7 @@ export default {
 
 }
 .out-share{
-  overflow-x: scroll;
-  
+  overflow-x: scroll; 
 }
 .share-item{
   display: flex;
@@ -264,7 +306,7 @@ export default {
 }
 .comments{
   overflow-y: auto;
-  height: 415px;
+  height: 347px;
 }
 .clickable{
   cursor: pointer;
@@ -290,6 +332,7 @@ export default {
   height: 510px;
   left: 390px;
   border-radius: 3px;
+  z-index: 1;
   text-align: center;
   padding:10px;
   background: #ffffff;
@@ -306,7 +349,7 @@ export default {
   background: #ffffff;
   position: absolute;
   display: block;
-  z-index: 1;
+  z-index: 2;
 }
 .footer-flex div{
 padding: 0px 10px;
@@ -397,7 +440,7 @@ a:hover{
 
 #searchCard{
   
-  
+  margin-bottom: 10px;
   width: 100%;
 }
 .container{

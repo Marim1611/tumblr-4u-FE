@@ -5,8 +5,8 @@
       'background': homeTheme[homeThemeIndex].backgroundColor,
     }"
   >
-    
-    <MatchMedia query="(max-width: 1000px)" v-slot="{ matches }">
+    <!-- nav bar-->
+    <MatchMedia query="(max-width: 480px)" v-slot="{ matches }">
       <MatchMedia query="(max-width: 1286px)" v-slot="{ match }">
       <MobileNavBar v-if="matches" />
 
@@ -20,11 +20,29 @@
             }"
           ></div>
 
-
+          <!-- the 2 coloumns of the page -->
           <div class="flexH">
-            <div class="flexV ">
-                <ExploreBar />
-                <div v-if="match" class="left flexH">
+            <!-- the first coloumn of the posts -->
+            <div class="flexV center">
+              <!-- explore bar of trending, staff picked....etc -->
+                <ExploreBar v-on:multiCol="multiCol($event)" v-on:singCol="multiCol($event)" />
+
+                <div id="cards" class="flexH">
+                  <div class="margin-right" v-for="(card,i) in exploreCards" :key="i">
+                    <ExploreCard v-bind:card="card"/>
+                  </div>
+                </div>
+                
+                <!-- showing one coloumn -->
+                <div  v-show="!multi" class="left flexH">
+                  <div class="flexV">
+                    <div id="dashBoard" v-for="(post, i) in dashBoardPosts" :key="i">
+                        <DashBoard v-bind:post="post" maxWidth="540px" />
+                    </div>
+                  </div>
+                </div>
+                <!-- the two coloumns -->
+                <div v-if="match" v-show="multi" class="left flexH">
                   <div class="flexV">
                     <div id="dashBoard" v-for="(post, i) in dashBoardPosts" :key="i">
                         <DashBoard v-if="i%2==0" v-bind:post="post" maxWidth="300px" />
@@ -36,7 +54,8 @@
                     </div>
                   </div>
                 </div>
-                <div class="left flexH" v-else>
+                <!-- when three coloumns -->
+                <div v-if="!match" v-show="multi" class="left flexH">
                   <div class="flexV">
                     <div id="dashBoard" v-for="(post, i) in dashBoardPosts" :key="i">
                         <DashBoard v-if="i%3==0" v-bind:post="post" maxWidth="300px" />
@@ -82,6 +101,9 @@ import DashBoard from "../general/ViewPostCard.vue";
 import FollowTags from "./FollowTag.vue";
 import RelatedBlogs from "./ExploreRelatedBlogs.vue";
 import ExploreBar from "./ExploreBar";
+import ExploreCard from "./ExploreCard.vue";
+import Browser from '../../mocks/browser'
+import axios from 'axios';
 /**
  *  Home page that contains dashboard and create post compnents 
  * @example [none]
@@ -95,7 +117,36 @@ export default {
     MatchMedia: MatchMedia,
     FollowTags:FollowTags,
     RelatedBlogs: RelatedBlogs,
-    ExploreBar: ExploreBar
+    ExploreBar: ExploreBar,
+    ExploreCard: ExploreCard
+  },
+  async created() {
+    try {
+    
+         await axios.get(Browser().baseURL+'/dashBoard').then(res => {
+            this.dashBoardPosts = res.data.posts;
+          console.log(res.data)    
+          })
+         
+     //  const res =await axios.get('http://localhost:3000/autoCompleteSearchDash')
+        
+   //  this.interestsList= res.data;
+    } catch (e) {
+        console.log("^^^^^^^^^^^^^^^^^^")
+      console.error(e);
+    }
+  },
+  methods:
+  {
+    multiCol:function(close){
+      this.multi = close;
+    }
+  },
+  data: function(){
+    return{
+      multi:true,
+      dashBoardPosts:[]
+    }
   },
   computed: {
     homeTheme: function () {
@@ -114,14 +165,25 @@ export default {
      * @public This is a public method
      * @param {none}
      */
-    dashBoardPosts: function () {
-      return this.$store.state.blogs;
-    },
+   // dashBoardPosts: function () {
+    //  return this.$store.state.blogs;
+    //},
+    exploreCards: function () {
+      return this.$store.state.exploreCards;
+    }
   },
 };
 </script>
 
 <style scoped>
+.margin-right{
+  margin: 0px 10px 0px 10px;
+}
+#cards{
+  margin-bottom: 40px;
+  overflow-x: auto;
+  max-width: 920px;
+}
 .left{
   padding-right: 15px;
 }
@@ -133,10 +195,13 @@ export default {
   flex-direction: row;
   justify-content: center;  
 }
+.center{
+  align-items: center;  
+}
 .flexV {
   display: flex;
   flex-direction: column;
-    align-items: flex-start; 
+    
 }
 
 #vDivider{
@@ -154,8 +219,6 @@ export default {
   align-items: center;  
   display: inline;
   flex-direction: column;
-  
-  margin-bottom: 5px;
   padding-left: 10px;
 
   /* background-color: red; */
