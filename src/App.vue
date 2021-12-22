@@ -1,10 +1,14 @@
 <template>
 
   <div id="app">
-     <router-view/>
-       <!-- <CreatedBlog/> -->
-        
-     
+    <!-- <router-view/> -->
+      <!-- <ViewPostCard/>-->
+      <!-- <CreatedBlogPage v-bind:Username="u"
+                        v-bind:Title="t"></CreatedBlogPage > -->
+        <router-link to="/blog/created"  v-bind:Username="u"
+                        v-bind:Title="t">      
+                        
+        </router-link>
 
      
   </div>
@@ -15,19 +19,22 @@
  
  
 // import NewBlog from './components/blog/CreateNewBlogPage'
-//import CreatedBlog from './components/blog/CreatedBlogPage'
+import CreatedBlogPage from './components/blog/CreatedBlogPage'
+//import ViewPostCard from'./components/general/ViewPostCard'
 export default {
 
   name: 'App',
  
 
   components: {
-   
+   CreatedBlogPage,
+  // ViewPostCard
   },
   data(){
 
     return{
-
+      u:"ahmed",
+      t:"mm"
        
     }
     
