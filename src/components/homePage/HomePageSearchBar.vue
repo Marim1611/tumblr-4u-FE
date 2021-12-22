@@ -5,7 +5,7 @@
       <div
         id="input_container"
         v-bind:style="{
-          'background-color': homeTheme[homeThemeIndex].cardColor,
+          'background': homeTheme[homeThemeIndex].cardColor,
           'border-radius': '4px',
           'border-color': homeTheme[homeThemeIndex].fontColor,
         }"
@@ -29,7 +29,7 @@
           type="text"
           placeholder="Search Tumblr"
           v-bind:style="{
-            'background-color': homeTheme[homeThemeIndex].cardColor,
+            'background': homeTheme[homeThemeIndex].cardColor,
             color: homeTheme[homeThemeIndex].fontColor,
           }"
         />

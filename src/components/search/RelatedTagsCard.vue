@@ -1,14 +1,14 @@
 <template>
-    <div id="relatedTags" v-bind:style="{'background-color': homeTheme[homeThemeIndex].cardColor}" >
+    <div id="relatedTags" v-bind:style="{'background': homeTheme[homeThemeIndex].cardColor}" >
              <h5 v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor, 'font-family':homeTheme[homeThemeIndex].fontStyle }">Related Tags</h5>
                 <div
             id="divider2"
             v-bind:style="{
-              'background-color': homeTheme[homeThemeIndex].fontColor,
+              'background': homeTheme[homeThemeIndex].fontColor,
             }"
           ></div>
           <div id='img'></div>
-          <button id="myButton" type="button" v-bind:style="{'background-color': homeTheme[homeThemeIndex].fontColor2,'font-family':homeTheme[homeThemeIndex].fontStyle,'color': homeTheme[homeThemeIndex].cardColor }" >Follow</button>
+          <button id="myButton" type="button" v-bind:style="{'background': homeTheme[homeThemeIndex].focused,'font-family':homeTheme[homeThemeIndex].fontStyle,'color': homeTheme[homeThemeIndex].fontColor2 }" >Follow</button>
           
             <b-row id="row" v-for="(item, i) in relatedTags" :key="i" class='sec'>
                 <div class="avatarStyle">
@@ -38,7 +38,7 @@
             <div
             id="divider2"
             v-bind:style="{
-              'background-color': homeTheme[homeThemeIndex].fontColor,
+              'background': homeTheme[homeThemeIndex].fontColor,
             }"
           ></div> 
            <button id="sButton" type="button" v-bind:style="{'font-family':homeTheme[homeThemeIndex].fontStyle,'color': homeTheme[homeThemeIndex].fontColor }" >show more tags</button>

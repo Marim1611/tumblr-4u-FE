@@ -1,5 +1,5 @@
 <template>
-    <div id="relatedBlogs" v-bind:style="{'background-color': homeTheme[homeThemeIndex].cardColor}" >
+    <div id="relatedBlogs" v-bind:style="{'background': homeTheme[homeThemeIndex].backgroundColor}" >
              <h5 v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor, 'font-family':homeTheme[homeThemeIndex].fontStyle }">Check out these blogs</h5>
                 <div
             id="divider2"
@@ -27,10 +27,10 @@
               </b-col>
                <div id="space2">  <b-col></b-col></div>
                  <b-col>
-               <div>      <button id="fButton"  v-on:click="followed(item.isFollow,i)" type="button" v-bind:style="{'font-family':homeTheme[homeThemeIndex].fontStyle,'color': homeTheme[homeThemeIndex].fontColor }" >{{item.isFollow}}</button>
+               <div>      <button id="fButton"  v-on:click="followed(item.isFollow,i)" type="button" v-bind:style="{'font-family':homeTheme[homeThemeIndex].focused,'color': homeTheme[homeThemeIndex].fontColor }" >{{item.isFollow}}</button>
 </div>
   </b-col>
-            <b-icon v-show="item.x" v-on:click="remove(i)"  icon="x" font-scale="2" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}" />        
+            <b-icon v-show="item.x" v-on:click="remove(i)"  icon="x" font-scale="2" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].focused}" />        
            </b-row>
             <div
             id="divider2"
@@ -38,7 +38,9 @@
               'background-color': homeTheme[homeThemeIndex].fontColor,
             }"
           ></div> 
-           <button id="sButton" type="button" v-bind:style="{'font-family':homeTheme[homeThemeIndex].fontStyle,'color': homeTheme[homeThemeIndex].fontColor }" >Show more blogs</button>
+          <router-link to="/explore">
+                     <button id="sButton" type="button" v-bind:style="{'font-family':homeTheme[homeThemeIndex].fontStyle,'color': homeTheme[homeThemeIndex].focused }" >Explore all of Tumblrs</button>
+          </router-link>
         
 
             </div>
@@ -138,7 +140,7 @@ export default {
        display: flex;
   flex-direction: column;
   min-height: 100px;
-  margin-top:20px;
+ 
 }
 #fButton{
   font-size: 16px;

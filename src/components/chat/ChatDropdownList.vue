@@ -10,7 +10,7 @@
               ></b-icon>
     <transition name="fade" appear>
         <div v-on:click.prevent="toggleDropdown">
-          <div id ="content" class="sub-menu" v-if="isOpen" :style="{'background-color': homeTheme[homeThemeIndex].cardColor}">
+          <div id ="content" class="sub-menu" v-if="isOpen" :style="{'background': homeTheme[homeThemeIndex].cardColor}">
     
         <!-- header -->   
         <li >
@@ -28,7 +28,7 @@
 
         
         </li>
-     <div id="divider" :style="{'background-color': homeTheme[homeThemeIndex].fontColor}"></div>
+     <div id="divider" :style="{'background': homeTheme[homeThemeIndex].fontColor}"></div>
 
           
             <!-- newMsg IS not Clicked   -->
@@ -49,7 +49,7 @@
         <p  id ="lastMsg" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle}">{{friend.lastMsg}} </p>
             </div>    
          </li>
-                          <div id="divider" :style="{'background-color': homeTheme[homeThemeIndex].fontColor}"></div>
+                          <div id="divider" :style="{'background': homeTheme[homeThemeIndex].fontColor}"></div>
    </div>
           <!-- footer -->    
             </div>
@@ -69,7 +69,7 @@
           }"/>
                       </div>
               </div>
-               <div id="date" :style="{'background-color': homeTheme[homeThemeIndex].shadow}">
+               <div id="date" :style="{'background': homeTheme[homeThemeIndex].shadow}">
                <p  id ="pF" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle}"> Recently followed</p>
               </div>
                <div id="chatItem" v-for="(item, i) in recentlyFollowed" :key="i">
@@ -87,7 +87,7 @@
         <p  id ="lastMsg" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle}">{{item.lastMsg}} </p>
             </div>    
          </li>
-                          <div id="divider" :style="{'background-color': homeTheme[homeThemeIndex].fontColor}"></div>
+                          <div id="divider" :style="{'background': homeTheme[homeThemeIndex].fontColor}"></div>
    </div>
                         <div>
                 

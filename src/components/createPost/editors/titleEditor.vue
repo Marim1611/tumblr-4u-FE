@@ -47,8 +47,8 @@ export default {
 
       onUpdate: ({ editor }) => {
         if (editor.getText() == "") {
-          this.editor.commands.setContent(null);
-          this.$emit("childToParent", null);
+          this.editor.commands.setContent();
+          this.$emit("childToParent", "");
         } else {
           editor.commands.setHeading({ level: 1 });
           // console.log(editor.getHTML());

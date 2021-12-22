@@ -182,7 +182,7 @@
                 'background-color': homeTheme[homeThemeIndex].cardColor,
               }"
             >
-              <div v-for="(item, i) in dottedItems" :key="i" class="menu-item">
+              <div v-on:click=" closeDotted(item)" v-for="(item, i) in dottedItems" :key="i" class="menu-item">
                 <li>
                   <div id="item">
                     <li>
@@ -305,6 +305,7 @@ export default {
   },
  
   methods: {
+
       closeDrawer() {
       this.$emit("closeDrawer", false);
      
@@ -336,6 +337,11 @@ export default {
      toggleDotted(){
       this.isOpendotted = !this.isOpendotted
       this.isOpenShare=false
+    },
+     closeDotted(item){
+       if (item == "Close")
+      this.isOpendotted = false
+       
     },
       
   },
@@ -530,8 +536,9 @@ li {
 .dropdown-selected {
   padding: 10px 10px;
   border-radius: 8px;
-  opacity: 0.1;
-  width: 135px;
+  opacity: 0.3;
+  background-color:#d9ffcc ;
+  width: 150px;
   line-height: 1.5em;
   outline: none;
 }
@@ -562,7 +569,7 @@ li {
   width: 100px;
 }
 #item:hover {
-  background: #464747;
+  background:  grayscale(100%) brightness(51%);
   cursor: pointer;
 }
 

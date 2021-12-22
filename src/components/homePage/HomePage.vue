@@ -2,7 +2,7 @@
   <div
     id="homeDiv"
     v-bind:style="{
-      'background-color': homeTheme[homeThemeIndex].backgroundColor,
+      'background': homeTheme[homeThemeIndex].backgroundColor,
     }"
   >
     <MatchMedia query="(max-width: 1000px)" v-slot="{ matches }">
@@ -19,7 +19,7 @@
            <div
             id="divider"
             v-bind:style="{
-              'background-color': homeTheme[homeThemeIndex].fontColor,
+              'background': homeTheme[homeThemeIndex].fontColor,
             }"
           ></div>
         <div id="myDashboard">
@@ -52,6 +52,7 @@
        </div>
        <div id="rightPart">
           <CheckBlogs/>
+          <Radar/>
 
        </div>
          
@@ -73,6 +74,7 @@ import DashBoard from "../general/ViewPostCard.vue";
 import Avatar from "vue-avatar";
 import ProfileDrawer from "../profile/ProfileDrawer.vue"
 import CheckBlogs from "../general/CheckOutBlogs.vue"
+import Radar from "../general/Radar.vue"
 /**
  *  Home page that contains dashboard and create post components 
  * @example [none]
@@ -98,7 +100,8 @@ export default {
     MatchMedia: MatchMedia,
     Avatar:Avatar,
     ProfileDrawer:ProfileDrawer,
-    CheckBlogs:CheckBlogs
+    CheckBlogs:CheckBlogs,
+    Radar:Radar
   },
   computed: {
     homeTheme: function () {
@@ -143,33 +146,42 @@ export default {
 }
 #dashBoard {
   align-items: center;  
-  display: inline;
+  display: flex;
   flex-direction: column;
   flex-grow: 1;
   margin-bottom: 20px;
-  padding-left: 282px;
+  padding-left: 320px;
 
   /* background-color: red; */
 }
 #leftPart{
    display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-between;
   margin: 20px;
+
+}
+#rightPart{
+   display: flex;
+  flex-direction: column;
+  justify-content:center;
+  margin: 50px;
+  
 
 }
 #myDashboard {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+   justify-content:space-between;
+    align-items: flex-start;
   
 }
 #homePageCreatePost {
   width: 540px;
   display: flex;
   flex-direction: row;
-  padding:  30px 200px 150px 250px;
-  justify-content: space-evenly;
+  padding:  30px 50px 50px 50px;
+  justify-content: center;
 }
 .avatarStyle {
   width: 25px;

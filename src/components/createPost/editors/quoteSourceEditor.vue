@@ -115,11 +115,11 @@ export default {
       extensions: [
         StarterKit,
         Placeholder.configure({
-          placeholder: "Your text here",
+          placeholder: "Source",
         }),
         Paragraph.configure({
           HTMLAttributes: {
-            class: "textClass",
+            class: "sourceClass",
           },
         }),
       ],
@@ -157,7 +157,6 @@ export default {
           this.$emit("childToParent", "");
         } else {
           this.$emit("childToParent", editor.getHTML());
-          // console.log(editor.getHTML());
         }
       },
       content: ``,
@@ -244,18 +243,15 @@ export default {
 </script>
 
 <style>
-/* mhtaga ashel l scoped hena 3shan el outline yb2a b none  */
+
 .ProseMirror {
   outline: none;
-  /* max-width: 0vw; */
-}
-.ProseMirror p.textClass {
-  /* padding-top: 20px; */
+  overflow: hidden;
   padding-left: 5px;
-  outline: none;
   cursor: text;
-  /* min-height: 100px; */
-  /* max-width: 27vw; */
+  word-wrap: break-word;
+  max-width: 26vw;
+  min-height: 100px;
 }
 
 .ProseMirror p.is-editor-empty::before {
@@ -265,6 +261,7 @@ export default {
   pointer-events: none;
   height: 0;
 }
+
 .editButtons {
   transition: background-color 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
   /* box-sizing: border-box; */

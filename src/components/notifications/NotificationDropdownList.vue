@@ -9,7 +9,7 @@
               ></b-icon>
     <transition name="fade" appear>
         <div v-on:click.prevent="toggleDropdown">
-          <div id ="content" class="sub-menu" v-if="isOpen" :style="{'background-color': homeTheme[homeThemeIndex].cardColor}">
+          <div id ="content" class="sub-menu" v-if="isOpen" :style="{'background': homeTheme[homeThemeIndex].cardColor}">
     
     
         <li >
@@ -26,7 +26,7 @@
                     <b-icon id="arrow"  icon="chevron-down" font-scale="1" aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor}"></b-icon>
 
         </li>
-        <div id="divider" :style="{'background-color': homeTheme[homeThemeIndex].fontColor}"></div>
+        <div id="divider" :style="{'background': homeTheme[homeThemeIndex].fontColor}"></div>
        
         <li id ="list"  >
             <div v-on:click="openItem(0)" id="divList" v-bind:style="{'border-bottom': '4px solid '+this.listColors[0],

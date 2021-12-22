@@ -12,7 +12,7 @@
           v-on:click="isClicked = !isClicked"
           placeholder="Search Tumblr"
        v-bind:style="{
-          'background-color': homeTheme[homeThemeIndex].cardColor,
+          'background': homeTheme[homeThemeIndex].cardColor,
             }" />
       
     </div>

@@ -1,7 +1,7 @@
  <template>
   <div id="searchCard" v-show="forMe">
      
-      <div class="container" v-bind:style="{'background-color': homeTheme[homeThemeIndex].cardColor, 'max-width': this.maxWidth }" >
+      <div class="container" v-bind:style="{'background': homeTheme[homeThemeIndex].cardColor, 'max-width': this.maxWidth }" >
         <!--header of card-->
         <div class="header">
           <img class="profile" src="https://64.media.tumblr.com/54a1c708b6e6f778e6d6a62122b87264/dd15ee49758e1917-0f/s64x64u_c1/591674a52eaa19af57c763479bdbddcfa2219db8.jpg" alt="">
@@ -36,7 +36,7 @@
         <div class="footer-flex">
           <div class="notes" v-on:click="commentShow" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"> {{ post.notes }} notes</div> <!--onClick:300x510-->
           <!--comment dropdown menu-->
-          <div class="v-flex comment-window" v-show="comment" v-bind:style="{'background-color': homeTheme[homeThemeIndex].cardColor}">
+          <div class="v-flex comment-window" v-show="comment" v-bind:style="{'background': homeTheme[homeThemeIndex].cardColor}">
             
             <!--header of comment window-->
               <div class="h-flex border-bottom">
@@ -78,7 +78,7 @@
         </div>
         <!--340x303.8 the share-->
         <!--share dropdown menu-->
-        <div class="v-flex share-window" v-show="share" v-bind:style="{'background-color': homeTheme[homeThemeIndex].cardColor}">
+        <div class="v-flex share-window" v-show="share" v-bind:style="{'background': homeTheme[homeThemeIndex].cardColor}">
           <!--share header (searching for people to share(?))-->
           <div class="h-flex share-header">
             <b-icon class="img-icon" icon="search" font-scale="2" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}" ></b-icon> 
