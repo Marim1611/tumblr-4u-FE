@@ -2,7 +2,7 @@
   <div
     id="homeDiv"
     v-bind:style="{
-      'background-color': homeTheme[homeThemeIndex].backgroundColor,
+      'background': homeTheme[homeThemeIndex].backgroundColor,
     }"
   >
     <MatchMedia query="(max-width: 1000px)" v-slot="{ matches }">
@@ -19,7 +19,7 @@
            <div
             id="divider"
             v-bind:style="{
-              'background-color': homeTheme[homeThemeIndex].fontColor,
+              'background': homeTheme[homeThemeIndex].fontColor,
             }"
           ></div>
         <div id="myDashboard">

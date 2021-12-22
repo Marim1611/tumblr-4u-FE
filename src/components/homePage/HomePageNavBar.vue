@@ -1,5 +1,5 @@
 <template>
-<b-navbar class="NavBar" toggleable="sm" type="dark" variant="faded"  :style="{ 'background-color': homeTheme[homeThemeIndex].backgroundColor }">
+<b-navbar class="NavBar" toggleable="sm" type="dark" variant="faded"  :style="{ 'background': homeTheme[homeThemeIndex].backgroundColor }">
         
         <router-link to="/home">
          

@@ -4,7 +4,7 @@
             <div id="notificationDiv">
               
             <div v-for="(item, i) in content"  :key="i" >
-              <div id="date" :style="{'background-color': homeTheme[homeThemeIndex].shadow}">
+              <div id="date" :style="{'background': homeTheme[homeThemeIndex].shadow}">
               <p  id ="pDate" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle}">{{item.ago}}</p>
               <p  id ="pDate" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle}"> {{item.date}}</p>
               </div>
@@ -44,7 +44,7 @@
         <!-- end -->
           <!-- footer -->
 
-            <div id="divider" :style="{'background-color': homeTheme[homeThemeIndex].fontColor}"></div>
+            <div id="divider" :style="{'background': homeTheme[homeThemeIndex].fontColor}"></div>
 
          <div id="footer">
               

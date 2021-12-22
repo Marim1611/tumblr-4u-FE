@@ -4,9 +4,9 @@
 			<slot />
       <h2 v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor,'font-family':homeTheme[homeThemeIndex].fontStyle}">Are you sure you want to log out?</h2>
 		<div id="buttons" >
-	<button id="myButton" v-on:click="cancel" type="button" v-bind:style="{'background-color': homeTheme[homeThemeIndex].fontColor2,'font-family':homeTheme[homeThemeIndex].fontStyle }" >Cancel</button>
+	<button id="myButton" v-on:click="cancel" type="button" v-bind:style="{'background': homeTheme[homeThemeIndex].focused,'font-family':homeTheme[homeThemeIndex].fontStyle }" >Cancel</button>
   <router-link to='/'>
-<button id="myButton" v-on:click="goOut" type="button" v-bind:style="{'background-color': homeTheme[homeThemeIndex].fontColor2,'font-family':homeTheme[homeThemeIndex].fontStyle }" >Ok</button>
+<button id="myButton" v-on:click="goOut" type="button" v-bind:style="{'background': homeTheme[homeThemeIndex].focused,'font-family':homeTheme[homeThemeIndex].fontStyle }" >Ok</button>
              </router-link>
 
 

@@ -1,12 +1,12 @@
 <template>
  <div v-bind:style="{
-      'background-color': homeTheme[homeThemeIndex].backgroundColor,
+      'background': homeTheme[homeThemeIndex].backgroundColor,
     }">
       <NavBar />
  <div
             id="divider"
             v-bind:style="{
-              'background-color': homeTheme[homeThemeIndex].fontColor,
+              'background': homeTheme[homeThemeIndex].fontColor,
             }"
           ></div>
        

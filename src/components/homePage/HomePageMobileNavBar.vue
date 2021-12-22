@@ -1,7 +1,7 @@
 <template>
  
 <div id="navDiv"  > 
-   <nav id = 'navbar' v-bind:style="{'background-color': homeTheme[homeThemeIndex].backgroundColor}">
+   <nav id = 'navbar' v-bind:style="{'background': homeTheme[homeThemeIndex].backgroundColor}">
   <div id="navItem" >
       <b-icon id="icon" v-on:click= "showDrawer=!showDrawer" icon="justify" font-scale="1.5"  aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor, 'float': 'right'}" ></b-icon> 
          <v-navigation-drawer id="homeDrawer" v-model="showDrawer" app v-bind:style="{'background-color': homeTheme[homeThemeIndex].backgroundColor}" >
