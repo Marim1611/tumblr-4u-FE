@@ -38,7 +38,7 @@
               'background-color': homeTheme[homeThemeIndex].fontColor,
             }"
           ></div> 
-           <button id="sButton" type="button" v-bind:style="{'font-family':homeTheme[homeThemeIndex].fontStyle,'color': homeTheme[homeThemeIndex].fontColor }" >Show more blogs</button>
+           <button id="sButton" type="button" v-bind:style="{'font-family':homeTheme[homeThemeIndex].fontStyle,'color': homeTheme[homeThemeIndex].focused }" >Show more blogs</button>
         
 
             </div>

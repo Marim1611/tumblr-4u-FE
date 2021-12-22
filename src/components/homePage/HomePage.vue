@@ -73,6 +73,8 @@ import DashBoard from "../general/ViewPostCard.vue";
 import Avatar from "vue-avatar";
 import ProfileDrawer from "../profile/ProfileDrawer.vue"
 import CheckBlogs from "../general/CheckOutBlogs.vue"
+import Browser from '../../mocks/browser'
+import axios from 'axios';
 /**
  *  Home page that contains dashboard and create post components 
  * @example [none]
@@ -87,7 +89,22 @@ export default {
       tumblrsObj: { name: "Marim", 
       avatar: "https://assets.tumblr.com/images/default_avatar/octahedron_closed_128.png",
        coverImg: "https://assets.tumblr.com/images/default_header/optica_pattern_05_focused_v3.png?_v=671444c5f47705cce40d8aefd23df3b1" },
-     
+     dashBoardPosts:[ ],
+    }
+  }, async created() {
+    try {
+    
+         await axios.get(Browser().baseURL+'/dashBoard').then(res => {
+            this.dashBoardPosts = res.data.posts;
+          console.log(res.data)    
+          })
+         
+     //  const res =await axios.get('http://localhost:3000/autoCompleteSearchDash')
+        
+   //  this.interestsList= res.data;
+    } catch (e) {
+        console.log("^^^^^^^^^^^^^^^^^^")
+      console.error(e);
     }
   },
   components: {
@@ -117,9 +134,9 @@ export default {
      * @public This is a public method
      * @param {none}
      */
-    dashBoardPosts: function () {
-      return this.$store.state.blogs;
-    },
+   // dashBoardPosts: function () {
+    //  return this.$store.state.blogs;
+    //},
   },
   methods:{
      closeDrawer: function (close) {
