@@ -3,7 +3,7 @@ import Vuex from 'vuex';
 import axios from 'axios';
 import { getField, updateField } from 'vuex-map-fields';
 import api from '../api';
-import Browser from '../../mocks/browser'
+import Browser from '../mocks/browser'
  
 
 Vue.use(Vuex);
