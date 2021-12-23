@@ -96,52 +96,15 @@ export default {
       this.emptyEamil=false;
 
     },
-    handel(){
-      this.emptyError=false;
-
-      if(!this.userEmail&&!this.userPassword){
-        this.emptyError=true;
-      }
-      else if(this.userEmail&&!this.userPassword){
-        this.emptyPassword=true;
-      }
-      else if(this.userPassword&&!this.userEmail){
-        this.emptyEamil=true;
-      }
-
-      var mailformat = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-      if(!this.userEmail){
-        this.emptyEamil=true;
-      }
-      if(this.userEmail.match(mailformat))
-      {
-      this.cleanEmail=true;
-      }
-      else
-      {
-        if(this.emptyPassword===false)
-          this.emailError=true;
-        else
-          this.emailError=false;
-      }
-      var passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
-      if(this.userPassword.match(passw)){ 
-        this.cleanPassword=true;
-      }
-      else{ 
-        this.passwordError=true;
-      }
-      if(this.cleanEmail&&this.cleanPassword){
-
+   handel(){
+         
         let email=this.userEmail
         let password=this.userPassword
         this.$store.dispatch('login',{email,password})
         .then(()=>this.$router.push('/home'))
         .catch(err => console.log(err))
 
-      }
-
-    },
+      },
     randomImg() {
         console.log(   Math.floor(Math.random() * this.BgImgArr.length))
       return this.BgImgArr[
