@@ -98,12 +98,15 @@ export default {
   }, async created() {
     try {
     
-         await axios.get(Browser().baseURL+'/dashBoard',
+         await axios.get( Browser().baseURL+'/dashBoard',
          { 'headers': { 'Token': this.myToken } }
          ).then(resp => {
            //axios.get(`url`, { 'headers': { 'Authorization': this.AuthStr } })
            
             this.dashBoardPosts = resp.data.res.postsToShow;
+            //resp.data.res.user.bodyColor
+              this.$store.commit('updateBodyColor',3);
+
           console.log(resp.data)    
           })
          
