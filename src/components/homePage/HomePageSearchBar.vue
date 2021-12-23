@@ -233,7 +233,7 @@ export default {
         console.log(this.inputValue)
           console.log( localStorage.getItem('token') )
          await axios.get(Browser().baseURL+`/autoCompleteSearchDash/${this.inputValue}`,
-          { 'headers': { 'Token':  localStorage.getItem('token') } }
+          { headers: { 'Token':  localStorage.getItem('token') } }
          ).then(res => {
            
              
