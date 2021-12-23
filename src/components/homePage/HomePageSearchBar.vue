@@ -24,7 +24,7 @@
           v-model.trim="inputValue"
           v-on:keyup.enter="goToSearchPage"
           v-on:click="isClicked = !isClicked"
-          @change="getSearchLists()"
+          @change="getSearchLists"
           autocomplete="off"
           class="dropdown-input"
           type="text"
@@ -163,8 +163,19 @@ export default {
     //  'Avatar':Avatar
   },
   methods: {
-    getSearchLists(){
+    async getSearchLists(){
+      console.log("kkkkkaaaaaaaak")
       console.log(this.inputValue)
+      try {
+         await axios.get(Browser().baseURL+`/autoCompleteSearchDash/${this.inputValue}`,
+          { 'headers': { 'Token':  localStorage.getItem('token') } }
+         ).then(res => {
+            this.usersInSearch = res.data.resultBlogs;
+            this.tags= res.data.resultHashTag;
+          })
+    } catch (e) {
+      console.error(e);
+    }
 
     },
       closeDrawer: function (close) {
@@ -219,19 +230,20 @@ export default {
       //TODO: CHANGE IF INPUT IS EMPTY GO TO EXPLORE => RECOMMENDED FOR YOU
        
       try {
+        console.log(this.inputValue)
+          console.log( localStorage.getItem('token') )
          await axios.get(Browser().baseURL+`/autoCompleteSearchDash/${this.inputValue}`,
           { 'headers': { 'Token':  localStorage.getItem('token') } }
          ).then(res => {
-           console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
-           console.log(Browser().baseURL+'/autoCompleteSearchDash/'+this.inputValue)
-            this.usersInSearch = res.data.resultBlogs;
-            this.tags= res.data.resultHashTag;
+           
+             
             this.postsInSearch= res.data.resultPostHashTag;
              console.log("postsInSearch")    
           console.log( this.postsInSearch)    
           })
     } catch (e) {
-        console.log("^^^^^^^^^^^^^^^^^^")
+
+              console.log("error in getting postsInSearch") 
       console.error(e);
     }
       
@@ -281,15 +293,12 @@ export default {
   },
     async created() {
     try {
-         await axios.get(Browser().baseURL+`/autoCompleteSearchDash/${this.inputValue}`).then(res => {
-           console.log("########################")
+         await axios.get(Browser().baseURL+`/autoCompleteSearchDash/${this.inputValue}`
+         ,
+          { 'headers': { 'Token':  localStorage.getItem('token') } }).then(res => {
+           console.log("## interests ######################")
            console.log(Browser().baseURL+'/autoCompleteSearchDash/'+this.inputValue)
-            this.usersInSearch = res.data.resultBlogs;
-            this.tags= res.data.resultHashTag;
-            this.interestsList= res.data.resultFollowedTag;
-            this.postsInSearch= res.data.resultPostHashTag;
-             console.log("postsInSearch")    
-          console.log( this.postsInSearch)    
+            this.interestsList= res.data.resultFollowedTag; 
           })
     } catch (e) {
         console.log("^^^^^^^^^^^^^^^^^^")
