@@ -24,7 +24,7 @@
           v-model.trim="inputValue"
           v-on:keyup.enter="goToSearchPage"
           v-on:click="isClicked = !isClicked"
-          @change="getSearchLists"
+          @input="getSearchLists"
           autocomplete="off"
           class="dropdown-input"
           type="text"
@@ -233,13 +233,15 @@ export default {
         console.log(this.inputValue)
           console.log( localStorage.getItem('token') )
          await axios.get(Browser().baseURL+`/autoCompleteSearchDash/${this.inputValue}`,
-          { headers: { 'Token':  localStorage.getItem('token') } }
+          { headers: { 'Token':   `Basic ${localStorage.getItem('token')}` } }
          ).then(res => {
            
              
             this.postsInSearch= res.data.resultPostHashTag;
              console.log("postsInSearch")    
           console.log( this.postsInSearch)    
+          }).catch((e)=>{
+            console.log(e)
           })
     } catch (e) {
 
@@ -295,7 +297,7 @@ export default {
     try {
          await axios.get(Browser().baseURL+`/autoCompleteSearchDash/${this.inputValue}`
          ,
-          { 'headers': { 'Token':  localStorage.getItem('token') } }).then(res => {
+          { headers: { 'Token':  localStorage.getItem('token') } }).then(res => {
            console.log("## interests ######################")
            console.log(Browser().baseURL+'/autoCompleteSearchDash/'+this.inputValue)
             this.interestsList= res.data.resultFollowedTag; 
