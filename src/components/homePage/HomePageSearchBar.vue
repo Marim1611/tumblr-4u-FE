@@ -229,7 +229,7 @@ export default {
     {
       //TODO: CHANGE IF INPUT IS EMPTY GO TO EXPLORE => RECOMMENDED FOR YOU
        
-      try {
+     
         console.log(this.inputValue)
           console.log( localStorage.getItem('token') )
          await axios.get(Browser().baseURL+`/autoCompleteSearchDash/${this.inputValue}`,
@@ -243,11 +243,7 @@ export default {
           }).catch((e)=>{
             console.log(e)
           })
-    } catch (e) {
-
-              console.log("error in getting postsInSearch") 
-      console.error(e);
-    }
+    
       
       if (this.inputValue)
   {
