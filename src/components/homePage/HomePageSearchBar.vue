@@ -260,7 +260,7 @@ export default {
     },
     async searchMe(interest){
         try {
-         await axios.get(Browser().baseURL+`/autoCompleteSearchDash`
+         await axios.get(Browser().baseURL+'/autoCompleteSearchDash'
          ,
          
           { headers: { 'Authorization':`Bearer ${localStorage.getItem('token')}` } })
@@ -304,7 +304,7 @@ export default {
   },
     async created() {
     try {
-         await axios.get(Browser().baseURL+`/autoCompleteSearchDash`
+         await axios.get(Browser().baseURL+'/autoCompleteSearchDash'
          ,
           { headers: { 'Authorization':`Bearer ${localStorage.getItem('token')}` } })
           .then(res => {
