@@ -228,10 +228,6 @@ export default {
     async goToSearchPage()
     {
       //TODO: CHANGE IF INPUT IS EMPTY GO TO EXPLORE => RECOMMENDED FOR YOU
-       
-     
-        console.log(this.inputValue)
-          console.log( localStorage.getItem('token') )
          await axios.get(Browser().baseURL+`/autoCompleteSearchDash/${this.inputValue}`,
           { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
          ).then(res => {

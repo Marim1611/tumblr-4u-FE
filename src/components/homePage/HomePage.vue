@@ -101,13 +101,15 @@ export default {
          await axios.get( Browser().baseURL+'/dashboard',
          { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
          ).then(res => {
+           console.log("the response:")
+           console.log(res)
             this.dashBoardPosts = res.data.res.postsToShow;
               this.$store.commit('updateBodyColor', res.data.res.user.bodyColor);   
                console.log("body color")
                console.log(res.data.res.user.bodyColor)
           })
     } catch (e) {
-           
+           console.log("error in dashboard")
       console.error(e);
     }
 
