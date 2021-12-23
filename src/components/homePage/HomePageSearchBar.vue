@@ -233,7 +233,7 @@ export default {
         console.log(this.inputValue)
           console.log( localStorage.getItem('token') )
          await axios.get(Browser().baseURL+`/autoCompleteSearchDash/${this.inputValue}`,
-          { headers: { 'Token':   `Basic ${localStorage.getItem('token')}` } }
+          { headers: { 'authorization':   `Bearer ${localStorage.getItem('token')}` } }
          ).then(res => {
            
              
@@ -293,7 +293,8 @@ export default {
     try {
          await axios.get(Browser().baseURL+`/autoCompleteSearchDash/${this.inputValue}`
          ,
-          { headers: { 'Token':  localStorage.getItem('token') } }).then(res => {
+          { headers: { 'authorization':   `Bearer ${localStorage.getItem('token')}` } })
+          .then(res => {
            console.log("## interests ######################")
            console.log(Browser().baseURL+'/autoCompleteSearchDash/'+this.inputValue)
             this.interestsList= res.data.resultFollowedTag; 
