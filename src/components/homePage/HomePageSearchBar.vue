@@ -209,12 +209,28 @@ export default {
       Vue.set(this.tumblrsObj, "coverImg", cover);
       Vue.set(this.tumblrsObj, "avatar", avatar);
     },
-    goToSearchPage()
+    async goToSearchPage()
     {
       //TODO: CHANGE IF INPUT IS EMPTY GO TO EXPLORE => RECOMMENDED FOR YOU
+       
+      try {
+         await axios.get(Browser().baseURL+'/autoCompleteSearchDash/'+this.inputValue).then(res => {
+           console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+           console.log(Browser().baseURL+'/autoCompleteSearchDash/'+this.inputValue)
+            this.usersInSearch = res.data.resultBlogs;
+            this.tags= res.data.resultHashTag;
+            this.postsInSearch= res.data.resultPostHashTag;
+             console.log("postsInSearch")    
+          console.log( this.postsInSearch)    
+          })
+    } catch (e) {
+        console.log("^^^^^^^^^^^^^^^^^^")
+      console.error(e);
+    }
       
       if (this.inputValue)
   {
+     console.log(Browser().baseURL+'/autoCompleteSearchDash/'+this.inputValue)
     console.log("gooooooooo to search")
       console.log(this.postsInSearch)
       
@@ -265,8 +281,6 @@ export default {
              console.log("postsInSearch")    
           console.log( this.postsInSearch)    
           })
-     //  const res =await axios.get('http://localhost:3000/autoCompleteSearchDash')
-   //  this.interestsList= res.data;
     } catch (e) {
         console.log("^^^^^^^^^^^^^^^^^^")
       console.error(e);

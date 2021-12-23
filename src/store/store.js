@@ -309,7 +309,7 @@ export const store = new Vuex.Store({
   forgotpassword({ commit }, user) {
     return new Promise((resolve, reject) => {
       commit('auth_request')
-      api.post('forgot_password', {
+      api().post('forgot_password', {
         Email:user.email
       })
         .then(resp => {
