@@ -17,12 +17,12 @@ export const store = new Vuex.Store({
         password: "",
         blogname:"", 
         id:"",
-        colorTheme:""
+        
         },
         age:0,
         // we need to replace this with bodyColor in DB as each user has his theme color
-        homeThemeIndex:0,
- 
+       
+         homeThemeIndex:0,
         homeTheme: [ 
 
           {backgroundColor: '#001935',fontColor:'white', cardColor:'#5c7e97' ,fontColor2:'#1A314D', fontStyle: 'Helvetica', focused:'cyan',shadow:'rgb(163, 162, 162)'},
@@ -240,10 +240,14 @@ export const store = new Vuex.Store({
             if (state.homeThemeIndex < 8){
                 state.homeThemeIndex+=1;
             }    
-         else if (state.homeThemeIndex >= 5){
+         else if (state.homeThemeIndex >= 8){
             state.homeThemeIndex=0;
          } 
         },
+        updateBodyColor(state, newColor) {
+          state.homeThemeIndex= newColor
+        },
+        
         auth_request(state){
             state.status = 'loading'
           },

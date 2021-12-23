@@ -6,6 +6,7 @@
             "name": "CMP-5552",
             "email": "reem.atala555@gmail.com",
             "password": "$2b$08$QlMLUMWYAv5SMyuqQRR48Ol4Bnfm0b8HJqqGPKTtaWlgbhrA7K9ge",
+            "bodyColor":0,
             "age": 21,
             "blogsId": [
                 "61c25866ac0f82a2b0c763f6",
