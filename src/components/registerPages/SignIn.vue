@@ -103,7 +103,7 @@ export default {
         this.emptyError=true;
       }
       else if(this.userEmail&&!this.userPassword){
-        this.emptyPassword=false;
+        this.emptyPassword=true;
       }
       else if(this.userPassword&&!this.userEmail){
         this.emptyEamil=true;

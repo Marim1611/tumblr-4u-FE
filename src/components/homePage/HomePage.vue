@@ -98,16 +98,19 @@ export default {
   }, async created() {
     try {
       console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
-         await axios.get( Browser().baseURL+'/dashBoard',
+         await axios.get( Browser().baseURL+'/dashboard',
          { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
          ).then(res => {
             this.dashBoardPosts = res.data.res.postsToShow;
               this.$store.commit('updateBodyColor', res.data.res.user.bodyColor);   
+               console.log("body color")
+               console.log(res.data.res.user.bodyColor)
           })
     } catch (e) {
-            console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+           
       console.error(e);
     }
+
   },
   components: {
     NavBar: NavBar,
