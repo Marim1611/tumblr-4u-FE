@@ -135,15 +135,15 @@ export default {
          postCardWidth2:"300px", 
          showAsGrid:false,
          showAsRows:true, 
-        //  dashBoardPosts:[]
+        
         
     }
   },
   
   computed:{
-    dashBoardPosts: function () {
-      return this.$store.state.blogs;
-    },
+    // dashBoardPosts: function () {
+    //   return this.$store.state.blogs;
+    // },
     homeTheme: function(){
             return this.$store.state.homeTheme;
         },
@@ -153,7 +153,9 @@ export default {
     
   },
     props:{
-        searchWord:String
+        searchWord:String,
+         dashBoardPosts:Array
+
     },
     methods:{
       gridView(){
@@ -165,19 +167,12 @@ export default {
         this.showAsRows=true;
         this.showAsGrid=false;
       }
-    }
-  //    async created() {
-  //   try {
-     
-  //      console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")   
-  //      const res =await axios.get('http://localhost:3000/autoCompleteSearchDash')
-  //     this.dashBoardPosts = res.data.resultPostHashTag;
-  //      console.log(res.data)
-  //   } catch (e) {
-  //       console.log("^^^^^^^^^^^^^^^^^^")
-  //     console.error(e);
-  //   }
-  // },
+    },
+     async created() {
+    console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")   
+    console.log(this.searchWord)
+    console.log(this.dashBoardPosts)
+  },
 }
 </script>
 

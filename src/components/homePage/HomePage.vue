@@ -98,9 +98,13 @@ export default {
   }, async created() {
     try {
     
-         await axios.get(Browser().baseURL+'/dashBoard').then(res => {
-            this.dashBoardPosts = res.data.posts;
-          console.log(res.data)    
+         await axios.get(Browser().baseURL+'/dashBoard',
+         { 'headers': { 'Token': this.myToken } }
+         ).then(resp => {
+           //axios.get(`url`, { 'headers': { 'Authorization': this.AuthStr } })
+           
+            this.dashBoardPosts = resp.data.res.postsToShow;
+          console.log(resp.data)    
           })
          
      //  const res =await axios.get('http://localhost:3000/autoCompleteSearchDash')
@@ -123,6 +127,9 @@ export default {
     Radar:Radar
   },
   computed: {
+    myToken: function () {
+      return this.$store.state.token;
+    },
     homeTheme: function () {
       return this.$store.state.homeTheme;
     },

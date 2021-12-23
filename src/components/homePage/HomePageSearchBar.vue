@@ -153,6 +153,7 @@ export default {
       interestsList: [ ],
       searchResults:[],
       usersInSearch: [],
+      postsInSearch: [1,2,3],
       tags: [ ],
     };
   },
@@ -214,8 +215,10 @@ export default {
       
       if (this.inputValue)
   {
+    console.log("gooooooooo to search")
+      console.log(this.postsInSearch)
       
-    this.$router.push({ name: 'search', params: {searchWord: this.inputValue, word: this.inputValue}})
+    this.$router.push({ name: 'search', params: {searchWord: this.inputValue, word: this.inputValue,dashBoardPosts:this.postsInSearch}})
 
   }
       
@@ -223,7 +226,9 @@ export default {
        
     },
     searchMe(interest){
-          this.$router.push({ name: 'search', params: {searchWord: interest, word: interest}})
+      // console("search meeeeeeeeeee")
+      // console.log(this.postsInSearch)
+          this.$router.push({ name: 'search', params: {searchWord: interest, word: interest,dashBoardPosts:this.postsInSearch}})
     }
   },
   computed: {
@@ -246,21 +251,21 @@ export default {
   },
   props: {
     // interestsList: Array
+
   },
     async created() {
     try {
-    
-         await axios.get(Browser().baseURL+'/autoCompleteSearchDash').then(res => {
+         await axios.get(Browser().baseURL+'/autoCompleteSearchDash/'+this.inputValue).then(res => {
+           console.log("########################")
+           console.log(Browser().baseURL+'/autoCompleteSearchDash/'+this.inputValue)
             this.usersInSearch = res.data.resultBlogs;
             this.tags= res.data.resultHashTag;
             this.interestsList= res.data.resultFollowedTag;
-          console.log(res.data)    
+            this.postsInSearch= res.data.resultPostHashTag;
+             console.log("postsInSearch")    
+          console.log( this.postsInSearch)    
           })
-         
      //  const res =await axios.get('http://localhost:3000/autoCompleteSearchDash')
-      
-     
-        
    //  this.interestsList= res.data;
     } catch (e) {
         console.log("^^^^^^^^^^^^^^^^^^")
