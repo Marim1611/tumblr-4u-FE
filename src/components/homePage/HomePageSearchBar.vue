@@ -40,7 +40,7 @@
         <div v-if="!inputValue" v-show="isClicked" class="dropdown-list">
           <div
             v-for="(item,i) in interestsList"
-            v-on:click="searchMe(item.name)"
+            v-on:click="searchMe(item)"
             v-bind:key="i"
             class="dropdown-item"
           >
@@ -168,7 +168,7 @@ export default {
       console.log(this.inputValue)
       try {
          await axios.get(Browser().baseURL+`/autoCompleteSearchDash/${this.inputValue}`,
-          { 'headers': { 'Token':  localStorage.getItem('token') } }
+         { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
          ).then(res => {
             this.usersInSearch = res.data.resultBlogs;
             this.tags= res.data.resultHashTag;
@@ -293,6 +293,7 @@ export default {
     try {
          await axios.get(Browser().baseURL+`/autoCompleteSearchDash/${this.inputValue}`
          ,
+         
           { headers: { 'Authorization':`Basic ${localStorage.getItem('token')}` } })
           .then(res => {
            console.log("## interests ######################")

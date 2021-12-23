@@ -99,7 +99,7 @@ export default {
     try {
     
          await axios.get( Browser().baseURL+'/dashBoard',
-         { 'headers': { 'Token': this.myToken } }
+         { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
          ).then(resp => {
            //axios.get(`url`, { 'headers': { 'Authorization': this.AuthStr } })
            
