@@ -97,24 +97,13 @@ export default {
     }
   }, async created() {
     try {
-    
          await axios.get( Browser().baseURL+'/dashBoard',
          { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
          ).then(resp => {
-           //axios.get(`url`, { 'headers': { 'Authorization': this.AuthStr } })
-           
             this.dashBoardPosts = resp.data.res.postsToShow;
-            //
-              this.$store.commit('updateBodyColor', resp.data.res.user.bodyColor);
-
-          console.log(resp.data)    
+              this.$store.commit('updateBodyColor', resp.data.res.user.bodyColor);   
           })
-         
-     //  const res =await axios.get('http://localhost:3000/autoCompleteSearchDash')
-        
-   //  this.interestsList= res.data;
     } catch (e) {
-        console.log("^^^^^^^^^^^^^^^^^^")
       console.error(e);
     }
   },

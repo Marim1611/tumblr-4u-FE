@@ -129,7 +129,7 @@ export default {
         this.cleanPassword=true;
       }
       else{ 
-        this.passwordError=true;
+        this.passwordError=false;
       }
       if(this.cleanEmail&&this.cleanPassword){
 

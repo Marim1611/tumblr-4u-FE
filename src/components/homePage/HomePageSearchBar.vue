@@ -50,7 +50,7 @@
                 'font-style': homeTheme[homeThemeIndex].fontStyle,
               }"
             >
-              {{ item.name }}
+              {{ item}}
             </p>
           </div>
         </div>
@@ -272,8 +272,8 @@ export default {
         console.log("^^^^^^^^^^^^^^^^^^")
       console.error(e);
     }
-      
-          this.$router.push({ name: 'autoCompleteSearchDash', params: {searchWord: interest, word: interest,dashBoardPosts:this.postsInSearch}})
+       this.$router.push({ name: 'autoCompleteSearchDash', params: {searchWord: interest, word: interest,dashBoardPosts:this.postsInSearch}})
+    //this.$router.push({ name: 'autoCompleteSearchDash', params: {searchWord: interest, word: interest,dashBoardPosts:this.postsInSearch}})
     },
      
   },
@@ -306,7 +306,6 @@ export default {
     try {
          await axios.get(Browser().baseURL+`/autoCompleteSearchDash`
          ,
-         
           { headers: { 'Authorization':`Bearer ${localStorage.getItem('token')}` } })
           .then(res => {
             
