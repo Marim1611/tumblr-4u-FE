@@ -24,6 +24,7 @@
           v-model.trim="inputValue"
           v-on:keyup.enter="goToSearchPage"
           v-on:click="isClicked = !isClicked"
+          @change="getSearchLists()"
           autocomplete="off"
           class="dropdown-input"
           type="text"
@@ -162,6 +163,10 @@ export default {
     //  'Avatar':Avatar
   },
   methods: {
+    getSearchLists(){
+      console.log(this.inputValue)
+
+    },
       closeDrawer: function (close) {
       // console.log(text);
             console.log("drqwer closse heree2");
@@ -214,7 +219,9 @@ export default {
       //TODO: CHANGE IF INPUT IS EMPTY GO TO EXPLORE => RECOMMENDED FOR YOU
        
       try {
-         await axios.get(Browser().baseURL+`/autoCompleteSearchDash/${this.inputValue}`).then(res => {
+         await axios.get(Browser().baseURL+`/autoCompleteSearchDash/${this.inputValue}`,
+          { 'headers': { 'Token':  localStorage.getItem('token') } }
+         ).then(res => {
            console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
            console.log(Browser().baseURL+'/autoCompleteSearchDash/'+this.inputValue)
             this.usersInSearch = res.data.resultBlogs;
@@ -248,6 +255,9 @@ export default {
     }
   },
   computed: {
+      myToken: function () {
+      return this.$store.state.token;
+    },
      /**
      * Function to get the home page color theme array from the store
      * @public This is a public method
@@ -271,7 +281,7 @@ export default {
   },
     async created() {
     try {
-         await axios.get(Browser().baseURL+'/autoCompleteSearchDash/'+this.inputValue).then(res => {
+         await axios.get(Browser().baseURL+`/autoCompleteSearchDash/${this.inputValue}`).then(res => {
            console.log("########################")
            console.log(Browser().baseURL+'/autoCompleteSearchDash/'+this.inputValue)
             this.usersInSearch = res.data.resultBlogs;
