@@ -258,11 +258,24 @@ export default {
       // this.$router.push({ path: '/search', searchWord: this.inputValue }); 
        
     },
-    searchMe(interest){
-      // console("search meeeeeeeeeee")
-      // console.log(this.postsInSearch)
-          this.$router.push({ name: 'search', params: {searchWord: interest, word: interest,dashBoardPosts:this.postsInSearch}})
+    async searchMe(interest){
+        try {
+         await axios.get(Browser().baseURL+`/autoCompleteSearchDash`
+         ,
+         
+          { headers: { 'Authorization':`Bearer ${localStorage.getItem('token')}` } })
+          .then(res => {
+            
+            this.postsInSearch = res.data.resultPostHashTag; 
+          })
+    } catch (e) {
+        console.log("^^^^^^^^^^^^^^^^^^")
+      console.error(e);
     }
+      
+          this.$router.push({ name: 'autoCompleteSearchDash', params: {searchWord: interest, word: interest,dashBoardPosts:this.postsInSearch}})
+    },
+     
   },
   computed: {
       myToken: function () {
@@ -291,13 +304,12 @@ export default {
   },
     async created() {
     try {
-         await axios.get(Browser().baseURL+`/autoCompleteSearchDash/${this.inputValue}`
+         await axios.get(Browser().baseURL+`/autoCompleteSearchDash`
          ,
          
-          { headers: { 'Authorization':`Basic ${localStorage.getItem('token')}` } })
+          { headers: { 'Authorization':`Bearer ${localStorage.getItem('token')}` } })
           .then(res => {
-           console.log("## interests ######################")
-           console.log(Browser().baseURL+'/autoCompleteSearchDash/'+this.inputValue)
+            
             this.interestsList= res.data.resultFollowedTag; 
           })
     } catch (e) {

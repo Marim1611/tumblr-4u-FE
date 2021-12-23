@@ -3,6 +3,8 @@ import Vuex from 'vuex';
 import axios from 'axios';
 import { getField, updateField } from 'vuex-map-fields';
 import api from '../api';
+import Browser from '../../mocks/browser'
+ 
 
 Vue.use(Vuex);
 
@@ -236,13 +238,25 @@ export const store = new Vuex.Store({
     },
     mutations: {
         updateField,
-        changePalette: state => {
+        async changePalette( state) {
+          
             if (state.homeThemeIndex < 8){
                 state.homeThemeIndex+=1;
             }    
          else if (state.homeThemeIndex >= 8){
             state.homeThemeIndex=0;
          } 
+         try {
+    
+          await axios.put( Browser().baseURL+'/updateColor',
+          {
+             bodyColor:  state.homeThemeIndex,
+           },
+          { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
+          ) 
+     } catch (e) {
+       console.error(e);
+     }
         },
         updateBodyColor(state, newColor) {
           state.homeThemeIndex= newColor

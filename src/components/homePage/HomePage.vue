@@ -104,8 +104,8 @@ export default {
            //axios.get(`url`, { 'headers': { 'Authorization': this.AuthStr } })
            
             this.dashBoardPosts = resp.data.res.postsToShow;
-            //resp.data.res.user.bodyColor
-              this.$store.commit('updateBodyColor',3);
+            //
+              this.$store.commit('updateBodyColor', resp.data.res.user.bodyColor);
 
           console.log(resp.data)    
           })

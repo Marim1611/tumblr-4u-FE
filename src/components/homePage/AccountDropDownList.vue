@@ -143,6 +143,7 @@
 import Avatar from "vue-avatar";
 import KeyScDrawer from "./KeyboardShortcutsDrawer.vue"
 import LogoutDialog from "../general/LogoutDialog.vue"
+
 /**
  *  AccountDropdownList is a drop down list appears when user clicks on account icon in the nav bar it shows list of options user will be able to click on all of them
  * @example [none]
@@ -169,7 +170,7 @@ export default {
      * @param {none}
      */
     changePalette(){
-
+     
         this.$store.commit('changePalette');
     },
     /**
