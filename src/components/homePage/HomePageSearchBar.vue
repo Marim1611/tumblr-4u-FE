@@ -214,7 +214,7 @@ export default {
       //TODO: CHANGE IF INPUT IS EMPTY GO TO EXPLORE => RECOMMENDED FOR YOU
        
       try {
-         await axios.get(Browser().baseURL+'/autoCompleteSearchDash/'+this.inputValue).then(res => {
+         await axios.get(Browser().baseURL+`/autoCompleteSearchDash/${this.inputValue}`).then(res => {
            console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
            console.log(Browser().baseURL+'/autoCompleteSearchDash/'+this.inputValue)
             this.usersInSearch = res.data.resultBlogs;
@@ -230,11 +230,11 @@ export default {
       
       if (this.inputValue)
   {
-     console.log(Browser().baseURL+'/autoCompleteSearchDash/'+this.inputValue)
+     console.log(Browser().baseURL+'/autoCompleteSearchDash/')
     console.log("gooooooooo to search")
       console.log(this.postsInSearch)
       
-    this.$router.push({ name: 'search', params: {searchWord: this.inputValue, word: this.inputValue,dashBoardPosts:this.postsInSearch}})
+    this.$router.push({ name: 'autoCompleteSearchDash', params: {searchWord: this.inputValue, word: this.inputValue,dashBoardPosts:this.postsInSearch}})
 
   }
       
