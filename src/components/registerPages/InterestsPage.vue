@@ -399,7 +399,7 @@ export default {
           .post(Browser().baseURL + "/getInterestsFromUser", {
             interests: this.selectedItems,
           },
-             { headers: { 'authorization':   `Bearer ${localStorage.getItem('token')}` } })
+             { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } })
           .then((res) => {
             console.log(res.data);
           });
