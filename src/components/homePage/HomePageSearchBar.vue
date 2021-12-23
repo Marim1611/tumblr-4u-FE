@@ -310,7 +310,8 @@ export default {
           .then(res => {
             
             this.interestsList= res.data.resultFollowedTag; 
-          })
+            console.log("yalaaaaaaaaaaaaaaa")
+            console.log(this.interestsList)          })
     } catch (e) {
         console.log("^^^^^^^^^^^^^^^^^^")
       console.error(e);
