@@ -5,7 +5,7 @@ const dashBoard= require("./data/dashBoard.json");
 const features=require("./data/features.json");
 const activity=require("./data/activity.json");
 const createPost = require("./data/createPost.json");
-const interests = require("./data/interests.json");
+const getInterestsFromUser = require("./data/interests.json");
  
  
 module.exports = () => ({
@@ -16,7 +16,7 @@ module.exports = () => ({
   features,
   activity,
   createPost,
-  interests,
+  getInterestsFromUser,
 });
  
 
