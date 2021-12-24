@@ -44,7 +44,7 @@
             v-bind:key="i"
             class="dropdown-item"
           >
-            <img :src="item.img" class="dropdown-item-flag" />
+            <img :src="item.img?item.img:defaultImg" class="dropdown-item-flag" />
             <p
               v-bind:style="{
                 'font-style': homeTheme[homeThemeIndex].fontStyle,
@@ -96,7 +96,7 @@
             class="dropdown-item"
           >
             <!-- <img :src="item.img" class="dropdown-item-flag" /> -->
-            <img :src="item.img" class="dropdown-item-flag" />
+            <img :src="item.img?item.img:avatarDefaultPhoto" class="dropdown-item-flag" />
             <!-- <div class="dropdown-item-flag">
  
        
@@ -155,7 +155,10 @@ export default {
       usersInSearch: [],
       postsInSearch: [1,2,3],
       tags: [ ],
-    };
+       defaultImg:"https://static2.bigstockphoto.com/6/5/3/large1500/356358914.jpg",
+       avatarDefaultPhoto:
+        "https://assets.tumblr.com/images/default_avatar/octahedron_closed_128.png",
+     };
   },
   components: {
     TumblrDrawer: TumblrDrawer,

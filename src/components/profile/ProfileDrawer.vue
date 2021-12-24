@@ -246,7 +246,7 @@
            <div id="profileImg">
             <img
               class="imgshape"
-              :src="this.tumblrsObj.avatar"
+              :src="this.tumblrsObj.avatar?this.tumblrsObj.avatar:avatarPhoto"
               alt="Avatar"
             />
           </div>
@@ -403,6 +403,7 @@ export default {
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover;
+   background-color: #464747;
 }
 #profileImg {
   text-align: center;
@@ -421,17 +422,12 @@ export default {
 }
  
 #avatarDiv {
-  
-   
   display: flex;
   flex-direction: column;
   text-align: center;
   position: relative;
   justify-content: center;
-  margin-top: 40px;
-  
-  
-  
+  margin-top: 40px; 
 }
 #rightDiv{
   display: flex;
