@@ -260,7 +260,7 @@
         </div>
 
          <b-col id="postsList">
-            <div id="dashBoard" v-for="(post, i) in dashBoardPosts" :key="i">
+            <div id="dashBoard" v-for="(post, i) in myPosts" :key="i">
       <PostCard v-bind:post="post" v-bind:maxWidth="postCardWidth" />
        </div>
         </b-col>
@@ -412,7 +412,6 @@ export default {
   padding: auto;
 }
 .imgshape {
-  
   border-radius: 50%;
   position: relative;
   top: 5px;
