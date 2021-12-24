@@ -271,7 +271,9 @@
 
 <script>
  
- import PostCard from "../general/ViewPostCard.vue";
+import PostCard from "../general/ViewPostCard.vue";
+import axios from 'axios';
+import Browser from '../../mocks/browser'
 import Vue from "vue";
 /**
  *  TumblrDrawer with profile view of a tumblr user -not the current user- should appear when current user clicks on some user in the search drop down list
@@ -297,9 +299,9 @@ export default {
       isOpenSearch: false,
       openPopularTags:false,
       inputClicked:false,
+      myPosts:[],
       dottedItems: ["Archive", "Following", "Close"],
       shareItems: ["Facebook", "Twitter"],
-
       popularTags:["#art", "#crochet", "#baking", "#Block", "#Close","#art", "#crochet", "#baking"]
     };
   },
@@ -343,6 +345,20 @@ export default {
       this.isOpendotted = false
        
     },
+     async created(){
+      try {
+      
+         await axios.get(Browser().baseURL+`/blog/${this.tumblrsObj.id}/getBlogPosts`,
+         { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
+         ).then(res => {
+            this.myPosts = res.data.postsToShow;
+       
+          })
+    } catch (e) {
+      console.error(e);
+    }
+
+  }
       
   },
   computed: {
@@ -369,10 +385,7 @@ export default {
      */
     homeThemeIndex: function () {
       return this.$store.state.homeThemeIndex;
-    },
-      dashBoardPosts: function () {
-      return this.$store.state.blogs;
-    },
+    }
   },
   props: {
      showBlogDrawer: Boolean,

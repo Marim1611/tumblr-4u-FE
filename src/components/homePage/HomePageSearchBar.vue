@@ -89,7 +89,7 @@
             <p :style="{ 'font-size': '18px', margin: '10px' }">Tumblrs</p>
           </div>
           <div
-            v-on:click="openDrawer(item.name, item.img, item.coverImg)"
+            v-on:click="openDrawer(item.name, item.img, item.coverImg,item._id)"
             v-show="itemVisible(item.name)"
             v-for="item in usersInSearch"
             v-bind:key="item.name"
@@ -134,7 +134,6 @@
 
 <script>
 import axios from 'axios';
- //import api from '../../api';
 import TumblrDrawer from "./TumblrsDrawer.vue";
 import Browser from '../../mocks/browser'
 //import Avatar from 'vue-avatar'
@@ -164,7 +163,6 @@ export default {
   },
   methods: {
     async getSearchLists(){
-      console.log("kkkkkaaaaaaaak")
       console.log(this.inputValue)
       try {
          await axios.get(Browser().baseURL+`/autoCompleteSearchDash/${this.inputValue}`,
@@ -218,16 +216,19 @@ export default {
      * @public This is a public method
      * @param {none}
      */
-    openDrawer(name, avatar, cover) {
+    openDrawer(name, avatar, cover,id) {
       console.log("why??????????")
       this.showBlogDrawer = true;
       Vue.set(this.tumblrsObj, "name", name);
       Vue.set(this.tumblrsObj, "coverImg", cover);
       Vue.set(this.tumblrsObj, "avatar", avatar);
+      Vue.set(this.tumblrsObj, "id", id);
     },
     async goToSearchPage()
     {
       //TODO: CHANGE IF INPUT IS EMPTY GO TO EXPLORE => RECOMMENDED FOR YOU
+      // if(Browser().baseURL ==)
+      // myRoute=
          await axios.get(Browser().baseURL+`/autoCompleteSearchDash/${this.inputValue}`,
           { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
          ).then(res => {

@@ -90,7 +90,9 @@ export default {
      postCardWidth:"540px",
      userImg:"https://assets.tumblr.com/images/default_avatar/octahedron_closed_96.png",
      openProfileDrawer:false,
-      tumblrsObj: { name: "Marim", 
+      tumblrsObj: { 
+        id:"",
+        name: "", 
       avatar: "https://assets.tumblr.com/images/default_avatar/octahedron_closed_128.png",
        coverImg: "https://assets.tumblr.com/images/default_header/optica_pattern_05_focused_v3.png?_v=671444c5f47705cce40d8aefd23df3b1" },
      dashBoardPosts:[ ],
@@ -105,6 +107,8 @@ export default {
            console.log(res)
                       console.log(res.data.res.postsToShow)
             this.dashBoardPosts = res.data.res.postsToShow;
+            this.tumblrsObj.id=res.data.res.blog._id;
+            this.tumblrsObj.name=res.data.res.blog.name;
             console.log( this.dashBoardPosts)
               this.$store.commit('updateBodyColor', res.data.res.user.bodyColor);   
                console.log("body color")

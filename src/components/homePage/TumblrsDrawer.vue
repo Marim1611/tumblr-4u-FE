@@ -247,7 +247,7 @@
         </div>
 
          <b-col id="postsList">
-            <div id="dashBoard" v-for="(post, i) in dashBoardPosts" :key="i">
+            <div id="dashBoard" v-for="(post, i) in myPosts" :key="i">
       <PostCard v-bind:post="post" v-bind:maxWidth="postCardWidth" />
        </div>
         </b-col>
@@ -258,7 +258,9 @@
 
 <script>
 import Avatar from "vue-avatar";
- import PostCard from "../general/ViewPostCard.vue";
+import PostCard from "../general/ViewPostCard.vue";
+import axios from 'axios';
+import Browser from '../../mocks/browser'
 import Vue from "vue";
 /**
  *  TumblrDrawer with profile view of a tumblr user -not the current user- should appear when current user clicks on some user in the search drop down list
@@ -285,6 +287,7 @@ export default {
       isOpenSearch: false,
       openPopularTags:false,
       inputClicked:false,
+       myPosts:[],
       dottedItems: ["Archive", "Ask", "Report", "Block", "Close"],
       shareItems: ["Facebook", "Twitter"],
       popularTags:["#art", "#crochet", "#baking", "#Block", "#Close","#art", "#crochet", "#baking"]
@@ -351,14 +354,28 @@ export default {
     homeThemeIndex: function () {
       return this.$store.state.homeThemeIndex;
     },
-      dashBoardPosts: function () {
-      return this.$store.state.blogs;
-    },
+    //   dashBoardPosts: function () {
+    //   return this.$store.state.blogs;
+    // },
   },
   props: {
      showBlogDrawer: Boolean,
     tumblrsObj: Object,
   },
+  async created(){
+      try {
+      
+         await axios.get(Browser().baseURL+`/blog/${this.tumblrsObj.id}/getBlogPosts`,
+         { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
+         ).then(res => {
+            this.myPosts = res.data.postsToShow;
+       
+          })
+    } catch (e) {
+      console.error(e);
+    }
+
+  }
     
   
 };

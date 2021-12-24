@@ -6,7 +6,7 @@ const features=require("./data/features.json");
 const activity=require("./data/activity.json");
 const createPost = require("./data/createPost.json");
 const getInterestsFromUser = require("./data/interests.json");
- 
+const ranBlogs = require("./data/checkoutBlogs.json");
  
 module.exports = () => ({
   profile,
@@ -17,6 +17,7 @@ module.exports = () => ({
   activity,
   createPost,
   getInterestsFromUser,
+  ranBlogs
 });
  
 
