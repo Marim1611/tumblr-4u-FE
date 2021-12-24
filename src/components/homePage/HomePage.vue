@@ -97,13 +97,15 @@ export default {
     }
   }, async created() {
     try {
-      console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+      console.log("@@@@@@@@@@@@@@@@@@@@@@@@@FRIDAY@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
          await axios.get( Browser().baseURL+'/dashboard',
          { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
          ).then(res => {
            console.log("the response:")
            console.log(res)
+                      console.log(res.data.res.postsToShow)
             this.dashBoardPosts = res.data.res.postsToShow;
+            console.log( this.dashBoardPosts)
               this.$store.commit('updateBodyColor', res.data.res.user.bodyColor);   
                console.log("body color")
                console.log(res.data.res.user.bodyColor)
