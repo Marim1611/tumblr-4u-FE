@@ -54,7 +54,7 @@
             </p>
           </div>
         </div>
-        <!-- auto complete  -->
+        <!-- auto complete "tags"  -->
         <div v-else class="dropdown-list">
           <div>
             <p v-bind:style="{ 'font-size': '18px', margin: '10px' }">
@@ -63,7 +63,7 @@
           </div>
           <div
             v-show="itemVisible(item)"
-            v-on:click="searchMe(item)"
+            v-on:click="searchMeTag(item)"
             v-for="item in tags"
             v-bind:key="item"
             class="dropdown-item"
@@ -254,6 +254,25 @@ export default {
       // this.$router.push({ path: '/search', searchWord: this.inputValue }); 
        
     },
+    async searchMeTag(tag){
+        try {
+         await axios.get(Browser().baseURL+`/autoCompleteSearchDash/${tag}`
+         ,
+         
+          { headers: { 'Authorization':`Bearer ${localStorage.getItem('token')}` } })
+          .then(res => {
+            console.log("##############TAG")
+       
+            
+            this.postsInSearch = res.data.resultPostHashTag; 
+                 console.log(this.postsInSearch )
+          })
+    } catch (e) {
+      console.error(e);
+    }
+             this.$router.push({ name: 'autoCompleteSearchDash', params: {searchWord: tag, word: tag,dashBoardPosts:this.postsInSearch}})
+
+    },
     async searchMe(interest){
         try {
          await axios.get(Browser().baseURL+'/autoCompleteSearchDash'
@@ -265,7 +284,6 @@ export default {
             this.postsInSearch = res.data.resultPostHashTag; 
           })
     } catch (e) {
-        console.log("^^^^^^^^^^^^^^^^^^")
       console.error(e);
     }
        this.$router.push({ name: 'autoCompleteSearchDash', params: {searchWord: interest, word: interest,dashBoardPosts:this.postsInSearch}})
