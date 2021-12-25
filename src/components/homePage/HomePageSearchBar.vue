@@ -231,26 +231,27 @@ export default {
     {
       //TODO: CHANGE IF INPUT IS EMPTY GO TO EXPLORE => RECOMMENDED FOR YOU
       // if(Browser().baseURL ==)
-      // myRoute=
-         await axios.get(Browser().baseURL+`/autoCompleteSearchDash/${this.inputValue}`,
+      // 
+      let myRoute=""
+         if (this.isMockServer(Browser().baseURL))
+         myRoute=Browser().baseURL+'/autoCompleteSearchDash'
+         else
+        myRoute= Browser().baseURL+`/autoCompleteSearchDash/${this.inputValue}`
+        console.log("myRoute")
+        console.log(myRoute)
+         await axios.get(myRoute,
           { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
          ).then(res => {
-           
-             
             this.postsInSearch= res.data.resultPostHashTag;
              console.log("postsInSearch")    
           console.log( this.postsInSearch)    
           }).catch((e)=>{
             console.log(e)
           })
-    
-      
       if (this.inputValue)
-  {
-     console.log(Browser().baseURL+'/autoCompleteSearchDash/')
-    console.log("gooooooooo to search")
-      console.log(this.postsInSearch)
-      
+
+  { console.log("PUSH???") 
+      console.log(this.postsInSearch) 
     this.$router.push({ name: 'autoCompleteSearchDash', params: {searchWord: this.inputValue, word: this.inputValue,dashBoardPosts:this.postsInSearch}})
 
   }
@@ -293,6 +294,13 @@ export default {
        this.$router.push({ name: 'autoCompleteSearchDash', params: {searchWord: interest, word: interest,dashBoardPosts:this.postsInSearch}})
     //this.$router.push({ name: 'autoCompleteSearchDash', params: {searchWord: interest, word: interest,dashBoardPosts:this.postsInSearch}})
     },
+      isMockServer(baseUrl){
+     
+        if (baseUrl == "http://tumblr4u.eastus.cloudapp.azure.com:5000")
+          return false
+          else 
+          return true
+    },
      
   },
   computed: {
@@ -314,7 +322,7 @@ export default {
      */
     homeThemeIndex: function () {
       return this.$store.state.homeThemeIndex;
-    },
+    } 
   },
   props: {
     // interestsList: Array
