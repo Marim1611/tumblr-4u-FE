@@ -98,16 +98,17 @@ export default {
      dashBoardPosts:[ ],
     }
   }, async created() {
+     
     try {
          await axios.get( Browser().baseURL+'/dashboard',
          { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
          ).then(res => {
             this.dashBoardPosts = res.data.res.postsToShow;
             this.tumblrsObj.id=res.data.res.blog._id;
-            console.log("!!!!!!!!!!!!!!!!!!!!!!!IDDDDDDDD")
-            console.loig(res.data.res.blog._id)
             this.tumblrsObj.name=res.data.res.blog.name;
-            this.$store.commit('updateBodyColor', res.data.res.user.bodyColor);   
+            this.$store.commit('updateBodyColor', res.data.res.user.bodyColor); 
+              this.$store.commit('setBlogIds',res.data.res.user.blogsId);     
+          
           })
     } catch (e) {
            console.log("error in dashboard")
