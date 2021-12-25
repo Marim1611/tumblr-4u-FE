@@ -200,7 +200,7 @@
 import CreatePostImage from "./CreatePostImage.vue";
 import CreatePostText from "./CreatePostText.vue";
 import CreatePostQuote from "./CreatePostQuote.vue";
-import CreatePostChat from "./CreatePostChat.vue";
+//import CreatePostChat from "./CreatePostChat.vue";
 import CreatePostLink from "./CreatePostLinkPart.vue";
 /**
  *  Create post section
@@ -211,7 +211,7 @@ export default {
     CreatePostImage,
     CreatePostText,
     CreatePostQuote,
-    CreatePostChat,
+    // CreatePostChat,
     CreatePostLink,
   },
   data() {

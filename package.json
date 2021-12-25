@@ -52,6 +52,7 @@
     "vue-router": "^3.5.3",
     "vue-simple-search-dropdown": "^1.0.1",
     "vue-textarea-autogrow-directive": "^0.2.0",
+    "vue2-dropzone": "^3.6.0",
     "vuejs-dialog": "^1.4.2",
     "vuejs-medium-editor": "^1.2.6",
     "vuetify": "^2.5.14",
