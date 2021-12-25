@@ -395,10 +395,10 @@ export default {
 
     async doneSelection() {
       try {
-        await axios
-          .post(Browser().baseURL + "/interests", {
+        await axios.post(Browser().baseURL + "/getInterestsFromUser", {
             interests: this.selectedItems,
-          })
+          },
+             { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } })
           .then((res) => {
             console.log(res.data);
           });

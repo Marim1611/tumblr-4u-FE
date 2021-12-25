@@ -1,4 +1,8 @@
 {
+    "resultFollowedTag": [
+        "matrix",
+        "reading"
+    ],
     "resultHashTag": [
         "deposit",
         "Wooden",
@@ -66,8 +70,8 @@
             "title": "Untitled",
             "blockedBlogs": [],
             "followers": [],
-            "img":"https://64.media.tumblr.com/0e03e74b06a10b87f998f20f46825429/20a625fe02fb0ea9-91/s96x96u_c1/5c9ad7ccc0ccd4d94729276fbe19a986ce2ec840.pnj",
-            "coverImg":"https://64.media.tumblr.com/6fd98d405a975cfc12f366779cbda47f/80bb8df3b217d334-01/s640x960/4ab565a2a15714b5b69deec2f8df6d9d727c1014.jpg",
+            "img":"",
+            "coverImg":"",
             "name": "Mo3tasem Waters",
              "password": "5lPY1MzrztxAYI5",
             "followedTags": [

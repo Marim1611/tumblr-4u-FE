@@ -186,7 +186,7 @@ export default {
       //TODO: CHANGE IF INPUT IS EMPTY GO TO EXPLORE => RECOMMENDED FOR YOU
       
       if (this.inputValue)
-      this.$router.push({ name: 'search', params: {inputValue: this.inputValue  }})
+      this.$router.push({ name: 'autoCompleteSearchDash', params: {inputValue: this.inputValue }})
       // this.$router.push({ path: '/search', searchWord: this.inputValue }); 
        
     }

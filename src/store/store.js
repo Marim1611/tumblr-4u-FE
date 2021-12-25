@@ -3,6 +3,8 @@ import Vuex from 'vuex';
 import axios from 'axios';
 import { getField, updateField } from 'vuex-map-fields';
 import api from '../api';
+import Browser from '../mocks/browser'
+ 
 
 Vue.use(Vuex);
 
@@ -17,20 +19,18 @@ export const store = new Vuex.Store({
         password: "",
         blogname:"", 
         id:"",
-        colorTheme:""
+        blogsId: [],
         },
         age:0,
         // we need to replace this with bodyColor in DB as each user has his theme color
-        homeThemeIndex:0,
- 
+       
+         homeThemeIndex:0,
         homeTheme: [ 
 
           {backgroundColor: '#001935',fontColor:'white', cardColor:'#5c7e97' ,fontColor2:'#1A314D', fontStyle: 'Helvetica', focused:'cyan',shadow:'rgb(163, 162, 162)'},
-          {backgroundColor: 'linear-gradient(to top left, #33ccff 0%, #ff99cc 100%)',fontColor:'white', cardColor:'linear-gradient(to bottom, #3399ff 0%, #ff99cc 100%)' ,fontColor2:'#1A314D', fontStyle: 'Helvetica', focused:'pink',shadow:'rgb(163, 162, 162)'},
-
-          {backgroundColor: 'black',fontColor:'lime', cardColor:'#222222',fontColor2:'black', fontStyle: 'Times New Roman',focused:'#64FF00',shadow:'#273224'},
           {backgroundColor: 'linear-gradient(to top right, #ffff99 0%, #ffcc99 100%)',fontColor:'#840000', cardColor:'linear-gradient(to top right, #ffff99 0%, #cc3300 100%)' ,fontColor2:'white', fontStyle: 'Helvetica', focused:'#840000',shadow:'rgb(163, 162, 162)'},
-
+          {backgroundColor: 'black',fontColor:'lime', cardColor:'#222222',fontColor2:'black', fontStyle: 'Times New Roman',focused:'#64FF00',shadow:'#273224'},
+          {backgroundColor: 'linear-gradient(to top left, #33ccff 0%, #ff99cc 100%)',fontColor:'white', cardColor:'linear-gradient(to bottom, #3399ff 0%, #ff99cc 100%)' ,fontColor2:'#1A314D', fontStyle: 'Helvetica', focused:'pink',shadow:'rgb(163, 162, 162)'},
           {backgroundColor: 'black',fontColor:'#ff6400', cardColor:'#221000', fontColor2:'black',fontStyle: 'Lucida Console', focused:'#ff6400',shadow:'#321600'},
           {backgroundColor: '#1A2735',fontColor:'#BFBFBF', cardColor:'#36465D', fontColor2:'#BFBFBF',fontStyle: 'Fantasy',focused:'#49A9EE',shadow:'#273224'},
           {backgroundColor: 'black',fontColor:'#CF43ED', cardColor:'#0C0C0C',fontColor2:'#CF43ED', fontStyle: 'Garamond',focused:'#CF43ED',shadow:'#16131b'}, 
@@ -236,14 +236,35 @@ export const store = new Vuex.Store({
     },
     mutations: {
         updateField,
-        changePalette: state => {
-            if (state.homeThemeIndex < 8){
+        async changePalette( state) {
+      
+            if (state.homeThemeIndex < 7){
                 state.homeThemeIndex+=1;
             }    
-         else if (state.homeThemeIndex >= 5){
+         else if (state.homeThemeIndex >= 7){
             state.homeThemeIndex=0;
          } 
+         try {
+    
+          await axios.put( Browser().baseURL+'/updateColor',
+          {
+             bodyColor:  state.homeThemeIndex,
+           },
+          { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
+          ) 
+     } catch (e) {
+       console.error(e);
+     }
         },
+        updateBodyColor(state, newColor) {
+          state.homeThemeIndex= newColor
+        },
+        setBlogIds(state, Ids) {
+          state.user.blogsId= Ids
+          console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+         console.log(state.user.blogsId)
+        },
+        
         auth_request(state){
             state.status = 'loading'
           },
@@ -309,7 +330,7 @@ export const store = new Vuex.Store({
   forgotpassword({ commit }, user) {
     return new Promise((resolve, reject) => {
       commit('auth_request')
-      api.post('forgot_password', {
+      api().post('forgot_password', {
         Email:user.email
       })
         .then(resp => {

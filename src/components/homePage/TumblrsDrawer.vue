@@ -7,10 +7,12 @@
       v-model="postToBegin"
       app
     >
+   
+     <!--  this.tumblrsObj.coverImg?this.tumblrsObj.coverImg:coverDefaultPhoto -->
       <div
         id="cover"
         v-bind:style="{
-          'background-image': 'url(' + this.tumblrsObj.coverImg + ')',
+          'background-image': 'url(' +coverDefaultPhoto + ')',
            
         }"
       >
@@ -232,22 +234,28 @@
           </transition>
         </div>
         <div id="avatarDiv">
-          <div class="avatarStyle">
+           <div id="profileImg">
+            <img
+              class="imgshape"
+              :src="this.tumblrsObj.avatar?this.tumblrsObj.avatar:avatarDefaultPhoto"
+              alt="Avatar"
+            />
+          </div>
+          <!-- <div class="avatarStyle">
             <avatar
               username="Jane Doe"
-              v-bind:src="this.tumblrsObj.avatar"
+              v-bind:src="this.tumblrsObj.avatar?this.tumblrsObj.avatar:avatarPhoto"
               v-bind:size="100"
             ></avatar>
-          </div>
+          </div> -->
 
           <p id="userName">
-            <!-- {{ this.tumblrsObj.name }} -->
           {{ this.tumblrsObj.name }}
           </p>
         </div>
 
          <b-col id="postsList">
-            <div id="dashBoard" v-for="(post, i) in dashBoardPosts" :key="i">
+            <div id="dashBoard" v-for="(post, i) in myPosts" :key="i">
       <PostCard v-bind:post="post" v-bind:maxWidth="postCardWidth" />
        </div>
         </b-col>
@@ -257,8 +265,9 @@
 </template>
 
 <script>
-import Avatar from "vue-avatar";
- import PostCard from "../general/ViewPostCard.vue";
+import PostCard from "../general/ViewPostCard.vue";
+import axios from 'axios';
+import Browser from '../../mocks/browser'
 import Vue from "vue";
 /**
  *  TumblrDrawer with profile view of a tumblr user -not the current user- should appear when current user clicks on some user in the search drop down list
@@ -267,7 +276,6 @@ import Vue from "vue";
 export default {
   name: "TumblrDrawer",
   components: {
-    Avatar: Avatar,
     PostCard:PostCard,
   },
   data: function () {
@@ -278,13 +286,16 @@ export default {
       isFollow: { status: "Follow" },
       inputValue: "",
       name:"",
-      avatarPhoto:
+      avatarDefaultPhoto:
         "https://assets.tumblr.com/images/default_avatar/octahedron_closed_128.png",
+      coverDefaultPhoto:
+        "https://assets.tumblr.com/images/default_header/optica_pattern_05_focused_v3.png?_v=671444c5f47705cce40d8aefd23df3b1",
       isOpendotted: false,
       isOpenShare: false,
       isOpenSearch: false,
       openPopularTags:false,
       inputClicked:false,
+       myPosts:[],
       dottedItems: ["Archive", "Ask", "Report", "Block", "Close"],
       shareItems: ["Facebook", "Twitter"],
       popularTags:["#art", "#crochet", "#baking", "#Block", "#Close","#art", "#crochet", "#baking"]
@@ -351,14 +362,30 @@ export default {
     homeThemeIndex: function () {
       return this.$store.state.homeThemeIndex;
     },
-      dashBoardPosts: function () {
-      return this.$store.state.blogs;
-    },
+    //   dashBoardPosts: function () {
+    //   return this.$store.state.blogs;
+    // },
   },
   props: {
      showBlogDrawer: Boolean,
     tumblrsObj: Object,
   },
+  async created(){
+      try {
+      
+         await axios.get(Browser().baseURL+`/blog/${this.tumblrsObj.id}/getBlogPosts`,
+         { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
+         ).then(res => {
+            this.myPosts = res.data.postsToShow;
+            console.log("myyyyyyyyyyyy postsssssssssssssss")
+            console.log(res.data)
+       
+          })
+    } catch (e) {
+      console.error(e);
+    }
+
+  }
     
   
 };
@@ -371,19 +398,15 @@ export default {
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover;
+  background-color: #464747;
 }
 #avatarDiv {
-  
-   
   display: flex;
   flex-direction: column;
   text-align: center;
   position: relative;
   justify-content: center;
-  margin-top: 65px;
-  margin-right:40px;
-  
-  
+  margin-top: 40px; 
 }
 #searchList{
   overflow-y: scroll;
@@ -524,7 +547,21 @@ li {
   background: #464747;
   cursor: pointer;
 }
-
+#profileImg {
+  text-align: center;
+  width: 110px;
+ 
+  margin: auto;
+  padding: auto;
+}
+.imgshape {
+  border-radius: 50%;
+  position: relative;
+  top: 5px;
+  border-style: solid;
+  border-width: 5px;
+  border-color: white;
+}
 .avatarStyle {
   width: 25px;
   margin: auto;

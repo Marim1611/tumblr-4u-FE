@@ -94,7 +94,7 @@
                 <avatar
               username="Jane Doe"
                v-bind:rounded=false
-              v-bind:src="blog.img"
+              v-bind:src="blog.img?blog.img:defaultImg"
               v-bind:size="40"
             ></avatar>
             </div>
@@ -143,6 +143,7 @@
 import Avatar from "vue-avatar";
 import KeyScDrawer from "./KeyboardShortcutsDrawer.vue"
 import LogoutDialog from "../general/LogoutDialog.vue"
+
 /**
  *  AccountDropdownList is a drop down list appears when user clicks on account icon in the nav bar it shows list of options user will be able to click on all of them
  * @example [none]
@@ -169,7 +170,7 @@ export default {
      * @param {none}
      */
     changePalette(){
-
+     
         this.$store.commit('changePalette');
     },
     /**
@@ -179,12 +180,7 @@ export default {
      */
      toggleDropdown () {
       this.isOpen = !this.isOpen
-    },
-    /**
-     * Function to control closing the account dropdown list if user clicks outside it
-     * @public This is a public method
-     * @param {none}
-     */
+    }
     
     },
   data: function () {
@@ -193,11 +189,11 @@ export default {
       isOpen: false,
        openKeyDrawer:false,
       openBlogFeatures:[], 
+      defaultImg:"https://assets.tumblr.com/images/default_avatar/cone_closed_96.png",
       blogs:[   
               {
                 name: "crafts",
-                img: "https://64.media.tumblr.com/6eb8d7c15856ffa76b0a6b5bdb35f2de/5cf38a736b98badf-f9/s640x960/0762f14581a4a9bf7599fc7899b35cd909878bde.jpg",
-              },
+                img:""              },
               {
                 name: "embroidery",
                 img: "https://64.media.tumblr.com/497a6f202f642d914081723f42b3688c/tumblr_pocj2z2m6F1sst4ed_1280.jpg",
@@ -226,12 +222,30 @@ export default {
         homeThemeIndex: function(){
             return this.$store.state.homeThemeIndex;
         },
+         /**
+     * Function to get the blogs ids from the store
+     * @public This is a public method
+     * @param {none}
+     */
+        blogsId: function(){
+            return this.$store.state.user.blogsId;
+        },
+        
   },
    mounted () {
+   
     let blogNum=3;
     for( let i =0; i< blogNum ; i++)
     this.openBlogFeatures[i]=false;
   },
+  created(){
+      
+    console.log(this.blogsId)
+     console.log(this.blogsId.length)
+  
+
+  }
+  
   
 }
 </script>

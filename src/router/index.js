@@ -82,8 +82,8 @@ const routes = [
  
       },
       {
-        path: '/search/:word',
-        name: 'search',
+        path: '/autoCompleteSearchDash/:word',
+        name: 'autoCompleteSearchDash',
         component:SearchResults,
         props: true
       },

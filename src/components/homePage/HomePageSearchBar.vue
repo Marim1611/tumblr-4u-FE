@@ -24,6 +24,7 @@
           v-model.trim="inputValue"
           v-on:keyup.enter="goToSearchPage"
           v-on:click="isClicked = !isClicked"
+          @input="getSearchLists"
           autocomplete="off"
           class="dropdown-input"
           type="text"
@@ -39,21 +40,21 @@
         <div v-if="!inputValue" v-show="isClicked" class="dropdown-list">
           <div
             v-for="(item,i) in interestsList"
-            v-on:click="searchMe(item.name)"
+            v-on:click="searchMe(item)"
             v-bind:key="i"
             class="dropdown-item"
           >
-            <img :src="item.img" class="dropdown-item-flag" />
+            <img :src="item.img?item.img:defaultImg" class="dropdown-item-flag" />
             <p
               v-bind:style="{
                 'font-style': homeTheme[homeThemeIndex].fontStyle,
               }"
             >
-              {{ item.name }}
+              {{ item}}
             </p>
           </div>
         </div>
-        <!-- auto complete  -->
+        <!-- auto complete "tags"  -->
         <div v-else class="dropdown-list">
           <div>
             <p v-bind:style="{ 'font-size': '18px', margin: '10px' }">
@@ -62,7 +63,7 @@
           </div>
           <div
             v-show="itemVisible(item)"
-            v-on:click="searchMe(item)"
+            v-on:click="searchMeTag(item)"
             v-for="item in tags"
             v-bind:key="item"
             class="dropdown-item"
@@ -88,14 +89,14 @@
             <p :style="{ 'font-size': '18px', margin: '10px' }">Tumblrs</p>
           </div>
           <div
-            v-on:click="openDrawer(item.name, item.img, item.coverImg)"
+            v-on:click="openDrawer(item.name, item.img, item.coverImg,item._id)"
             v-show="itemVisible(item.name)"
             v-for="item in usersInSearch"
             v-bind:key="item.name"
             class="dropdown-item"
           >
             <!-- <img :src="item.img" class="dropdown-item-flag" /> -->
-            <img :src="item.img" class="dropdown-item-flag" />
+            <img :src="item.img?item.img:avatarDefaultPhoto" class="dropdown-item-flag" />
             <!-- <div class="dropdown-item-flag">
  
        
@@ -133,7 +134,6 @@
 
 <script>
 import axios from 'axios';
- //import api from '../../api';
 import TumblrDrawer from "./TumblrsDrawer.vue";
 import Browser from '../../mocks/browser'
 //import Avatar from 'vue-avatar'
@@ -153,14 +153,32 @@ export default {
       interestsList: [ ],
       searchResults:[],
       usersInSearch: [],
+      postsInSearch: [1,2,3],
       tags: [ ],
-    };
+       defaultImg:"https://static2.bigstockphoto.com/6/5/3/large1500/356358914.jpg",
+       avatarDefaultPhoto:
+        "https://assets.tumblr.com/images/default_avatar/octahedron_closed_128.png",
+     };
   },
   components: {
     TumblrDrawer: TumblrDrawer,
     //  'Avatar':Avatar
   },
   methods: {
+    async getSearchLists(){
+      console.log(this.inputValue)
+      try {
+         await axios.get(Browser().baseURL+`/autoCompleteSearchDash/${this.inputValue}`,
+         { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
+         ).then(res => {
+            this.usersInSearch = res.data.resultBlogs;
+            this.tags= res.data.resultHashTag;
+          })
+    } catch (e) {
+      console.error(e);
+    }
+
+    },
       closeDrawer: function (close) {
       // console.log(text);
             console.log("drqwer closse heree2");
@@ -201,32 +219,94 @@ export default {
      * @public This is a public method
      * @param {none}
      */
-    openDrawer(name, avatar, cover) {
+    openDrawer(name, avatar, cover,id) {
       console.log("why??????????")
       this.showBlogDrawer = true;
       Vue.set(this.tumblrsObj, "name", name);
       Vue.set(this.tumblrsObj, "coverImg", cover);
       Vue.set(this.tumblrsObj, "avatar", avatar);
+      Vue.set(this.tumblrsObj, "id", id);
     },
-    goToSearchPage()
+    async goToSearchPage()
     {
       //TODO: CHANGE IF INPUT IS EMPTY GO TO EXPLORE => RECOMMENDED FOR YOU
-      
+      // if(Browser().baseURL ==)
+      // 
+      let myRoute=""
+         if (this.isMockServer(Browser().baseURL))
+         myRoute=Browser().baseURL+'/autoCompleteSearchDash'
+         else
+        myRoute= Browser().baseURL+`/autoCompleteSearchDash/${this.inputValue}`
+        console.log("myRoute")
+        console.log(myRoute)
+         await axios.get(myRoute,
+          { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
+         ).then(res => {
+            this.postsInSearch= res.data.resultPostHashTag;
+             console.log("postsInSearch")    
+          console.log( this.postsInSearch)    
+          }).catch((e)=>{
+            console.log(e)
+          })
       if (this.inputValue)
-  {
-      
-    this.$router.push({ name: 'search', params: {searchWord: this.inputValue, word: this.inputValue}})
+
+  { console.log("PUSH???") 
+      console.log(this.postsInSearch) 
+    this.$router.push({ name: 'autoCompleteSearchDash', params: {searchWord: this.inputValue, word: this.inputValue,dashBoardPosts:this.postsInSearch}})
 
   }
       
       // this.$router.push({ path: '/search', searchWord: this.inputValue }); 
        
     },
-    searchMe(interest){
-          this.$router.push({ name: 'search', params: {searchWord: interest, word: interest}})
+    async searchMeTag(tag){
+        try {
+         await axios.get(Browser().baseURL+`/autoCompleteSearchDash/${tag}`
+         ,
+         
+          { headers: { 'Authorization':`Bearer ${localStorage.getItem('token')}` } })
+          .then(res => {
+            console.log("##############TAG")
+       
+            
+            this.postsInSearch = res.data.resultPostHashTag; 
+                 console.log(this.postsInSearch )
+          })
+    } catch (e) {
+      console.error(e);
     }
+             this.$router.push({ name: 'autoCompleteSearchDash', params: {searchWord: tag, word: tag,dashBoardPosts:this.postsInSearch}})
+
+    },
+    async searchMe(interest){
+        try {
+         await axios.get(Browser().baseURL+'/autoCompleteSearchDash'
+         ,
+         
+          { headers: { 'Authorization':`Bearer ${localStorage.getItem('token')}` } })
+          .then(res => {
+            
+            this.postsInSearch = res.data.resultPostHashTag; 
+          })
+    } catch (e) {
+      console.error(e);
+    }
+       this.$router.push({ name: 'autoCompleteSearchDash', params: {searchWord: interest, word: interest,dashBoardPosts:this.postsInSearch}})
+    //this.$router.push({ name: 'autoCompleteSearchDash', params: {searchWord: interest, word: interest,dashBoardPosts:this.postsInSearch}})
+    },
+      isMockServer(baseUrl){
+     
+        if (baseUrl == "http://tumblr4u.eastus.cloudapp.azure.com:5000")
+          return false
+          else 
+          return true
+    },
+     
   },
   computed: {
+      myToken: function () {
+      return this.$store.state.token;
+    },
      /**
      * Function to get the home page color theme array from the store
      * @public This is a public method
@@ -242,26 +322,22 @@ export default {
      */
     homeThemeIndex: function () {
       return this.$store.state.homeThemeIndex;
-    },
+    } 
   },
   props: {
     // interestsList: Array
+
   },
     async created() {
     try {
-    
-         await axios.get(Browser().baseURL+'/autoCompleteSearchDash').then(res => {
-            this.usersInSearch = res.data.resultBlogs;
-            this.tags= res.data.resultHashTag;
-            this.interestsList= res.data.resultFollowedTag;
-          console.log(res.data)    
-          })
-         
-     //  const res =await axios.get('http://localhost:3000/autoCompleteSearchDash')
-      
-     
-        
-   //  this.interestsList= res.data;
+         await axios.get(Browser().baseURL+'/autoCompleteSearchDash'
+         ,
+          { headers: { 'Authorization':`Bearer ${localStorage.getItem('token')}` } })
+          .then(res => {
+            
+            this.interestsList= res.data.resultFollowedTag; 
+            console.log("yalaaaaaaaaaaaaaaa")
+            console.log(this.interestsList)          })
     } catch (e) {
         console.log("^^^^^^^^^^^^^^^^^^")
       console.error(e);
