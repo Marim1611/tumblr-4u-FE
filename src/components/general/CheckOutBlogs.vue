@@ -48,8 +48,7 @@
 
 <script>
 import Avatar from "vue-avatar";
-import Browser from '../../mocks/browser'
-import axios from 'axios';
+ 
  
  
 export default {
@@ -70,30 +69,46 @@ export default {
       
        else if( status == "Unfollow")
        this.relatedBlogs[i].isFollow= "follow"
-
    },
    remove:function(i){
        this.relatedBlogs[i].show = false;
-   },
-   async created() {
-    try {
-         await axios.get( Browser().baseURL+'/ranBlogs',
-         { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
-         ).then(resp => {
-           console.log("************* blogs friday")
-            this.relatedBlogs = resp.data;
-            console
-          
-          })
-    } catch (e) {
-      console.error(e);
-    }
-  },
-
+   }
   },
   data: function () {
     return {
-         relatedBlogs:[],
+         relatedBlogs:[
+             {
+             name:"hundredpages",
+             discription:"FORGOTTEN ODE",
+             isFollow:"follow",
+             img:"https://64.media.tumblr.com/b1972ec232e19b44eaa6ad0f4eb3fb99/eacbb90438c589d9-ed/s96x96u_c1/db2def7d17e2a3c31df0b413c37dd6f841493047.jpg",
+             show:true,
+             x:false
+             },
+               {
+             name:"a4kaaar",
+             discription:"أذكار وأدعية",
+             isFollow:"follow",
+             img:"https://64.media.tumblr.com/avatar_8b90e8658586_96.pnj",
+             show:true,
+             x:false
+             },
+               {
+             name:"mi3rag",
+             discription:"مِعرَاجْ",
+             isFollow:"follow",
+             img:"https://64.media.tumblr.com/avatar_9f017a42eb13_96.pnj",
+             show:true,
+             x:false
+             },
+             {
+             name:"thyming",
+             discription:"Welcome Home",
+             isFollow:"follow",
+             img:"https://64.media.tumblr.com/71cdbb8837d776cbb6d575a284a08c16/33027de8554a6d7c-73/s64x64u_c1/aed447e18614f595c3e70799a932f570ac7b69cb.pnj",
+             show:true,
+             x:false
+             }],
     };
   },
   
@@ -113,7 +128,6 @@ export default {
 </script>
 
 <style scoped>
-
 .alignCenter{
     align-items: center;
 }
@@ -152,7 +166,6 @@ export default {
 #block{
     margin: 0px;
 }
-
 .sec:hover {
    cursor: pointer;
  
@@ -171,7 +184,6 @@ h5{
 .avatarStyle {
   width: 25px;
   margin: 10px 10px 20px 15px;
-
   padding: 0px 0px 0px 10px;
  
 }
