@@ -1,7 +1,7 @@
 <template>
   <md-dialog v-bind:md-active.sync="postToBegin" v-on:keyup.esc="closeTextBox">
     <md-dialog-content>
-      <div class="postLink">
+      <div class="postLink" v-show="!showLink">
         <v-textarea
           id="linkTextArea"
           auto-grow
@@ -11,12 +11,21 @@
         ></v-textarea>
       </div>
 
+      <div class="showLink" v-show="showLink">
+        <button class="exitURL" v-on:click="writeLink">
+          <b-icon
+            icon="x-circle-fill"
+            font-scale="1.4"
+            style="color: red"
+          ></b-icon>
+        </button>
+        <a :href="urlString">{{ urlString }}</a>
+      </div>
       <linkEditor v-on:childToParent="onTextClick" v-show="showEditor" />
       <input type="text" placeholder="#tags" id="theTags" />
       <md-divider></md-divider>
       <div class="footerBtns">
         <button class="closeBtn" v-on:click="closeTextBox">Close</button>
-        <!-- <div class="postOptions"> -->
         <button
           v-bind:disabled="disablePosting"
           v-bind:class="{
@@ -27,16 +36,7 @@
         >
           Post
         </button>
-        <!-- <v-divider />
-          <button>
-            <b-icon
-              icon="caret-down-fill"
-              
-              font-scale="1.2"
-            ></b-icon>
-          </button> -->
       </div>
-      <!-- </div> -->
     </md-dialog-content>
   </md-dialog>
 </template>
@@ -62,9 +62,17 @@ export default {
       showEditor: false,
       postContent: "",
       validUrlDone: false,
+      showLink: false,
     };
   },
+
+
+
   methods: {
+    writeLink() {
+      this.showLink = false;
+      this.urlString = "";
+    },
     validURL(str) {
       var pattern = new RegExp(
         "^(https?:\\/\\/)?" + // protocol
@@ -82,12 +90,13 @@ export default {
         this.validUrlDone = true;
         // if (this.postContent != "" || this.postContent != null)
         this.showEditor = true;
+        this.showLink = true;
       } else {
         if (this.postContent === "" || this.postContent === null) {
-          console.log("here");
           this.showEditor = false;
         }
         this.validUrlDone = false;
+        this.showLink = false;
       }
       return validUrl;
     },
@@ -100,6 +109,8 @@ export default {
     closeTextBox() {
       this.$emit("closeTextBox", false);
       this.postContent = "";
+      this.showLink = false;
+      this.urlString = "";
     },
     /**
      * Function to recieve the content written inside the post from the text editor file
@@ -119,12 +130,17 @@ export default {
      * @param {none}
      */
 
-    postDone() {},
     async postDone() {
       try {
         await axios
           .post(Browser().baseURL + "/createPost", {
-            postHtml: this.postContent + this.urlString,
+            postHtml:
+              '<a href:"' +
+              this.urlString +
+              '">' +
+              this.urlString +
+              "</a>" +
+              this.postContent,
             type: "link",
           })
           .then((res) => {
@@ -271,5 +287,14 @@ export default {
 #imgUrl {
   padding-top: 50px;
   padding-left: 10px;
+}
+
+.exitURL {
+  float: right;
+  cursor: pointer;
+}
+
+.showLink {
+  padding-bottom: 20px;
 }
 </style>
