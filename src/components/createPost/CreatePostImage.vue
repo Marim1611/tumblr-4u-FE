@@ -1,23 +1,15 @@
 <template>
-  <md-dialog v-bind:md-active.sync="postToBegin">
+  <md-dialog v-bind:md-active.sync="postToBegin" v-on:keyup.esc="closeTextBox">
     <md-dialog-content>
-      <CreatePostUploadImage />
-      <div v-if="imgChosen">
-        <v-textarea
-          name="input-7-1"
-          filled
-          placeholder="Title"
-          auto-grow
-          rows="2"
-          ref="titleRefs"
-          v-model="postTitle"
-        ></v-textarea>
-
-        <CreatePostTextEditor v-on:childToParent="onTextClick" />
-        <input type="text" placeholder="#tags" id="theTags" />
-        <md-divider></md-divider>
+      <div class="imgUpload">
+        <imageEditor v-on:childToParent="onTextClick" ref="imgEditor" />
+        <CreatePostTextEditor
+          v-on:childToParent="onPostCaption"
+          v-show="showEditor"
+        />
       </div>
-
+      <input type="text" placeholder="#tags" id="theTags" />
+      <md-divider></md-divider>
       <div class="footerBtns">
         <button class="closeBtn" v-on:click="closeTextBox">Close</button>
         <button
@@ -36,9 +28,16 @@
 </template>
 
 <script>
-import CreatePostUploadImage from "./CreatePostUploadImage.vue";
+import CreatePostTextEditor from "./editors/imageContentEditor.vue";
+import imageEditor from "./editors/imageEditor.vue";
+import Modal from "./editors/imageModal.vue";
+import vue2Dropzone from "vue2-dropzone";
+import "vue2-dropzone/dist/vue2Dropzone.min.css";
+import axios from "axios";
+import Browser from "../../mocks/browser";
+
 /**
- * Name Create post for images
+ *  Create post for text
  * @example [none]
  */
 export default {
@@ -48,51 +47,92 @@ export default {
     },
   },
   components: {
-    CreatePostUploadImage: CreatePostUploadImage,
+    CreatePostTextEditor,
+    Modal,
+    imageEditor,
+    vueDropzone: vue2Dropzone,
   },
-
   data() {
     return {
+      hideMe: true,
       autogrow: null,
-      postContent: null,
-      postTitle: null,
+      postContent: "",
       imgChosen: false,
+      imageSrc: "",
+      postCaption: "",
+      showEditor: false,
     };
   },
   methods: {
     /**
-     * Function to close the image upload section for create post
+     * Function to close the text upload section for create post
      * @public This is a public method
      * @param {none}
      */
     closeTextBox() {
       this.$emit("closeimageBox", false);
       this.postContent = null;
-      this.postTitle = null;
     },
-
     /**
      * Function to recieve the content written inside the post from the text editor file
      * @public This is a public method
-     * @param {Boolean} content --> boolean sent from the create post section when clicking on image post to start uploading one
+     * @param {Boolean} content --> boolean sent from the create post section when clicking on text post to start uploading one
      */
     onTextClick(content) {
       this.postContent = content;
+      if (
+        content !== "" ||
+        content !== null ||
+        this.postCaption !== "" ||
+        this.postCaption !== null
+      ) {
+        this.showEditor = true;
+      }
+      // console.log(this.postCaption);
+      else if (this.postCaption == "") {
+        console.log("here");
+        this.showEditor = false;
+      } else this.showEditor = true;
+      // console.log(this.postCaption);
+      // console.log(content);
     },
 
+    onPostCaption(content) {
+      this.postCaption = content;
+      if (content === "" || content === null) {
+        // console.log("fadyyy")
+        this.showEditor = false;
+      } else this.showEditor = true;
+      // console.log(content);
+    },
     /**
      * Function to publish the post and save its content
      * @public This is a public method
      * @param {none}
      */
-    postDone() {
-      console.log(this.$refs.titleRefs.$el.outerHTML);
+
+    async postDone() {
+      try {
+        await axios
+          .post(Browser().baseURL + "/createPost", {
+            postHtml: this.postContent + this.postCaption,
+            type: "image",
+          })
+          .then((res) => {
+            this.$emit("closeTextBox", false);
+            this.postContent = "";
+            console.log(res.data);
+          });
+      } catch (e) {
+        console.log("^^^^^^^^^^^^^^^^^^");
+        console.error(e);
+      }
     },
   },
 
   computed: {
     /**
-     * Function to know if the image upload post should appear or not
+     * Function to know if the text upload post should appear or not
      * @public This is a public method
      * @param {none}
      */
@@ -110,28 +150,15 @@ export default {
      * @param {none}
      */
     disablePosting() {
-      if (
-        this.postContent === null &&
-        (this.postTitle === null || this.postTitle === "")
-      )
+      if (this.postContent === "" || this.postContent === null) {
         return true;
+      }
       return false;
     },
   },
 };
 </script>
-
 <style>
-.v-textarea textarea {
-  max-width: 30vw;
-  font-size: 36px;
-  font-weight: 400;
-  outline: none;
-  border: none;
-  font-family: inherit;
-  resize: none;
-}
-
 .md-dialog .md-dialog-container {
   width: 30vw;
   min-height: 30vh;
@@ -140,24 +167,20 @@ export default {
 #header {
   display: flex;
 }
-
 input[type="text"] {
   cursor: text;
   border: none;
   outline: none;
 }
-
 .footerBtns {
   display: flex;
   flex-direction: row;
 }
-
 .footerBtns button {
   border: none;
   border-radius: 1.9px;
   margin-top: 10px;
   padding: 5px 7px;
-
   font-weight: 700;
 }
 .postOptions {
@@ -165,11 +188,9 @@ input[type="text"] {
   margin-top: 10px;
   display: flex;
   flex-direction: row;
-
   position: absolute;
   right: 24px;
 }
-
 .nonDisabledBtn {
   background-color: #00b8ff;
   position: absolute;
@@ -184,7 +205,6 @@ input[type="text"] {
   cursor: pointer;
   font-size: 13px;
 }
-
 .disabledBtn {
   background-color: #00b8ff;
   position: absolute;
@@ -192,5 +212,12 @@ input[type="text"] {
   color: hsla(0, 0%, 100%, 0.5);
   cursor: default;
   font-size: 13px;
+}
+
+.imgUpload {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  /* height: 100px; */
 }
 </style>
