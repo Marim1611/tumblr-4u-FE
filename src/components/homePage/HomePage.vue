@@ -104,6 +104,8 @@ export default {
          ).then(res => {
             this.dashBoardPosts = res.data.res.postsToShow;
             this.tumblrsObj.id=res.data.res.blog._id;
+            console.log("!!!!!!!!!!!!!!!!!!!!!!!IDDDDDDDD")
+            console.loig(res.data.res.blog._id)
             this.tumblrsObj.name=res.data.res.blog.name;
             this.$store.commit('updateBodyColor', res.data.res.user.bodyColor);   
           })
