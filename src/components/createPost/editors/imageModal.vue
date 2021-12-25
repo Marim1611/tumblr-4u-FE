@@ -26,7 +26,7 @@
 
         <v-textarea
           v-model="imageSrc"
-          name="input-7-1"
+          id="imgUrl"
           auto-grow
           placeholder="Paste a URL"
         ></v-textarea>
@@ -207,8 +207,8 @@ label {
 }
 
 .enterURL {
-  /* border-bottom: 2px dashed #ccc;
-  border-top: 2px dashed #ccc; */
+  border-bottom: 2px dashed #ccc;
+  border-top: 2px dashed #ccc;
   background-color: white;
   align-items: center;
   font-size: 14px;
@@ -220,4 +220,6 @@ label {
   float: right;
   cursor: pointer;
 }
+
+
 </style>

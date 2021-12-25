@@ -11,7 +11,7 @@
           >
             <b-icon
               icon="camera-fill"
-              font-scale="7"
+              font-scale="4"
               style="color: #a3a3a3"
             ></b-icon>
           </button>

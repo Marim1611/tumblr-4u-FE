@@ -1,17 +1,22 @@
 <template>
   <md-dialog v-bind:md-active.sync="postToBegin" v-on:keyup.esc="closeTextBox">
     <md-dialog-content>
-      <div class="imgUpload">
-        <imageEditor v-on:childToParent="onTextClick" ref="imgEditor" />
-        <CreatePostTextEditor
-          v-on:childToParent="onPostCaption"
-          v-show="showEditor"
-        />
+      <div class="postLink">
+        <v-textarea
+          id="linkTextArea"
+          auto-grow
+          placeholder="Type or paste a URL"
+          v-model="urlString"
+          v-bind:rules="rules"
+        ></v-textarea>
       </div>
+
+      <linkEditor v-on:childToParent="onTextClick" v-show="showEditor" />
       <input type="text" placeholder="#tags" id="theTags" />
       <md-divider></md-divider>
       <div class="footerBtns">
         <button class="closeBtn" v-on:click="closeTextBox">Close</button>
+        <!-- <div class="postOptions"> -->
         <button
           v-bind:disabled="disablePosting"
           v-bind:class="{
@@ -22,56 +27,79 @@
         >
           Post
         </button>
+        <!-- <v-divider />
+          <button>
+            <b-icon
+              icon="caret-down-fill"
+              
+              font-scale="1.2"
+            ></b-icon>
+          </button> -->
       </div>
+      <!-- </div> -->
     </md-dialog-content>
   </md-dialog>
 </template>
 
 <script>
-import CreatePostTextEditor from "./editors/imageContentEditor.vue";
-import imageEditor from "./editors/imageEditor.vue";
-import Modal from "./editors/imageModal.vue";
-import vue2Dropzone from "vue2-dropzone";
-import "vue2-dropzone/dist/vue2Dropzone.min.css";
 import axios from "axios";
 import Browser from "../../mocks/browser";
-
-/**
- *  Create post for text
- * @example [none]
- */
+import linkEditor from "./editors/linkEditor.vue";
 export default {
-  props: {
-    imagePost: {
-      type: Boolean,
-    },
-  },
   components: {
-    CreatePostTextEditor,
-    Modal,
-    imageEditor,
-    vueDropzone: vue2Dropzone,
+    linkEditor,
   },
+  props: {
+    linkPost: Boolean,
+  },
+
   data() {
     return {
-      hideMe: true,
       autogrow: null,
-      postContent: "",
-      imgChosen: false,
-      imageSrc: "",
-      postCaption: "",
+      textChosen: this.linkPost,
+      urlString: "",
+      rules: [(value) => !!value, (value) => this.validURL(value)],
       showEditor: false,
+      postContent: "",
+      validUrlDone: false,
     };
   },
   methods: {
+    validURL(str) {
+      var pattern = new RegExp(
+        "^(https?:\\/\\/)?" + // protocol
+          "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
+          "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
+          "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
+          "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
+          "(\\#[-a-z\\d_]*)?$",
+        "i"
+      );
+
+      var validUrl = !!pattern.test(str);
+
+      if (validUrl) {
+        this.validUrlDone = true;
+        // if (this.postContent != "" || this.postContent != null)
+        this.showEditor = true;
+      } else {
+        if (this.postContent === "" || this.postContent === null) {
+          console.log("here");
+          this.showEditor = false;
+        }
+        this.validUrlDone = false;
+      }
+      return validUrl;
+    },
+
     /**
      * Function to close the text upload section for create post
      * @public This is a public method
      * @param {none}
      */
     closeTextBox() {
-      this.$emit("closeimageBox", false);
-      this.postContent = null;
+      this.$emit("closeTextBox", false);
+      this.postContent = "";
     },
     /**
      * Function to recieve the content written inside the post from the text editor file
@@ -80,43 +108,24 @@ export default {
      */
     onTextClick(content) {
       this.postContent = content;
-      if (
-        content !== "" ||
-        content !== null ||
-        this.postCaption !== "" ||
-        this.postCaption !== null
-      ) {
-        this.showEditor = true;
+      if (content === "" || content === null) {
+        if (!this.validUrlDone) this.showEditor = false;
       }
-      // console.log(this.postCaption);
-      else if (this.postCaption == "") {
-        console.log("here");
-        this.showEditor = false;
-      } else this.showEditor = true;
-      // console.log(this.postCaption);
-      // console.log(content);
     },
 
-    onPostCaption(content) {
-      this.postCaption = content;
-      if (content === "" || content === null) {
-        // console.log("fadyyy")
-        this.showEditor = false;
-      } else this.showEditor = true;
-      // console.log(content);
-    },
     /**
      * Function to publish the post and save its content
      * @public This is a public method
      * @param {none}
      */
 
+    postDone() {},
     async postDone() {
       try {
         await axios
           .post(Browser().baseURL + "/createPost", {
-            postHtml: this.postContent + this.postCaption,
-            type: "image",
+            postHtml: this.postContent + this.urlString,
+            type: "link",
           })
           .then((res) => {
             this.$emit("closeTextBox", false);
@@ -129,7 +138,6 @@ export default {
       }
     },
   },
-
   computed: {
     /**
      * Function to know if the text upload post should appear or not
@@ -138,7 +146,7 @@ export default {
      */
     postToBegin: {
       get() {
-        return this.imagePost;
+        return this.linkPost;
       },
       set(newVal) {
         return newVal;
@@ -150,7 +158,7 @@ export default {
      * @param {none}
      */
     disablePosting() {
-      if (this.postContent === "" || this.postContent === null) {
+      if (!this.validUrlDone) {
         return true;
       }
       return false;
@@ -164,10 +172,8 @@ export default {
   min-height: 30vh;
   max-height: 100%;
 }
-#header {
-  display: flex;
-}
-input[type="text"] {
+
+#theTags {
   cursor: text;
   border: none;
   outline: none;
@@ -214,10 +220,56 @@ input[type="text"] {
   font-size: 13px;
 }
 
-.imgUpload {
+.v-input.v-textarea > .v-input__control > .v-input__slot:before {
+  border: none;
+}
+
+.primary--text:focus {
+  outline: none !important;
+  border: none !important;
+  display: none;
+}
+
+.v-text-field > .v-input__control > .v-input__slot:after {
+  background-color: transparent !important;
+  border-color: transparent !important;
+  border-style: none !important;
+  border-width: 0 !important;
+  transform: none !important;
+}
+
+.v-text-field.v-input--is-focused > .v-input__control > .v-input__slot:after {
+  transform: none !important  ;
+}
+
+.v-textarea > textarea {
+  max-width: 30vw;
+  font-size: 36px;
+  font-weight: 400;
+  outline: none;
+  border: none;
+  font-family: inherit;
+  resize: none;
+}
+
+.postLink {
+  border-bottom: 2px dashed #ccc;
+  border-top: 2px dashed #ccc;
+  background-color: rgba(241, 241, 241, 0.842);
+  align-items: center;
+  font-size: 14px;
+  color: black;
+  font-style: Helvetica Neue, HelveticaNeue, Helvetica, Arial, sans-serif;
   display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  /* height: 100px; */
+  justify-content: center;
+}
+
+#linkTextArea {
+  padding: 50px;
+}
+
+#imgUrl {
+  padding-top: 50px;
+  padding-left: 10px;
 }
 </style>
