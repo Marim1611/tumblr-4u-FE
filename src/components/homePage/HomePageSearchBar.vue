@@ -5,7 +5,7 @@
       <div
         id="input_container"
         v-bind:style="{
-          'background-color': homeTheme[homeThemeIndex].cardColor,
+          'background': homeTheme[homeThemeIndex].cardColor,
           'border-radius': '4px',
           'border-color': homeTheme[homeThemeIndex].fontColor,
         }"
@@ -19,36 +19,42 @@
         ></b-icon>
 
         <input
+          id="search"
+          name="wordName"
           v-model.trim="inputValue"
+          v-on:keyup.enter="goToSearchPage"
           v-on:click="isClicked = !isClicked"
+          @input="getSearchLists"
+          autocomplete="off"
           class="dropdown-input"
           type="text"
           placeholder="Search Tumblr"
           v-bind:style="{
-            'background-color': homeTheme[homeThemeIndex].cardColor,
+            'background': homeTheme[homeThemeIndex].cardColor,
             color: homeTheme[homeThemeIndex].fontColor,
           }"
         />
       </div>
-      <!-- intersts  -->
+      <!-- interests  -->
       <div v-on:click.prevent="toggleDropdown">
         <div v-if="!inputValue" v-show="isClicked" class="dropdown-list">
           <div
-            v-for="item in interestsList"
-            v-bind:key="item.name"
+            v-for="(item,i) in interestsList"
+            v-on:click="searchMe(item)"
+            v-bind:key="i"
             class="dropdown-item"
           >
-            <img :src="item.img" class="dropdown-item-flag" />
+            <img :src="item.img?item.img:defaultImg" class="dropdown-item-flag" />
             <p
               v-bind:style="{
                 'font-style': homeTheme[homeThemeIndex].fontStyle,
               }"
             >
-              {{ item.name }}
+              {{ item}}
             </p>
           </div>
         </div>
-        <!-- auto complete  -->
+        <!-- auto complete "tags"  -->
         <div v-else class="dropdown-list">
           <div>
             <p v-bind:style="{ 'font-size': '18px', margin: '10px' }">
@@ -57,11 +63,13 @@
           </div>
           <div
             v-show="itemVisible(item)"
-            v-for="item in autoComplete"
-            v-bind:key="item.name"
+            v-on:click="searchMeTag(item)"
+            v-for="item in tags"
+            v-bind:key="item"
             class="dropdown-item"
           >
             <b-icon
+            class="iconS"
               icon="search"
               font-scale="1"
               aria-hidden="true"
@@ -70,7 +78,7 @@
             <p
               v-bind:style="{
                 'font-style': homeTheme[homeThemeIndex].fontStyle,
-                padding: '10px',
+                
               }"
             >
               {{ item }}
@@ -81,14 +89,14 @@
             <p :style="{ 'font-size': '18px', margin: '10px' }">Tumblrs</p>
           </div>
           <div
-            v-on:click="openDrawer(item.name, item.img, item.coverImg)"
+            v-on:click="openDrawer(item.name, item.img, item.coverImg,item._id)"
             v-show="itemVisible(item.name)"
             v-for="item in usersInSearch"
             v-bind:key="item.name"
             class="dropdown-item"
           >
             <!-- <img :src="item.img" class="dropdown-item-flag" /> -->
-            <img :src="item.img" class="dropdown-item-flag" />
+            <img :src="item.img?item.img:avatarDefaultPhoto" class="dropdown-item-flag" />
             <!-- <div class="dropdown-item-flag">
  
        
@@ -116,19 +124,23 @@
       </div>
     </div>
     <TumblrDrawer
-      v-if="showBlogDrawer"
+    v-if="showBlogDrawer"
       v-bind:tumblrsObj="tumblrsObj"
+        v-bind:showBlogDrawer="showBlogDrawer"
+         v-on:closeDrawer="closeDrawer($event)"
     ></TumblrDrawer>
   </div>
 </template>
 
 <script>
-
+import axios from 'axios';
 import TumblrDrawer from "./TumblrsDrawer.vue";
+import Browser from '../../mocks/browser'
 //import Avatar from 'vue-avatar'
+//import { fetchSearchResults } from '@/services/fetchers'
 import Vue from "vue";
 /**
- *  SearchBar of the home page shows list of user intersts if he didn't type any thing otherwise show realted other users or tags
+ *  SearchBar of the home page shows list of user interests if he didn't type any thing otherwise show related other users or tags
  * @example [none]
  */
 export default {
@@ -138,58 +150,42 @@ export default {
       inputValue: "",
       isClicked: false,
       tumblrsObj: { name: "", avatar: "", coverImg: "" },
-      interestsList: [
-        {
-          name: "crafts",
-          img: "https://64.media.tumblr.com/6eb8d7c15856ffa76b0a6b5bdb35f2de/5cf38a736b98badf-f9/s640x960/0762f14581a4a9bf7599fc7899b35cd909878bde.jpg",
-        },
-        {
-          name: "embroidery",
-          img: "https://64.media.tumblr.com/497a6f202f642d914081723f42b3688c/tumblr_pocj2z2m6F1sst4ed_1280.jpg",
-        },
-        {
-          name: "crochet",
-          img: "https://64.media.tumblr.com/b9a38eb82f59f226df54f746e9ce1193/03dd693220f8205b-41/s640x960/54f78a4ffa63f468c6648ac14f0921b3c9fccb9a.jpg",
-        },
-      ],
-      usersInSearch: [
-        {
-          name: "Moatasem",
-          img: "https://pe-images.s3.amazonaws.com/basics/cc/image-size-resolution/resize-images-for-print/image-cropped-8x10.jpg",
-          coverImg:
-            "https://64.media.tumblr.com/b4d4c2744e85a37c68d2b719d8d41317/57f5781bde74b4d8-0e/s640x960/777e2d9c3327ec8b2cab9fc7cf60e0ee3a5f24a0.jpg",
-        },
-        {
-          name: "Sara",
-          img: "https://boostlikes-bc85.kxcdn.com/blog/wp-content/uploads/2018/04/Short-URL-Illustration.jpg",
-          coverImg:
-            "https://64.media.tumblr.com/511d1c6162b006d519670ec642d5bae9/98396c886dff04ae-83/s640x960/2c89deda482294956a9726a993138b9d430ca2d6.jpg",
-        },
-        {
-          name: "Merna",
-          img: "https://64.media.tumblr.com/ff6dd3486dd2fee8dff0acd0b937366a/6772020191e59538-4e/s640x960/bba93fe58569441392b77f831cad960169f11bda.jpg",
-          coverImg:
-            "https://64.media.tumblr.com/511d1c6162b006d519670ec642d5bae9/98396c886dff04ae-83/s640x960/2c89deda482294956a9726a993138b9d430ca2d6.jpg",
-        },
-      ],
-      autoComplete: [
-        "cat",
-        "car",
-        "sports",
-        "hanmade",
-        "fashion",
-        "pets",
-        "friends",
-        "tarvel",
-        "Art",
-      ],
-    };
+      interestsList: [ ],
+      searchResults:[],
+      usersInSearch: [],
+      postsInSearch: [1,2,3],
+      tags: [ ],
+       defaultImg:"https://static2.bigstockphoto.com/6/5/3/large1500/356358914.jpg",
+       avatarDefaultPhoto:
+        "https://assets.tumblr.com/images/default_avatar/octahedron_closed_128.png",
+     };
   },
   components: {
     TumblrDrawer: TumblrDrawer,
     //  'Avatar':Avatar
   },
   methods: {
+    async getSearchLists(){
+      console.log(this.inputValue)
+      try {
+         await axios.get(Browser().baseURL+`/autoCompleteSearchDash/${this.inputValue}`,
+         { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
+         ).then(res => {
+            this.usersInSearch = res.data.resultBlogs;
+            this.tags= res.data.resultHashTag;
+          })
+    } catch (e) {
+      console.error(e);
+    }
+
+    },
+      closeDrawer: function (close) {
+      // console.log(text);
+            console.log("drqwer closse heree2");
+
+      this.showBlogDrawer = close;
+    },
+    
      /**
      * Function to make the items visible only that appear in the dropdown list to match what the user type in the search bar
      * @public This is a public method
@@ -201,7 +197,7 @@ export default {
       return currentName.includes(currentInput);
     },
    /**
-     * Function to control openning the search dropdown list
+     * Function to control opening the search dropdown list
      * @public This is a public method
      * @param {none}
      */
@@ -223,14 +219,94 @@ export default {
      * @public This is a public method
      * @param {none}
      */
-    openDrawer(name, avatar, cover) {
-      this.showBlogDrawer = !this.showBlogDrawer;
+    openDrawer(name, avatar, cover,id) {
+      console.log("why??????????")
+      this.showBlogDrawer = true;
       Vue.set(this.tumblrsObj, "name", name);
       Vue.set(this.tumblrsObj, "coverImg", cover);
       Vue.set(this.tumblrsObj, "avatar", avatar);
+      Vue.set(this.tumblrsObj, "id", id);
     },
+    async goToSearchPage()
+    {
+      //TODO: CHANGE IF INPUT IS EMPTY GO TO EXPLORE => RECOMMENDED FOR YOU
+      // if(Browser().baseURL ==)
+      // 
+      let myRoute=""
+         if (this.isMockServer(Browser().baseURL))
+         myRoute=Browser().baseURL+'/autoCompleteSearchDash'
+         else
+        myRoute= Browser().baseURL+`/autoCompleteSearchDash/${this.inputValue}`
+        console.log("myRoute")
+        console.log(myRoute)
+         await axios.get(myRoute,
+          { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
+         ).then(res => {
+            this.postsInSearch= res.data.resultPostHashTag;
+             console.log("postsInSearch")    
+          console.log( this.postsInSearch)    
+          }).catch((e)=>{
+            console.log(e)
+          })
+      if (this.inputValue)
+
+  { console.log("PUSH???") 
+      console.log(this.postsInSearch) 
+    this.$router.push({ path:'/autoCompleteSearchDash',name: 'autoCompleteSearchDash', params: {searchWord: this.inputValue, word: this.inputValue,dashBoardPosts:this.postsInSearch}})
+
+  }
+      
+      // this.$router.push({ path: '/search', searchWord: this.inputValue }); 
+       
+    },
+    async searchMeTag(tag){
+        try {
+         await axios.get(Browser().baseURL+`/autoCompleteSearchDash/${tag}`
+         ,
+         
+          { headers: { 'Authorization':`Bearer ${localStorage.getItem('token')}` } })
+          .then(res => {
+            console.log("##############TAG")
+       
+            
+            this.postsInSearch = res.data.resultPostHashTag; 
+                 console.log(this.postsInSearch )
+          })
+    } catch (e) {
+      console.error(e);
+    }
+             this.$router.push({ name: 'autoCompleteSearchDash', params: {searchWord: tag, word: tag,dashBoardPosts:this.postsInSearch}})
+
+    },
+    async searchMe(interest){
+        try {
+         await axios.get(Browser().baseURL+'/autoCompleteSearchDash'
+         ,
+         
+          { headers: { 'Authorization':`Bearer ${localStorage.getItem('token')}` } })
+          .then(res => {
+            
+            this.postsInSearch = res.data.resultPostHashTag; 
+          })
+    } catch (e) {
+      console.error(e);
+    }
+       this.$router.push({ name: 'autoCompleteSearchDash', params: {searchWord: interest, word: interest,dashBoardPosts:this.postsInSearch}})
+    //this.$router.push({ name: 'autoCompleteSearchDash', params: {searchWord: interest, word: interest,dashBoardPosts:this.postsInSearch}})
+    },
+      isMockServer(baseUrl){
+     
+        if (baseUrl == "http://tumblr4u.eastus.cloudapp.azure.com:5000")
+          return false
+          else 
+          return true
+    },
+     
   },
   computed: {
+      myToken: function () {
+      return this.$store.state.token;
+    },
      /**
      * Function to get the home page color theme array from the store
      * @public This is a public method
@@ -240,23 +316,40 @@ export default {
       return this.$store.state.homeTheme;
     },
      /**
-     * Function to get the home page colortheme Index from the store
+     * Function to get the home page color theme Index from the store
      * @public This is a public method
      * @param {none}
      */
     homeThemeIndex: function () {
       return this.$store.state.homeThemeIndex;
-    },
+    } 
   },
   props: {
     // interestsList: Array
+
   },
-  mounted() {
+    async created() {
+    try {
+         await axios.get(Browser().baseURL+'/autoCompleteSearchDash'
+         ,
+          { headers: { 'Authorization':`Bearer ${localStorage.getItem('token')}` } })
+          .then(res => {
+            
+            this.interestsList= res.data.resultFollowedTag; 
+            console.log("yalaaaaaaaaaaaaaaa")
+            console.log(this.interestsList)          })
+    } catch (e) {
+        console.log("^^^^^^^^^^^^^^^^^^")
+      console.error(e);
+    }
+  },
+  async mounted() {
     document.addEventListener("click", this.close);
   },
   beforeDestroy() {
     document.removeEventListener("click", this.close);
   },
+   
 };
 </script>
 
@@ -287,7 +380,9 @@ export default {
   background: #fff;
   border-color: #e2e8f0;
 }
-
+.iconS{
+  margin: 5px;
+}
 .dropdown-input::placeholder {
   color: #fff;
   text-align: left;
@@ -297,7 +392,7 @@ export default {
   cursor: pointer;
 }
 .dropdown-list {
-  /* overflow-y: auto; */
+   
   z-index: 3;
   transform: translate3d(0px, 20px, 0px);
   position: absolute;
@@ -309,10 +404,10 @@ export default {
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
     0 4px 6px -2px rgba(0, 0, 0, 0.05);
   border-radius: 8px;
+  height: 300px;
 }
 .dropdown-item {
   display: flex;
-  overflow-y: scroll;
   width: 100%;
   padding: 11px 16px;
   cursor: pointer;

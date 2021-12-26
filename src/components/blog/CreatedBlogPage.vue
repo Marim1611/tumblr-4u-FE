@@ -1,161 +1,363 @@
 <template>
-<body style="background-color:#001935;top:-100px">
-  <div id="main" >
-    <div class="posts">
-        <p1>No posts available<br /></p1>
-        <p2>Learn how to make a post.</p2>
-    </div>
-    <div class="features">
-          <v-btn id="button-posts">Posts</v-btn>
-          <v-btn id="button-followers">Followers</v-btn>
-          <v-btn id="button-activity">Activity</v-btn>
-          <v-btn id="button-members">Members</v-btn>
-          <v-btn id="button-drafts">Drafts</v-btn>
-          <v-btn id="button-queue">Queue</v-btn>
-          <v-btn id="button-edit-appearance">Edit appearance</v-btn>
-          <!--<button id="button-mass-post-editor">Mass Post Editor</button>-->
-    </div>
-  </div>
+<body style="background-color:#001935;">
+      <HomePageNavBar/>
+<div class="container">
+    <br/><br/><br/>
+  <div class="row">
+        <div class="col-0" > </div>
+
+        <div class="col-8">
+            <div class="Posts" v-if="post_flag">
+                 <CreatePostSection/>  
+            </div>
+
+            <div class="postss" v-if="post_flag">
+                    <ul class="pst">
+                    <li class="posts_list" v-for="post of posts " :key="post.id">
+                       <ViewPostCard v-bind:post="post"
+                        v-bind:maxWidth="postCardWidth"
+                        ></ViewPostCard> 
+                    </li>
+                    </ul>
+            </div>
+            
+            <div class="Followers" v-if="followers_flag==true">
+                <p id="p1"> {{followers_count}} Followers  </p> 
+                <input type="text" class="follower-search" placeholder=" Search your followers " v-on:change="searchFollower">
+                <div class="follower_names">
+                    <ul class="f_names">
+                    <li class="names_list" v-for="follower of followers  " :key="follower.id">
+                        <Followers v-bind:image="follower.image_link"
+                        v-bind:username="follower.username"
+                        v-bind:title="follower.title"
+                        v-bind:followerFlag="follower.followerFlag"
+                        ></Followers>
+                    </li>
+                    </ul>
+                 </div>
+              </div>
+
+            <div class="Activity" v-if="activityFlag==true">
+                <Activity/>
+              </div>
+
+         </div> 
+
+        <div class="col-4 " >
+              <p id="u">{{Username}} <br/></p>
+              <p id="t" > {{Title}} </p> 
+              <div class="form-group">
+                     <button class="button-follower" v-on:click="button_follower_action"> Followers &emsp; &emsp;&nbsp;&emsp;&emsp;&emsp;&emsp;&emsp;{{followers_count}}</button>
+              </div>
+              <div class="form-group">
+                     <button class="button-post" v-on:click="button_post_action"> Posts &emsp;&emsp;&emsp; &nbsp; &nbsp;&nbsp;&emsp;&emsp;&emsp;&emsp;&emsp;{{post_count}}</button>
+              </div>
+              <div class="form-group">
+                     <button class="button-activity" v-on:click="buttonActivityAction"> Activity <b-icon  icon="graph-up" class="graph-up"></b-icon> </button>
+              </div>
+        </div>
+
+   </div>
+</div>
+<div class="end"></div>
 </body>
 </template>
 
 <script>
+import axios from "axios";
+import CreatePostSection from '../createPost/CreatePostSection.vue'
+import HomePageNavBar from '../homePage/HomePageNavBar.vue'
+import Activity from './Activity.vue'
+import Followers from './Followers.vue'
+import ViewPostCard from '../general/ViewPostCard.vue'
+import Browser from '../../mocks/browser'
+
 export default {
-  name: 'CreatedBlog',
-  /*  created: function () {
-    this.document.body.style.backgroundColor ="#001935";
-  },
-  destroyed: function () {
-    this.document.body.style.backgroundColor = null;
-  },*/
+  name: 'CreatedBlogPage',
+
   props: {
+    Username:String,
+    Title:String,
+    blogId:String 
 },
+  components: {  
+  CreatePostSection,
+  HomePageNavBar,
+  Activity ,
+  Followers,
+  ViewPostCard,
+  },
   methods: {
- 
+ button_follower_action(){
+    this.followers_flag=true;
+    this.post_flag=false;
+    this.activityFlag=false;
+
+ },
+ button_post_action(){
+     this.post_flag=true;
+     this.followers_flag=false;
+     this.activityFlag=false;
+
+ },
+ buttonActivityAction(){
+     this.post_flag=false;
+     this.followers_flag=false;
+     this.activityFlag=true
+ },
+inc_followers_count(){
+
+    this.followers_count++;
+},
+threeDotsHandler(){
+    if(this.threeDotsFlag)this.threeDotsFlag=false;
+    else this.threeDotsFlag=true;
+},
+ /*async getInfo() {
+ try {
+         await axios.get(Browser().baseURL+`/user/new/blog`
+         ,
+         { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
+         ).then(res => {
+            this.Username=res.data.name;
+            this.Title=res.data.title;
+          })
+    } catch (e) {
+      console.error(e);
+    }
+ }*/
+    /*created: function(){
+        this.getInfo();
+    },*/
  },
   data(){
     return{  
+        followers_count:0,
+        post_count:0,
+        followers_flag:false,
+        post_flag:false,
+        followers:[],
+        posts:[],
+        image:" ",
+        threeDotsFlag:false,
+        activityFlag:false,
+        searchFollower:" ",
+        postCardWidth:"540px",
+
     }
   },
+
+
+
+  /*async created(){
+
+        try {
+         await axios.get(Browser().baseURL+`/blog/followers/${this.blogId}`
+         ,
+         
+          { headers: { 'Authorization':`Bearer ${localStorage.getItem('token')}` } })
+          .then(res => {            
+           this.followers = res.data.followers;//object of eh?
+           this.followers_count = this.followers.length;
+            //this.posts= res.data.posts; 
+            //this.post_count=this.posts.length;    
+            //this.blogId=??to be sent to followers       
+          })
+    } catch (e) {
+      console.error(e);
+    }
+        
+
+  },*/
+    /*async created(){
+      try {
+      
+         await axios.get(Browser().baseURL+`/blog/${this.blogId}/getBlogPosts`,
+         { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
+         ).then(res => {
+            this.posts = res.data.postsToShow;
+            console.log("myyyyyyyyyyyy postsssssssssssssss")
+            console.log(res.data)
+       
+          })
+    } catch (e) {
+      console.error(e);
+    }
+  }*/
 }
+
+
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-#main{
-    background-color: #001935;
+.button-follower{
+ background-color:#001935;
+ color: white;
+}
+.button-post{
+ background-color:#001935;
+ color: white;
+}
+.button-activity{
+background-color:#001935;
+ color: white;
+}
+.button-test-follower{
+ background-color:#001935;
+ color: white;  
+}
+.button-test-draft{
+ background-color:#001935;
+ color: white; 
+}
+
+
+.end{
+    height: 700px;
+}
+#p1{
+color: seashell;
+}
+#p2{
+color: seashell;
+}
+.follower-search{
+    position: relative;
+    left:530px;
+    top:-40px;
+    color:white;
+    background-color: rgb(90, 81, 114);
+}
+.f_names{
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px;
+}
+.pst{
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px;
+  position: relative;
+  left: 120px;
+}
+.names_list{
+  margin: 0px;
+}
+.follower_names{
+  margin: 0px;
+  padding: 10px;
+  background-color: white;
+  border-radius: 10px;
+}
+.posts_list{
+  margin: 0px;
+  padding: 5px;
+
+
+}
+.Posts{
+    position: relative;
+    left:100px;
     top:-20px;
 }
-.posts{
-    width: 550px;
-    border: 5px solid ;
-    padding: 50px;
-    margin: 100px;
-    background-color:rgba(111, 111, 122, 0.795);
-    height: 350PX;
-    position: relative;
-    left:300px;
-    top: 170px;
+.imggg{
+      border-radius: 8px;
+      width: 50px;
+      position: relative;
+      top:20px;
+      left: 5px;
 }
-p1{
-    font-size: 30px;
-    color: darkturquoise;
-    position: relative;
-    top: 90px;
-    left:130px;
+.imgggg{
+      border-radius: 8px;
+      width: 800px;
+      position: relative;
+      top:0px;
+      left: 0px;
+
 }
-p2{
-    font-size: 15px;
-    color: darkturquoise;
-    position: relative;
-    top: 90px;
-    left:130px;
+.pp{
+      border-radius: 0px;
+      width: 100px;
+      height: 60px;
+      position: relative;
+      top:00px;
+      left: 00px;
 }
-.features{
-    width: 300px;
-    border: 5px solid ;
-    margin: 150px;
-    border-block-color:rgba(9, 9, 17, 0.795) ;
-    padding: 50px;
-    background-color:#001935;
-    height: 530PX;
-    position: relative;
-    top: -450px;
-    left:850px;
+
+.username-post{
+  font-weight: bold;
+  position: relative;
+  top:0px;
+  left: 10px;
 }
-#button-posts{
-    color: white;
-    font-size: 25px;
+
+
+.three-dots-post{
     position: relative;
-    top:40px;
-    left:-50px;
-    border: none;
-    background-color: #001935;
+    left: 550px;
+    top:-15px;
+
 }
-#button-followers{
-    color: white;
-    font-size: 25px;
-    position: relative;
-    top: 60px;
-    left:-50px;
-    border: none;
-    background-color: #001935;
+.three-dots-box-posts{
+  position: relative;
+  left: 650px;
+  top:-420px;
+  background-color: white;
+  border-style: solid white ;
+  width: 100px;
+  height: 80px;
 }
-#button-activity{
-    color: white;
-    font-size: 25px;
-    position: relative;
-    top: 80px;
-    left:-50px;
-    border: none;
-    background-color: #001935;
+
+.postss{
+  position: relative;
+  top: 100px;
+
 }
-#button-members{
-    color: white;
-    position: relative;
-    font-size: 25px;
-    top: 100px;
-    left:-50px;
-    border: none;
-    background-color: #001935;
+.cls{
+  position: relative;
+  top: 10px;
+  left:10px;
+  font-weight: bold;
+
 }
-#button-drafts{
-    color: white;
-    position: relative;
-    font-size: 25px;
-    top: 120px;
-    left:-50Px;
-    border: none;
-    background-color: #001935;
+.cpy{
+  position: relative;
+  top: 10px;
+  left:00px;
+  font-weight: bold;
+
 }
-#button-queue{
-    color: white;
-    position: relative;
-    top: 150px;
-    font-size: 25px;
-    left:-45px;
-    border: none;
-    background-color: #001935;
+.comment{
+  position: relative;
+  top:0px;
+  left: 00px;
 }
-#button-edit-appearance{
-    color: white;
-    position: relative;
-    font-size: 25px;
-    top: 180px;
-    left:-45px;
-    border: none;
-    background-color: #001935;
+.note{
+  position: relative;
+  top:0px;
+  left: 00px;
+  color: darkseagreen;
 }
-/*#button-mass-post-editor{
-    color: white;
-    font-size: 25px;
-    position: relative;
-    top: 310px;
-    left:-50px;
-    border: none;
-    background-color: #001935;
-}*/
-body {
-  background-color:"#001935";
+.box{
+  position: relative;
+  top:0px;
+  background-color: white;
+  color:black;
+  border-style: solid ;
+}
+.graph-up{
+  position: relative;
+  left:130px ;
+}
+#u{
+color: white;
+font-size: 20px;
+}
+#t{
+color: rgb(201, 180, 180);
+position: relative;
+top:-10px;
 }
 </style>

@@ -87,6 +87,7 @@
 import { Editor, EditorContent, BubbleMenu } from "@tiptap/vue-2";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
+import Paragraph from "@tiptap/extension-paragraph";
 
 /**
  *  Create rich text editor
@@ -97,7 +98,6 @@ export default {
     EditorContent,
     BubbleMenu,
   },
-
   data() {
     return {
       editor: null,
@@ -108,18 +108,22 @@ export default {
       orderedListChosen: false,
       unorderedListChosen: false,
       blockQuoteChosen: false,
+      caption: "Add a caption, if you like",
     };
   },
-
   mounted() {
     this.editor = new Editor({
       extensions: [
         StarterKit,
         Placeholder.configure({
-          placeholder: "Your text here",
+          placeholder: this.caption,
+        }),
+        Paragraph.configure({
+          HTMLAttributes: {
+            class: "textClass",
+          },
         }),
       ],
-
       /**
        * Function to make sure that the editor empty when creating it
        * @public This is a public method
@@ -128,7 +132,6 @@ export default {
       onCreate() {
         this.editor = null;
       },
-
       /**
        * Function to know whenever something is written inside the editor (it removes any edited effects on the new text --> bold/italic..) and sends the content of this editor whether its empty or not to the create posts' components
        * @public This is a public method
@@ -150,19 +153,19 @@ export default {
             this.italicChosen = false;
             this.editor.chain().focus().toggleItalic().run();
           }
+          this.editor.commands.setContent("");
 
-          this.$emit("childToParent", null);
-        } else this.$emit("childToParent", editor.getHTML());
+          this.$emit("childToParent", "");
+        } else {
+          this.$emit("childToParent", editor.getHTML());
+          // console.log(editor.getHTML());
+        }
       },
-
       content: ``,
     });
   },
-
-
   methods: {
-
-     /**
+    /**
      * Function to make the selected text bold, and toggle its variable to be used in update method
      * @public This is a public method
      * @param {none}
@@ -171,8 +174,7 @@ export default {
       this.boldChosen = !this.boldChosen;
       this.editor.chain().focus().toggleBold().run();
     },
-
- /**
+    /**
      * Function to make the selected text italic, and toggle its variable to be used in update method
      * @public This is a public method
      * @param {none}
@@ -181,7 +183,7 @@ export default {
       this.italicChosen = !this.italicChosen;
       this.editor.chain().focus().toggleItalic().run();
     },
-     /**
+    /**
      * Function to make the selected text be headline, and toggle its variable to be used in update method, also makes sure that if the ordered or unordered list was chosen then will disable their effect
      * @public This is a public method
      * @param {none}
@@ -190,21 +192,17 @@ export default {
       if (this.orderedListChosen == true) {
         this.orderedListChosen = !this.orderedListChosen;
         this.unorderedListChosen = false;
-
         this.editor.chain().focus().toggleOrderedList().run();
       }
       if (this.unorderedListChosen == true) {
         this.unorderedListChosen = !this.unorderedListChosen;
         this.orderedListChosen = false;
-
         this.editor.chain().focus().toggleBulletList().run();
       }
-
       this.headingChosen = !this.headingChosen;
       this.editor.chain().focus().toggleHeading({ level: 3 }).run();
     },
-
-     /**
+    /**
      * Function to make the selected text striked
      * @public This is a public method
      * @param {none}
@@ -213,8 +211,7 @@ export default {
       this.strikeChosen = !this.strikeChosen;
       this.editor.chain().focus().toggleStrike().run();
     },
-
-     /**
+    /**
      * Function to make the selected text be ordered list, and toggle its variable also make the value of unordered list variable be false
      * @public This is a public method
      * @param {none}
@@ -222,11 +219,9 @@ export default {
     orderedListButton() {
       this.orderedListChosen = !this.orderedListChosen;
       this.unorderedListChosen = false;
-
       this.editor.chain().focus().toggleOrderedList().run();
     },
-
-/**
+    /**
      * Function to make the selected text be unordered list, and toggle its variable also make the value of ordered list variable be false
      * @public This is a public method
      * @param {none}
@@ -234,10 +229,8 @@ export default {
     unorderedListButton() {
       this.unorderedListChosen = !this.unorderedListChosen;
       this.orderedListChosen = false;
-
       this.editor.chain().focus().toggleBulletList().run();
     },
-
     /**
      * Function to make the selected text has block quote, and toggle its variable
      * @public This is a public method
@@ -251,13 +244,21 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 /* mhtaga ashel l scoped hena 3shan el outline yb2a b none  */
 .ProseMirror {
   outline: none;
-  cursor: text;
-  min-height: 100px;
+  /* max-width: 0vw; */
 }
+.ProseMirror p.textClass {
+  /* padding-top: 20px; */
+  padding-left: 5px;
+  outline: none;
+  cursor: text;
+  /* min-height: 100px; */
+  /* max-width: 27vw; */
+}
+
 .ProseMirror p.is-editor-empty::before {
   content: attr(data-placeholder);
   float: left;
@@ -265,7 +266,6 @@ export default {
   pointer-events: none;
   height: 0;
 }
-
 .editButtons {
   transition: background-color 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
   /* box-sizing: border-box; */
@@ -282,7 +282,6 @@ export default {
   margin: 0px 1px;
   white-space: nowrap;
 }
-
 .is-active {
   background-color: rgb(14, 177, 226);
 }

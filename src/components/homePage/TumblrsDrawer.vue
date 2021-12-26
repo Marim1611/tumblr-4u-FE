@@ -4,22 +4,28 @@
       id="blogDrawer"
       v-bind:width="600"
       v-bind:right="true"
-      v-model="showBlogDrawer"
+      v-model="postToBegin"
       app
     >
+   
+     <!--  this.tumblrsObj.coverImg?this.tumblrsObj.coverImg:coverDefaultPhoto -->
       <div
-        id="coverImg"
+        id="cover"
         v-bind:style="{
-          'background-image': 'url(' + this.tumblrsObj.coverImg + ')',
-          'background-size': '50vw 50vh',
+          'background-image': 'url(' +coverDefaultPhoto + ')',
+           
         }"
       >
+
+      
+            <b-row>
+            
         <nav id="navbar">
           <ul id="navbar">
             <div id="iconsDiv">
-              <li>
+             <li>
                 <b-icon
-                  v-on:click="showBlogDrawer = false"
+                  v-on:click="closeDrawer"
                   id="icon"
                   icon="x"
                   font-scale="2"
@@ -28,50 +34,99 @@
               </li>
 
               <li v-if="!isOpenSearch">
-                <div id="input_container">
-                  <!-- <div id='spacer'  class= "searchP"></div> -->
+                <div id="nameDiv" >
+                  <p   class="searchP">    {{ this.tumblrsObj.name }}  </p>
+                    
+        
+                
+                </div>
+              </li>
 
+              <li v-else>
+                <div >
+                  
+                  <input
+                    v-model.trim="inputValue"
+                    v-on:click="inputClicked = !inputClicked"
+                    class="dropdown-input"
+                    type="text"
+                    placeholder="Search"
+                  />
+                  <div v-if="!inputValue"  v-show="inputClicked"   v-bind:style="{
+                'background': homeTheme[homeThemeIndex].cardColor,
+              }">
+            <div
+             class="sub-menu"
+             id="searchList"
+          >
+              <p   
+             
+              v-bind:style="{
+                          color: homeTheme[homeThemeIndex].fontColor,
+                          'font-style': homeTheme[homeThemeIndex].fontStyle,
+                          'cursor':'pointer'
+                        }"
+            >
+              Popular tags
+            </p>
+            <p  v-for="item in popularTags"   v-bind:key="item.name"
+              v-bind:style="{
+                          color: homeTheme[homeThemeIndex].fontColor,
+                          'font-style': homeTheme[homeThemeIndex].fontStyle,
+                          'cursor':'pointer'
+                        }"
+            >
+              {{ item }}
+            </p>
+          </div>
+        </div>
+        <div v-else   v-bind:style="{
+                'background': homeTheme[homeThemeIndex].cardColor }">
+                  <div
+             class="sub-menu"
+             id="searchList"
+          >
+              <p   
+             
+              v-bind:style="{
+                          color: homeTheme[homeThemeIndex].fontColor,
+                          'font-style': homeTheme[homeThemeIndex].fontStyle,
+                          'cursor':'pointer'
+                        }"
+            >
+              Popular tags
+            </p>
+            <p   
+             v-for="item in popularTags"   v-bind:key="item.name"
+             v-show="itemVisible(item)"
+              v-bind:style="{
+                          color: homeTheme[homeThemeIndex].fontColor,
+                          'font-style': homeTheme[homeThemeIndex].fontStyle,
+                          'cursor':'pointer'
+                        }"
+            >
+              {{ item }}
+            </p>
+          </div>
+         
+          
+        </div>
+                </div>
+              </li>
+              <li>
+                <div v-if="!isOpenSearch" :style="{'width':'40px'}"></div>
+              </li>
+              <li>
                   <b-icon
                     class="searchP"
-                    v-on:click="isOpenSearch = true"
+                    v-on:click="isOpenSearch = !isOpenSearch"
                     id="icon"
                     icon="search"
                     font-scale="2"
                     aria-hidden="true"
                   ></b-icon>
-                  <v-spacer class="searchP"></v-spacer>
-                  <p
-                    class="searchP"
-                    v-bind:style="{
-                      color: 'white',
-                      'font-size': '20px',
-                      margin: '7px',
-                    }"
-                  >
-                    {{ this.tumblrsObj.name }}
-                  </p>
-                </div>
-              </li>
-
-              <!-- <li v-if="isOpenSearch">
-                </li> -->
-              <li v-else>
-                <div id="input_container">
-                  <b-icon
-                    v-on:click="isOpenSearch = false"
-                    id="iconS"
-                    icon="search"
-                    font-scale="1.5"
-                    aria-hidden="true"
-                  ></b-icon>
-
-                  <input
-                    v-model.trim="inputValue"
-                    class="dropdown-input"
-                    type="text"
-                    placeholder="Search"
-                  />
-                </div>
+                  
+                 
               </li>
               <li>
                 <b-icon
@@ -84,7 +139,7 @@
               <li>
                 <b-icon
                   id="icon"
-                  v-on:click="isOpenShare = !isOpenShare"
+                  v-on:click="toggleShare"
                   icon="reply-all-fill"
                   font-scale="2"
                   aria-hidden="true"
@@ -93,7 +148,7 @@
               <li>
                 <b-icon
                   id="icon"
-                  v-on:click="isOpendotted = !isOpendotted"
+                  v-on:click="toggleDotted"
                   icon="three-dots"
                   font-scale="2"
                   aria-hidden="true"
@@ -103,20 +158,22 @@
                     <b-icon id="icon" icon="three-dots" font-scale="2"  aria-hidden="true"></b-icon> 
                 </li> -->
               <li>
-                <v-btn v-on:click="toggleFollow" elevation="2">{{
+                <v-btn v-on:click="toggleFollow" elevation="2" small >{{
                   this.isFollow.status
                 }}</v-btn>
               </li>
             </div>
           </ul>
         </nav>
+        </b-row>
         <div class="menu-item">
           <transition name="fade" appear>
             <div
               class="sub-menu"
+              id="dottedList"
               v-if="isOpendotted"
               v-bind:style="{
-                'background-color': homeTheme[homeThemeIndex].cardColor,
+                'background': homeTheme[homeThemeIndex].cardColor,
               }"
             >
               <div v-for="(item, i) in dottedItems" :key="i" class="menu-item">
@@ -143,13 +200,15 @@
         <div class="menu-item-share">
           <transition name="fade" appear>
             <div
+           
               class="sub-menu-share"
               v-if="isOpenShare"
               v-bind:style="{
-                'background-color': homeTheme[homeThemeIndex].cardColor,
+                'background': homeTheme[homeThemeIndex].cardColor,
               }"
             >
               <div
+               id="shareList"
                 v-for="(item, i) in shareItems"
                 v-bind:key="i"
                 class="menu-item"
@@ -175,35 +234,40 @@
           </transition>
         </div>
         <div id="avatarDiv">
-          <div class="avatarStyle">
+           <div id="profileImg">
+            <img
+              class="imgshape"
+              :src="this.tumblrsObj.avatar?this.tumblrsObj.avatar:avatarDefaultPhoto"
+              alt="Avatar"
+            />
+          </div>
+          <!-- <div class="avatarStyle">
             <avatar
               username="Jane Doe"
-              v-bind:src="this.tumblrsObj.avatar"
+              v-bind:src="this.tumblrsObj.avatar?this.tumblrsObj.avatar:avatarPhoto"
               v-bind:size="100"
             ></avatar>
-          </div>
+          </div> -->
 
-          <p
-            v-bind:style="{
-              'font-size': '60px',
-              color: 'black',
-              'font-weight': 'bold',
-              margin: 'auto',
-              padding: 'auto',
-            }"
-          >
-            <!-- {{ this.tumblrsObj.name }} -->
-            {{ name }}
+          <p id="userName">
+          {{ this.tumblrsObj.name }}
           </p>
         </div>
+
+         <b-col id="postsList">
+            <div id="dashBoard" v-for="(post, i) in myPosts" :key="i">
+      <PostCard v-bind:post="post" v-bind:maxWidth="postCardWidth" />
+       </div>
+        </b-col>
       </div>
     </v-navigation-drawer>
   </div>
 </template>
 
 <script>
-import Avatar from "vue-avatar";
-import { fetchName } from '@/services/fetchers'
+import PostCard from "../general/ViewPostCard.vue";
+import axios from 'axios';
+import Browser from '../../mocks/browser'
 import Vue from "vue";
 /**
  *  TumblrDrawer with profile view of a tumblr user -not the current user- should appear when current user clicks on some user in the search drop down list
@@ -212,24 +276,46 @@ import Vue from "vue";
 export default {
   name: "TumblrDrawer",
   components: {
-    Avatar: Avatar,
+    PostCard:PostCard,
   },
   data: function () {
     return {
+      drawerIsClosed:false,
+      showBlogDrawer1:false,
+       postCardWidth:"540px",
       isFollow: { status: "Follow" },
       inputValue: "",
       name:"",
-      avatarPhoto:
+      avatarDefaultPhoto:
         "https://assets.tumblr.com/images/default_avatar/octahedron_closed_128.png",
+      coverDefaultPhoto:
+        "https://assets.tumblr.com/images/default_header/optica_pattern_05_focused_v3.png?_v=671444c5f47705cce40d8aefd23df3b1",
       isOpendotted: false,
       isOpenShare: false,
       isOpenSearch: false,
-      showBlogDrawer: true,
+      openPopularTags:false,
+      inputClicked:false,
+       myPosts:[],
       dottedItems: ["Archive", "Ask", "Report", "Block", "Close"],
       shareItems: ["Facebook", "Twitter"],
+      popularTags:["#art", "#crochet", "#baking", "#Block", "#Close","#art", "#crochet", "#baking"]
     };
   },
+ 
   methods: {
+      closeDrawer() {
+      this.$emit("closeDrawer", false);
+     
+    },
+    hideDrawer() {
+      this.showBlogDrawer1=this.showBlogDrawer;
+    },
+   
+     itemVisible(item) {
+      let currentName = item.toLowerCase();
+      let currentInput = this.inputValue.toLowerCase();
+      return currentName.includes(currentInput);
+    },
      /**
      * Function to toggle the follow button to follow or unfollow user in the drawer profile
      * @public This is a public method
@@ -241,8 +327,25 @@ export default {
       else if (this.isFollow.status == "Unfollow")
         Vue.set(this.isFollow, "status", "Follow");
     },
+    toggleShare(){
+      this.isOpenShare = !this.isOpenShare
+      this.isOpendotted=false
+    },
+     toggleDotted(){
+      this.isOpendotted = !this.isOpendotted
+      this.isOpenShare=false
+    },
+      
   },
   computed: {
+      postToBegin: {
+      get() {
+        return this.showBlogDrawer;
+      },
+      set(newVal) {
+        return newVal;
+      },
+      },
      /**
      * Function to get the home page color theme array from the store
      * @public This is a public method
@@ -259,37 +362,55 @@ export default {
     homeThemeIndex: function () {
       return this.$store.state.homeThemeIndex;
     },
+    //   dashBoardPosts: function () {
+    //   return this.$store.state.blogs;
+    // },
   },
   props: {
-    
+     showBlogDrawer: Boolean,
     tumblrsObj: Object,
   },
-   async created() {
-    try {
-      this.name = await fetchName()
+  async created(){
+      try {
+      
+         await axios.get(Browser().baseURL+`/blog/${this.tumblrsObj.id}/getBlogPosts`,
+         { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
+         ).then(res => {
+            this.myPosts = res.data.postsToShow;
+            console.log("myyyyyyyyyyyy postsssssssssssssss")
+            console.log(res.data)
+       
+          })
+    } catch (e) {
+      console.error(e);
     }
-    catch(error){
-      this.name = 'server error :('
-    }
+
   }
+    
   
 };
 </script>
 
 <style scoped>
+#cover{
+  max-width: 100%;
+  height: 300px;  
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover;
+  background-color: #464747;
+}
 #avatarDiv {
-  /* position: absolute; */
-  /* right: 30px; */
-  top: 50px;
-  /* justify-content: center; */
   display: flex;
   flex-direction: column;
   text-align: center;
-  /* padding: 0px 10px 0px 20px; */
   position: relative;
   justify-content: center;
-  /* margin: auto;
-  padding: auto; */
+  margin-top: 40px; 
+}
+#searchList{
+  overflow-y: scroll;
+  height: 140px;
 }
 .menu-item .sub-menu {
   position: absolute;
@@ -301,6 +422,10 @@ export default {
   transform: translateX(100%) translateY(-42%);
   width: max-content;
   border-radius: 5px;
+}
+#postsList{
+  margin-left: 10px;
+ 
 }
 .menu-item-share .sub-menu-share {
   position: absolute;
@@ -326,6 +451,9 @@ export default {
 #spacer {
   width: 300px;
 }
+#nameDiv{
+display: inline-block;
+}
 #icon {
   color: white;
   cursor: pointer;
@@ -336,6 +464,17 @@ export default {
   height: 20%;
   position: relative;
   display: flex;
+}
+#userName{
+  position: relative;
+   text-align: center;
+  font-size: 50px;
+  color: 'black';
+  font-weight: bold;
+  margin: auto;
+  padding: auto;
+  margin-left: 200px;
+              
 }
 #iconsDiv {
   display: flex;
@@ -367,14 +506,14 @@ li {
   border: none;
 
   direction: rtl;
-  width: 200px;
+  width: 100px;
 }
 .dropdown-input,
 .dropdown-selected {
   padding: 10px 10px;
   border-radius: 8px;
   opacity: 0.1;
-  width: 150px;
+  width: 135px;
   line-height: 1.5em;
   outline: none;
 }
@@ -398,14 +537,7 @@ li {
   opacity: 0.7;
   color: white;
 }
-#coverImage {
-  /* width: 600;
-  height: 300; */
-  background-repeat: no-repeat;
-  background-position: center;
-  /* text-align:center;
- padding:7px; */
-}
+ 
 #item {
   padding: 0px;
   margin: 0px;
@@ -413,8 +545,23 @@ li {
 }
 #item:hover {
   background: #464747;
+  cursor: pointer;
 }
-
+#profileImg {
+  text-align: center;
+  width: 110px;
+ 
+  margin: auto;
+  padding: auto;
+}
+.imgshape {
+  border-radius: 50%;
+  position: relative;
+  top: 5px;
+  border-style: solid;
+  border-width: 5px;
+  border-color: white;
+}
 .avatarStyle {
   width: 25px;
   margin: auto;
@@ -422,4 +569,12 @@ li {
   /* position: absolute; */
   /* right: 50%; */
 }
+.searchP{
+  
+  color: white;
+  font-size: 20px;
+  margin-left: 10px;
+                    
+}
+ 
 </style>

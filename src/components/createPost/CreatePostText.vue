@@ -5,41 +5,18 @@
   <!-- <b-icon
         id="icon"
         icon="gear-fill"  
-        class="border rounded p-2"
+        
         font-scale="1"
       ></b-icon> -->
   <!-- </div> -->
-  <md-dialog v-bind:md-active.sync="postToBegin">
+  <md-dialog v-bind:md-active.sync="postToBegin" v-on:keyup.esc="closeTextBox">
     <md-dialog-content>
       <!-- <md-dialog-title>mariemzayn22</md-dialog-title> -->
-      <v-textarea
-        name="input-7-1"
-        placeholder="Title"
-        auto-grow
-        rows="2"
-        ref="titleRefs"
-        v-model="postTitle"
-      ></v-textarea>
 
+      <CreatePostTitleEditor v-on:childToParent="onTitleClick" />
       <CreatePostTextEditor v-on:childToParent="onTextClick" />
       <input type="text" placeholder="#tags" id="theTags" />
       <md-divider></md-divider>
-      <!-- <v-divider /> -->
-      <!-- <div class="footerBtns">
-        <button class="closeBtn">Close</button>
-        <div class="postOptions">
-          <button></button>
-          <v-divider />
-        </div>
-      </div> -->
-
-      <!-- <md-dialog-actions> -->
-
-      <!-- <md-button class="closeBtn" v-on:click="closeTextBox">Close</md-button>
-        <md-button class="md-primary" v-on:click="textChosen = false"
-          >Save</md-button
-        > -->
-      <!-- </md-dialog-actions> -->
       <div class="footerBtns">
         <button class="closeBtn" v-on:click="closeTextBox">Close</button>
         <!-- <div class="postOptions"> -->
@@ -57,7 +34,7 @@
           <button>
             <b-icon
               icon="caret-down-fill"
-              class="border rounded p-2"
+              
               font-scale="1.2"
             ></b-icon>
           </button> -->
@@ -68,7 +45,11 @@
 </template>
 
 <script>
-import CreatePostTextEditor from "./CreatePostTextEditor.vue";
+import CreatePostTextEditor from "./editors/textEditor.vue";
+import CreatePostTitleEditor from "./editors/titleEditor.vue";
+import axios from "axios";
+import Browser from "../../mocks/browser";
+
 /**
  *  Create post for text
  * @example [none]
@@ -78,9 +59,9 @@ export default {
     textPost: Boolean,
   },
   components: {
-    CreatePostTextEditor: CreatePostTextEditor,
+    CreatePostTextEditor,
+    CreatePostTitleEditor,
   },
-
   data() {
     return {
       // postOptions: [
@@ -92,10 +73,9 @@ export default {
       // ],
       // selectedPostOption: "Post",
       autogrow: null,
-
       textChosen: this.textPost,
-      postContent: null,
-      postTitle: null,
+      postContent: "",
+      postTitle: "",
     };
   },
   methods: {
@@ -104,7 +84,6 @@ export default {
     //     event.target.options[event.target.options.selectedIndex];
     //   if (selectedIndex === 1) this.selectedPostOption = "Mariem";
     // },
-
     /**
      * Function to close the text upload section for create post
      * @public This is a public method
@@ -112,10 +91,9 @@ export default {
      */
     closeTextBox() {
       this.$emit("closeTextBox", false);
-      this.postContent = null;
-      this.postTitle = null;
+      this.postContent = "";
+      this.postTitle = "";
     },
-
     /**
      * Function to recieve the content written inside the post from the text editor file
      * @public This is a public method
@@ -125,17 +103,35 @@ export default {
       this.postContent = content;
     },
 
+    onTitleClick(content) {
+      this.postTitle = content;
+    },
     /**
      * Function to publish the post and save its content
      * @public This is a public method
      * @param {none}
      */
-    postDone() {
-      console.log(this.$refs.titleRefs.$el.outerHTML);
-      // console.log(this.postContent);
+
+    postDone() {},
+    async postDone() {
+      try {
+        await axios
+          .post(Browser().baseURL + "/createPost", {
+            postHtml: this.postTitle + this.postContent,
+            type: "text",
+          })
+          .then((res) => {
+            this.$emit("closeTextBox", false);
+            this.postContent = "";
+            this.postTitle = "";
+            console.log(res.data);
+          });
+      } catch (e) {
+        console.log("^^^^^^^^^^^^^^^^^^");
+        console.error(e);
+      }
     },
   },
-
   computed: {
     /**
      * Function to know if the text upload post should appear or not
@@ -150,7 +146,6 @@ export default {
         return newVal;
       },
     },
-
     /**
      * Function to know if the post containing content to be displayed or not and activate or deactivate the post button according to this
      * @public This is a public method
@@ -158,49 +153,17 @@ export default {
      */
     disablePosting() {
       if (
-        this.postContent === null &&
-        (this.postTitle === null || this.postTitle === "")
-      )
+        (this.postContent === "" || this.postContent === null) &&
+        (this.postTitle === "" || this.postTitle === null)
+      ) {
         return true;
+      }
       return false;
     },
   },
 };
 </script>
-<style>
-.v-text-field.v-text-field--enclosed:not(.v-text-field--rounded)
-  > .v-input__control
-  > .v-input__slot,
-.v-text-field.v-text-field--enclosed .v-text-field__details {
-  padding: 0;
-}
-
-v-input:focus {
-  border: none;
-  outline: none;
-}
-.v-text-field.v-text-field--enclosed:not(.v-text-field--rounded) {
-  border-radius: 0;
-  outline: none;
-  border: none;
-  padding: 0;
-}
-
-.theme--light.v-text-field--filled > .v-input__control > .v-input__slot {
-  background: white;
-  border: none;
-  padding: 0;
-}
-.v-textarea > textarea {
-  max-width: 30vw;
-  font-size: 36px;
-  font-weight: 400;
-  outline: none;
-  border: none;
-  font-family: inherit;
-  resize: none;
-}
-
+<style scoped>
 .md-dialog .md-dialog-container {
   width: 30vw;
   min-height: 30vh;
@@ -209,24 +172,20 @@ v-input:focus {
 #header {
   display: flex;
 }
-
 input[type="text"] {
   cursor: text;
   border: none;
   outline: none;
 }
-
 .footerBtns {
   display: flex;
   flex-direction: row;
 }
-
 .footerBtns button {
   border: none;
   border-radius: 1.9px;
   margin-top: 10px;
   padding: 5px 7px;
-
   font-weight: 700;
 }
 .postOptions {
@@ -234,11 +193,9 @@ input[type="text"] {
   margin-top: 10px;
   display: flex;
   flex-direction: row;
-
   position: absolute;
   right: 24px;
 }
-
 .nonDisabledBtn {
   background-color: #00b8ff;
   position: absolute;
@@ -253,7 +210,6 @@ input[type="text"] {
   cursor: pointer;
   font-size: 13px;
 }
-
 .disabledBtn {
   background-color: #00b8ff;
   position: absolute;
