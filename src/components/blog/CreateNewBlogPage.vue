@@ -1,71 +1,81 @@
 <template>
 <body style="background-color:#001935;">
       <HomePageNavBar/>
-<b-container class="bv-example-row box" >
-          <h1> create a new blog </h1>
-      <p1> This additional blog can be managed by multiple authors or set to private.<br />
-        Note: If you want to Like posts or Follow other users with this blog identity, you must log out and create a separate account.<br />
-        Learn more about Primary vs. Secondary blog features here. </p1>
-
-  <b-row class="row-handler">
-    <b-col cols="1" class="col1-handler">
-      <h class="h11">  Title <br /></h>
-      <h   class="h11">  URL  <br /></h>
-      <h   class="h11">  Privacy  <br /></h>
-         <v-btn class="button-create"  v-if="!router_flag"  @click="go_validations" >create blog</v-btn>
-                <router-link v-else to="/blog/created" >  </router-link>
-
-    </b-col>
-    <b-col cols="8">
-        <form class="the-form" >
-            <div class="form-group">
-                <p v-if="!isHidden_title" class=err_title>error: you must fill the title</p>
-    <input type="text"  v-model="title" class="form-control titlee border border-secondary"  placeholder="title " >
-
-            </div>
-            <div class="form-group">
-                        <p v-if="!isHidden_url" class=err_url >error: you must fill the url</p>
-                         <p v-if="!special_char_detected" class=special_char >special char not permitted</p>
-        <input type="text" v-model="url" class="form-control urll border border-secondary "   placeholder="url" >
-    
-            </div>
-                <div class="form-group">
-                    <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1"  v-on:change="access_privacy()">
-                    <label class="form-check-label" for="exampleCheck1">Password protect this blog</label>
+<div class="container" >
+  <div class="form">
+    <div class="row">
+      <div class="col-1"></div>
+      <div class="col-11">
+          <h1 class="h1"> Create a new blog </h1>
+          <p class="p1"> This additional blog can be managed by multiple authors or set to private.<br />
+              Note: If you want to Like posts or Follow other users with this blog identity, you must log out and create a separate account.<br />
+              Learn more about Primary vs. Secondary blog features. </p>
+        <div class="row" id="roww"> 
+              <div class="col-3" id="coll3">
+                  <p class="h11">  Title <br /></p>
+                  <p  class="h111">  URL  <br /></p>
+                  <p   class="h1111">  Privacy  <br /></p>
                 </div>
-                <input type="text" v-model="pass" class="form-control passwordd border border-secondary"  placeholder="password" :disabled="validated == 0">
-                 
+              <div class="col-6" >
+                  <div class="form2">
+                    <p v-if="!isHidden_title" class=err_title> you must fill the title</p>
+                    <input type="text"  v-model="title" class="form-control titlee border border-secondary"  placeholder="title " >
+                  </div>
+
+                  <div class="form3">
+                    <p v-if="!isHidden_url" class=err_url > you must fill the url</p>
+                    <p v-if="!special_char_detected" class=special_char >special char not permitted</p>
+                    <input type="text" v-model="url" class="form-control urll border border-secondary "   placeholder="url" >
+                  </div>
+
+                  <div class="form4">
+                    <div class="cb"><input type="checkbox" class="form-check-input" id="exampleCheck1"  v-on:change="access_privacy()">
+                    <label class="form-check-label" for="exampleCheck1">Password protect this blog</label></div>
+                    <input type="text" v-model="pass" class="form-control passwordd border border-secondary"  placeholder="password" :disabled="validated == 0">
+                  </div>
+
+                </div>
+              <div class="col-3">
+                <p class="pp">(ie. Acme Corp, Sara & Jacob, My Awesome Blog)</p>
+                <p class="pp">(you can change this at any time)</p>
+              </div>
+          </div>
+    </div><!--end row-->
+    <div class="row" id="roww2">
+            <div class="col-1"></div>
+            <div class="col-9">
+              <v-btn class="button-create"  @click="go_validations" >create blog</v-btn>
+              <!--<router-link to="/blog/created"   :disabled="!router_flag"
+                 v-bind:Username="url"
+                  v-bind:Title="title"
+                 >  </router-link>-->
 
             </div>
-        </form>
-    </b-col>
-    <b-col>
-            <p>ie. Acme Corp, Sara & Jacob, My Awesome Blog</p>
-            <p>
-                you can change this at any time
-            </p>
-       <v-btn class="button-cancel">cancel</v-btn>
+            <div class="col-2">
+            <router-link  to="/Home">
+             <v-btn class="button-cancel">cancel</v-btn>  
+            </router-link>
+            </div>
+    </div>
 
-    </b-col>
-  </b-row>
-
-</b-container>
+    </div>     
+  </div>
+</div>
 <div class="end"></div>
 </body>
 </template>
 
 <script>
-//import CreatedBlog from './CreatedBlogPage.vue'
 import HomePageNavBar from '../homePage/HomePageNavBar.vue'
 
 
 export default {
-  name: 'CreateBlog',
-    components: {
-  //'created-blog':CreatedBlog
-    HomePageNavBar 
+  name:'CreateBlog',
 
+    components: {
+    //CreatedBlogPage,
+    'HomePageNavBar':HomePageNavBar,
+   // HomePageNavBar: () => import('../homePage/HomePageNavBar.vue')
   },
   props: {
     
@@ -115,8 +125,17 @@ export default {
         this.isHidden_url=1;
         this.isHidden_title=1;
         this.special_char_detected=1;
-        this.router_flag=1;
-      }
+        this.router_flag=true;
+       /* if(this.pass!="")
+        this.privacy=true;
+        else this.privacy=false;
+        this.$store.commit('createBlog',{title,url,privacy,pass});*/
+
+        //router.push({ name: 'CreatedBlogPage', params: { Username: 'accca' } });
+        //this.$router.push({ path: '/blog/created', query: { Username: "this.url",Title:"this.title" }});//mesh sh8ala 3edel:)
+        this.$router.push('/blog/created');
+        console.log(this.url);
+        }
       
 
     }
@@ -132,7 +151,7 @@ export default {
       isHidden_url:1,
       special_char_detected:1,
       pass:"",
-      router_flag:0
+      router_flag:false
       //BE needs title,url,pass
     }
   }
@@ -141,75 +160,89 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.h11{
-    text-align: left;
-    color: rgb(160, 96, 96);
-    left:10px;
-    position: relative;
-    line-height: 2.5;
-    font-size: 25px;
-    top:-10px;
-    border:1px solid whitesmoke ;
-    margin: 15px;
-
-}
 .end{
-
     height: 600px;
+}
+.form{
+border-radius:20px;
+background-color: white;
+width:1000px;
+position: relative;
+left:60px;
+padding: 10px;
+}
+.h1{
+  color: black;
+}
+.p1{
+  color:black;
+}
+.form2{
+padding: 25px;
+}
+.form3{
+padding: 25px;
+}
+.form4{
+padding: 25px;
+}
+.cb{
+  padding: 10px;
+  position: relative;
+  left:15px
+}
+.h11{
+  padding: 25px;
+  color: rgb(81, 101, 102);
+  font-size: 25px;
+  text-align: right;
+}
+.h111{
+  padding: 25px;
+  color: rgb(81, 101, 102);
+  font-size: 25px;
+  text-align: right;
 
 }
-      /*
-      *make the form in shape of a box 
-      *@public
-      */ 
-.box{
-    background-color: white;
-    position: relative;
-    top: 100px;
-    border-radius: 25px;
-    border: 2px solid #73AD21;
-    height:550px;
+.h1111{
+  padding: 25px;
+  color: rgb(81, 101, 102);
+  font-size: 25px;
+  text-align: right;
+
+  }
+#coll3{
+  background-color: rgb(240, 236, 235);
 }
-.button-create{
-    position: relative;
-    top: 100px;
-    color: cornflowerblue;
+.pp{
+  padding: 11px;
 }
-.titlee{
-    border-color: black;
-}
-.urll{
-    border-color: black;
-}
-.password{
-    border-color: black;
-}
-.row-handler{
-    position: relative;
-    top: 40px;
+.ppp{
+  padding: 11px;
 }
 .button-cancel{
- position: relative;
-    top: 180px;
     color: cornflowerblue;
-    
+}
+.button-create{
+    color: cornflowerblue;
+}
+#roww1{
+padding:40px;
+}
+#roww2{
+padding:40px;
+
 }
 .err_title{
-font-size: 20px;
-color: red;
+  font-size: 20px;
+  color: red;
 }
 .err_url{
-font-size: 20px;
-color: red;
-}
-.form-group{
-    margin: 15px;
+  font-size: 20px;
+  color: red;
 }
 .special_char{
-    font-size: 20px;
-color: red;
+  font-size: 20px;
+  color: red;
 }
-/*.col1-handler{
-     margin: 15px;
-}*/
 </style>

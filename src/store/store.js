@@ -19,7 +19,7 @@ export const store = new Vuex.Store({
         password: "",
         blogname:"", 
         id:"",
-        
+        blogsId: [],
         },
         age:0,
         // we need to replace this with bodyColor in DB as each user has his theme color
@@ -28,11 +28,9 @@ export const store = new Vuex.Store({
         homeTheme: [ 
 
           {backgroundColor: '#001935',fontColor:'white', cardColor:'#5c7e97' ,fontColor2:'#1A314D', fontStyle: 'Helvetica', focused:'cyan',shadow:'rgb(163, 162, 162)'},
-          {backgroundColor: 'linear-gradient(to top left, #33ccff 0%, #ff99cc 100%)',fontColor:'white', cardColor:'linear-gradient(to bottom, #3399ff 0%, #ff99cc 100%)' ,fontColor2:'#1A314D', fontStyle: 'Helvetica', focused:'pink',shadow:'rgb(163, 162, 162)'},
-
-          {backgroundColor: 'black',fontColor:'lime', cardColor:'#222222',fontColor2:'black', fontStyle: 'Times New Roman',focused:'#64FF00',shadow:'#273224'},
           {backgroundColor: 'linear-gradient(to top right, #ffff99 0%, #ffcc99 100%)',fontColor:'#840000', cardColor:'linear-gradient(to top right, #ffff99 0%, #cc3300 100%)' ,fontColor2:'white', fontStyle: 'Helvetica', focused:'#840000',shadow:'rgb(163, 162, 162)'},
-
+          {backgroundColor: 'black',fontColor:'lime', cardColor:'#222222',fontColor2:'black', fontStyle: 'Times New Roman',focused:'#64FF00',shadow:'#273224'},
+          {backgroundColor: 'linear-gradient(to top left, #33ccff 0%, #ff99cc 100%)',fontColor:'white', cardColor:'linear-gradient(to bottom, #3399ff 0%, #ff99cc 100%)' ,fontColor2:'#1A314D', fontStyle: 'Helvetica', focused:'pink',shadow:'rgb(163, 162, 162)'},
           {backgroundColor: 'black',fontColor:'#ff6400', cardColor:'#221000', fontColor2:'black',fontStyle: 'Lucida Console', focused:'#ff6400',shadow:'#321600'},
           {backgroundColor: '#1A2735',fontColor:'#BFBFBF', cardColor:'#36465D', fontColor2:'#BFBFBF',fontStyle: 'Fantasy',focused:'#49A9EE',shadow:'#273224'},
           {backgroundColor: 'black',fontColor:'#CF43ED', cardColor:'#0C0C0C',fontColor2:'#CF43ED', fontStyle: 'Garamond',focused:'#CF43ED',shadow:'#16131b'}, 
@@ -239,11 +237,11 @@ export const store = new Vuex.Store({
     mutations: {
         updateField,
         async changePalette( state) {
-          
-            if (state.homeThemeIndex < 8){
+      
+            if (state.homeThemeIndex < 7){
                 state.homeThemeIndex+=1;
             }    
-         else if (state.homeThemeIndex >= 8){
+         else if (state.homeThemeIndex >= 7){
             state.homeThemeIndex=0;
          } 
          try {
@@ -258,8 +256,47 @@ export const store = new Vuex.Store({
        console.error(e);
      }
         },
+/*
+        async createBlog(state,{Title,name,privacy,Password}) {
+      
+       try {
+  
+        await axios.put( Browser().baseURL+'/user/new/blog/${state.user.id}',//userId=user.id?
+        {
+          Title:Title,
+          name:name,
+          privacy:privacy,
+          Password:Password
+         },
+        { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
+        ) 
+   } catch (e) {
+     console.error(e);
+   }
+      },*/
+
+     /* async follow(state,blogId) {
+      
+        try {
+   
+         await axios.put( Browser().baseURL+'/user/follow',
+         {
+          //blogId:this.blogId,
+          },
+         { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
+         ) 
+    } catch (e) {
+      console.error(e);
+    }
+       },*/
+
         updateBodyColor(state, newColor) {
           state.homeThemeIndex= newColor
+        },
+        setBlogIds(state, Ids) {
+          state.user.blogsId= Ids
+          console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+         console.log(state.user.blogsId)
         },
         
         auth_request(state){

@@ -76,8 +76,9 @@ export default {
   name: 'CreatedBlogPage',
 
   props: {
-    Username:String,
-    Title:String
+    //Username:String,
+    //Title:String,
+    blogId:String 
 },
   components: {  
   CreatePostSection,
@@ -111,8 +112,23 @@ inc_followers_count(){
 threeDotsHandler(){
     if(this.threeDotsFlag)this.threeDotsFlag=false;
     else this.threeDotsFlag=true;
-}
-
+},
+ /*async getInfo() {
+ try {
+         await axios.get(Browser().baseURL+`/user/new/blog`
+         ,
+         { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
+         ).then(res => {
+            this.Username=res.data.name;
+            this.Title=res.data.title;
+          })
+    } catch (e) {
+      console.error(e);
+    }
+ }*/
+    /*created: function(){
+        this.getInfo();
+    },*/
  },
   data(){
     return{  
@@ -126,28 +142,48 @@ threeDotsHandler(){
         threeDotsFlag:false,
         activityFlag:false,
         searchFollower:" ",
-        postCardWidth:"540px"
+        postCardWidth:"540px",
 
     }
   },
-  async created(){
+
+
+
+  /*async created(){
 
         try {
-    
-         await axios.get(Browser().baseURL+'/features').then(res => {
-            this.followers = res.data.followers;
-            this.posts= res.data.posts;
-            this.followers_count = this.followers.length;
-            this.post_count=this.posts.length;
-          //console.log(res.data)    
+         await axios.get(Browser().baseURL+`/blog/followers/${this.blogId}`
+         ,
+         
+          { headers: { 'Authorization':`Bearer ${localStorage.getItem('token')}` } })
+          .then(res => {            
+           this.followers = res.data.followers;//object of eh?
+           this.followers_count = this.followers.length;
+            //this.posts= res.data.posts; 
+            //this.post_count=this.posts.length;    
+            //this.blogId=??to be sent to followers       
           })
-        } catch (e) {
-            console.log("^^^^^^^^^^^^^^^^^^")
-        console.error(e);
-        }
+    } catch (e) {
+      console.error(e);
+    }
         
 
-  }
+  },*/
+    /*async created(){
+      try {
+      
+         await axios.get(Browser().baseURL+`/blog/${this.blogId}/getBlogPosts`,
+         { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
+         ).then(res => {
+            this.posts = res.data.postsToShow;
+            console.log("myyyyyyyyyyyy postsssssssssssssss")
+            console.log(res.data)
+       
+          })
+    } catch (e) {
+      console.error(e);
+    }
+  }*/
 }
 
 

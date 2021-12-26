@@ -44,7 +44,7 @@
             v-bind:key="i"
             class="dropdown-item"
           >
-            <img :src="item.img" class="dropdown-item-flag" />
+            <img :src="item.img?item.img:defaultImg" class="dropdown-item-flag" />
             <p
               v-bind:style="{
                 'font-style': homeTheme[homeThemeIndex].fontStyle,
@@ -89,14 +89,14 @@
             <p :style="{ 'font-size': '18px', margin: '10px' }">Tumblrs</p>
           </div>
           <div
-            v-on:click="openDrawer(item.name, item.img, item.coverImg)"
+            v-on:click="openDrawer(item.name, item.img, item.coverImg,item._id)"
             v-show="itemVisible(item.name)"
             v-for="item in usersInSearch"
             v-bind:key="item.name"
             class="dropdown-item"
           >
             <!-- <img :src="item.img" class="dropdown-item-flag" /> -->
-            <img :src="item.img" class="dropdown-item-flag" />
+            <img :src="item.img?item.img:avatarDefaultPhoto" class="dropdown-item-flag" />
             <!-- <div class="dropdown-item-flag">
  
        
@@ -134,7 +134,6 @@
 
 <script>
 import axios from 'axios';
- //import api from '../../api';
 import TumblrDrawer from "./TumblrsDrawer.vue";
 import Browser from '../../mocks/browser'
 //import Avatar from 'vue-avatar'
@@ -156,7 +155,10 @@ export default {
       usersInSearch: [],
       postsInSearch: [1,2,3],
       tags: [ ],
-    };
+       defaultImg:"https://static2.bigstockphoto.com/6/5/3/large1500/356358914.jpg",
+       avatarDefaultPhoto:
+        "https://assets.tumblr.com/images/default_avatar/octahedron_closed_128.png",
+     };
   },
   components: {
     TumblrDrawer: TumblrDrawer,
@@ -164,7 +166,6 @@ export default {
   },
   methods: {
     async getSearchLists(){
-      console.log("kkkkkaaaaaaaak")
       console.log(this.inputValue)
       try {
          await axios.get(Browser().baseURL+`/autoCompleteSearchDash/${this.inputValue}`,
@@ -176,12 +177,10 @@ export default {
     } catch (e) {
       console.error(e);
     }
-
     },
       closeDrawer: function (close) {
       // console.log(text);
             console.log("drqwer closse heree2");
-
       this.showBlogDrawer = close;
     },
     
@@ -218,37 +217,39 @@ export default {
      * @public This is a public method
      * @param {none}
      */
-    openDrawer(name, avatar, cover) {
+    openDrawer(name, avatar, cover,id) {
       console.log("why??????????")
       this.showBlogDrawer = true;
       Vue.set(this.tumblrsObj, "name", name);
       Vue.set(this.tumblrsObj, "coverImg", cover);
       Vue.set(this.tumblrsObj, "avatar", avatar);
+      Vue.set(this.tumblrsObj, "id", id);
     },
     async goToSearchPage()
     {
       //TODO: CHANGE IF INPUT IS EMPTY GO TO EXPLORE => RECOMMENDED FOR YOU
-         await axios.get(Browser().baseURL+`/autoCompleteSearchDash/${this.inputValue}`,
+      // if(Browser().baseURL ==)
+      // 
+      let myRoute=""
+         if (this.isMockServer(Browser().baseURL))
+         myRoute=Browser().baseURL+'/autoCompleteSearchDash'
+         else
+        myRoute= Browser().baseURL+`/autoCompleteSearchDash/${this.inputValue}`
+        console.log("myRoute")
+        console.log(myRoute)
+         await axios.get(myRoute,
           { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
          ).then(res => {
-           
-             
             this.postsInSearch= res.data.resultPostHashTag;
              console.log("postsInSearch")    
           console.log( this.postsInSearch)    
           }).catch((e)=>{
             console.log(e)
           })
-    
-      
       if (this.inputValue)
-  {
-     console.log(Browser().baseURL+'/autoCompleteSearchDash/')
-    console.log("gooooooooo to search")
-      console.log(this.postsInSearch)
-      
+  { console.log("PUSH???") 
+      console.log(this.postsInSearch) 
     this.$router.push({ name: 'autoCompleteSearchDash', params: {searchWord: this.inputValue, word: this.inputValue,dashBoardPosts:this.postsInSearch}})
-
   }
       
       // this.$router.push({ path: '/search', searchWord: this.inputValue }); 
@@ -271,7 +272,6 @@ export default {
       console.error(e);
     }
              this.$router.push({ name: 'autoCompleteSearchDash', params: {searchWord: tag, word: tag,dashBoardPosts:this.postsInSearch}})
-
     },
     async searchMe(interest){
         try {
@@ -288,6 +288,13 @@ export default {
     }
        this.$router.push({ name: 'autoCompleteSearchDash', params: {searchWord: interest, word: interest,dashBoardPosts:this.postsInSearch}})
     //this.$router.push({ name: 'autoCompleteSearchDash', params: {searchWord: interest, word: interest,dashBoardPosts:this.postsInSearch}})
+    },
+      isMockServer(baseUrl){
+     
+        if (baseUrl == "http://tumblr4u.eastus.cloudapp.azure.com:5000")
+          return false
+          else 
+          return true
     },
      
   },
@@ -310,11 +317,10 @@ export default {
      */
     homeThemeIndex: function () {
       return this.$store.state.homeThemeIndex;
-    },
+    } 
   },
   props: {
     // interestsList: Array
-
   },
     async created() {
     try {
@@ -422,7 +428,6 @@ export default {
   direction: rtl;
   width: 500px;
 }
-
 #icon {
   
   position: absolute;
