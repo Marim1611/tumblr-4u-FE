@@ -78,8 +78,7 @@ const routes = [
       {
         path: '/blog/created',
         name: 'CreatedBlogPage',
-        component:CreatedBlogPage
- 
+        component:CreatedBlogPage,
       },
       {
         path: '/autoCompleteSearchDash/:word',

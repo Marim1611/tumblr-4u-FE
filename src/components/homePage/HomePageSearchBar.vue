@@ -177,12 +177,10 @@ export default {
     } catch (e) {
       console.error(e);
     }
-
     },
       closeDrawer: function (close) {
       // console.log(text);
             console.log("drqwer closse heree2");
-
       this.showBlogDrawer = close;
     },
     
@@ -249,11 +247,9 @@ export default {
             console.log(e)
           })
       if (this.inputValue)
-
   { console.log("PUSH???") 
       console.log(this.postsInSearch) 
     this.$router.push({ name: 'autoCompleteSearchDash', params: {searchWord: this.inputValue, word: this.inputValue,dashBoardPosts:this.postsInSearch}})
-
   }
       
       // this.$router.push({ path: '/search', searchWord: this.inputValue }); 
@@ -276,7 +272,6 @@ export default {
       console.error(e);
     }
              this.$router.push({ name: 'autoCompleteSearchDash', params: {searchWord: tag, word: tag,dashBoardPosts:this.postsInSearch}})
-
     },
     async searchMe(interest){
         try {
@@ -326,7 +321,6 @@ export default {
   },
   props: {
     // interestsList: Array
-
   },
     async created() {
     try {
@@ -434,7 +428,6 @@ export default {
   direction: rtl;
   width: 500px;
 }
-
 #icon {
   
   position: absolute;
