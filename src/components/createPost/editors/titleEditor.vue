@@ -36,7 +36,6 @@ export default {
         }),
 
         Heading.configure({
-          levels: [1, 2, 3],
           HTMLAttributes: {
             class: "titleClass",
           },
@@ -54,7 +53,6 @@ export default {
           console.log("entered here")
           this.$emit("childToParent", "");
         } else {
-          editor.commands.toggleHeading({ level: 1 });
           // console.log(editor.getHTML());
           console.log("entered here 3")
         
