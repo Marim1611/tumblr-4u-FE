@@ -256,6 +256,40 @@ export const store = new Vuex.Store({
        console.error(e);
      }
         },
+/*
+        async createBlog(state,{Title,name,privacy,Password}) {
+      
+       try {
+  
+        await axios.put( Browser().baseURL+'/user/new/blog/${state.user.id}',//userId=user.id?
+        {
+          Title:Title,
+          name:name,
+          privacy:privacy,
+          Password:Password
+         },
+        { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
+        ) 
+   } catch (e) {
+     console.error(e);
+   }
+      },*/
+
+     /* async follow(state,blogId) {
+      
+        try {
+   
+         await axios.put( Browser().baseURL+'/user/follow',
+         {
+          //blogId:this.blogId,
+          },
+         { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
+         ) 
+    } catch (e) {
+      console.error(e);
+    }
+       },*/
+
         updateBodyColor(state, newColor) {
           state.homeThemeIndex= newColor
         },

@@ -56,7 +56,8 @@ export default {
   image: String,
   username: String,
   title: String,
-  followerFlag:Boolean
+  followerFlag:Boolean,
+  //bogId:String
 },
 methods:{
     threeDotsHandler(){
@@ -68,6 +69,8 @@ methods:{
 },
     follow(){
         this.followerFlag=!this.followerFlag;
+       //this.$store.commit('follow',blogId);
+
     }
 
 }

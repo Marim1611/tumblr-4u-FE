@@ -18,7 +18,8 @@ Vue.config.productionTip = false;
 Vue.use(IconsPlugin) 
 Vue.use(router)
 Vue.use(VueClipboard)  //for copy
- 
+import Chat from 'vue-beautiful-chat'
+Vue.use(Chat)
 
  
 
