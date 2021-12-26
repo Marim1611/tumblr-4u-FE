@@ -137,12 +137,12 @@ export default {
         else this.privacy=false;
          let myRoute=""
          if (this.isMockServer(Browser().baseURL))
-         myRoute= Browser().baseURL+`/user/new/blog`
+         myRoute= Browser().baseURL+'/user/new/blog'
          else
         myRoute= Browser().baseURL+`/user/new/blog/${this.getUserId}`
         try {
   
-        await axios.put( myRoute,//userId=user.id?
+        await axios.put( myRoute, 
         {
           Title:this.title,
           name:this.name,
@@ -158,6 +158,7 @@ export default {
 
         //router.push({ name: 'CreatedBlogPage', params: { Username: 'accca' } });
         //this.$router.push({ path: '/blog/created', query: { Username: "this.url",Title:"this.title" }});//mesh sh8ala 3edel:)
+        
         this.$router.push('/blog/created');
         console.log(this.url);
         }
