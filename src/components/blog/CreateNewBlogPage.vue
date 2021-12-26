@@ -139,7 +139,7 @@ export default {
          if (this.isMockServer(Browser().baseURL))
          myRoute= Browser().baseURL+`/user/new/blog`
          else
-        myRoute= Browser().baseURL+`/user/new/blog/${getUserId}`
+        myRoute= Browser().baseURL+`/user/new/blog/${this.getUserId}`
         try {
   
         await axios.put( myRoute,//userId=user.id?
