@@ -252,7 +252,7 @@ export default {
 
   { console.log("PUSH???") 
       console.log(this.postsInSearch) 
-    this.$router.push({ name: 'autoCompleteSearchDash', params: {searchWord: this.inputValue, word: this.inputValue,dashBoardPosts:this.postsInSearch}})
+    this.$router.push({ path:'/autoCompleteSearchDash',name: 'autoCompleteSearchDash', params: {searchWord: this.inputValue, word: this.inputValue,dashBoardPosts:this.postsInSearch}})
 
   }
       

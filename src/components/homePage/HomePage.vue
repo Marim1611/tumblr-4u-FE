@@ -2,64 +2,58 @@
   <div
     id="homeDiv"
     v-bind:style="{
-      'background': homeTheme[homeThemeIndex].backgroundColor,
+      background: homeTheme[homeThemeIndex].backgroundColor,
     }"
   >
     <MatchMedia query="(max-width: 1000px)" v-slot="{ matches }">
-      <div v-if="matches">
- <MobileNavBar />
-  <div id="dashBoard_mob" v-for="(post, i) in dashBoardPosts" :key="i">
-            <DashBoard v-bind:post="post" v-bind:maxWidth="postCardWidth"  />
-          </div>
-      </div>
-     
- <!-- web view -->
-      <div v-else>
-        <NavBar/>
-           <div
-            id="divider"
-            v-bind:style="{
-              'background': homeTheme[homeThemeIndex].fontColor,
-            }"
-          ></div>
-        <div id="myDashboard">
-       
-       <div id="leftPart">
-          <div id="homePageCreatePost">
-             <div class="avatarStyle"
-             v-on:click="openProfileDrawer=!openProfileDrawer">
-             
-              <avatar
-              username="Jane Doe"
-               v-bind:rounded=false
-              v-bind:src="userImg"
-              v-bind:size="70"
-            ></avatar>
-            </div>
-            <CreatePostSection />
-          </div>
-          
-          <div id="dashBoard" v-for="(post, i) in dashBoardPosts" :key="i">
-            <DashBoard v-bind:post="post" v-bind:maxWidth="postCardWidth"  />
-          </div>
-             <ProfileDrawer
-             v-show="openProfileDrawer"
-      v-bind:tumblrsObj="tumblrsObj"
-        v-bind:showBlogDrawer="openProfileDrawer"
-         v-on:closeDrawer="closeDrawer($event)"
-         />
-
-       </div>
-       <div id="rightPart">
-          <CheckBlogs/>
-          <Radar/>
-
-       </div>
-         
-
+      <div id="mobile" v-if="matches">
+        <MobileNavBar />
+        <div id="dashBoard_mob" v-for="(post, i) in dashBoardPosts" :key="i">
+          <DashBoard v-bind:post="post" v-bind:maxWidth="postCardWidth" />
         </div>
-     
-   
+      </div>
+
+      <!-- web view -->
+      <div v-else>
+        <NavBar />
+        <div
+          id="divider"
+          v-bind:style="{
+            background: homeTheme[homeThemeIndex].fontColor,
+          }"
+        ></div>
+        <div id="myDashboard">
+          <div id="leftPart">
+            <div id="homePageCreatePost">
+              <div
+                class="avatarStyle"
+                v-on:click="openProfileDrawer = !openProfileDrawer"
+              >
+                <avatar
+                  username="Jane Doe"
+                  v-bind:rounded="false"
+                  v-bind:src="userImg"
+                  v-bind:size="70"
+                ></avatar>
+              </div>
+              <CreatePostSection />
+            </div>
+
+            <div id="dashBoard" v-for="(post, i) in dashBoardPosts" :key="i">
+              <DashBoard v-bind:post="post" v-bind:maxWidth="postCardWidth" />
+            </div>
+            <ProfileDrawer
+              v-show="openProfileDrawer"
+              v-bind:tumblrsObj="tumblrsObj"
+              v-bind:showBlogDrawer="openProfileDrawer"
+              v-on:closeDrawer="closeDrawer($event)"
+            />
+          </div>
+          <div id="rightPart">
+            <CheckBlogs />
+            <Radar />
+          </div>
+        </div>
       </div>
     </MatchMedia>
   </div>
@@ -72,49 +66,52 @@ import NavBar from "./HomePageNavBar.vue";
 import CreatePostSection from "../createPost/CreatePostSection.vue";
 import DashBoard from "../general/ViewPostCard.vue";
 import Avatar from "vue-avatar";
-import ProfileDrawer from "../profile/ProfileDrawer.vue"
-import CheckBlogs from "../general/CheckOutBlogs.vue"
-import Browser from '../../mocks/browser'
-import axios from 'axios';
- 
-import Radar from "../general/Radar.vue"
- 
+import ProfileDrawer from "../profile/ProfileDrawer.vue";
+import CheckBlogs from "../general/CheckOutBlogs.vue";
+import Browser from "../../mocks/browser";
+import axios from "axios";
+
+import Radar from "../general/Radar.vue";
+
 /**
- *  Home page that contains dashboard and create post components 
+ *  Home page that contains dashboard and create post components
  * @example [none]
  */
 export default {
   name: "HomePage",
-  data : function () {
+  data: function () {
     return {
-     postCardWidth:"540px",
-     userImg:"https://assets.tumblr.com/images/default_avatar/octahedron_closed_96.png",
-     openProfileDrawer:false,
-      tumblrsObj: { 
-        id:"",
-        name: "", 
-      avatar: "",
-       coverImg: "https://assets.tumblr.com/images/default_header/optica_pattern_05_focused_v3.png?_v=671444c5f47705cce40d8aefd23df3b1" },
-     dashBoardPosts:[ ],
-    }
-  }, async created() {
-     
+      postCardWidth: "540px",
+      userImg:
+        "https://assets.tumblr.com/images/default_avatar/octahedron_closed_96.png",
+      openProfileDrawer: false,
+      tumblrsObj: {
+        id: "",
+        name: "",
+        avatar: "",
+        coverImg:
+          "https://assets.tumblr.com/images/default_header/optica_pattern_05_focused_v3.png?_v=671444c5f47705cce40d8aefd23df3b1",
+      },
+      dashBoardPosts: [],
+    };
+  },
+  async created() {
     try {
-         await axios.get( Browser().baseURL+'/dashboard',
-         { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
-         ).then(res => {
-            this.dashBoardPosts = res.data.res.postsToShow;
-            this.tumblrsObj.id=res.data.res.blog._id;
-            this.tumblrsObj.name=res.data.res.blog.name;
-            this.$store.commit('updateBodyColor', res.data.res.user.bodyColor); 
-              this.$store.commit('setBlogIds',res.data.res.user.blogsId);     
-          
-          })
+      await axios
+        .get(Browser().baseURL + "/dashboard", {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        })
+        .then((res) => {
+          this.dashBoardPosts = res.data.res.postsToShow;
+          this.tumblrsObj.id = res.data.res.blog._id;
+          this.tumblrsObj.name = res.data.res.blog.name;
+          this.$store.commit("updateBodyColor", res.data.res.user.bodyColor);
+          this.$store.commit("setBlogIds", res.data.res.user.blogsId);
+        });
     } catch (e) {
-           console.log("error in dashboard")
+      console.log("error in dashboard");
       console.error(e);
     }
-
   },
   components: {
     NavBar: NavBar,
@@ -122,10 +119,10 @@ export default {
     DashBoard: DashBoard,
     MobileNavBar: MobileNavBar,
     MatchMedia: MatchMedia,
-    Avatar:Avatar,
-    ProfileDrawer:ProfileDrawer,
-    CheckBlogs:CheckBlogs,
-    Radar:Radar
+    Avatar: Avatar,
+    ProfileDrawer: ProfileDrawer,
+    CheckBlogs: CheckBlogs,
+    Radar: Radar,
   },
   computed: {
     myToken: function () {
@@ -134,7 +131,7 @@ export default {
     homeTheme: function () {
       return this.$store.state.homeTheme;
     },
-     /**
+    /**
      * Function to get the home page colortheme Index from the store
      * @public This is a public method
      * @param {none}
@@ -142,23 +139,23 @@ export default {
     homeThemeIndex: function () {
       return this.$store.state.homeThemeIndex;
     },
-     /**
+    /**
      * Function to get post data from the store to show them in post card in the home page
      * @public This is a public method
      * @param {none}
      */
-   // dashBoardPosts: function () {
+    // dashBoardPosts: function () {
     //  return this.$store.state.blogs;
     //},
   },
-  methods:{
-     closeDrawer: function (close) {
+  methods: {
+    closeDrawer: function (close) {
       // console.log(text);
-            console.log("drqwer closse heree2");
+      console.log("drqwer closse heree2");
 
       this.openProfileDrawer = close;
     },
-  }
+  },
 };
 </script>
 
@@ -172,7 +169,7 @@ export default {
   height: 1px;
 }
 #dashBoard {
-  align-items: center;  
+  align-items: center;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -181,37 +178,34 @@ export default {
 
   /* background-color: red; */
 }
-#dashBoard_mob{
-    margin-bottom: 20px;
- 
+#dashBoard_mob {
+  display: inline-block;
+  margin: 0 auto;
+  padding: 3px;
 }
-#leftPart{
-   display: flex;
+#leftPart {
+  display: flex;
   flex-direction: column;
   justify-content: space-between;
   margin: 20px;
-
 }
-#rightPart{
-   display: flex;
+#rightPart {
+  display: flex;
   flex-direction: column;
-  justify-content:center;
+  justify-content: center;
   margin: 50px;
-  
-
 }
 #myDashboard {
   display: flex;
   flex-direction: row;
-   justify-content:space-between;
-    align-items: flex-start;
-  
+  justify-content: space-between;
+  align-items: flex-start;
 }
 #homePageCreatePost {
   width: 540px;
   display: flex;
   flex-direction: row;
-  padding:  30px 50px 50px 50px;
+  padding: 30px 50px 50px 50px;
   justify-content: center;
 }
 .avatarStyle {
@@ -219,10 +213,9 @@ export default {
   margin-right: 60px;
   cursor: pointer;
   padding: 0px 0px 0px 5px;
-    text-align: center;
- 
+  text-align: center;
 }
- 
+
 .imgshape {
   border-radius: 50%;
   position: relative;
