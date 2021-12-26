@@ -256,24 +256,24 @@ export const store = new Vuex.Store({
        console.error(e);
      }
         },
-/*
-        async createBlog(state,{Title,name,privacy,Password}) {
+
+  //       async createBlog(state,{Title,name,privacy,Password}) {
       
-       try {
+  //      try {
   
-        await axios.put( Browser().baseURL+'/user/new/blog/${state.user.id}',//userId=user.id?
-        {
-          Title:Title,
-          name:name,
-          privacy:privacy,
-          Password:Password
-         },
-        { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
-        ) 
-   } catch (e) {
-     console.error(e);
-   }
-      },*/
+  //       await axios.put( Browser().baseURL+'/user/new/blog/${state.user.id}',//userId=user.id?
+  //       {
+  //         Title:Title,
+  //         name:name,
+  //         privacy:privacy,
+  //         Password:Password
+  //        },
+  //       { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
+  //       ) 
+  //  } catch (e) {
+  //    console.error(e);
+  //  }
+  //     },
 
      /* async follow(state,blogId) {
       
@@ -295,8 +295,12 @@ export const store = new Vuex.Store({
         },
         setBlogIds(state, Ids) {
           state.user.blogsId= Ids
+           
+        },
+        setUserId(state, id) {
+          state.user.id= id
           console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-         console.log(state.user.blogsId)
+         console.log( state.user.id)
         },
         
         auth_request(state){

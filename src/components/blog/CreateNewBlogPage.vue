@@ -67,7 +67,8 @@
 
 <script>
 import HomePageNavBar from '../homePage/HomePageNavBar.vue'
-
+import axios from "axios";
+import Browser from '../../mocks/browser'
 
 export default {
   name:'CreateBlog',
@@ -79,6 +80,11 @@ export default {
   },
   props: {
     
+  },
+  computed:{
+      getUserId: function () {
+      return this.$store.state.user.id;
+    },
   },
   methods: {
       /*
@@ -93,15 +99,14 @@ export default {
         //delete text entered before
         this.pass="";
         this.validated=0;
-      }
-        
+      }    
     },
       /*
       *does not permit user to create a blog except he enters the title and 
       *url and url without special characters
       *@public
       */ 
-    go_validations(){
+    async go_validations(){
         var illegalChars = /[\W_]/; // allow only letters and numbers
       if(this.title==" " && this.url==" " ){
         this.isHidden_url=0;
@@ -126,10 +131,30 @@ export default {
         this.isHidden_title=1;
         this.special_char_detected=1;
         this.router_flag=true;
-       /* if(this.pass!="")
+        
+       if(this.pass!="")
         this.privacy=true;
         else this.privacy=false;
-        this.$store.commit('createBlog',{title,url,privacy,pass});*/
+         let myRoute=""
+         if (this.isMockServer(Browser().baseURL))
+         myRoute= Browser().baseURL+`/user/new/blog`
+         else
+        myRoute= Browser().baseURL+`/user/new/blog/${getUserId}`
+        try {
+  
+        await axios.put( myRoute,//userId=user.id?
+        {
+          Title:this.title,
+          name:this.name,
+          privacy:this.privacy,
+          Password:this.pass
+         },
+        { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
+        ) 
+   } catch (e) {
+     console.error(e);
+   }
+     
 
         //router.push({ name: 'CreatedBlogPage', params: { Username: 'accca' } });
         //this.$router.push({ path: '/blog/created', query: { Username: "this.url",Title:"this.title" }});//mesh sh8ala 3edel:)
@@ -138,7 +163,14 @@ export default {
         }
       
 
-    }
+    },
+     isMockServer(baseUrl){
+     
+        if (baseUrl == "http://tumblr4u.eastus.cloudapp.azure.com:5000")
+          return false
+          else 
+          return true
+    },
    
  },
   data(){

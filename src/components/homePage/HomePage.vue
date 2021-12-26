@@ -104,9 +104,10 @@ export default {
         .then((res) => {
           this.dashBoardPosts = res.data.res.postsToShow;
           this.tumblrsObj.id = res.data.res.blog._id;
-          this.tumblrsObj.name = res.data.res.blog.name;
+          this.tumblrsObj.name = res.data.res.blog.name;   
           this.$store.commit("updateBodyColor", res.data.res.user.bodyColor);
           this.$store.commit("setBlogIds", res.data.res.user.blogsId);
+            this.$store.commit("setUserId",res.data.res.user._id);
         });
     } catch (e) {
       console.log("error in dashboard");
