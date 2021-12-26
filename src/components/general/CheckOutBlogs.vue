@@ -69,12 +69,10 @@ export default {
       
        else if( status == "Unfollow")
        this.relatedBlogs[i].isFollow= "follow"
-
    },
    remove:function(i){
        this.relatedBlogs[i].show = false;
    }
-
   },
   data: function () {
     return {
@@ -130,7 +128,6 @@ export default {
 </script>
 
 <style scoped>
-
 .alignCenter{
     align-items: center;
 }
@@ -169,7 +166,6 @@ export default {
 #block{
     margin: 0px;
 }
-
 .sec:hover {
    cursor: pointer;
  
@@ -188,7 +184,6 @@ h5{
 .avatarStyle {
   width: 25px;
   margin: 10px 10px 20px 15px;
-
   padding: 0px 0px 0px 10px;
  
 }

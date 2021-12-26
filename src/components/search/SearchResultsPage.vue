@@ -169,7 +169,7 @@ export default {
       }
     },
      async created() {
-    console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")   
+    console.log("%%%%%%%%%%%results =>>>>>>>>>>%%%%%%%%%%%%%%%%%%%%")   
     console.log(this.searchWord)
     console.log(this.dashBoardPosts)
   },

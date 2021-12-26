@@ -2,7 +2,7 @@
   <div>
     <div
       class="createPost"
-      v-bind:style="{ 'background': homeTheme[homeThemeIndex].cardColor }"
+      v-bind:style="{ background: homeTheme[homeThemeIndex].cardColor }"
     >
       <ul>
         <li>
@@ -45,7 +45,6 @@
           </button>
         </li>
         <li>
- 
           <button v-on:click="quoteUpload">
             <button class="iconAnimation">
               <b-icon
@@ -54,7 +53,7 @@
                 font-scale="2.5"
               ></b-icon>
             </button>
- 
+
             <p
               v-bind:style="{
                 color: homeTheme[homeThemeIndex].fontColor,
@@ -66,8 +65,7 @@
           </button>
         </li>
         <li>
-          <button>
- 
+          <button v-on:click="linkUpload">
             <button class="iconAnimation">
               <b-icon
                 icon="link45deg"
@@ -77,7 +75,6 @@
               </b-icon>
             </button>
 
- 
             <p
               v-bind:style="{
                 color: homeTheme[homeThemeIndex].fontColor,
@@ -90,7 +87,6 @@
         </li>
         <li>
           <button>
- 
             <button class="iconAnimation">
               <b-icon
                 v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
@@ -98,7 +94,6 @@
                 font-scale="2.5"
               ></b-icon>
             </button>
- 
 
             <p
               v-bind:style="{
@@ -112,7 +107,6 @@
         </li>
         <li>
           <button>
- 
             <button class="iconAnimation">
               <b-icon
                 v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
@@ -120,7 +114,7 @@
                 font-scale="2.5"
               ></b-icon>
             </button>
- 
+
             <p
               v-bind:style="{
                 color: homeTheme[homeThemeIndex].fontColor,
@@ -133,7 +127,6 @@
         </li>
         <li>
           <button>
- 
             <button class="iconAnimation">
               <b-icon
                 v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
@@ -141,7 +134,7 @@
                 font-scale="2.5"
               ></b-icon>
             </button>
- 
+
             <p
               v-bind:style="{
                 color: homeTheme[homeThemeIndex].fontColor,
@@ -188,7 +181,18 @@
       v-on:closeTextBox="closeQuote($event)"
     >
     </CreatePostQuote>
-    
+
+    <CreatePostLink
+      v-bind:linkPost="linkChosen"
+      v-on:closeTextBox="closeLink($event)"
+    >
+    </CreatePostLink>
+
+    <!-- <CreatePostChat
+      v-bind:quotePost="chatChosen"
+      v-on:closeTextBox="closeChat($event)"
+    >
+    </CreatePostChat> -->
   </div>
 </template>
 
@@ -196,6 +200,8 @@
 import CreatePostImage from "./CreatePostImage.vue";
 import CreatePostText from "./CreatePostText.vue";
 import CreatePostQuote from "./CreatePostQuote.vue";
+//import CreatePostChat from "./CreatePostChat.vue";
+import CreatePostLink from "./CreatePostLinkPart.vue";
 /**
  *  Create post section
  * @example [none]
@@ -205,6 +211,8 @@ export default {
     CreatePostImage,
     CreatePostText,
     CreatePostQuote,
+    // CreatePostChat,
+    CreatePostLink,
   },
   data() {
     return {
@@ -213,6 +221,8 @@ export default {
       textChosen: false,
       imageChosen: false,
       quoteChosen: false,
+      chatChosen: false,
+      linkChosen: false,
       video: false,
       audio: false,
       link: false,
@@ -233,7 +243,7 @@ export default {
      * @public This is a public method
      * @param {none}
      */
-    textUpload: function () {
+    textUpload () {
       this.textChosen = true;
     },
     /**
@@ -254,7 +264,7 @@ export default {
      * @public This is a public method
      * @param {none}
      */
-    imageUpload: function () {
+    imageUpload() {
       this.imageChosen = true;
     },
     /**
@@ -262,19 +272,24 @@ export default {
      * @public This is a public method
      * @param {Boolean} imgClosed
      */
-    closeImage: function (imgClosed) {
+    closeImage(imgClosed) {
       this.imageChosen = imgClosed;
     },
- 
+
     // videoUpload: function () {
     //   this.video = true;
     // },
     // audioUpload: function () {
     //   this.audio = true;
     // },
-    // linkUpload: function () {
-    //   this.link = true;
-    // },
+    linkUpload() {
+      this.linkChosen = true;
+    },
+
+    closeLink(linkClosed) {
+      this.linkChosen = linkClosed;
+    },
+
     quoteUpload() {
       this.quoteChosen = true;
     },
@@ -299,7 +314,6 @@ export default {
 </script>
 
 <style scoped>
- 
 .createPost {
   display: flex;
   align-items: center;
@@ -331,8 +345,6 @@ li {
   flex-grow: 2;
   flex-shrink: 2;
   float: right;
-
- 
 }
 button {
   display: flex;
@@ -352,7 +364,6 @@ button {
   height: 100%;
   flex-grow: 4;
   flex-shrink: 4;
- 
 }
 p {
   margin: 0;

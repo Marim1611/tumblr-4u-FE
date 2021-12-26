@@ -246,7 +246,7 @@
            <div id="profileImg">
             <img
               class="imgshape"
-              :src="this.tumblrsObj.avatar"
+              :src="this.tumblrsObj.avatar?this.tumblrsObj.avatar:avatarPhoto"
               alt="Avatar"
             />
           </div>
@@ -260,7 +260,7 @@
         </div>
 
          <b-col id="postsList">
-            <div id="dashBoard" v-for="(post, i) in dashBoardPosts" :key="i">
+            <div id="dashBoard" v-for="(post, i) in myPosts" :key="i">
       <PostCard v-bind:post="post" v-bind:maxWidth="postCardWidth" />
        </div>
         </b-col>
@@ -271,7 +271,9 @@
 
 <script>
  
- import PostCard from "../general/ViewPostCard.vue";
+import PostCard from "../general/ViewPostCard.vue";
+import axios from 'axios';
+import Browser from '../../mocks/browser'
 import Vue from "vue";
 /**
  *  TumblrDrawer with profile view of a tumblr user -not the current user- should appear when current user clicks on some user in the search drop down list
@@ -297,9 +299,9 @@ export default {
       isOpenSearch: false,
       openPopularTags:false,
       inputClicked:false,
+      myPosts:[],
       dottedItems: ["Archive", "Following", "Close"],
       shareItems: ["Facebook", "Twitter"],
-
       popularTags:["#art", "#crochet", "#baking", "#Block", "#Close","#art", "#crochet", "#baking"]
     };
   },
@@ -343,6 +345,20 @@ export default {
       this.isOpendotted = false
        
     },
+     async created(){
+      try {
+      
+         await axios.get(Browser().baseURL+`/blog/${this.tumblrsObj.id}/getBlogPosts`,
+         { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
+         ).then(res => {
+            this.myPosts = res.data.postsToShow;
+       
+          })
+    } catch (e) {
+      console.error(e);
+    }
+
+  }
       
   },
   computed: {
@@ -369,10 +385,7 @@ export default {
      */
     homeThemeIndex: function () {
       return this.$store.state.homeThemeIndex;
-    },
-      dashBoardPosts: function () {
-      return this.$store.state.blogs;
-    },
+    }
   },
   props: {
      showBlogDrawer: Boolean,
@@ -390,6 +403,7 @@ export default {
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover;
+   background-color: #464747;
 }
 #profileImg {
   text-align: center;
@@ -399,7 +413,6 @@ export default {
   padding: auto;
 }
 .imgshape {
-  
   border-radius: 50%;
   position: relative;
   top: 5px;
@@ -409,17 +422,12 @@ export default {
 }
  
 #avatarDiv {
-  
-   
   display: flex;
   flex-direction: column;
   text-align: center;
   position: relative;
   justify-content: center;
-  margin-top: 40px;
-  
-  
-  
+  margin-top: 40px; 
 }
 #rightDiv{
   display: flex;
