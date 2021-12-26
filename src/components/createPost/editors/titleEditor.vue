@@ -1,5 +1,7 @@
 <template>
   <div>
+  <div>
+  </div>
     <EditorContent v-bind:editor="editor" />
   </div>
 </template>
@@ -9,6 +11,7 @@ import { Editor, EditorContent } from "@tiptap/vue-2";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
 import Heading from "@tiptap/extension-heading";
+import Paragraph from "@tiptap/extension-paragraph";
 
 export default {
   components: {
@@ -25,6 +28,11 @@ export default {
         StarterKit,
         Placeholder.configure({
           placeholder: "Title",
+        }),
+        Paragraph.configure({
+          HTMLAttributes: {
+            class: "placeholderTitleClass",
+          },
         }),
 
         Heading.configure({
