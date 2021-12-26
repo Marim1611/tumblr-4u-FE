@@ -47,12 +47,14 @@ export default {
 
       onUpdate: ({ editor }) => {
         if (editor.getText() == "") {
-          this.editor.commands.setContent();
+          this.editor.commands.setContent("");
+          console.log("entered here")
           this.$emit("childToParent", "");
         } else {
           editor.commands.setHeading({ level: 1 });
           // console.log(editor.getHTML());
-
+          console.log("entered here 2")
+        
           this.$emit("childToParent", editor.getHTML());
         }
       },
