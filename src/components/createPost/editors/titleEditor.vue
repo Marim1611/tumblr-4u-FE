@@ -48,6 +48,7 @@ export default {
       },
 
       onUpdate: ({ editor }) => {
+        try {
         if (editor.getText() == "") {
           this.editor.commands.setContent("");
           console.log("entered here")
@@ -58,7 +59,11 @@ export default {
           console.log("entered here 3")
         
           this.$emit("childToParent", editor.getHTML());
+        }  
+        } catch (error) {
+         console.log(error) 
         }
+        
       },
       content: ``,
     });
