@@ -1,5 +1,7 @@
 <template>
   <div>
+  <div>
+  </div>
     <EditorContent v-bind:editor="editor" />
   </div>
 </template>
@@ -34,7 +36,6 @@ export default {
         }),
 
         Heading.configure({
-          levels: [1, 2, 3],
           HTMLAttributes: {
             class: "titleClass",
           },
@@ -46,15 +47,21 @@ export default {
       },
 
       onUpdate: ({ editor }) => {
+        try {
         if (editor.getText() == "") {
-          this.editor.commands.setContent();
+          this.editor.commands.setContent("");
+          console.log("entered here")
           this.$emit("childToParent", "");
         } else {
-          editor.commands.setHeading({ level: 1 });
           // console.log(editor.getHTML());
-
+          console.log("entered here 3")
+        
           this.$emit("childToParent", editor.getHTML());
+        }  
+        } catch (error) {
+         console.log(error) 
         }
+        
       },
       content: ``,
     });

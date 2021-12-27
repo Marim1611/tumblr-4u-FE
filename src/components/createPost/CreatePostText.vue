@@ -112,7 +112,6 @@ export default {
      * @param {none}
      */
 
-    postDone() {},
     async postDone() {
       try {
         await axios
