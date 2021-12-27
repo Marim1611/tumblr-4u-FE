@@ -1,0 +1,30 @@
+{
+    "meta": {
+      "status": 200,
+      "msg": "OK"
+    },
+    "res": {
+      "message": "Blog Retrieved Successfully",
+      "data": {
+        "_id": "61ae81b91b9ee885f03a6866",
+        "title": "nour",
+        "url": "nour.tumblr.com",
+        "blockedBlogs": [],
+        "followers": ["61c25866ac0f82a2b0c763f6",
+        "61c25866ac0f82a2b0c763f6",
+      "61c25866ac0f82a2b0c763f6"],
+        "privacy": false,
+        "name": "name",
+        "updated": 0,
+        "description": "",
+        "img":"",
+        "password": "password",
+        "isBlockedFromPrimary": false,
+        "blogVisitor": 0,
+        "followedTags": [],
+        "postsIds": [],
+        "isDeleted": false,
+        "__v": 47
+      }
+    }
+  }

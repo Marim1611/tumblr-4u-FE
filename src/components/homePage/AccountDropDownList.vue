@@ -103,7 +103,7 @@
                      <div id="blogName">
                        
 <p id="pBlog" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle, 'margin':'auto 3px' }">{{ blog.name }} </p> 
-   <p v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle,'margin':'auto 3px' }">title </p>      
+   <p v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle,'margin':'auto 3px' }">{{ blog.title}} </p>      
                      
                      </div>
                      
@@ -143,6 +143,8 @@
 import Avatar from "vue-avatar";
 import KeyScDrawer from "./KeyboardShortcutsDrawer.vue"
 import LogoutDialog from "../general/LogoutDialog.vue"
+import Browser from "../../mocks/browser";
+import axios from "axios";
 
 /**
  *  AccountDropdownList is a drop down list appears when user clicks on account icon in the nav bar it shows list of options user will be able to click on all of them
@@ -180,7 +182,14 @@ export default {
      */
      toggleDropdown () {
       this.isOpen = !this.isOpen
-    }
+    },
+     isMockServer(baseUrl){
+     
+        if (baseUrl == "http://tumblr4u.eastus.cloudapp.azure.com:5000")
+          return false
+          else 
+          return true
+    },
     
     },
   data: function () {
@@ -190,19 +199,9 @@ export default {
        openKeyDrawer:false,
       openBlogFeatures:[], 
       defaultImg:"https://assets.tumblr.com/images/default_avatar/cone_closed_96.png",
-      blogs:[   
-              {
-                name: "crafts",
-                img:""              },
-              {
-                name: "embroidery",
-                img: "https://64.media.tumblr.com/497a6f202f642d914081723f42b3688c/tumblr_pocj2z2m6F1sst4ed_1280.jpg",
-              },
-              {
-                name: "crochet",
-                img: "https://64.media.tumblr.com/b9a38eb82f59f226df54f746e9ce1193/03dd693220f8205b-41/s640x960/54f78a4ffa63f468c6648ac14f0921b3c9fccb9a.jpg",
-              },
-                    ]  
+     // blog=> userId,followersIds,name,title,description
+      blogs:[]  ,
+     blogsId:[]  ,
     }
   },
   computed: {
@@ -227,24 +226,68 @@ export default {
      * @public This is a public method
      * @param {none}
      */
-        blogsId: function(){
-            return this.$store.state.user.blogsId;
-        },
+        //  blogsId: function(){
+          
+        //     return this.$store.state.user.blogsId;
+        // },
         
   },
-   mounted () {
+  async mounted () {
    
-    let blogNum=3;
-    for( let i =0; i< blogNum ; i++)
-    this.openBlogFeatures[i]=false;
+    // let blogNum=3;
+    // for( let i =0; i< blogNum ; i++)
+    // this.openBlogFeatures[i]=false;
+    
   },
-  created(){
+   async created(){
+   
+       this.blogsId=[
+         "61c25866ac0f82a2b0c763f6",
+                "61c258b6ac0f82a2b0c763fb",
+                "61c2ebd23135b522106a78fa",
+                "61c3487663d3cefff498217d"
+     ]   
+        console.log("blooooooooooooooooog")   
+ console.log(this.blogsId)
+     console.log(this.blogsId.length)   
+
+    for (let i =0; i < this.blogsId.length; i++)
+     {
+        let myRoute=""
+         if (this.isMockServer(Browser().baseURL))
+         myRoute= Browser().baseURL+'/blog'
+         else
+        myRoute= Browser().baseURL+`/blog/view/${this.blogsId[i]}`
+        console.log(myRoute)
+       try {
+         await axios.get(myRoute,
+          { headers: { 'Authorization':`Bearer ${localStorage.getItem('token')}` } })
+          .then(res => {    
+            this.blogs.push({
+          userId: res.data.res.data._id,
+           name: res.data.res.data.name,
+           title:res.data.res.data.title,
+           img:res.data.res.data.img,
+          followersIds: res.data.res.data.followers})  
+             
+          })
+    } catch (e) {
+      console.error(e);
+    }
+
+     }
+
+        
+        
+
+  },
+  // created(){
       
-    console.log(this.blogsId)
-     console.log(this.blogsId.length)
+  //   console.log(this.blogsId)
+  //    console.log(this.blogsId.length)
   
 
-  }
+  // }
   
   
 }

@@ -264,9 +264,9 @@
 
 <script>
 import PostCard from "../general/ViewPostCard.vue";
-import axios from 'axios';
-import Browser from '../../mocks/browser'
-import Vue from "vue";
+ import Vue from "vue";
+import Browser from "../../mocks/browser";
+import axios from "axios";
 /**
  *  TumblrDrawer with profile view of a tumblr user -not the current user- should appear when current user clicks on some user in the search drop down list
  * @example [none]
@@ -319,11 +319,40 @@ export default {
      * @public This is a public method
      * @param {none}
      */
-    toggleFollow() {
+  async toggleFollow() {
       if (this.isFollow.status == "Follow")
-        Vue.set(this.isFollow, "status", "Unfollow");
+      {
+  try {
+          await axios.post( Browser().baseURL+'/follow',
+         
+          {
+             blogId:  this.tumblrsObj.id,
+           },
+            { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } },
+          ) 
+     } catch (e) {
+       console.error(e);
+     }
+     Vue.set(this.isFollow, "status", "Unfollow");
+
+      }
+       
       else if (this.isFollow.status == "Unfollow")
-        Vue.set(this.isFollow, "status", "Follow");
+      {
+         try {
+          await axios.post( Browser().baseURL+'/unfollow',
+         
+          {
+             blogId:  this.tumblrsObj.id,
+           },
+            { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } },
+          ) 
+     } catch (e) {
+       console.error(e);
+     }
+      Vue.set(this.isFollow, "status", "Follow");
+      }
+       
     },
     toggleShare(){
       this.isOpenShare = !this.isOpenShare

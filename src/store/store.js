@@ -246,10 +246,11 @@ export const store = new Vuex.Store({
          } 
          try {
           await axios.put( Browser().baseURL+'/updateColor',
-          { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } },
           {
-             bodyColor:  state.homeThemeIndex,
-           }
+            bodyColor:  state.homeThemeIndex,
+          },
+          { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
+         
           ) 
      } catch (e) {
        console.error(e);
@@ -259,13 +260,15 @@ export const store = new Vuex.Store({
         updateBodyColor(state, newColor) {
           state.homeThemeIndex= newColor
         },
-        setBlogIds(state, Ids) {
+        async setBlogIds(state, Ids) {
           state.user.blogsId= Ids
+          console.log("%%blogs IDs %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+          console.log( state.user.blogsId)
            
         },
         setUserId(state, id) {
           state.user.id= id
-          console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+          console.log("%%%USER ID%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
          console.log( state.user.id)
         },
         

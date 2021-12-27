@@ -107,6 +107,8 @@ export default {
           this.tumblrsObj.name = res.data.res.blog.name;   
           this.$store.commit("updateBodyColor", res.data.res.user.bodyColor);
           this.$store.commit("setBlogIds", res.data.res.user.blogsId);
+          console.log("DASH BOARD ************************")
+          console.log(res.data.res.user.blogsId)
             this.$store.commit("setUserId",res.data.res.user._id);
         });
     } catch (e) {
