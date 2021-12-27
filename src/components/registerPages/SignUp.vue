@@ -18,7 +18,7 @@
             <div class="error" v-else-if="emptypassword">You forgot to enter your password!</div>
             <div class="error" v-else-if="emptyBlog">You forgot to enter your blog Name!</div>
             <div class="error" v-else-if="invalidEmail">That's not a valid email address. Please try again.</div>
-            <div class="error" v-else-if="invalidPassword">The password should be between 7 : 15 charachters.</div>
+            <div class="error" v-else-if="invalidPassword">The password should be between 7 : 15 character: numbers and letters including at least one capital letter.</div>
           
 
             <div class="mb-3">

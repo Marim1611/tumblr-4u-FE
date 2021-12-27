@@ -1,5 +1,5 @@
-
-[
+{
+  "ranBlogs":[
     {
       "_id": "61ae818964555d2f1df06ec9",
       "title": "nola cupcake",
@@ -8,6 +8,7 @@
       "followers": [],
       "privacy": false,
       "name": "name",
+      "img":"",
       "updated": 0,
       "description": "bakery",
       "password": "password",
@@ -26,6 +27,7 @@
       "followers": [],
       "privacy": false,
       "name": "name",
+      "img":"",
       "updated": 0,
       "description": "This is my Blog",
       "password": "password",
@@ -46,6 +48,7 @@
       "followers": [],
       "privacy": false,
       "name": "name",
+      "img":"",
       "updated": 0,
       "description": "",
       "password": "password",
@@ -64,6 +67,7 @@
       "followers": [],
       "privacy": false,
       "name": "name",
+      "img":"",
       "updated": 0,
       "description": "",
       "password": "password",
@@ -74,42 +78,8 @@
       "isDeleted": false,
       "__v": 47
     },
-    {
-      "_id": "61ae8279342e957ff1285593",
-      "title": "nour",
-      "url": "nour.tumblr.com",
-      "blockedBlogs": [],
-      "followers": [],
-      "privacy": false,
-      "name": "name",
-      "updated": 0,
-      "description": "",
-      "password": "password",
-      "isBlockedFromPrimary": false,
-      "blogVisitor": 0,
-      "followedTags": [],
-      "postsIds": [],
-      "isDeleted": false,
-      "__v": 47
-    },
-    {
-      "_id": "61ae840265141f932be75b1e",
-      "title": "nour",
-      "url": "nour.tumblr.com",
-      "blockedBlogs": [],
-      "followers": [],
-      "privacy": false,
-      "name": "name",
-      "updated": 0,
-      "description": "",
-      "password": "password",
-      "isBlockedFromPrimary": false,
-      "blogVisitor": 0,
-      "followedTags": [],
-      "postsIds": [],
-      "isDeleted": false,
-      "__v": 47
-    },
+    
+    
     {
       "_id": "61af3cbc37fd04d4cc754d93",
       "title": "nour",
@@ -118,42 +88,7 @@
       "followers": [],
       "privacy": false,
       "name": "name",
-      "updated": 0,
-      "description": "",
-      "password": "password",
-      "isBlockedFromPrimary": false,
-      "blogVisitor": 0,
-      "followedTags": [],
-      "postsIds": [],
-      "isDeleted": false,
-      "__v": 47
-    },
-    {
-      "_id": "61af3d1cfc999134e946fe3f",
-      "title": "nour",
-      "url": "nour.com",
-      "blockedBlogs": [],
-      "followers": [],
-      "privacy": false,
-      "name": "name",
-      "updated": 0,
-      "description": "",
-      "password": "password",
-      "isBlockedFromPrimary": false,
-      "blogVisitor": 0,
-      "followedTags": [],
-      "postsIds": [],
-      "isDeleted": false,
-      "__v": 47
-    },
-    {
-      "_id": "61af3d584b1417cb566271eb",
-      "title": "nour",
-      "url": "nour.com",
-      "blockedBlogs": [],
-      "followers": [],
-      "privacy": false,
-      "name": "name",
+      "img":"",
       "updated": 0,
       "description": "",
       "password": "password",
@@ -172,6 +107,7 @@
       "followers": [],
       "privacy": false,
       "name": "name",
+      "img":"",
       "updated": 0,
       "description": "",
       "password": "password",
@@ -183,3 +119,4 @@
       "__v": 47
     }
   ]
+}

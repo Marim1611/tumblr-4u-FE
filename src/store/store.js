@@ -19,6 +19,7 @@ export const store = new Vuex.Store({
         password: "",
         blogname:"", 
         id:"",
+        primaryBlogId:"",
         blogsId: [],
         },
         age:0,
@@ -256,6 +257,12 @@ export const store = new Vuex.Store({
        console.error(e);
      }
         },
+      setBrimaryBlogId(state, id){
+        state.user.primaryBlogId= id
+        console.log("%%%setBrimaryBlogId%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+       console.log( state.user.brimaryBlogId)
+
+      },
 
         updateBodyColor(state, newColor) {
           state.homeThemeIndex= newColor

@@ -110,6 +110,8 @@ export default {
           console.log("DASH BOARD ************************")
           console.log(res.data.res.user.blogsId)
             this.$store.commit("setUserId",res.data.res.user._id);
+            //setBrimaryBlogId
+                this.$store.commit("setBrimaryBlogId",res.data.res.blog._id);
         });
     } catch (e) {
       console.log("error in dashboard");
