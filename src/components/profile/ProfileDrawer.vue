@@ -18,8 +18,7 @@
       
             <b-row>
             
-        <nav id="navbar">
-          <ul id="navbar">
+        
             <div id="iconsDiv">
             
 
@@ -143,7 +142,6 @@
               <li>
                   <b-icon
                     class="searchP"
-                    v-on:click="isOpenSearch = !isOpenSearch"
                     id="icon"
                     icon="gear-fill"
                     font-scale="2"
@@ -169,8 +167,7 @@
                 </li> -->
               
             </div>
-          </ul>
-        </nav>
+         
         </b-row>
         <div class="menu-item">
           <transition name="fade" appear>
@@ -344,22 +341,13 @@ export default {
        if (item == "Close")
       this.isOpendotted = false
        
-    },
-     async created(){
-      try {
-      
-         await axios.get(Browser().baseURL+`/blog/${this.tumblrsObj.id}/getBlogPosts`,
-         { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
-         ).then(res => {
-            this.myPosts = res.data.postsToShow;
-       
-          })
-    } catch (e) {
-      console.error(e);
-    }
-
-  }
-      
+    }, isMockServer(baseUrl){
+     
+        if (baseUrl == "http://tumblr4u.eastus.cloudapp.azure.com:5000")
+          return false
+          else 
+          return true
+    },      
   },
   computed: {
       postToBegin: {
@@ -391,7 +379,25 @@ export default {
      showBlogDrawer: Boolean,
     tumblrsObj: Object,
   },
-    
+      async created(){
+         let myRoute=""
+         if (this.isMockServer(Browser().baseURL))
+         myRoute=Browser().baseURL+'/posts'
+         else
+        myRoute=Browser().baseURL+`/blog/${this.tumblrsObj.id}/getBlogPosts`
+      try {
+      
+         await axios.get(myRoute,
+         { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
+         ).then(res => {
+            this.myPosts = res.data.postsToShow;
+       
+          })
+    } catch (e) {
+      console.error(e);
+    }
+
+  }
   
 };
 </script>
@@ -506,6 +512,7 @@ display: inline-block;
   margin-left: 200px;
               
 }
+ 
 #iconsDiv {
   display: flex;
   flex-direction: row;

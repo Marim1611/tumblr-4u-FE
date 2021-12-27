@@ -19,9 +19,8 @@
 
       
             <b-row>
-            
-        <nav id="navbar">
-          <ul id="navbar">
+              
+       
             <div id="iconsDiv">
              <li>
                 <b-icon
@@ -163,8 +162,7 @@
                 }}</v-btn>
               </li>
             </div>
-          </ul>
-        </nav>
+        
         </b-row>
         <div class="menu-item">
           <transition name="fade" appear>
@@ -335,6 +333,13 @@ export default {
       this.isOpendotted = !this.isOpendotted
       this.isOpenShare=false
     },
+     isMockServer(baseUrl){
+     
+        if (baseUrl == "http://tumblr4u.eastus.cloudapp.azure.com:5000")
+          return false
+          else 
+          return true
+    },
       
   },
   computed: {
@@ -371,9 +376,14 @@ export default {
     tumblrsObj: Object,
   },
   async created(){
+     let myRoute=""
+         if (this.isMockServer(Browser().baseURL))
+         myRoute=Browser().baseURL+'/posts'
+         else
+        myRoute=Browser().baseURL+`/blog/${this.tumblrsObj.id}/getBlogPosts`
       try {
       
-         await axios.get(Browser().baseURL+`/blog/${this.tumblrsObj.id}/getBlogPosts`,
+         await axios.get(myRoute,
          { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
          ).then(res => {
             this.myPosts = res.data.postsToShow;
@@ -393,6 +403,8 @@ export default {
 
 <style scoped>
 #cover{
+  display: flex;
+  flex-direction: column;
   max-width: 100%;
   height: 300px;  
   background-position: center; /* Center the image */
@@ -464,6 +476,7 @@ display: inline-block;
   height: 20%;
   position: relative;
   display: flex;
+  flex-direction: row;
 }
 #userName{
   position: relative;
@@ -478,13 +491,15 @@ display: inline-block;
 }
 #iconsDiv {
   display: flex;
+  justify-content: center;
   flex-direction: row;
-  text-align: center;
+    height: 200px;
+  /* text-align: center;
   position: relative;
   flex-grow: 2;
-  flex-shrink: 2;
-  float: right;
-  height: 200px;
+  flex-shrink: 7;
+  float: right; */
+
 }
 ul {
   position: absolute;
