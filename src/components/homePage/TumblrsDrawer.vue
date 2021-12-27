@@ -157,7 +157,7 @@
                     <b-icon id="icon" icon="three-dots" font-scale="2"  aria-hidden="true"></b-icon> 
                 </li> -->
               <li>
-                <v-btn v-on:click="toggleFollow" elevation="2" small >{{
+                <v-btn v-if="!disableFollow" v-on:click="toggleFollow" elevation="2" small >{{
                   this.isFollow.status
                 }}</v-btn>
               </li>
@@ -319,7 +319,8 @@ export default {
      * @public This is a public method
      * @param {none}
      */
-  async toggleFollow() {
+  async toggleFollow() 
+  {
       if (this.isFollow.status == "Follow")
       {
   try {
@@ -380,6 +381,14 @@ export default {
         return newVal;
       },
       },
+       getDisableFollow: {
+      get() {
+        return this.disableFollow;
+      },
+      set(newVal) {
+        return newVal;
+      },
+      },
      /**
      * Function to get the home page color theme array from the store
      * @public This is a public method
@@ -403,6 +412,7 @@ export default {
   props: {
      showBlogDrawer: Boolean,
     tumblrsObj: Object,
+    disableFollow:Boolean
   },
   async created(){
      let myRoute=""

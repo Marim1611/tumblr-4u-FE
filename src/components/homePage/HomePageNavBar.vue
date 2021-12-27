@@ -165,6 +165,7 @@ export default {
 }
 .NavBarBrand{
     padding: 0 0 0 20px;
+    
      
 }
 .pen{
@@ -172,7 +173,7 @@ export default {
  margin-right:20px;
 }
 .NavBar{
-   
+   /* position: fixed;  */
     padding:4.5 4.3  4.5rem;
 }
 .NavBarBrand{

@@ -11,7 +11,8 @@
       <MobileNavBar v-if="matches" />
 
       <div v-else>
-        <NavBar />
+        <NavBar v-if="!this.out"/>
+        <Header v-else/>
         <div id="posts">
           <div
             id="divider"
@@ -103,6 +104,7 @@ import RelatedBlogs from "./ExploreRelatedBlogs.vue";
 import ExploreBar from "./ExploreBar";
 import ExploreCard from "./ExploreCard.vue";
 import Browser from '../../mocks/browser'
+import Header from '../registerPages/WelcomePageHeader.vue'
 import axios from 'axios';
 /**
  *  Home page that contains dashboard and create post compnents 
@@ -118,7 +120,8 @@ export default {
     FollowTags:FollowTags,
     RelatedBlogs: RelatedBlogs,
     ExploreBar: ExploreBar,
-    ExploreCard: ExploreCard
+    ExploreCard: ExploreCard,
+    Header:Header
   },
   async created() {
     try {
@@ -149,6 +152,14 @@ export default {
     }
   },
   computed: {
+    out: {
+      get() {
+        return this.isOut;
+      },
+      set(newVal) {
+        return newVal;
+      },
+    },
     homeTheme: function () {
       return this.$store.state.homeTheme;
     },
@@ -172,6 +183,9 @@ export default {
       return this.$store.state.exploreCards;
     }
   },
+  props:{
+    isOut:Boolean
+  }
 };
 </script>
 

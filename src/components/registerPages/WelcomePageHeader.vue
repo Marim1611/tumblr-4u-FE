@@ -9,9 +9,7 @@
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
         <b-collapse id="nav-collapse" is-nav>
             <b-navbar-nav>
-                <b-nav-form>
-                    <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
-                </b-nav-form>
+         <SearchBar/>
             </b-navbar-nav>
             <div class="NavBarRight">
                 <b-navbar-nav class="navButtons">
@@ -35,11 +33,17 @@
 
 </template>
 
+
 <script>
+import SearchBar from '../search/SearchBarOut.vue'
 export default {
   name: 'Header',
   props: {
     msg: String
+  },
+  components:{
+      SearchBar:SearchBar
+
   }
 }
 </script>

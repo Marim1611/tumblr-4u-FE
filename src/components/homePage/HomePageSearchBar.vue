@@ -254,6 +254,11 @@ export default {
       Vue.set(this.tumblrsObj, "avatar", avatar);
       Vue.set(this.tumblrsObj, "id", id);
     },
+     /**
+     * Function to  route to search results page when user typenn a word in search bar and click enter
+     * @public This is a public method
+     * @param {none}
+     */
     async goToSearchPage()
     {
       //TODO: CHANGE IF INPUT IS EMPTY GO TO EXPLORE => RECOMMENDED FOR YOU
@@ -381,7 +386,8 @@ export default {
 
 <style scoped>
 .dropdown {
-  position: relative;
+    
+position: relative;
   /* width: 100%;
   max-width: 600px; */
   /* display: inline; */

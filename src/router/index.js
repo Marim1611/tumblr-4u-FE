@@ -17,6 +17,7 @@ import Trending from '../components/registerPages/Trending'
 import Profile from '../components/profile/Profile.vue'
 import Interests from '../components/registerPages/InterestsPage'
 import Messaging from '../components/chat/MessagingMobileView.vue'
+import SearchResultsOut from '../components/search/SearchResultsOutside'
 Vue.use(VueRouter);
 const routes = [
   {
@@ -55,8 +56,9 @@ const routes = [
       
       {
         path: '/explore',
-        name: 'Explore',
-        component:Explore
+        name: 'explore',
+        component:Explore,
+        props: true
       },
       {
         path: '/dashBoard',
@@ -101,7 +103,13 @@ const routes = [
         path: '/messaging',
         name: 'messaging',
         component:Messaging
-      }
+      },
+      {
+        path: '/search/:word',
+        name: 'search',
+        component:SearchResultsOut,
+        props: true
+      },
       
   
       
