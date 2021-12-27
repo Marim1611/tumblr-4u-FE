@@ -8,7 +8,7 @@
     <MatchMedia query="(max-width: 1000px)" v-slot="{ matches }">
       <div id="mobile" v-if="matches">
         <MobileNavBar />
-        <div id="dashBoard_mob" v-for="(post, i) in dashBoardPosts" :key="i">
+        <div id="dashBoardM" v-for="(post, i) in dashBoardPosts" :key="i">
           <DashBoard v-bind:post="post" v-bind:maxWidth="postCardWidth" />
         </div>
       </div>
@@ -179,7 +179,7 @@ export default {
 
   /* background-color: red; */
 }
-#dashBoard_mob {
+#dashBoardM {
   display: inline-block;
   margin: 0 auto;
   padding: 3px;
@@ -224,5 +224,11 @@ export default {
   border-style: solid;
   border-width: 5px;
   border-color: white;
+}
+#mobile{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+ text-align: center;
 }
 </style>

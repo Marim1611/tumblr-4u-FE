@@ -18,7 +18,7 @@
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
         <b-collapse id="nav-collapse" is-nav>
             <b-navbar-nav>
-                 <SearchBar />
+                 <SearchBar v-bind:mobileView="false"/>
             </b-navbar-nav>
             <div class="iconsRight">
                 <b-navbar-nav class="navButtons">

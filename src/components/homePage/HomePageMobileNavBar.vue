@@ -183,7 +183,7 @@
      
        </div>
        <div v-show="showSearch">
-          <SearchBar/> 
+          <SearchBar v-bind:mobileView="true"/> 
        </div>
 
        <div id='spacer'></div>
@@ -198,7 +198,7 @@
 
 <script>
 import Avatar from "vue-avatar";
-import SearchBar  from './SearchBarMobileView.vue';
+import SearchBar from "./HomePageSearchBar.vue";
  /**
  *  Home page Navigation Bar for mobile view
  * @example [none]

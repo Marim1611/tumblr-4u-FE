@@ -48,7 +48,7 @@ destroyed: function() {
  this.$emit("hideMe", false);
   },
   goOut(){
-  // this.$router.push({ path : '/'})
+   localStorage.removeItem('token')
   this.$router.push( {name: 'Render'})
   
   }

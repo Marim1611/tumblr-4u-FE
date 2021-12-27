@@ -2,7 +2,7 @@
   <div>
     <div class="dropdown"
     >
-      <div
+      <div v-if="!mobileView"
         id="input_container"
         v-bind:style="{
           'background': homeTheme[homeThemeIndex].cardColor,
@@ -35,6 +35,25 @@
           }"
         />
       </div>
+       <div v-else id="searchBar">
+          <form id="search-form">
+    <div class="search"
+       >
+      <input type="text" name="search" class="round"
+         v-model.trim="inputValue"
+           autocomplete="off" 
+          v-on:keyup.enter="goToSearchPage"
+          v-on:click="isClicked = !isClicked"
+           @input="getSearchLists"
+          placeholder="Search Tumblr"
+       v-bind:style="{
+          'background': homeTheme[homeThemeIndex].cardColor,
+            }" />
+      
+    </div>
+</form>
+
+     </div>
       <!-- interests  -->
       <div v-on:click.prevent="toggleDropdown">
         <div v-if="!inputValue" v-show="isClicked" class="dropdown-list">
@@ -167,8 +186,13 @@ export default {
   methods: {
     async getSearchLists(){
       console.log(this.inputValue)
+       let myRoute=""
+         if (this.isMockServer(Browser().baseURL))
+         myRoute=Browser().baseURL+'/autoCompleteSearchDash'
+         else
+        myRoute= Browser().baseURL+`/autoCompleteSearchDash/${this.inputValue}`
       try {
-         await axios.get(Browser().baseURL+`/autoCompleteSearchDash/${this.inputValue}`,
+         await axios.get(myRoute,
          { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
          ).then(res => {
             this.usersInSearch = res.data.resultBlogs;
@@ -222,6 +246,9 @@ export default {
     openDrawer(name, avatar, cover,id) {
       console.log("why??????????")
       this.showBlogDrawer = true;
+      console.log( this.showBlogDrawer )
+       console.log(id )
+            console.log(name)
       Vue.set(this.tumblrsObj, "name", name);
       Vue.set(this.tumblrsObj, "coverImg", cover);
       Vue.set(this.tumblrsObj, "avatar", avatar);
@@ -237,8 +264,6 @@ export default {
          myRoute=Browser().baseURL+'/autoCompleteSearchDash'
          else
         myRoute= Browser().baseURL+`/autoCompleteSearchDash/${this.inputValue}`
-        console.log("myRoute")
-        console.log(myRoute)
          await axios.get(myRoute,
           { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
          ).then(res => {
@@ -249,26 +274,27 @@ export default {
             console.log(e)
           })
       if (this.inputValue)
-
-  { console.log("PUSH???") 
-      console.log(this.postsInSearch) 
+  {
     this.$router.push({ path:'/autoCompleteSearchDash',name: 'autoCompleteSearchDash', params: {searchWord: this.inputValue, word: this.inputValue,dashBoardPosts:this.postsInSearch}})
 
   }
+  else
+      this.$router.push({ path:'/explore' })
+
       
       // this.$router.push({ path: '/search', searchWord: this.inputValue }); 
        
     },
     async searchMeTag(tag){
+       let myRoute=""
+         if (this.isMockServer(Browser().baseURL))
+         myRoute=Browser().baseURL+'/autoCompleteSearchDash'
+         else
+        myRoute=Browser().baseURL+`/autoCompleteSearchDash/${tag}`
         try {
-         await axios.get(Browser().baseURL+`/autoCompleteSearchDash/${tag}`
-         ,
-         
+         await axios.get(myRoute  ,
           { headers: { 'Authorization':`Bearer ${localStorage.getItem('token')}` } })
           .then(res => {
-            console.log("##############TAG")
-       
-            
             this.postsInSearch = res.data.resultPostHashTag; 
                  console.log(this.postsInSearch )
           })
@@ -325,7 +351,7 @@ export default {
     } 
   },
   props: {
-    // interestsList: Array
+    mobileView:Boolean
 
   },
     async created() {
@@ -404,7 +430,7 @@ export default {
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
     0 4px 6px -2px rgba(0, 0, 0, 0.05);
   border-radius: 8px;
-  height: 300px;
+   
 }
 .dropdown-item {
   display: flex;
@@ -443,5 +469,27 @@ export default {
   width: 24px;
   height: 24px;
   
+}
+#searchBar{
+    margin-top:10px;
+      
+}
+.round {
+    width: 100%;
+    border-radius: 15px;
+    border: 1px #000 solid;
+    padding: 5px 5px 5px 25px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5;
+}
+.search {
+    position: relative;
+    width: 220px;
+    height: 30px;
+     
+    position: relative; 
+    margin: 20px;
 }
 </style>
