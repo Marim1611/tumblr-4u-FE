@@ -10,12 +10,12 @@
         
         <b-col></b-col>
 
-        <b-col col lg="3">
+        <b-col cols="3">
+          <div v-if="ageError" class="error">That is not a valid age</div>
           <form @submit.prevent="handel">
-          <input type="number" class="form-control"   placeholder="How old are you ?" v-model="Age">
-        <router-link to ='/getting_to_know_tumblr' >         
-           <button  class="btn btn-info btn-lg btn-block bb " type="submit">Sign up</button>
-       </router-link>
+          <input type="number" class="form-control"   placeholder="How old are you ?" v-model="Age">        
+           <button  class="btn btn-info btn-lg btn-block bb " type="submit">Next</button>
+
           
           </form>
           
@@ -46,19 +46,21 @@ export default {
    
   },
   data(){
-
     return{
       Age:0,
-       
-    }
-    
+      ageError:false, 
+    } 
   },
   methods:{
     handel(){
+      if(this.Age<=0){
+        this.ageError=true;
+      }
+      else{
       let age=this.Age
       this.$store.dispatch('signup',{age})
-      .then(()=>this.$router.push('/home'))
-      .catch(err=>alert(err))
+      .then(()=>this.$router.push('/getting_to_know_tumblr'))
+      }
     }
   }
 
@@ -80,6 +82,15 @@ export default {
   min-height: 100%; 
   width: 100%;
 
+}
+.error{
+    background: rgba(0,0,0,.25);
+    border-radius: 3px;
+    color: #fff;
+    font-size: .875rem;
+    font-weight: 400;
+    margin: 15px 0;
+    padding: 14px 15px;
 }
 .Main{
   text-align: center;
