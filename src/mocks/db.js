@@ -10,7 +10,12 @@ const imageUpload = require("./data/imageUpload.json");
 const getInterestsFromUser = require("./data/interests.json");
 const ranBlogs = require("./data/checkoutBlogs.json");
 const ranPosts = require("./data/randomPosts.json");
- 
+const notes = require("./data/notes.json"); 
+const like_press = require("./data/like_press.json")
+const comment = require("./data/comment.json")
+const blog = require("./data/blog.json")
+const reblog_post = require("./data/reblog_post.json")
+
 module.exports = () => ({
   profile,
   autoCompleteSearchDash,
@@ -22,5 +27,10 @@ module.exports = () => ({
   imageUpload,
   getInterestsFromUser,
   ranBlogs,
-  ranPosts
+  ranPosts,
+  notes,
+  like_press,
+  comment,
+  blog,
+  reblog_post
 });
