@@ -126,19 +126,43 @@ export default {
         this.isHidden_title=1;
         this.special_char_detected=1;
         this.router_flag=true;
-       /* if(this.pass!="")
+
+         /*if(this.pass!="")
         this.privacy=true;
         else this.privacy=false;
-        this.$store.commit('createBlog',{title,url,privacy,pass});*/
+         let myRoute=""
+         if (this.isMockServer(Browser().baseURL))
+         myRoute= Browser().baseURL+'/user/new/blog'
+         else
+        myRoute= Browser().baseURL+`/user/new/blog/${this.getUserId}`
+        try {
+  
+        await axios.put( myRoute, 
+        {
+          Title:this.title,
+          name:this.name,
+          privacy:this.privacy,
+          Password:this.pass
+         },
+        { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
+        ) 
+        } catch (e) {
+          console.error(e);
+        }*/
 
-        //router.push({ name: 'CreatedBlogPage', params: { Username: 'accca' } });
-        //this.$router.push({ path: '/blog/created', query: { Username: "this.url",Title:"this.title" }});//mesh sh8ala 3edel:)
-        this.$router.push('/blog/created');
+        this.$router.push({ name: 'CreatedBlogPage', params: { indxFlag: this.temp, noPostsFlag: this.tempFlag } });
         console.log(this.url);
         }
       
 
-    }
+    },
+         isMockServer(baseUrl){
+     
+        if (baseUrl == "http://tumblr4u.eastus.cloudapp.azure.com:5000")
+          return false
+          else 
+          return true
+    },
    
  },
   data(){
@@ -151,9 +175,10 @@ export default {
       isHidden_url:1,
       special_char_detected:1,
       pass:"",
-      router_flag:false
-      //BE needs title,url,pass
-    }
+      router_flag:false,
+      tempFlag:true,
+      temp:0
+}
   }
 }
 </script>

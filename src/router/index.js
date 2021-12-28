@@ -17,6 +17,8 @@ import Trending from '../components/registerPages/Trending'
 import Profile from '../components/profile/Profile.vue'
 import Interests from '../components/registerPages/InterestsPage'
 import Messaging from '../components/chat/MessagingMobileView.vue'
+import ChatBox from '../components/chat/ChatBox.vue'
+
 Vue.use(VueRouter);
 const routes = [
   {
@@ -79,6 +81,7 @@ const routes = [
         path: '/blog/created',
         name: 'CreatedBlogPage',
         component:CreatedBlogPage,
+        props: true
       },
       {
         path: '/autoCompleteSearchDash/:word',
@@ -100,7 +103,12 @@ const routes = [
         path: '/messaging',
         name: 'messaging',
         component:Messaging
-      }
+      },
+      {
+        path: '/ChatBox',
+        name: 'ChatBox',
+        component:ChatBox
+      },
       
   
       

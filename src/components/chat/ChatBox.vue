@@ -8,7 +8,6 @@
       :newMessagesCount="newMessagesCount"
       :isOpen="isChatOpen"
       :close="closeChat"
-      :icons="icons"
       :open="openChat"
       :showEmoji="true"
       :showFile="true"
@@ -33,6 +32,11 @@ import CloseIconSvg from 'vue-beautiful-chat/src/assets/images/close.svg'*/
  
 export default {
   name: 'app',
+  props:{
+    friendName:String,
+    friendImage:String,
+
+  },
   data() {
     return {
      /* icons:{
@@ -56,8 +60,8 @@ export default {
       participants: [
         {
           id: 'user1',
-          name: 'Matteo',
-          imageUrl: 'https://avatars3.githubusercontent.com/u/1915989?s=230&v=4'
+          name: this.friendName,
+          imageUrl: this.friendImage
         },
         /*{
           id: 'user2',
@@ -67,11 +71,11 @@ export default {
       ], // the list of all the participant of the conversation. `name` is the user name, `id` is used to establish the author of a message, `imageUrl` is supposed to be the user avatar.
       titleImageUrl: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png',
       messageList: [
-          { type: 'text', author: `me`, data: { text: `Say yes!` } },
-          { type: 'text', author: `user1`, data: { text: `No.` } }
+          { type: 'text', author: `me`, data: { text: `ssffe` } },
+          { type: 'text', author: `user1`, data: { text: `acsa` } }
       ], // the list of the messages to show, can be paginated and adjusted dynamically
       newMessagesCount: 0,
-      isChatOpen: false, // to determine whether the chat window should be open or closed
+      isChatOpen: true, // to determine whether the chat window should be open or closed
       showTypingIndicator: '', // when set to a value matching the participant.id it shows the typing indicator for the specific user
       colors: {
         header: {

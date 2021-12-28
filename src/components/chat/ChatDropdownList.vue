@@ -1,4 +1,5 @@
 <template>
+
   <div class="menu-item" id="dropDown" v-on:click="isOpen = !isOpen">
      
          <b-icon
@@ -8,7 +9,10 @@
                 aria-hidden="true"
                 v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
               ></b-icon>
-    <transition name="fade" appear>
+      <div class="cb">  <ChatBox v-if="checkBoxFlag"  v-bind:friendName="chattingFriends[this.indxMem].name"
+                        v-bind:friendImage="chattingFriends[this.indxMem].img"/></div>
+
+    <transition name="fade" appear v-if="!checkBoxFlag">
         <div v-on:click.prevent="toggleDropdown">
           <div id ="content" class="sub-menu" v-if="isOpen" :style="{'background': homeTheme[homeThemeIndex].cardColor}">
     
@@ -35,13 +39,14 @@
             <div id ="chats" v-if="!newMsgCIslicked" >
                  <!-- end -->
    <div id="chatItem" v-for="(friend, i) in chattingFriends" :key="i">
-         <li>
-<div class="avatarStyle">
-              <avatar
+         <li @click="openBox(i)">
+<div class="avatarStyle" >               
+                <avatar
               username="Jane Doe"
                v-bind:rounded=true
               v-bind:src="friend.img"
               v-bind:size="40"
+              
             ></avatar>
             </div>
             <div id="chatP">
@@ -50,7 +55,7 @@
             </div>    
          </li>
                           <div id="divider" :style="{'background': homeTheme[homeThemeIndex].fontColor}"></div>
-   </div>
+  </div>
           <!-- footer -->    
             </div>
 
@@ -100,15 +105,18 @@
 
         </div>
          </div>
-      
+        <div class="checkbox" v-if="checkBoxFlag"><CheckBox/> </div>
+
     </transition>
-    
+
    </div>
+   
 </template>
 
 <script>
 import Avatar from "vue-avatar";
- 
+ import ChatBox from './ChatBox.vue'
+
  /**
  *  AccountDropdownList is a drop down list appears when user clicks on account icon in the nav bar it shows list of options user will be able to click on all of them
  * @example [none]
@@ -116,34 +124,37 @@ import Avatar from "vue-avatar";
 export default {
    components: {
     Avatar: Avatar,
+    ChatBox:ChatBox,
   },
    data: function () {
     return {
         inputValue:"",
         isOpen:false,
         newMsgCIslicked:false,
+        checkBoxFlag:false,
+        indxMem:0,
         msgButton:"New Message",
        listColors:["transparent","transparent","transparent","transparent"],
     img: "https://64.media.tumblr.com/6eb8d7c15856ffa76b0a6b5bdb35f2de/5cf38a736b98badf-f9/s640x960/0762f14581a4a9bf7599fc7899b35cd909878bde.jpg",
     userName:"mairm22",
     chattingFriends:[
         {
-            name:"reem",
+            name:"aa",
             img:'https://www.theme-junkie.com/wp-content/uploads/Old-Black-and-White-Backgrounds-1.jpg',
             lastMsg:"goodbye!"
         },
         {
-            name:"reem",
+            name:"aaa",
             img:'https://www.theme-junkie.com/wp-content/uploads/Old-Black-and-White-Backgrounds-1.jpg',
             lastMsg:"goodbye!"
         },
          {
-            name:"reem",
+            name:"aaaaaaaa",
             img:'https://www.theme-junkie.com/wp-content/uploads/Old-Black-and-White-Backgrounds-1.jpg',
             lastMsg:"goodbye!"
         },
          {
-            name:"reem",
+            name:"aaaaaaaaaaaaaa",
             img:'https://www.theme-junkie.com/wp-content/uploads/Old-Black-and-White-Backgrounds-1.jpg',
             lastMsg:"goodbye!"
         }
@@ -204,7 +215,12 @@ export default {
      toggleDropdown () {
       this.isOpen = !this.isOpen
     },
-     
+     openBox(indxMemb){
+        //this.$router.push({ name: 'ChatBox', params: { friendName: this.friendName, friendImage: this.friendImage } });
+        console.log("kaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaak");
+        this.checkBoxFlag=!this.checkBoxFlag;
+        this.indxMem=indxMemb;
+     }
     },
 
   computed: {
@@ -417,5 +433,9 @@ font-size: 12px;
     font-size: 13px;
   font-weight: none;
   margin: 10px;
+}
+.cb{
+  position: relative;
+  z-index: 5;
 }
 </style>
