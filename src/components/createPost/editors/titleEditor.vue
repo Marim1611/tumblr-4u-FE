@@ -54,7 +54,7 @@ export default {
           } else {
             // console.log(editor.getHTML());
             console.log("entered here 3");
-            editor.commands.setHeading({ level: 1 });
+            // editor.commands.setHeading({ level: 1 });
 
             this.$emit("childToParent", editor.getHTML());
           }

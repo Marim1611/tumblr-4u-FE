@@ -2,12 +2,13 @@
   <md-dialog v-bind:md-active.sync="postToBegin" v-on:keyup.esc="closeTextBox">
     <md-dialog-content>
       <div class="audioMainDiv">
-        <div v-show="!urlChosen" class="uploadImage">
+        <div class="uploadImage">
           <label for="audioUpload" class="customImageUpload">
             <b-icon
               icon=" headphones"
               font-scale="3.5"
               style="color: #a3a3a3"
+              v-show="srcs == ''"
             ></b-icon>
           </label>
           <input
@@ -17,16 +18,33 @@
             accept="audio/mp3 "
             ref="fileInput"
             @input="audioSelected"
+            v-show="srcs == ''"
           />
         </div>
 
-        <audio
+        <!-- <audio
           controls
           :src="this.srcs[0]"
-          style="width: 600px"
-          v-show="this.srcs != ''"
+          class="audioShown"
+          v-show="srcs != ''"
+        ></audio> -->
+
+        <audio
+          controls
+          :src="audioURL[0]"
+          class="audioShown"
+          v-show="srcs != ''"
         ></audio>
+        <button class="exitURL" v-show="srcs != ''" v-on:click="uploadAudio">
+          <b-icon
+            icon="x-circle-fill"
+            font-scale="1.4"
+            style="color: red"
+          ></b-icon>
+        </button>
       </div>
+
+      <audioEditor v-on:childToParent="onTextClick" />
 
       <input type="text" placeholder="#tags" id="theTags" />
       <md-divider></md-divider>
@@ -48,11 +66,16 @@
 </template>
 
 <script>
+import audioEditor from "./editors/linkEditor.vue";
+
 /**
  *  Uploading, dragging/dropping audios file
  * @example [none]
  */
 export default {
+  components: {
+    audioEditor,
+  },
   props: {
     audioPost: {
       type: Boolean,
@@ -63,8 +86,11 @@ export default {
       dt: "",
       ImagesUploaded: [],
       srcs: [],
-      audioSrc: "",
+      audioSrc: [],
+      audioURL: "",
       urlChosen: false,
+      showEditor: false,
+      postTitle: "",
     };
   },
 
@@ -79,24 +105,19 @@ export default {
      * @public This is a public method
      * @param {none}
      */
-    audioSelected: function (e) {
+    audioSelected(e) {
       let input = this.$refs.fileInput;
       let file = input.files;
       let datas = e.target.files || e.dataTransfer.files;
-
       if (file && file[0]) {
         let reader = new FileReader();
         reader.onload = (e) => {
           this.srcs.push(e.target.result);
           console.log("saved");
-          console.log(this.srcs[0].file);
+          console.log(this.srcs[0]);
         };
         reader.readAsDataURL(file[0]);
 
-        var i;
-        for (i = 0; i < datas.length; i++) {
-          this.ImagesUploaded.push(datas[i]);
-        }
         this.readFile(datas);
       }
     },
@@ -113,49 +134,83 @@ export default {
         };
         reader.readAsDataURL(files[index]);
       }
-    },
-    testfunc(event) {
-      event.stopPropagation();
-      event.preventDefault();
-    },
 
-    tts() {
-      this.dt = "Drag here to upload files";
-    },
-    /**
-     * Function to save the dragged photo in an array
-     * @public This is a public method
-     * @param {none}
-     */
-    ttrs(e) {
-      let datas = e.target.files || e.dataTransfer.files;
+      this.postTitle = this.srcs[0]; // here the url will be taken
+      // this.audioSrc = this.srcs[0]; // here the url will be taken
+      this.audioSrc.push(this.srcs[0]);
+      let myRoute = "";
+      if (this.isMockServer(Browser().baseURL))
+        myRoute = Browser().baseURL + "/uploadImg";
+      else myRoute = Browser().baseURL + `/uploadImg`;
 
-      var i;
-      for (i = 0; i < datas.length; i++) {
-        this.ImagesUploaded.push(datas[i]);
-      }
-
-      this.readFile(datas);
-
-      e.stopPropagation();
-      e.preventDefault();
-    },
-
-    async postDone() {
       try {
         await axios
           .post(
-            Browser().baseURL + `/${this.tumblrsObj.id}/posts/create_post`,
+            myRoute,
+            {
+              file: this.audioSrc,
+            },
             {
               headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`,
               },
-            },
+            }
+          )
+          .then((res) => {
+            this.audioURL = res.data.file;
+            console.log(res.data.file);
+          });
+      } catch (e) {
+        console.log("error in uploading audio");
+        console.error(e);
+      }
+
+      console.log(this.postTitle);
+    },
+
+    onTextClick(content) {
+      this.postContent = content;
+      if (content === "" || content === null) {
+        this.showEditor = false;
+      }
+
+      console.log(content);
+    },
+
+    uploadAudio() {
+      this.showEditor = false;
+      // this.srcs = [];
+    },
+
+    isMockServer(baseUrl) {
+      if (baseUrl == "http://tumblr4u.eastus.cloudapp.azure.com:5000")
+        return false;
+      else return true;
+    },
+
+    async postDone() {
+      let myRoute = "";
+      if (this.isMockServer(Browser().baseURL))
+        myRoute = Browser().baseURL + "/create_post";
+      else myRoute = Browser().baseURL + `/${this.blogId}/create_post`;
+      try {
+        await axios
+          .post(
+            myRoute,
             {
-              postHtml: this.postTitle + this.postContent,
-              type: "text",
+              postHtml:
+                "<audio controls   style= 'width: 600px;' src='" +
+                this.audioURL +
+                "'></audio>" +
+                +this.postContent,
+              type: "audio",
               state: "published",
               tags: [],
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
             }
           )
           .then((res) => {
@@ -191,7 +246,7 @@ export default {
      * @param {none}
      */
     disablePosting() {
-      if (this.postContent === "" || this.postContent === null) {
+      if (this.postTitle === "" || this.postTitle === null) {
         return true;
       }
       return false;
@@ -203,14 +258,19 @@ export default {
 <style scoped>
 .audioMainDiv {
   /* border-bottom: 2px dashed #ccc;
-  border-top: 2px dashed #ccc;
-  color: rgb(161, 159, 159); */
-  /* background-color: rgba(226, 224, 224, 0.842); */
-  /* display: flex;
-  flex-direction: row; */
-  /* min-width: 28vw;
-  height: 30vh; */
+  border-top: 2px dashed #ccc; */
+  color: rgb(161, 159, 159);
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 28vw;
+  height: 10vh;
   cursor: pointer;
+  padding-bottom: 10px;
+  /* padding-top:30px ; */
+  /* padding: 20px; */
+
   /* margin: 0;
   padding: 0; */
   /* position: relative; */
@@ -294,5 +354,15 @@ input[type="text"] {
   color: hsla(0, 0%, 100%, 0.5);
   cursor: default;
   font-size: 13px;
+}
+
+.audioShown {
+  width: 600px;
+  border: none;
+}
+
+.exitURL {
+  padding-left: 20px;
+  padding-right: 10px;
 }
 </style>

@@ -107,60 +107,43 @@ export default {
       this.command = command;
       this.show = true;
     },
+
+    isMockServer(baseUrl) {
+      if (baseUrl == "http://tumblr4u.eastus.cloudapp.azure.com:5000")
+        return false;
+      else return true;
+    },
     async vfileUploaded(file) {
       // console.log(file.dataURL);
       this.imagesUploaded.push(file.dataURL);
       // console.log("here");
 
       let myRoute = "";
-      // if (this.isMockServer(Browser().baseURL))
-      myRoute = Browser().baseURL + "/uploadImg";
-      // else myRoute = Browser().baseURL + `/${this.blogId}/uploadImg`;
+      if (this.isMockServer(Browser().baseURL))
+        myRoute = Browser().baseURL + "/uploadImg";
+      else myRoute = Browser().baseURL + `/uploadImg`;
       // console.log(this.imagesUploaded);
       // console.log(this.$refs.myVueDropzone.getAcceptedFiles());
       // this.imageSrc = "https://source.unsplash.com/random/400x100";
-
-      // this.imageSrc = file.dataURL;
-
       // console.log(this.imageSrc);
 
-      // userId
 
       try {
         await axios
           .post(
             myRoute,
             {
-              imageSrc: this.imagesUploaded,
+              file: this.imagesUploaded,
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
             }
-            // {
-            //   headers: {
-            //     Authorization: `Bearer ${localStorage.getItem("token")}`,
-            //   },
-            // }
           )
           .then((res) => {
-            console.log(res.data);
-          });
-      } catch (e) {
-        console.log("error in uploading imgs");
-        console.error(e);
-      }
-
-      try {
-        await axios
-          .get(
-            myRoute
-
-            // {
-            //   headers: {
-            //     Authorization: `Bearer ${localStorage.getItem("token")}`,
-            //   },
-            // }
-          )
-          .then((res) => {
-            this.imagesURLS = res.data.images[0].images;
-            console.log(res.data);
+            this.imagesURLS = res.data.file;
+            console.log(res.data.file);
           });
       } catch (e) {
         console.log("error in uploading imgs");
@@ -168,12 +151,6 @@ export default {
       }
 
       console.log(this.imagesURLS);
-
-      // await axios.get(Browser().baseURL + "/imageUpload").then((res) => {
-      //   this.imageSrc = res.data.imageUpload[0].imageUrl;
-
-      // console.log(res);
-      // });
     },
 
     insertImage() {

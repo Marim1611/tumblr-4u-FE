@@ -49,7 +49,7 @@ export default {
           this.editor.commands.setContent(null);
           this.$emit("childToParent", "");
         } else {
-          editor.commands.setHeading({ level: 1 });
+          // editor.commands.setHeading({ level: 1 });
           // console.log(editor.getHTML());
 
           this.$emit("childToParent", editor.getHTML());
