@@ -69,7 +69,7 @@
           </div>
           <div
             v-on:click="
-              openDrawer(item.name, item.img, item.coverImg, item._id)
+              openDrawer(item.name, item.title,item.img, item.coverImg, item._id)
             "
             v-show="itemVisible(item.name)"
             v-for="item in usersInSearch"
@@ -201,13 +201,14 @@ export default {
      * @public This is a public method
      * @param {none}
      */
-    openDrawer(name, avatar, cover, id) {
+    openDrawer(name, title,avatar, cover, id) {
       console.log("why??????????");
       this.showBlogDrawer = true;
       console.log(this.showBlogDrawer);
       console.log(id);
       console.log(name);
       Vue.set(this.tumblrsObj, "name", name);
+       Vue.set(this.tumblrsObj, "title", title);
       Vue.set(this.tumblrsObj, "coverImg", cover);
       Vue.set(this.tumblrsObj, "avatar", avatar);
       Vue.set(this.tumblrsObj, "id", id);

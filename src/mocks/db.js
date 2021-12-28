@@ -1,5 +1,4 @@
 const autoCompleteSearchDash = require("./data/searchResults.json");
-const profile = require("./data/db.json");
  
 const posts = require("./data/posts.json");
 const dashboard  = require("./data/dashBoard.json");
@@ -13,8 +12,9 @@ const ranPosts = require("./data/randomPosts.json");
 const blog= require("./data/blog.json");
 const follow= require("./data/follow.json");
 const updateColor= require("./data/updateColor.json");
+const profile = require("./data/db.json");
+const profilePosts= require("./data/profilePosts.json");
 module.exports = () => ({
-  profile,
   autoCompleteSearchDash,
   posts,
   dashboard,
@@ -26,5 +26,7 @@ module.exports = () => ({
   ranBlogs,
   ranPosts,
   blog,
-  follow,updateColor
+  follow,updateColor,
+  profile,
+  profilePosts
 });

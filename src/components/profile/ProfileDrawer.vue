@@ -34,8 +34,10 @@
               </li>
                 <li v-if="!isOpenSearch">
                 <div id="nameDiv" >
-                  <p   class="searchP">    {{ this.tumblrsObj.name }}  </p>
-                    
+                  <p v-if="!myUrl" @mouseover="myUrl=true"  class="searchP"
+                  >    {{ this.tumblrsObj.name }}  </p>
+                  <p v-else @mouseover="myUrl=false"   class="searchP">    {{ this.tumblrsObj.name }}.tumblr.com   </p>
+ 
         
                 
                 </div>
@@ -252,7 +254,7 @@
            
           <p id="userName">
             <!-- {{ this.tumblrsObj.name }} -->
-          {{ this.tumblrsObj.name }}
+          {{ this.tumblrsObj.title }}
           </p>
         </div>
 
@@ -272,6 +274,8 @@ import PostCard from "../general/ViewPostCard.vue";
 import axios from 'axios';
 import Browser from '../../mocks/browser'
 import Vue from "vue";
+import vOutsideEvents from 'vue-outside-events'
+ Vue.use(vOutsideEvents)
 /**
  *  TumblrDrawer with profile view of a tumblr user -not the current user- should appear when current user clicks on some user in the search drop down list
  * @example [none]
@@ -283,6 +287,8 @@ export default {
   },
   data: function () {
     return {
+      myUrl:false,
+     
       drawerIsClosed:false,
       showBlogDrawer1:false,
        postCardWidth:"540px",
@@ -304,7 +310,6 @@ export default {
   },
  
   methods: {
-
       closeDrawer() {
       this.$emit("closeDrawer", false);
      
@@ -380,6 +385,7 @@ export default {
     tumblrsObj: Object,
   },
       async created(){
+         
          let myRoute=""
          if (this.isMockServer(Browser().baseURL))
          myRoute=Browser().baseURL+'/posts'

@@ -18,6 +18,9 @@ import Profile from '../components/profile/Profile.vue'
 import Interests from '../components/registerPages/InterestsPage'
 import Messaging from '../components/chat/MessagingMobileView.vue'
 import SearchResultsOut from '../components/search/SearchResultsOutside'
+import Likes from '../components/profile/likes.vue'
+import Posts from '../components/profile/posts.vue'
+import followingCard from '../components/profile/followingCard.vue'
 Vue.use(VueRouter);
 const routes = [
   {
@@ -93,6 +96,7 @@ const routes = [
         path: '/profile',
         name: 'profile',
         component:Profile,
+        props: true
       },
       {
         path: '/getting_to_know_tumblr',
@@ -110,6 +114,17 @@ const routes = [
         component:SearchResultsOut,
         props: true
       },
+      {
+        path: '/posts',
+        name: 'posts',
+        component:Posts
+      },
+    
+      {
+        path: '/followingcard',
+        name: 'followingCard',
+        component:followingCard
+      }
       
   
       

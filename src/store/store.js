@@ -21,6 +21,7 @@ export const store = new Vuex.Store({
         id:"",
         primaryBlogId:"",
         blogsId: [],
+       
         },
         age:0,
         // we need to replace this with bodyColor in DB as each user has his theme color
@@ -257,14 +258,14 @@ export const store = new Vuex.Store({
        console.error(e);
      }
         },
-      setBrimaryBlogId(state, id){
+        async setBrimaryBlogId(state, id){
         state.user.primaryBlogId= id
         console.log("%%%setBrimaryBlogId%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-       console.log( state.user.brimaryBlogId)
+       console.log( state.user.primaryBlogId)
 
       },
 
-        updateBodyColor(state, newColor) {
+      async updateBodyColor(state, newColor) {
           state.homeThemeIndex= newColor
         },
         async setBlogIds(state, Ids) {

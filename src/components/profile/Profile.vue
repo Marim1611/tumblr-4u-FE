@@ -4,12 +4,7 @@
       <b-container fluid class="bv-example-row">
         <b-row class="rr">
           <div id="TheHeader">
-            <b-navbar
-              class="NavBar"
-              toggleable="sm"
-              type="dark"
-              variant="faded"
-            >
+            <b-navbar class="NavBar" toggleable="sm" type="dark" variant="faded">
               <router-link to="/home">
                 <b-navbar-brand class="NavBarBrand bra"
                   ><span class="mb-0 h3">T4U</span></b-navbar-brand
@@ -44,7 +39,7 @@
                       </p>
                     </router-link>
 
-                    <router-link class="iconColor" to="/">
+                    <router-link class="iconColor" to="">
                       <p class="h3 mb-2">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -61,7 +56,7 @@
                       </p>
                     </router-link>
 
-                    <router-link to="/">
+                    <router-link to="">
                       <p class="h3 mb-2">
                         <a href=""
                           ><b-icon class="iconColor" icon="nut-fill"></b-icon
@@ -76,15 +71,11 @@
 
           <div class="fill"></div>
           <div class="profileImg">
-            <img
-              class="imgshape"
-              src='../../assets/images/profileavatar.png'
-              alt="Avatar"
-            />
+            <img class="imgshape" :src="this.profileUser.img?this.profileUser.img:avatarPhoto" alt="Avatar" />
           </div>
         </b-row>
         <b-row class="secondHalf">
-          <h1 class="headers">{{ posts[0].title }}</h1>
+          <h1 class="headers">{{ this.profileUser.title }}</h1>
         </b-row>
         <b-row> </b-row>
       </b-container>
@@ -92,43 +83,69 @@
     <br />
     <br />
     <div class="links">
-      <router-link class="linksbeuty" to="">POSTS</router-link>
-      <router-link class="linksbeuty" to="">LIKES</router-link>
+      <router-link class="linksbeuty" to="/posts">POSTS</router-link>
+      <router-link class="linksbeuty" to="/likes">LIKES</router-link>
       <router-link class="linksbeuty" to="">FOLLOWING</router-link>
       <router-link class="linksbeuty" to="">ARCHIVE</router-link>
     </div>
-    <profileCard
-      v-for="post in posts"
-      v-bind:key="post.id"
-      :content="post.content"
-      :notes="post.notes"
-    />
   </body>
 </template>
 
 <script>
-import axios from "axios";
-import ProfileCard from "./ProfileCard.vue";
+import axios from 'axios'
 import Browser from '../../mocks/browser'
+
 export default {
   name: "Profile",
-  async created() {
-    try {
-      const resp = await axios.get(Browser().baseURL+"/Profile");
-      this.posts = resp.data.Profile;
-    } catch (e) {
-      alert(e);
-    }
-  },
+
   data() {
     return {
-      BgImg: '../../assets/images/profileImg.png' ,
-      posts: [],
+      profileUser:{},
+       avatarPhoto:
+        "https://assets.tumblr.com/images/default_avatar/octahedron_closed_128.png",
     };
   },
-  components: {
-    ProfileCard,
+  components: {},
+  
+  computed:{
+     blogId: function () {
+      return this.$store.state.user.primaryBlogId;
+    },
   },
+  async created(){
+     
+   let myRoute=""
+         if (this.isMockServer(Browser().baseURL))
+         myRoute= Browser().baseURL+'/blog'
+         else
+        myRoute= Browser().baseURL+`/blog/view/${this.blogId}`
+        console.log(myRoute)
+       try {
+         await axios.get(myRoute,
+          { headers: { 'Authorization':`Bearer ${localStorage.getItem('token')}` } })
+          .then(res => {    
+            this.profileUser={
+           name: res.data.res.data.name,
+           title:res.data.res.data.title,
+           img:res.data.res.data.img,
+          coverImg:res.data.res.data.coverImg,
+          followersIds: res.data.res.data.followers}
+             
+          })
+    } catch (e) {
+      console.error(e);
+    }
+
+  },
+  methods:{
+    isMockServer(baseUrl){
+     
+        if (baseUrl == "http://tumblr4u.eastus.cloudapp.azure.com:5000")
+          return false
+          else 
+          return true
+    },  
+  }
 };
 </script>
 
@@ -137,24 +154,27 @@ export default {
   position: fixed;
   top: 0;
   width: 100%;
+  padding: 0 5px 0 5px;
+}
+.NavBar{
+  padding: 0 5px 0 5px;
 }
 .NavBarRight {
   margin-left: auto;
 }
 .icons {
-  margin-right: 10px;
-  margin-left: 10px;
+  margin:0;
 }
 .iconColor {
   color: white !important;
   margin-right: 10px;
   margin-left: 10px;
 }
-.rr {
-  background-image: url('../../assets/images/profileImg.png');
-}
 .fill {
   height: 200px;
+}
+.rr {
+  background-image: url("../../assets/images/profileImg.png");
 }
 .profileImg {
   text-align: center;

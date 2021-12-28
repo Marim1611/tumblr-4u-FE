@@ -89,6 +89,7 @@ export default {
         id: "",
         name: "",
         avatar: "",
+        title:"",
         coverImg:
           "https://assets.tumblr.com/images/default_header/optica_pattern_05_focused_v3.png?_v=671444c5f47705cce40d8aefd23df3b1",
       },
@@ -104,7 +105,9 @@ export default {
         .then((res) => {
           this.dashBoardPosts = res.data.res.postsToShow;
           this.tumblrsObj.id = res.data.res.blog._id;
-          this.tumblrsObj.name = res.data.res.blog.name;   
+          this.tumblrsObj.name = res.data.res.blog.name;  
+           this.tumblrsObj.title = res.data.res.blog.title;  
+             this.tumblrsObj.avatar = res.data.res.blog.img;  
           this.$store.commit("updateBodyColor", res.data.res.user.bodyColor);
           this.$store.commit("setBlogIds", res.data.res.user.blogsId);
           console.log("DASH BOARD ************************")
