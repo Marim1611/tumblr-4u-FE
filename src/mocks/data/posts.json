@@ -1,46 +1,103 @@
 {
-  "postsToShow": [
-    {
-    
-            "_id": "61c35d1eac19df9274f9a2b5",
-            "blogId": "619957113df6b45019c42d07",
-            "postHtml":	"<img width='100%' src='https://64.media.tumblr.com/35a13ef447be78b3c788db46fccba531/2683e2d8b1202812-f2/s400x600/7fab18f04e0464b61d566f0883109f930d6274a0.jpg'><img width='100%' src='https://64.media.tumblr.com/6de581d8cc0dabe8c30caf5c316b1e28/2683e2d8b1202812-99/s400x600/00de12543f36c67fdb1eda3d8ab1f9cd9ccf2671.jpg'><img width='100%' src='https://64.media.tumblr.com/0d26cdbcc83ecfc21240862339005bf5/2683e2d8b1202812-61/s400x600/32952990e61bb6af88fd7eb6edc04c76ae29568a.jpg'><img width='100%' src='https://64.media.tumblr.com/54f4dcdcd3226149234e33b5169f5cba/2683e2d8b1202812-31/s400x600/be6e8b3c8b39f36a575da53203627b0b84b1320d.jpg' ",
-            "type": "link",
-            "state": "published",
-            "tags": [
-                "cmp"
+    "res": {
+        "messege": "Dashboard Got Successfully",
+        "user": {
+            "_id": "61b332fa1953fc7f0e850f82",
+            "name": "CMP-5552",
+            "email": "reem.atala555@gmail.com",
+            "password": "$2b$08$QlMLUMWYAv5SMyuqQRR48Ol4Bnfm0b8HJqqGPKTtaWlgbhrA7K9ge",
+            "bodyColor":0,
+            "age": 21,
+            "blogsId": [
+                "61c25866ac0f82a2b0c763f6",
+                "61c258b6ac0f82a2b0c763fb",
+                "61c2ebd23135b522106a78fa",
+                "61c3487663d3cefff498217d"
             ],
-            "notesId": "61c35d1eac19df9274f9a2b4",
-            "__v": 0
+            "favoriteBlogs": [],
+            "following_blogs": [
+                "619957113df6b45019c42d07"
+            ],
+            "likes_posts_id": [],
+            "role": "user",
+            "isDeleted": false,
+            "isVerified": true,
+            "isActivated": true,
+            "isBlocked": false,
+            "__v": 19,
+            "followedTags": [
+                "photography",
+                "children"
+            ]
         },
-        {
-    
-            "_id": "61c35d1eac19df9274f9a2b5",
-            "blogId": "619957113df6b45019c42d07",
-            "postHtml":	"<img width='100%' src='https://64.media.tumblr.com/35a13ef447be78b3c788db46fccba531/2683e2d8b1202812-f2/s400x600/7fab18f04e0464b61d566f0883109f930d6274a0.jpg'><img width='100%' src='https://64.media.tumblr.com/6de581d8cc0dabe8c30caf5c316b1e28/2683e2d8b1202812-99/s400x600/00de12543f36c67fdb1eda3d8ab1f9cd9ccf2671.jpg'><img width='100%' src='https://64.media.tumblr.com/0d26cdbcc83ecfc21240862339005bf5/2683e2d8b1202812-61/s400x600/32952990e61bb6af88fd7eb6edc04c76ae29568a.jpg'><img width='100%' src='https://64.media.tumblr.com/54f4dcdcd3226149234e33b5169f5cba/2683e2d8b1202812-31/s400x600/be6e8b3c8b39f36a575da53203627b0b84b1320d.jpg' ",
-            "type": "link",
-            "state": "published",
-            "tags": [
-                "cmp"
+        "blog": {
+            "_id": "61ae81b91b9ee885f03a6866",
+            "title": "nour",
+            "avatar": "default",
+            "accent": "default",
+            "headerImage": "default",
+            "background": "default",
+            "blockedBlogs": [ "6777"],
+            "followers": [],
+            "privacy": false,
+            "name": "nouro282",
+            "updated": 0,
+            "description": "",
+            "password": "password",
+            "isBlockedFromPrimary": false,
+            "isPrimary": true,
+            "blogVisitor": 0,
+            "postsIds": [
+                "61c33a5aac19df9274f9a2a9",
+                "61c35460ac19df9274f9a2af"
             ],
-            "notesId": "61c35d1eac19df9274f9a2b4",
-            "__v": 0
+            "isDeleted": false,
+            "__v": 2
         },
-        {
-    
-            "_id": "61c35d1eac19df9274f9a2b5",
-            "blogId": "619957113df6b45019c42d07",
-            "postHtml":	"<img width='100%' src='https://64.media.tumblr.com/35a13ef447be78b3c788db46fccba531/2683e2d8b1202812-f2/s400x600/7fab18f04e0464b61d566f0883109f930d6274a0.jpg'><img width='100%' src='https://64.media.tumblr.com/6de581d8cc0dabe8c30caf5c316b1e28/2683e2d8b1202812-99/s400x600/00de12543f36c67fdb1eda3d8ab1f9cd9ccf2671.jpg'><img width='100%' src='https://64.media.tumblr.com/0d26cdbcc83ecfc21240862339005bf5/2683e2d8b1202812-61/s400x600/32952990e61bb6af88fd7eb6edc04c76ae29568a.jpg'><img width='100%' src='https://64.media.tumblr.com/54f4dcdcd3226149234e33b5169f5cba/2683e2d8b1202812-31/s400x600/be6e8b3c8b39f36a575da53203627b0b84b1320d.jpg' ",
-            "type": "link",
-            "state": "published",
-            "tags": [
-                "cmp"
-            ],
-            "notesId": "61c35d1eac19df9274f9a2b4",
-            "__v": 0
-        }
-    
-     
-    
-]
+        "postsToShow": [
+            {
+            
+                    "_id": "61c35d1eac19df9274f9a2b5",
+                    "blogId": "619957113df6b45019c42d07",
+                    "postHtml":	"<img width='100%' src='https://64.media.tumblr.com/35a13ef447be78b3c788db46fccba531/2683e2d8b1202812-f2/s400x600/7fab18f04e0464b61d566f0883109f930d6274a0.jpg'><img width='100%' src='https://64.media.tumblr.com/6de581d8cc0dabe8c30caf5c316b1e28/2683e2d8b1202812-99/s400x600/00de12543f36c67fdb1eda3d8ab1f9cd9ccf2671.jpg'><img width='100%' src='https://64.media.tumblr.com/0d26cdbcc83ecfc21240862339005bf5/2683e2d8b1202812-61/s400x600/32952990e61bb6af88fd7eb6edc04c76ae29568a.jpg'><img width='100%' src='https://64.media.tumblr.com/54f4dcdcd3226149234e33b5169f5cba/2683e2d8b1202812-31/s400x600/be6e8b3c8b39f36a575da53203627b0b84b1320d.jpg' ",
+                    "type": "link",
+                    "state": "published",
+                    "tags": [
+                        "cmp"
+                    ],
+                    "notesId": "61c35d1eac19df9274f9a2b4",
+                    "__v": 0
+                },
+                {
+            
+                    "_id": "61c35d1eac19df9274f9a2b5",
+                    "blogId": "619957113df6b45019c42d07",
+                    "postHtml":	"<img width='100%' src='https://64.media.tumblr.com/35a13ef447be78b3c788db46fccba531/2683e2d8b1202812-f2/s400x600/7fab18f04e0464b61d566f0883109f930d6274a0.jpg'><img width='100%' src='https://64.media.tumblr.com/6de581d8cc0dabe8c30caf5c316b1e28/2683e2d8b1202812-99/s400x600/00de12543f36c67fdb1eda3d8ab1f9cd9ccf2671.jpg'><img width='100%' src='https://64.media.tumblr.com/0d26cdbcc83ecfc21240862339005bf5/2683e2d8b1202812-61/s400x600/32952990e61bb6af88fd7eb6edc04c76ae29568a.jpg'><img width='100%' src='https://64.media.tumblr.com/54f4dcdcd3226149234e33b5169f5cba/2683e2d8b1202812-31/s400x600/be6e8b3c8b39f36a575da53203627b0b84b1320d.jpg' ",
+                    "type": "link",
+                    "state": "published",
+                    "tags": [
+                        "cmp"
+                    ],
+                    "notesId": "61c35d1eac19df9274f9a2b4",
+                    "__v": 0
+                },
+                {
+            
+                    "_id": "61c35d1eac19df9274f9a2b5",
+                    "blogId": "619957113df6b45019c42d07",
+                    "postHtml":	"<img width='100%' src='https://64.media.tumblr.com/35a13ef447be78b3c788db46fccba531/2683e2d8b1202812-f2/s400x600/7fab18f04e0464b61d566f0883109f930d6274a0.jpg'><img width='100%' src='https://64.media.tumblr.com/6de581d8cc0dabe8c30caf5c316b1e28/2683e2d8b1202812-99/s400x600/00de12543f36c67fdb1eda3d8ab1f9cd9ccf2671.jpg'><img width='100%' src='https://64.media.tumblr.com/0d26cdbcc83ecfc21240862339005bf5/2683e2d8b1202812-61/s400x600/32952990e61bb6af88fd7eb6edc04c76ae29568a.jpg'><img width='100%' src='https://64.media.tumblr.com/54f4dcdcd3226149234e33b5169f5cba/2683e2d8b1202812-31/s400x600/be6e8b3c8b39f36a575da53203627b0b84b1320d.jpg' ",
+                    "type": "link",
+                    "state": "published",
+                    "tags": [
+                        "cmp"
+                    ],
+                    "notesId": "61c35d1eac19df9274f9a2b4",
+                    "__v": 0
+                }
+            
+             
+            
+        ]
+    }
 }
+ 

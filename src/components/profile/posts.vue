@@ -51,7 +51,7 @@ export default {
          { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
          ).then(res => {
            
-            this.posts = res.data.postsToShow;
+            this.posts =res.data.res.postsToShow;
             console.log(  this.posts )
        
           })

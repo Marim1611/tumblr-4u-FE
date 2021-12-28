@@ -193,14 +193,14 @@ export default {
     },
     async openAvatarDrawer() {
       console.log("BLOG DRAWER");
-      console.log();
+     
       let myRoute = "";
       if (this.isMockServer(Browser().baseURL))
         myRoute = Browser().baseURL + "/posts";
       else
         myRoute =
-          Browser().baseURL + `/blog/${this.tumblrsObj.id}/getBlogPosts`;
-
+          Browser().baseURL + `/blog/${this.this.tumblrsObj.id}/getBlogPosts`;
+ console.log(myRoute);
       try {
         await axios
           .get(myRoute, {
@@ -209,7 +209,8 @@ export default {
             },
           })
           .then((res) => {
-            this.myPosts = res.data.postsToShow;
+            this.myPosts = res.data.res.postsToShow
+            console.log(  this.myPosts)
           });
       } catch (e) {
         console.error(e);
@@ -261,7 +262,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: start;
+  align-items: flex-start;
 
   margin-left: 10px;
 }
