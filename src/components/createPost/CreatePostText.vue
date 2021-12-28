@@ -106,6 +106,12 @@ export default {
     onTitleClick(content) {
       this.postTitle = content;
     },
+
+    isMockServer(baseUrl) {
+      if (baseUrl == "http://tumblr4u.eastus.cloudapp.azure.com:5000")
+        return false;
+      else return true;
+    },
     /**
      * Function to publish the post and save its content
      * @public This is a public method
@@ -113,12 +119,27 @@ export default {
      */
 
     async postDone() {
+      let myRoute = "";
+      if (this.isMockServer(Browser().baseURL))
+        myRoute = Browser().baseURL + "/create_post";
+      else myRoute = Browser().baseURL + `/${this.blogId}/create_post`;
       try {
         await axios
-          .post(Browser().baseURL + "/createPost", {
-            postHtml: this.postTitle + this.postContent,
-            type: "text",
-          })
+          .post(
+            myRoute,
+            {
+              postHtml: this.postTitle + this.postContent,
+              type: "text",
+              state: "published",
+              tags: [],
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            },
+
+          )
           .then((res) => {
             this.$emit("closeTextBox", false);
             this.postContent = "";
@@ -132,6 +153,9 @@ export default {
     },
   },
   computed: {
+    blogId: function () {
+      return this.$store.state.primaryBlogId;
+    },
     /**
      * Function to know if the text upload post should appear or not
      * @public This is a public method
