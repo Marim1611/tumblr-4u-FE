@@ -135,7 +135,7 @@ export default {
          
         try {
   
-        await axios.get(  Browser().baseURL+`/user/new/blog`, 
+        await axios.post(  Browser().baseURL+`/user/new/blog`, 
         {
           title:this.title,
           name:this.url,
