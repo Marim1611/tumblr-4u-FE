@@ -201,7 +201,7 @@ export default {
       defaultImg:"https://assets.tumblr.com/images/default_avatar/cone_closed_96.png",
      // blog=> userId,followersIds,name,title,description
       blogs:[]  ,
-     blogsId:[]  ,
+    //  blogsId:[]  ,
     }
   },
   computed: {
@@ -226,10 +226,10 @@ export default {
      * @public This is a public method
      * @param {none}
      */
-        //  blogsId: function(){
+         blogsId: function(){
           
-        //     return this.$store.state.user.blogsId;
-        // },
+            return this.$store.state.user.blogsId;
+        },
         
   },
   async mounted () {
@@ -241,12 +241,12 @@ export default {
   },
    async created(){
    
-       this.blogsId=[
-         "61c25866ac0f82a2b0c763f6",
-                "61c258b6ac0f82a2b0c763fb",
-                "61c2ebd23135b522106a78fa",
-                "61c3487663d3cefff498217d"
-     ]   
+    //    this.blogsId=[
+    //      "61c25866ac0f82a2b0c763f6",
+    //             "61c258b6ac0f82a2b0c763fb",
+    //             "61c2ebd23135b522106a78fa",
+    //             "61c3487663d3cefff498217d"
+    //  ]   
         console.log("blooooooooooooooooog")   
  console.log(this.blogsId)
      console.log(this.blogsId.length)   

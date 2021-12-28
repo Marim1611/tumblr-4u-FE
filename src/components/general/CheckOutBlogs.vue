@@ -7,12 +7,12 @@
               'background-color': homeTheme[homeThemeIndex].fontColor,
             }"
           ></div>
-            <b-row v-for="(item, i) in relatedBlogs" :key="i" class="sec alignCenter" v-show="item.show">
+            <b-row v-for="(item, i) in relatedBlogs" :key="i" class="sec alignCenter" v-show="show[i]" >
                 <div class="avatarStyle">
                 <avatar
-              username="Jane Doe"
+              :username="item.name"
                v-bind:rounded=true
-               v-bind:src=item.img
+               v-bind:src="item.img"
               v-bind:size="50"
             ></avatar>
             </div>
@@ -21,7 +21,7 @@
              <b-col>
                  <div :style="{'width':'120px'}" > 
                  <p id="block" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor, 'font-family':homeTheme[homeThemeIndex].fontStyle }">{{item.name}}</p>
-                 <p id="block" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor, 'font-family':homeTheme[homeThemeIndex].fontStyle }">{{item.discription}}</p>
+                 <p id="block" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor, 'font-family':homeTheme[homeThemeIndex].fontStyle }">{{item.title}}</p>
                  </div>
                 
               </b-col>
@@ -74,24 +74,28 @@ export default {
    remove:function(i){
        this.relatedBlogs[i].show = false;
    },
+  
+  },
    async created() {
     try {
          await axios.get( Browser().baseURL+'/ranBlogs',
          { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
-         ).then(resp => {
+         ).then(res => {
            console.log("************* blogs friday")
-            this.relatedBlogs = resp.data;
-            console
+            this.relatedBlogs = res.data.ranBlogs;
+            
+              console.log  ( this.relatedBlogs)
           
           })
     } catch (e) {
       console.error(e);
     }
   },
-  },
   data: function () {
     return {
          relatedBlogs:[],
+         show:[],
+          avatarDefaultPhoto: "https://assets.tumblr.com/images/default_avatar/octahedron_closed_128.png",
     };
   },
   
