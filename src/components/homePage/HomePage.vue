@@ -113,6 +113,8 @@ export default {
             "stBlockedBlogsId",
             res.data.res.blog.blockedBlogs
           );
+          this.$store.commit("setUserId", res.data.res.user._id);
+          this.$store.commit("setBrimaryBlogId", res.data.res.blog._id);
           console.log(
             "*********************DASH BOARD ************************"
           );
@@ -122,14 +124,12 @@ export default {
           console.log(
             "**************lllllllll*******DASH BOARD ************************"
           );
-          this.$store.commit("setUserId", res.data.res.user._id);
           console.log(res.data.res.user._id);
           //setBrimaryBlogId
           console.log(
             "**************mmmmmmmm *******DASH BOARD ************************"
           );
           console.log(res.data.res.blog._id);
-          this.$store.commit("setBrimaryBlogId", res.data.res.blog._id);
           console.log("DEPLOYED?????????????????????");
           console.log("PRIMARY BLOG ID: ");
           console.log(this.blogId);
