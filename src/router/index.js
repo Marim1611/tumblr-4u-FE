@@ -21,6 +21,9 @@ import Posts from '../components/profile/posts.vue'
 import Interests from '../components/registerPages/InterestsPage' 
 
 import followingCard from '../components/profile/followingCard.vue'
+import verifyEmail from '../components/registerPages/verifyEmail.vue'
+import archive from '../components/profile/archive.vue'
+import archiveCard from '../components/profile/archiveCard.vue'
 Vue.use(VueRouter);
 const routes = [
   {
@@ -123,6 +126,21 @@ const routes = [
     path: '/followingcard',
     name: 'followingCard',
     component:followingCard
+  },
+  {
+    path: '/verifyemail',
+    name: 'verifyEmail',
+    component:verifyEmail
+  },
+  {
+    path: '/archive',
+    name: 'archive',
+    component:archive
+  },
+  {
+    path: '/archiveCard',
+    name: 'archiveCard',
+    component:archiveCard
   }
  
       

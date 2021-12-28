@@ -8,7 +8,6 @@
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
     "test": "jest",
-     
     "mock": "json-server --watch ./src/mocks/db.js"
   },
   "dependencies": {

@@ -31,7 +31,6 @@
 
            <router-link class="pass" to= "/forgotpassword">
            Forgot your Passowrd
-          
           </router-link>
 
    <div class="striped-border"></div>

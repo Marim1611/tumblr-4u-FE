@@ -10,7 +10,7 @@
         <b-collapse id="nav-collapse" is-nav>
             <b-navbar-nav>
                 <b-nav-form>
-                    <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
+                    <b-form-input size="sm" class="mr-sm-2" placeholder="Search" ></b-form-input>
                 </b-nav-form>
             </b-navbar-nav>
             <div class="NavBarRight">
@@ -40,6 +40,11 @@ export default {
   name: 'Header',
   props: {
     msg: String
+  },
+  data(){
+      return{
+          
+      }
   }
 }
 </script>

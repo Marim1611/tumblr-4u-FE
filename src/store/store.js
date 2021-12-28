@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 import axios from 'axios';
 import { getField, updateField } from 'vuex-map-fields';
 import api from '../api';
+//import browser from '../mocks/browser'
 
 Vue.use(Vuex);
 
@@ -10,7 +11,8 @@ export const store = new Vuex.Store({
 
     strict: true,
     state: {
-        status: "",
+      status: "",
+      msg:"",
         token: localStorage.getItem('token') || "",
       user: {
         email: "",
@@ -101,8 +103,8 @@ export const store = new Vuex.Store({
           },     
     },
     actions: {
-      login({ commit }, user) {
-        return new Promise((resolve, reject) => {
+      async login({ commit }, user) {
+       return new Promise((resolve, reject) => {
           commit('auth_request')
           api().post('login',{
             email: user.email,
@@ -124,6 +126,31 @@ export const store = new Vuex.Store({
           
           })
         })
+
+        /*return new Promise((resolve, reject) => {
+          commit('auth_request')
+          axios.post(browser().baseURL+'/login',{
+            email: user.email,
+            password: user.password
+          })
+          .then(res => {
+            const token = res.data.login.id
+            alert(res.data.login)
+            alert(token)
+            const user = res.data.email
+            localStorage.setItem('token', token)
+            axios.defaults.headers.common['Authorization'] = token 
+            commit('auth_success', token, user)
+            resolve(res)
+          })
+          .catch(err => {
+            alert(err)
+            commit('auth_error')
+            localStorage.removeItem('token')
+            reject(err)
+          
+          })
+        })*/
   },
   signup({ commit }, user) {
     return new Promise((resolve, reject) => {
@@ -150,22 +177,29 @@ export const store = new Vuex.Store({
         })
     
   },
-  forgotpassword({ commit }, user) {
+    async  forgotpassword({ commit }, user) {
+    alert(user.email)
     return new Promise((resolve, reject) => {
       commit('auth_request')
-      api.post('forgot_password', {
-        Email:user.email
-      })
+      api().get('user/forget_password',{
+            email: user.email,
+          })
         .then(resp => {
+          
+          console.log(resp)
           this.state.msg = resp.message;
+
           resolve(resp)
         
         })
         .catch(err => {
-          alert(err.error)
+          console.log(err)
+          //alert(err.error)
           reject(err)
       })
     })
+
+     
   }
        
     
