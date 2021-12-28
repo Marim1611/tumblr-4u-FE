@@ -138,7 +138,7 @@ export default {
         await axios.get(  Browser().baseURL+`/user/new/blog`, 
         {
           title:this.title,
-          name:this.name,
+          name:this.url,
           privacy:this.privacy,
           password:this.pass
          },
