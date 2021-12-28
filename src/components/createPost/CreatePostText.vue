@@ -131,14 +131,13 @@ export default {
               postHtml: this.postTitle + this.postContent,
               type: "text",
               state: "published",
-              tags: [],
+              tags: "cmp",
             },
             {
               headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`,
               },
-            },
-
+            }
           )
           .then((res) => {
             this.$emit("closeTextBox", false);
