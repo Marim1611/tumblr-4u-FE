@@ -1,7 +1,6 @@
 <template>
   <div>
-  <div>
-  </div>
+    <div></div>
     <EditorContent v-bind:editor="editor" />
   </div>
 </template>
@@ -48,20 +47,20 @@ export default {
 
       onUpdate: ({ editor }) => {
         try {
-        if (editor.getText() == "") {
-          this.editor.commands.setContent("");
-          console.log("entered here")
-          this.$emit("childToParent", "");
-        } else {
-          // console.log(editor.getHTML());
-          console.log("entered here 3")
-        
-          this.$emit("childToParent", editor.getHTML());
-        }  
+          if (editor.getText() == "") {
+            this.editor.commands.setContent("");
+            console.log("entered here");
+            this.$emit("childToParent", "");
+          } else {
+            // console.log(editor.getHTML());
+            console.log("entered here 3");
+            editor.commands.setHeading({ level: 1 });
+
+            this.$emit("childToParent", editor.getHTML());
+          }
         } catch (error) {
-         console.log(error) 
+          console.log(error);
         }
-        
       },
       content: ``,
     });
@@ -75,13 +74,11 @@ export default {
 </script>
 
 <style>
-
 .ProseMirror p.placeholderTitleClass {
   margin: 0;
   outline: none;
   cursor: text;
   /* line-height: 10px; */
-
 }
 
 .ProseMirror p.placeholderTitleClass.is-editor-empty::before {

@@ -106,7 +106,7 @@
           </button>
         </li>
         <li>
-          <button>
+          <button v-on:click="audioUpload">
             <button class="iconAnimation">
               <b-icon
                 v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
@@ -126,7 +126,7 @@
           </button>
         </li>
         <li>
-          <button>
+          <button v-on:click="videoUpload">
             <button class="iconAnimation">
               <b-icon
                 v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
@@ -193,6 +193,16 @@
       v-on:closeTextBox="closeChat($event)"
     >
     </CreatePostChat> -->
+
+    <CreatePostVideo
+      v-bind:videoPost="videoChosen"
+      v-on:closeVideoBox="closeVideo($event)"
+    />
+
+    <CreatePostAudio
+      v-bind:audioPost="audioChosen"
+      v-on:closeAudioBox="closeAudio($event)"
+    />
   </div>
 </template>
 
@@ -202,6 +212,8 @@ import CreatePostText from "./CreatePostText.vue";
 import CreatePostQuote from "./CreatePostQuote.vue";
 //import CreatePostChat from "./CreatePostChat.vue";
 import CreatePostLink from "./CreatePostLinkPart.vue";
+import CreatePostVideo from "./CreatePostVideo.vue";
+import CreatePostAudio from "./CreatePostAudio.vue";
 /**
  *  Create post section
  * @example [none]
@@ -213,7 +225,10 @@ export default {
     CreatePostQuote,
     // CreatePostChat,
     CreatePostLink,
+    CreatePostVideo,
+    CreatePostAudio,
   },
+
   data() {
     return {
       chooseTypeOfPost: true, // text,image,video..
@@ -223,11 +238,12 @@ export default {
       quoteChosen: false,
       chatChosen: false,
       linkChosen: false,
-      video: false,
-      audio: false,
-      link: false,
-      quote: false,
-      chat: false,
+      videoChosen: false,
+      audioChosen: false,
+      // audio: false,
+      // link: false,
+      // quote: false,
+      // chat: false,
       dialog: false,
     };
   },
@@ -243,7 +259,7 @@ export default {
      * @public This is a public method
      * @param {none}
      */
-    textUpload () {
+    textUpload() {
       this.textChosen = true;
     },
     /**
@@ -276,12 +292,22 @@ export default {
       this.imageChosen = imgClosed;
     },
 
-    // videoUpload: function () {
-    //   this.video = true;
-    // },
-    // audioUpload: function () {
-    //   this.audio = true;
-    // },
+    videoUpload() {
+      // console.log("here");
+      this.videoChosen = true;
+    },
+
+    closeVideo(videoClosed) {
+      this.videoChosen = videoClosed;
+    },
+
+    audioUpload() {
+      this.audioChosen = true;
+    },
+
+    closeAudio(audioClosed) {
+      this.audioChosen = audioClosed;
+    },
     linkUpload() {
       this.linkChosen = true;
     },
