@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div></div>
+  <div>
+  </div>
     <EditorContent v-bind:editor="editor" />
   </div>
 </template>
@@ -11,7 +12,6 @@ import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
 import Heading from "@tiptap/extension-heading";
 import Paragraph from "@tiptap/extension-paragraph";
-
 export default {
   components: {
     EditorContent,
@@ -33,34 +33,31 @@ export default {
             class: "placeholderTitleClass",
           },
         }),
-
         Heading.configure({
           HTMLAttributes: {
             class: "titleClass",
           },
         }),
       ],
-
       onCreate() {
         this.editor = null;
       },
-
       onUpdate: ({ editor }) => {
         try {
-          if (editor.getText() == "") {
-            this.editor.commands.setContent("");
-            console.log("entered here");
-            this.$emit("childToParent", "");
-          } else {
-            // console.log(editor.getHTML());
-            console.log("entered here 3");
-            // editor.commands.setHeading({ level: 1 });
-
-            this.$emit("childToParent", editor.getHTML());
-          }
+        if (editor.getText() == "") {
+          this.editor.commands.setContent("");
+          console.log("entered here")
+          this.$emit("childToParent", "");
+        } else {
+          // console.log(editor.getHTML());
+          console.log("entered here 3")
+        
+          this.$emit("childToParent", editor.getHTML());
+        }  
         } catch (error) {
-          console.log(error);
+         console.log(error) 
         }
+        
       },
       content: ``,
     });
@@ -80,7 +77,6 @@ export default {
   cursor: text;
   /* line-height: 10px; */
 }
-
 .ProseMirror p.placeholderTitleClass.is-editor-empty::before {
   content: attr(data-placeholder);
   float: left;
@@ -88,7 +84,6 @@ export default {
   pointer-events: none;
   height: 0;
 }
-
 .placeholderTitleClass {
   font-size: 36px;
   font-weight: 400;

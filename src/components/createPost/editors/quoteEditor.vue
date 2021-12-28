@@ -45,14 +45,18 @@ export default {
       },
 
       onUpdate: ({ editor }) => {
-        if (editor.getText() == "") {
-          this.editor.commands.setContent(null);
-          this.$emit("childToParent", "");
-        } else {
-          // editor.commands.setHeading({ level: 1 });
-          // console.log(editor.getHTML());
+        try {
+          if (editor.getText() == "") {
+            this.editor.commands.setContent(null);
+            this.$emit("childToParent", "");
+          } else {
+            // editor.commands.setHeading({ level: 1 });
+            // console.log(editor.getHTML());
 
-          this.$emit("childToParent", editor.getHTML());
+            this.$emit("childToParent", editor.getHTML());
+          }
+        } catch (error) {
+          console.log(error);
         }
       },
       content: ``,

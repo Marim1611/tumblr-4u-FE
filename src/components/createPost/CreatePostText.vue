@@ -137,8 +137,7 @@ export default {
               headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`,
               },
-            },
-
+            }
           )
           .then((res) => {
             this.$emit("closeTextBox", false);
