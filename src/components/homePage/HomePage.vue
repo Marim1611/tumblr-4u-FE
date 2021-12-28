@@ -115,7 +115,7 @@ export default {
         })
         .then((res) => {
           this.dashBoardPosts = res.data.res.postsToShow;
-          // this.tumblrsObj.id = res.data.res.blog._id;
+          this.tumblrsObj.id = res.data.res.blog._id;
           this.tumblrsObj.name = res.data.res.blog.name;
           this.tumblrsObj.title = res.data.res.blog.title;
           this.tumblrsObj.avatar = res.data.res.blog.img;
@@ -125,6 +125,8 @@ export default {
             "stBlockedBlogsId",
             res.data.res.blog.blockedBlogs
           );
+          this.$store.commit("setUserId", res.data.res.user._id);
+          this.$store.commit("setBrimaryBlogId", res.data.res.blog._id);
           console.log(
             "*********************DASH BOARD ************************"
           );
@@ -134,15 +136,16 @@ export default {
           console.log(
             "**************lllllllll*******DASH BOARD ************************"
           );
-          this.$store.commit("setUserId", res.data.res.user._id);
           console.log(res.data.res.user._id);
           //setBrimaryBlogId
           console.log(
             "**************mmmmmmmm *******DASH BOARD ************************"
           );
           console.log(res.data.res.blog._id);
+ 
           this.$store.commit("setBrimaryBlogId", res.data.res.blog._id);
             
+ 
           console.log("DEPLOYED?????????????????????");
           console.log("PRIMARY BLOG ID: ");
           console.log(this.blogId);
