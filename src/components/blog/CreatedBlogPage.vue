@@ -83,11 +83,8 @@ export default {
 
   props: {
     noPostsFlag:Boolean ,
-    indxFlag:Number,
-    //Posts:Array,
-    //followersIds:Array,
-    //blogId:String,
-    //Notes:Array,
+    blogId:String,
+     
 },
   components: {  
   CreatePostSection,

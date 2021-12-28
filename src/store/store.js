@@ -271,8 +271,8 @@ export const store = new Vuex.Store({
         
         async stBlockedBlogsId(state, Ids) {
           state.user.blockedBlogsId= Ids
-          console.log("%% BLOCKED blogs IDs %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-          console.log( state.user.blockedBlogsId)
+         // console.log("%% BLOCKED blogs IDs %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+          //console.log( state.user.blockedBlogsId)
            
         },
         async setBlogIds(state, Ids) {
@@ -282,9 +282,9 @@ export const store = new Vuex.Store({
            
         },
         setUserId(state, id) {
-          state.user.id= id
-          console.log("%%%USER ID%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-         console.log( state.user.id)
+        state.user.id= id
+         // console.log("%%%USER ID%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+       //  console.log( state.user.id)
         },
         
         auth_request(state){

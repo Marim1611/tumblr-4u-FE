@@ -111,7 +111,7 @@ export default {
           this.$store.commit("updateBodyColor", res.data.res.user.bodyColor);
           this.$store.commit("setBlogIds", res.data.res.user.blogsId);
           this.$store.commit("stBlockedBlogsId", res.data.res.blog.blockedBlogs);
-          console.log("DASH BOARD ************************")
+          console.log("*********************DASH BOARD ************************")
           console.log(res.data.res.user.blogsId)
             this.$store.commit("setUserId",res.data.res.user._id);
             //setBrimaryBlogId
@@ -148,14 +148,7 @@ export default {
     homeThemeIndex: function () {
       return this.$store.state.homeThemeIndex;
     },
-    /**
-     * Function to get post data from the store to show them in post card in the home page
-     * @public This is a public method
-     * @param {none}
-     */
-    // dashBoardPosts: function () {
-    //  return this.$store.state.blogs;
-    //},
+  
   },
   methods: {
     closeDrawer: function (close) {

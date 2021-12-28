@@ -1,5 +1,5 @@
 <template>
-  <div class="menu-item" id="dropDown" v-on:click="isOpen = !isOpen">
+  <div class="menu-item" id="dropDown" v-on:click="openAccDdl">
      
          <b-icon id="icon"  icon="person-fill" font-scale="1.8" aria-hidden="true"  :style="{'color': homeTheme[homeThemeIndex].fontColor, 'cursor':'pointer' }"></b-icon> 
    
@@ -117,9 +117,9 @@
                     </tr>
                   
                       <div v-show="openBlogFeatures[i]" id="blogFeatures">
-   <p v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle }" >posts</p>
-   <p v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle }">followers</p>
-   <p v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle}">Activity</p>
+   <p v-on:click="openFeature(i,0)" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle }" >posts</p>
+   <p  v-on:click="openFeature(i,1)" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle }">followers</p>
+   <p  v-on:click="openFeature(i,2)" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle}">Activity</p>
  </div>
                   
               <!-- <v-spacer :style="{'display': 'inline-block' , 'width' :'30px'}"></v-spacer> -->
@@ -145,6 +145,7 @@ import KeyScDrawer from "./KeyboardShortcutsDrawer.vue"
 import LogoutDialog from "../general/LogoutDialog.vue"
 import Browser from "../../mocks/browser";
 import axios from "axios";
+//import BlogFeatures from '../blog/CreatedBlogPage.vue' 
 
 /**
  *  AccountDropdownList is a drop down list appears when user clicks on account icon in the nav bar it shows list of options user will be able to click on all of them
@@ -155,14 +156,30 @@ export default {
    components: {
     Avatar: Avatar,
     KeyScDrawer:KeyScDrawer,
-    LogoutDialog:LogoutDialog
+    LogoutDialog:LogoutDialog,
+    //BlogFeatures:BlogFeatures
   },
   props: {
     title: String,
+    blogsIds:Array
 
   },
   methods:
   {
+    openFeature(i, feature){
+      //posts 0
+      if( feature == 0)
+      this.$router.push({ name: 'CreatedBlogPage', params: { indxFlag: feature, noPostsFlag:false 
+              , blogId:this.blogs[i].id} });
+        else if( feature == 1)
+      this.$router.push({ name: 'CreatedBlogPage', params: { indxFlag: feature, noPostsFlag:false 
+              , blogId:this.blogs[i].id} });
+      else if( feature == 2)
+      this.$router.push({ name: 'CreatedBlogPage', params: { indxFlag: feature, noPostsFlag:false 
+              , blogId:this.blogs[i].id} });
+
+
+    },
       hideLogoutDialog (hide) {
      this.openLogout = hide;
     },
@@ -190,6 +207,44 @@ export default {
           else 
           return true
     },
+  async openAccDdl(){
+      this.isOpen=!this.isOpen
+            console.log("DDL")   
+        console.log("FINAL blooooooooooooooooog")   
+ console.log(this.blogsId)
+     console.log(this.blogsId.length)
+       this.myBlogsId=this.blogsId
+       console.log(this.myBlogsId)  
+       for (let i =0; i < this.myBlogsId.length; i++)
+     {
+        let myRoute=""
+         if (this.isMockServer(Browser().baseURL))
+         myRoute= Browser().baseURL+'/blog'
+         else
+        myRoute= Browser().baseURL+`/blog/view/${this.myBlogsId[i]}`
+        console.log(myRoute)
+       try {
+         await axios.get(myRoute,
+          { headers: { 'Authorization':`Bearer ${localStorage.getItem('token')}` } })
+          .then(res => {    
+            this.blogs.push({
+          userId: res.data.res.data._id,
+           name: res.data.res.data.name,
+           title:res.data.res.data.title,
+           img:res.data.res.data.img,
+          followersIds: res.data.res.data.followers
+          })  
+             
+          })
+    } catch (e) {
+      console.error(e);
+    }
+
+     }
+ console.log("_____________________--------________blogs")
+        console.log(this.blogs)
+     
+    }
     
     },
   data: function () {
@@ -201,7 +256,7 @@ export default {
       defaultImg:"https://assets.tumblr.com/images/default_avatar/cone_closed_96.png",
      // blog=> userId,followersIds,name,title,description
       blogs:[]  ,
-    //  blogsId:[]  ,
+     myBlogsId:[]  ,
     }
   },
   computed: {
@@ -247,47 +302,12 @@ export default {
     //             "61c2ebd23135b522106a78fa",
     //             "61c3487663d3cefff498217d"
     //  ]   
-        console.log("blooooooooooooooooog")   
- console.log(this.blogsId)
-     console.log(this.blogsId.length)   
-
-    for (let i =0; i < this.blogsId.length; i++)
-     {
-        let myRoute=""
-         if (this.isMockServer(Browser().baseURL))
-         myRoute= Browser().baseURL+'/blog'
-         else
-        myRoute= Browser().baseURL+`/blog/view/${this.blogsId[i]}`
-        console.log(myRoute)
-       try {
-         await axios.get(myRoute,
-          { headers: { 'Authorization':`Bearer ${localStorage.getItem('token')}` } })
-          .then(res => {    
-            this.blogs.push({
-          userId: res.data.res.data._id,
-           name: res.data.res.data.name,
-           title:res.data.res.data.title,
-           img:res.data.res.data.img,
-          followersIds: res.data.res.data.followers})  
-             
-          })
-    } catch (e) {
-      console.error(e);
-    }
-
-     }
-
-        
+    
+    
         
 
   },
-  // created(){
-      
-  //   console.log(this.blogsId)
-  //    console.log(this.blogsId.length)
   
-
-  // }
   
   
 }
