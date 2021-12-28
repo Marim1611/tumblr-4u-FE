@@ -13,6 +13,7 @@ pipeline
              steps{
              script{
                     sh'docker rmi minalabib07/front_image'
+                    sh'docker rmi $(docker images -f "dangling=true")'
                     }
                 }
             }
