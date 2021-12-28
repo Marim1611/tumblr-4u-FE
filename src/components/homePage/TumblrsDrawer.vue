@@ -2,7 +2,7 @@
   <div>
     <v-navigation-drawer
       id="blogDrawer"
-      v-bind:width="600"
+      v-bind:width="625"
       v-bind:right="true"
       v-model="postToBegin"
       app
@@ -34,9 +34,9 @@
 
               <li v-if="!isOpenSearch">
                 <div id="nameDiv" >
-                  <p   class="searchP">    {{ this.tumblrsObj.name }}  </p>
+                  <p  v-if="!myUrl" @mouseover="myUrl=true" class="searchP">    {{ this.tumblrsObj.name }}  </p>
                     
-        
+        <p v-else @mouseover="myUrl=false"   class="searchP">    {{ this.tumblrsObj.name }}.tumblr.com   </p>
                 
                 </div>
               </li>
@@ -174,7 +174,7 @@
                 'background': homeTheme[homeThemeIndex].cardColor,
               }"
             >
-              <div v-for="(item, i) in dottedItems" :key="i" class="menu-item">
+              <div v-for="(item, i) in dottedItems" :key="i" class="menu-item" v-on:click="blockBlog(item)">
                 <li>
                   <div id="item">
                     <li>
@@ -183,7 +183,7 @@
                           color: homeTheme[homeThemeIndex].fontColor,
                           'font-style': homeTheme[homeThemeIndex].fontStyle,
                           display: 'inline-block',
-                          margin: 'auto 3px',
+                          margin: 'auto 1px',
                         }"
                       >
                         {{ item }}
@@ -248,7 +248,7 @@
           </div> -->
 
           <p id="userName">
-          {{ this.tumblrsObj.name }}
+          {{ this.tumblrsObj.title }}
           </p>
         </div>
 
@@ -259,6 +259,10 @@
         </b-col>
       </div>
     </v-navigation-drawer>
+    <BlockDialog  v-if="this.showBlockDialog"
+    v-bind:blocked="this.tumblrsObj.name"
+     v-on:hideMe="hideBlockDialog($event)"
+      v-on:doBlock="doBlock($event)"/>
   </div>
 </template>
 
@@ -267,6 +271,7 @@ import PostCard from "../general/ViewPostCard.vue";
  import Vue from "vue";
 import Browser from "../../mocks/browser";
 import axios from "axios";
+import BlockDialog from '../general/BlockDialog.vue'
 /**
  *  TumblrDrawer with profile view of a tumblr user -not the current user- should appear when current user clicks on some user in the search drop down list
  * @example [none]
@@ -275,9 +280,11 @@ export default {
   name: "TumblrDrawer",
   components: {
     PostCard:PostCard,
+    BlockDialog:BlockDialog
   },
   data: function () {
     return {
+      myUrl:false,
       drawerIsClosed:false,
       showBlogDrawer1:false,
        postCardWidth:"540px",
@@ -293,8 +300,10 @@ export default {
       isOpenSearch: false,
       openPopularTags:false,
       inputClicked:false,
+      showBlockDialog:false,
+       
        myPosts:[],
-      dottedItems: ["Archive", "Ask", "Report", "Block", "Close"],
+      dottedItems: ["Archive", "Ask", "", "Close"],
       shareItems: ["Facebook", "Twitter"],
       popularTags:["#art", "#crochet", "#baking", "#Block", "#Close","#art", "#crochet", "#baking"]
     };
@@ -314,6 +323,26 @@ export default {
       let currentInput = this.inputValue.toLowerCase();
       return currentName.includes(currentInput);
     },
+    hideBlockDialog(hide){
+ this.showBlockDialog = hide;
+    },
+   async doBlock(block){
+ this.showBlockDialog = block;
+ this.dottedItems[2]="Unblock"
+  try {
+          await axios.post( Browser().baseURL+`/blog/block/${this.blogId}`,
+         
+          {
+             blockedBlogId:  this.tumblrsObj.id,
+           },
+            { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } },
+          ) 
+     } catch (e) {
+       console.error(e);
+     }
+
+    },
+  
      /**
      * Function to toggle the follow button to follow or unfollow user in the drawer profile
      * @public This is a public method
@@ -362,6 +391,16 @@ export default {
      toggleDotted(){
       this.isOpendotted = !this.isOpendotted
       this.isOpenShare=false
+    //    console.log("---------------- please ------------------")
+    // console.log(this.blockedBlogIds)
+    //    console.log(this.tumblrsObj.id)
+    //  console.log(this.blockedBlogIds.indexOf(this.tumblrsObj.id))
+    if(this.blockedBlogIds.indexOf(this.tumblrsObj.id) == -1)
+     this.dottedItems[2]='Block'
+     else
+      this.dottedItems[2]='Unblock'
+
+    
     },
      isMockServer(baseUrl){
      
@@ -370,7 +409,30 @@ export default {
           else 
           return true
     },
-      
+     async blockBlog(item){
+        if (item == "Block")
+        {
+          this.showBlockDialog=true;
+        }
+          else if (item == "Unblock")
+          {
+   Vue.set(this.dottedItems,2, "Block");
+        try{
+           await axios.post( Browser().baseURL+ `/blog/unblock/${this.blogId}`,
+         
+          {
+             unblockedBlogId:  this.tumblrsObj.id,
+           },
+            { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } },
+          ) 
+
+        }
+    
+          catch (e) {
+       console.error(e);
+     }
+     } 
+      }
   },
   computed: {
       postToBegin: {
@@ -405,9 +467,12 @@ export default {
     homeThemeIndex: function () {
       return this.$store.state.homeThemeIndex;
     },
-    //   dashBoardPosts: function () {
-    //   return this.$store.state.blogs;
-    // },
+      blogId: function () {
+      return this.$store.state.user.primaryBlogId;
+    },
+     blockedBlogIds: function () {
+      return this.$store.state.user.blockedBlogsId;
+    },
   },
   props: {
      showBlogDrawer: Boolean,
@@ -415,6 +480,7 @@ export default {
     disableFollow:Boolean
   },
   async created(){
+   
      let myRoute=""
          if (this.isMockServer(Browser().baseURL))
          myRoute=Browser().baseURL+'/posts'
@@ -464,7 +530,7 @@ export default {
   height: 140px;
 }
 .menu-item .sub-menu {
-  position: absolute;
+ position: relative;
   /* top: 0; */
   left: 48%;
   /* left: 100px; */
@@ -479,7 +545,7 @@ export default {
  
 }
 .menu-item-share .sub-menu-share {
-  position: absolute;
+   position:absolute;
   /* top: 0; */
   left: 48%;
   /* left: 100px; */
@@ -494,7 +560,7 @@ export default {
   display: inline-block;
   padding: 3px;
 }
-
+ 
 #homeDrawer {
   width: 90%;
   display: flex;

@@ -323,17 +323,6 @@ export default {
       let currentInput = this.inputValue.toLowerCase();
       return currentName.includes(currentInput);
     },
-     /**
-     * Function to toggle the follow button to follow or unfollow user in the drawer profile
-     * @public This is a public method
-     * @param {none}
-     */
-    toggleFollow() {
-      if (this.isFollow.status == "Follow")
-        Vue.set(this.isFollow, "status", "Unfollow");
-      else if (this.isFollow.status == "Unfollow")
-        Vue.set(this.isFollow, "status", "Follow");
-    },
     toggleShare(){
       this.isOpenShare = !this.isOpenShare
       this.isOpendotted=false

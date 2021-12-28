@@ -37,7 +37,7 @@
             "accent": "default",
             "headerImage": "default",
             "background": "default",
-            "blockedBlogs": [],
+            "blockedBlogs": [ "6777"],
             "followers": [],
             "privacy": false,
             "name": "nouro282",

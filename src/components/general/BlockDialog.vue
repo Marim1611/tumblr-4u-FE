@@ -2,13 +2,13 @@
 	<div class="popup">
 		<div class="popup-inner">
 			<slot />
-      <h2 v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor,'font-family':homeTheme[homeThemeIndex].fontStyle}">Are you sure you want to log out?</h2>
+      <h2 v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor,'font-family':homeTheme[homeThemeIndex].fontStyle}">
+          Are you sure you want to block {{this.blocked}} ? </h2>
 		<div id="buttons" >
-	<button id="myButton" v-on:click="cancel" type="button" v-bind:style="{'background': homeTheme[homeThemeIndex].focused,'font-family':homeTheme[homeThemeIndex].fontStyle }" >Cancel</button>
-  <router-link :to="this.routeOut">
-<button id="myButton" v-on:click="goOut" type="button" v-bind:style="{'background': homeTheme[homeThemeIndex].focused,'font-family':homeTheme[homeThemeIndex].fontStyle }" >Ok</button>
-             </router-link>
-
+	<button id="myButton" v-on:click="neverMind" type="button" v-bind:style="{'background': homeTheme[homeThemeIndex].focused,'font-family':homeTheme[homeThemeIndex].fontStyle }" >Never mind</button>
+   
+<button id="myButton" v-on:click="block" class="blockButton"   type="button" >Block</button>
+            
 
 		</div>
 		</div>
@@ -18,11 +18,6 @@
 <script>
 export default {
 
-data(){
-  return{
-    routeOut:""
-  }
-},
 
  computed: {
      
@@ -49,15 +44,18 @@ destroyed: function() {
      console.log('esc key pressed');
   }
 },
- cancel(){
+ neverMind(){
  this.$emit("hideMe", false);
   },
-  goOut(){
-   localStorage.removeItem('token')
-  this.routeOut="/"
-  
-  }
+  block(){
+    console.log("ahhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
+ this.$emit("doBlock", false);
+  },
+   
 },
+props:{
+    blocked:String
+}
 }
 </script>
 
@@ -83,19 +81,23 @@ destroyed: function() {
 h2{
 	font-weight: bold;
 }
+.blockButton{
+    background-color:rgb(204, 51, 51);
+}
 #buttons{
-	margin: 40px;
+	margin-left:300px;
+  margin-top:100px ;
 	justify-content: space-between;
 }
 #myButton {
-	color:white;
+	
    border-radius: 5px;
  padding: 5px 0 0 0 ;
     margin:20px;
   text-align: center;
   text-decoration: none;
-  width: 70px;
-  height: 40px;
+  width: 100px;
+  height: 60px;
   font-size: 15px;
 }
 </style>

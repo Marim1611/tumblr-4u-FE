@@ -110,6 +110,7 @@ export default {
              this.tumblrsObj.avatar = res.data.res.blog.img;  
           this.$store.commit("updateBodyColor", res.data.res.user.bodyColor);
           this.$store.commit("setBlogIds", res.data.res.user.blogsId);
+          this.$store.commit("stBlockedBlogsId", res.data.res.blog.blockedBlogs);
           console.log("DASH BOARD ************************")
           console.log(res.data.res.user.blogsId)
             this.$store.commit("setUserId",res.data.res.user._id);
