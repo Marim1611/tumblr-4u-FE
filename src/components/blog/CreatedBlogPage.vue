@@ -33,7 +33,7 @@
                 <div class="follower_names">
                     <ul class="f_names">
                     <li class="names_list" v-for="follower of followers  " :key="follower.id">
-                        <Followers v-bind:image="follower.image_link"
+                        <Followers v-bind:image="follower.img"
                         v-bind:username="follower.username"
                         v-bind:title="follower.title"
                         v-bind:followerFlag="follower.followerFlag"
