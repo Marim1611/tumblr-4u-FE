@@ -131,7 +131,7 @@ export default {
               postHtml: this.postTitle + this.postContent,
               type: "text",
               state: "published",
-              tags: [],
+              tags: "cmp",
             },
             {
               headers: {
@@ -154,7 +154,7 @@ export default {
   },
   computed: {
      blogId: function () {
-      return this.$store.state.primaryBlogId;
+      return this.$store.state.user.primaryBlogId;
     },
     /**
      * Function to know if the text upload post should appear or not

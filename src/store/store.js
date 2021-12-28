@@ -314,6 +314,9 @@ export const store = new Vuex.Store({
             api().defaults.headers.common['Authorization'] = token 
             commit('auth_success', token, user)
             resolve(res)
+             this.state.primaryBlogId="61c9d6b82569f9abb33ebe04"
+            //
+
           })
           .catch(err => {
             alert(err)
