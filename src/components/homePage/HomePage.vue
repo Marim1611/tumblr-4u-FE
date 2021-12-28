@@ -103,7 +103,7 @@ export default {
         })
         .then((res) => {
           this.dashBoardPosts = res.data.res.postsToShow;
-          // this.tumblrsObj.id = res.data.res.blog._id;
+          this.tumblrsObj.id = res.data.res.blog._id;
           this.tumblrsObj.name = res.data.res.blog.name;
           this.tumblrsObj.title = res.data.res.blog.title;
           this.tumblrsObj.avatar = res.data.res.blog.img;
