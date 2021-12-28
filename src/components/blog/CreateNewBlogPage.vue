@@ -137,10 +137,10 @@ export default {
   
         await axios.get(  Browser().baseURL+`/user/new/blog`, 
         {
-          Title:this.title,
+          title:this.title,
           name:this.name,
           privacy:this.privacy,
-          Password:this.pass
+          password:this.pass
          },
         { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
         ).then(res => {
