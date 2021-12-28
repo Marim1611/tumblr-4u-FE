@@ -81,11 +81,6 @@ export default {
   props: {
     
   },
-  computed:{
-      getUserId: function () {
-      return this.$store.state.user.id;
-    },
-  },
   methods: {
       /*
       *makes textbox of password enabled when the its label accessed
@@ -99,14 +94,15 @@ export default {
         //delete text entered before
         this.pass="";
         this.validated=0;
-      }    
+      }
+        
     },
       /*
       *does not permit user to create a blog except he enters the title and 
       *url and url without special characters
       *@public
       */ 
-    async go_validations(){
+   async go_validations(){
         var illegalChars = /[\W_]/; // allow only letters and numbers
       if(this.title==" " && this.url==" " ){
         this.isHidden_url=0;
@@ -131,18 +127,15 @@ export default {
         this.isHidden_title=1;
         this.special_char_detected=1;
         this.router_flag=true;
-        
-       if(this.pass!="")
+
+         if(this.pass!="")
         this.privacy=true;
         else this.privacy=false;
-         let myRoute=""
-         if (this.isMockServer(Browser().baseURL))
-         myRoute= Browser().baseURL+'/user/new/blog'
-         else
-        myRoute= Browser().baseURL+`/user/new/blog/${this.getUserId}`
+         
+         
         try {
   
-        await axios.put( myRoute, 
+        await axios.put(  Browser().baseURL+`/user/new/blog`, 
         {
           Title:this.title,
           name:this.name,
@@ -150,22 +143,21 @@ export default {
           Password:this.pass
          },
         { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
-        ) 
-   } catch (e) {
-     console.error(e);
-   }
-     
+        ).then(res => {
+            console.log("FINAL CREATE BLOG")
+                 console.log(res.data.res.message)
+                })
+        } catch (e) {
+          console.error(e);
+        }
 
-        //router.push({ name: 'CreatedBlogPage', params: { Username: 'accca' } });
-        //this.$router.push({ path: '/blog/created', query: { Username: "this.url",Title:"this.title" }});//mesh sh8ala 3edel:)
-        
-        this.$router.push('/blog/created');
+        this.$router.push({ name: 'CreatedBlogPage', params: { indxFlag: this.temp, noPostsFlag: this.tempFlag } });
         console.log(this.url);
         }
       
 
     },
-     isMockServer(baseUrl){
+         isMockServer(baseUrl){
      
         if (baseUrl == "http://tumblr4u.eastus.cloudapp.azure.com:5000")
           return false
@@ -184,9 +176,10 @@ export default {
       isHidden_url:1,
       special_char_detected:1,
       pass:"",
-      router_flag:false
-      //BE needs title,url,pass
-    }
+      router_flag:false,
+      tempFlag:true,
+      temp:0
+}
   }
 }
 </script>
