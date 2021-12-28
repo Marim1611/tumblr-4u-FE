@@ -143,6 +143,7 @@ export default {
           )
           .then((res) => {
             this.imagesURLS = res.data.file;
+            console.log("images url weslo elhamdullahh")
             console.log(res.data.file);
           });
       } catch (e) {
