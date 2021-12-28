@@ -16,6 +16,7 @@ pipeline
                     }
                 }
             }
+        
         stage('build Docker image'){
             steps{
                 script{
@@ -32,6 +33,7 @@ pipeline
                     }
                 }
             }
+        }
         stage('after clean'){
              steps{
              script{
@@ -39,7 +41,7 @@ pipeline
                     }
                 }
             }
-        }
+            
     }
 }
 
