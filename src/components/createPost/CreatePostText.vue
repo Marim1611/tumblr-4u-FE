@@ -153,7 +153,7 @@ export default {
     },
   },
   computed: {
-    blogId: function () {
+     blogId: function () {
       return this.$store.state.primaryBlogId;
     },
     /**

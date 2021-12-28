@@ -4,7 +4,7 @@ const posts = require("./data/posts.json");
 const dashboard  = require("./data/dashBoard.json");
 const features = require("./data/features.json");
 const activity = require("./data/activity.json");
-const createPost = require("./data/createPost.json");
+const create_post = require("./data/createPost.json");
 const imageUpload = require("./data/imageUpload.json");
 const getInterestsFromUser = require("./data/interests.json");
 const ranBlogs = require("./data/checkoutBlogs.json");
@@ -20,7 +20,7 @@ module.exports = () => ({
   dashboard,
   features,
   activity,
-  createPost,
+  create_post,
   imageUpload,
   getInterestsFromUser,
   ranBlogs,
