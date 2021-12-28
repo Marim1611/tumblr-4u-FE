@@ -25,10 +25,7 @@
         <div id="myDashboard">
           <div id="leftPart">
             <div id="homePageCreatePost">
-              <div
-                class="avatarStyle"
-                v-on:click="openAvatarDrawer"
-              >
+              <div class="avatarStyle" v-on:click="openAvatarDrawer">
                 <avatar
                   username="Jane Doe"
                   v-bind:rounded="false"
@@ -46,7 +43,7 @@
               v-show="openProfileDrawer"
               v-bind:tumblrsObj="tumblrsObj"
               v-bind:showBlogDrawer="openProfileDrawer"
-               v-bind:myPosts="myPosts"
+              v-bind:myPosts="myPosts"
               v-on:closeDrawer="closeDrawer($event)"
             />
           </div>
@@ -86,12 +83,12 @@ export default {
       userImg:
         "https://assets.tumblr.com/images/default_avatar/octahedron_closed_96.png",
       openProfileDrawer: false,
-      myPosts:[],
+      myPosts: [],
       tumblrsObj: {
         id: "",
         name: "",
         avatar: "",
-        title:"",
+        title: "",
         coverImg:
           "https://assets.tumblr.com/images/default_header/optica_pattern_05_focused_v3.png?_v=671444c5f47705cce40d8aefd23df3b1",
       },
@@ -106,25 +103,36 @@ export default {
         })
         .then((res) => {
           this.dashBoardPosts = res.data.res.postsToShow;
-         // this.tumblrsObj.id = res.data.res.blog._id;
-          this.tumblrsObj.name = res.data.res.blog.name;  
-           this.tumblrsObj.title = res.data.res.blog.title;  
-             this.tumblrsObj.avatar = res.data.res.blog.img;  
+          // this.tumblrsObj.id = res.data.res.blog._id;
+          this.tumblrsObj.name = res.data.res.blog.name;
+          this.tumblrsObj.title = res.data.res.blog.title;
+          this.tumblrsObj.avatar = res.data.res.blog.img;
           this.$store.commit("updateBodyColor", res.data.res.user.bodyColor);
           this.$store.commit("setBlogIds", res.data.res.user.blogsId);
-          this.$store.commit("stBlockedBlogsId", res.data.res.blog.blockedBlogs);
-          console.log("*********************DASH BOARD ************************")
-           console.log(res.data)
-          console.log(res.data.res.user.blogsId)
-    
-             console.log("**************lllllllll*******DASH BOARD ************************")
-            this.$store.commit("setUserId",res.data.res.user._id);
-                  console.log(res.data.res.user._id)
-            //setBrimaryBlogId
-             console.log("**************mmmmmmmm *******DASH BOARD ************************")
-              console.log(res.data.res.blog._id)
-                this.$store.commit("setBrimaryBlogId",res.data.res.blog._id);
-               
+          this.$store.commit(
+            "stBlockedBlogsId",
+            res.data.res.blog.blockedBlogs
+          );
+          console.log(
+            "*********************DASH BOARD ************************"
+          );
+          console.log(res.data);
+          console.log(res.data.res.user.blogsId);
+
+          console.log(
+            "**************lllllllll*******DASH BOARD ************************"
+          );
+          this.$store.commit("setUserId", res.data.res.user._id);
+          console.log(res.data.res.user._id);
+          //setBrimaryBlogId
+          console.log(
+            "**************mmmmmmmm *******DASH BOARD ************************"
+          );
+          console.log(res.data.res.blog._id);
+          this.$store.commit("setBrimaryBlogId", res.data.res.blog._id);
+          console.log("DEPLOYED?????????????????????");
+          console.log("PRIMARY BLOG ID: ");
+          console.log(this.blogId);
         });
     } catch (e) {
       console.log("error in dashboard");
@@ -143,6 +151,9 @@ export default {
     Radar: Radar,
   },
   computed: {
+    blogId: function () {
+      return this.$store.state.user.primaryBlogId;
+    },
     myToken: function () {
       return this.$store.state.token;
     },
@@ -157,36 +168,36 @@ export default {
     homeThemeIndex: function () {
       return this.$store.state.homeThemeIndex;
     },
-  
   },
-  methods: {isMockServer(baseUrl){
-     
-        if (baseUrl == "http://tumblr4u.eastus.cloudapp.azure.com:5000")
-          return false
-          else 
-          return true
-    }, 
- async openAvatarDrawer(){
-  console.log("BLOG DRAWER")
- let myRoute=""
-         if (this.isMockServer(Browser().baseURL))
-         myRoute=Browser().baseURL+'/posts'
-         else
-        myRoute=Browser().baseURL+`/blog/${this.tumblrsObj.id}/getBlogPosts`
+  methods: {
+    isMockServer(baseUrl) {
+      if (baseUrl == "http://tumblr4u.eastus.cloudapp.azure.com:5000")
+        return false;
+      else return true;
+    },
+    async openAvatarDrawer() {
+      console.log("BLOG DRAWER");
+      let myRoute = "";
+      if (this.isMockServer(Browser().baseURL))
+        myRoute = Browser().baseURL + "/posts";
+      else
+        myRoute =
+          Browser().baseURL + `/blog/${this.tumblrsObj.id}/getBlogPosts`;
 
-        
       try {
-      
-         await axios.get(myRoute,
-         { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
-         ).then(res => {
-            this.myPosts = res.data.postsToShow;
-       
+        await axios
+          .get(myRoute, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
           })
-    } catch (e) {
-      console.error(e);
-    }
-     this.openProfileDrawer = !this.openProfileDrawer
+          .then((res) => {
+            this.myPosts = res.data.postsToShow;
+          });
+      } catch (e) {
+        console.error(e);
+      }
+      this.openProfileDrawer = !this.openProfileDrawer;
     },
     closeDrawer: function (close) {
       // console.log(text);
@@ -263,10 +274,10 @@ export default {
   border-width: 5px;
   border-color: white;
 }
-#mobile{
+#mobile {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
- text-align: center;
+  text-align: center;
 }
 </style>
