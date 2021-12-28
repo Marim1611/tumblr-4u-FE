@@ -9,7 +9,13 @@ pipeline
     }
     
     stages{
-
+        stage('clean'){
+             steps{
+             script{
+                    sh'docker rmi minalabib07/front_image'
+                    }
+                }
+            }
         stage('build Docker image'){
             steps{
                 script{
