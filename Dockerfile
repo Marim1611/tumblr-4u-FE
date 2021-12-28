@@ -1,7 +1,7 @@
 from  node:12.18.1-alpine as build
 workdir /app
 copy package.json ./
-RUN npm cache clean --force
+# RUN npm cache clean --force
 run npm install
 copy . .
 run npm run build
