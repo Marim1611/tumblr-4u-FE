@@ -37,7 +37,19 @@
             </div>
 
             <div id="dashBoard" v-for="(post, i) in dashBoardPosts" :key="i">
+              <div id="postRow">
+                 <div class="avatarStyle" v-on:click="openAvatarDrawer">
+                <avatar
+                  username="Jane Doe"
+                  v-bind:rounded="false"
+                  v-bind:src="userImg"
+                  v-bind:size="70"
+                ></avatar>
+              </div>
               <DashBoard v-bind:post="post" v-bind:maxWidth="postCardWidth" />
+
+              </div>
+              
             </div>
             <ProfileDrawer
               v-show="openProfileDrawer"
@@ -130,6 +142,10 @@ export default {
             "**************mmmmmmmm *******DASH BOARD ************************"
           );
           console.log(res.data.res.blog._id);
+ 
+          this.$store.commit("setBrimaryBlogId", res.data.res.blog._id);
+            
+ 
           console.log("DEPLOYED?????????????????????");
           console.log("PRIMARY BLOG ID: ");
           console.log(this.blogId);
@@ -177,6 +193,7 @@ export default {
     },
     async openAvatarDrawer() {
       console.log("BLOG DRAWER");
+      console.log();
       let myRoute = "";
       if (this.isMockServer(Browser().baseURL))
         myRoute = Browser().baseURL + "/posts";
@@ -218,6 +235,13 @@ export default {
   width: 100%;
   height: 1px;
 }
+#postRow{
+    display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+ 
+
+}
 #dashBoard {
   align-items: center;
   display: flex;
@@ -237,7 +261,9 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin: 20px;
+  align-items: start;
+
+  margin-left: 10px;
 }
 #rightPart {
   display: flex;
