@@ -271,8 +271,8 @@
 <script>
  
 import PostCard from "../general/ViewPostCard.vue";
-import axios from 'axios';
-import Browser from '../../mocks/browser'
+//import axios from 'axios';
+//import Browser from '../../mocks/browser'
 import Vue from "vue";
 import vOutsideEvents from 'vue-outside-events'
  Vue.use(vOutsideEvents)
@@ -302,7 +302,7 @@ export default {
       isOpenSearch: false,
       openPopularTags:false,
       inputClicked:false,
-      myPosts:[],
+      // myPosts:[],
       dottedItems: ["Archive", "Following", "Close"],
       shareItems: ["Facebook", "Twitter"],
       popularTags:["#art", "#crochet", "#baking", "#Block", "#Close","#art", "#crochet", "#baking"]
@@ -372,25 +372,11 @@ export default {
   props: {
      showBlogDrawer: Boolean,
     tumblrsObj: Object,
+    myPosts:Array
   },
       async created(){
          
-         let myRoute=""
-         if (this.isMockServer(Browser().baseURL))
-         myRoute=Browser().baseURL+'/posts'
-         else
-        myRoute=Browser().baseURL+`/blog/${this.tumblrsObj.id}/getBlogPosts`
-      try {
-      
-         await axios.get(myRoute,
-         { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
-         ).then(res => {
-            this.myPosts = res.data.postsToShow;
-       
-          })
-    } catch (e) {
-      console.error(e);
-    }
+        
 
   }
   

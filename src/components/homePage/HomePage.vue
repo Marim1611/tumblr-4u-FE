@@ -27,7 +27,7 @@
             <div id="homePageCreatePost">
               <div
                 class="avatarStyle"
-                v-on:click="openProfileDrawer = !openProfileDrawer"
+                v-on:click="openAvatarDrawer"
               >
                 <avatar
                   username="Jane Doe"
@@ -46,6 +46,7 @@
               v-show="openProfileDrawer"
               v-bind:tumblrsObj="tumblrsObj"
               v-bind:showBlogDrawer="openProfileDrawer"
+               v-bind:myPosts="myPosts"
               v-on:closeDrawer="closeDrawer($event)"
             />
           </div>
@@ -85,6 +86,7 @@ export default {
       userImg:
         "https://assets.tumblr.com/images/default_avatar/octahedron_closed_96.png",
       openProfileDrawer: false,
+      myPosts:[],
       tumblrsObj: {
         id: "",
         name: "",
@@ -149,7 +151,7 @@ export default {
     },
     /**
      * Function to get the home page colortheme Index from the store
-     * @public This is a public method
+     * @public This is dsa public method
      * @param {none}
      */
     homeThemeIndex: function () {
@@ -157,7 +159,35 @@ export default {
     },
   
   },
-  methods: {
+  methods: {isMockServer(baseUrl){
+     
+        if (baseUrl == "http://tumblr4u.eastus.cloudapp.azure.com:5000")
+          return false
+          else 
+          return true
+    }, 
+ async openAvatarDrawer(){
+  console.log("BLOG DRAWER")
+ let myRoute=""
+         if (this.isMockServer(Browser().baseURL))
+         myRoute=Browser().baseURL+'/posts'
+         else
+        myRoute=Browser().baseURL+`/blog/${this.tumblrsObj.id}/getBlogPosts`
+
+        
+      try {
+      
+         await axios.get(myRoute,
+         { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
+         ).then(res => {
+            this.myPosts = res.data.postsToShow;
+       
+          })
+    } catch (e) {
+      console.error(e);
+    }
+     this.openProfileDrawer = !this.openProfileDrawer
+    },
     closeDrawer: function (close) {
       // console.log(text);
       console.log("drqwer closse heree2");
