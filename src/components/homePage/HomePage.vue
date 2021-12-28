@@ -114,10 +114,15 @@ export default {
           console.log("*********************DASH BOARD ************************")
            console.log(res.data)
           console.log(res.data.res.user.blogsId)
-          
+    
+             console.log("**************lllllllll*******DASH BOARD ************************")
             this.$store.commit("setUserId",res.data.res.user._id);
+                  console.log(res.data.res.user._id)
             //setBrimaryBlogId
+             console.log("**************mmmmmmmm *******DASH BOARD ************************")
+              console.log(res.data.res.blog._id)
                 this.$store.commit("setBrimaryBlogId",res.data.res.blog._id);
+               
         });
     } catch (e) {
       console.log("error in dashboard");

@@ -61,7 +61,7 @@ const routes = [
         path: '/explore',
         name: 'explore',
         component:Explore,
-        props: true
+        
       },
       {
         path: '/dashBoard',

@@ -246,11 +246,8 @@ export default {
           },
         });
       } else this.$router.push({
-         name: "explore",
-          params: {
-            isOut:true
-             
-          },
+         path: "/explore",
+        
          });
 
       // this.$router.push({ path: '/search', searchWord: this.inputValue });
