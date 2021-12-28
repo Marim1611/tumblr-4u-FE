@@ -122,7 +122,7 @@ export default {
       }
     },
 
-    readFile(files) {
+    async readFile(files) {
       var vm = this;
       for (var index = 0; index < files.length; index++) {
         var file = { file: "" };
