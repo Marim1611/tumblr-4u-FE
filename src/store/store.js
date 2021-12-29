@@ -47,7 +47,7 @@ export const store = new Vuex.Store({
     },
     age: 0,
     // we need to replace this with bodyColor in DB as each user has his theme color
-
+    showFollowing:false,
     homeThemeIndex: 0,
     homeTheme: [
       {
@@ -498,6 +498,8 @@ export const store = new Vuex.Store({
           .then((res) => {
             const token = res.data.res.data.token;
             const user = res.data.res.data.user;
+            console.log("******** log in store")
+            console.log(res.data.res.data)
             // ------------------------ User -------------------------
             this.state.user.id = res.data.res.data.user._id;
             this.state.user.name = res.data.res.data.user.name;
@@ -516,6 +518,8 @@ export const store = new Vuex.Store({
             this.state.blog.followingBlogs=res.data.res.data.blog.following_blogs;   
             this.state.blog.likesPostsId=res.data.res.data.blog.likes_posts_id;
             this.state.blog.isBlocked=res.data.res.data.blog.isBlocked;
+            console.log( this.state.user.blogsId)
+            console.log( this.state.user.primaryBlogId)
             localStorage.setItem("token", token);
             axios.defaults.headers.common["Authorization"] = token;
             commit("auth_success", token, user);
