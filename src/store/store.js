@@ -109,9 +109,8 @@ export const store = new Vuex.Store({
           api().post('login',{
             email: user.email,
             password: user.password
-          })
-          .then(res => {
-            const token =res.data.res.data
+          }).then(res => {
+            const token =res.data.res.data.token
             const user = res.data.res.data.user
             localStorage.setItem('token', token)
             api().defaults.headers.common['Authorization'] = token 
