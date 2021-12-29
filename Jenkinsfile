@@ -43,5 +43,19 @@ pipeline
             }
             
     }
+    
+post {
+    failure {
+        mail to: 'mina.labib00@eng-st.cu.edu.eg , mohamed.ahmedmoreb@gmail.com , marimnaser813@gmail.com',
+             subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+             body: "Something is wrong with ${env.BUILD_URL}"
+            }
+    
+    success {
+        mail to: 'marimnaser813@gmail.com',
+             subject: "Pipeline done: ${currentBuild.fullDisplayName}",
+             body: "Done!!"
+            }
+    }
 }
 

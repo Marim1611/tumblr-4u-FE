@@ -491,7 +491,7 @@ export default {
          await axios.get(myRoute,
          { headers: { 'Authorization':`Bearer ${localStorage.getItem('token')}` } }
          ).then(res => {
-            this.myPosts = res.data.postsToShow;
+            this.myPosts = res.data.res.data.postsToShow;
             console.log("myyyyyyyyyyyy postsssssssssssssss")
             console.log(res.data)
        

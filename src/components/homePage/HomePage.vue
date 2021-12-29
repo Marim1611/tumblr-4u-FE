@@ -115,40 +115,23 @@ export default {
         })
         .then((res) => {
           this.dashBoardPosts = res.data.res.postsToShow;
-          this.tumblrsObj.id = res.data.res.blog._id;
-          this.tumblrsObj.name = res.data.res.blog.name;
-          this.tumblrsObj.title = res.data.res.blog.title;
-          this.tumblrsObj.avatar = res.data.res.blog.img;
-          this.$store.commit("updateBodyColor", res.data.res.user.bodyColor);
-          this.$store.commit("setBlogIds", res.data.res.user.blogsId);
-          this.$store.commit(
-            "stBlockedBlogsId",
-            res.data.res.blog.blockedBlogs
-          );
-          this.$store.commit("setUserId", res.data.res.user._id);
-          this.$store.commit("setBrimaryBlogId", res.data.res.blog._id);
-          console.log(
-            "*********************DASH BOARD ************************"
-          );
-          console.log(res.data);
-          console.log(res.data.res.user.blogsId);
-
-          console.log(
-            "**************lllllllll*******DASH BOARD ************************"
-          );
-          console.log(res.data.res.user._id);
-          //setBrimaryBlogId
-          console.log(
-            "**************mmmmmmmm *******DASH BOARD ************************"
-          );
-          console.log(res.data.res.blog._id);
- 
-          this.$store.commit("setBrimaryBlogId", res.data.res.blog._id);
-            
- 
-          console.log("DEPLOYED?????????????????????");
+          this.tumblrsObj.id =  this.blogId;
+          this.tumblrsObj.name =this.userBlog.name;
+          this.tumblrsObj.title = this.userBlog.title;
+         // this.tumblrsObj.avatar = this.userBlog.img;
+           console.log("DEPLOYED*******?????????????????????");
           console.log("PRIMARY BLOG ID: ");
           console.log(this.blogId);
+          // this.$store.commit("updateBodyColor", res.data.res.user.bodyColor);
+          // this.$store.commit("setBlogIds", res.data.res.user.blogsId);
+          // this.$store.commit(
+          //   "stBlockedBlogsId",
+          //   res.data.res.blog.blockedBlogs
+          // );
+          // this.$store.commit("setUserId", res.data.res.user._id);
+          // this.$store.commit("setBrimaryBlogId", res.data.res.blog._id);
+        
+       
         });
     } catch (e) {
       console.log("error in dashboard");
@@ -169,6 +152,9 @@ export default {
   computed: {
     blogId: function () {
       return this.$store.state.user.primaryBlogId;
+    },
+    userBlog: function () {
+      return this.$store.state.blog;
     },
     myToken: function () {
       return this.$store.state.token;
@@ -192,14 +178,15 @@ export default {
       else return true;
     },
     async openAvatarDrawer() {
-      console.log("BLOG DRAWER");
+      console.log("BLOG DRAWER :''''D ");
+       console.log(this.blogId);
      
       let myRoute = "";
       if (this.isMockServer(Browser().baseURL))
         myRoute = Browser().baseURL + "/posts";
       else
         myRoute =
-          Browser().baseURL + `/blog/${this.this.tumblrsObj.id}/getBlogPosts`;
+          Browser().baseURL + `/blog/${this.blogId}/getBlogPosts`;
  console.log(myRoute);
       try {
         await axios
