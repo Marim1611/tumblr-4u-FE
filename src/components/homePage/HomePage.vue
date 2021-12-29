@@ -38,7 +38,7 @@
 
             <div id="dashBoard" v-for="(post, i) in dashBoardPosts" :key="i">
               <div id="postRow">
-                 <div class="avatarStyle" v-on:click="openAvatarDrawer">
+                 <div class="avatarStyle">
                 <avatar
                   username="Jane Doe"
                   v-bind:rounded="false"

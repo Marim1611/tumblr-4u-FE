@@ -74,7 +74,7 @@
           </div>
         </div>
         <!-- auto complete "tags"  -->
-        <div v-else class="dropdown-list">
+        <div v-else  v-show="isClicked" class="dropdown-list">
           <div>
             <p v-bind:style="{ 'font-size': '18px', margin: '10px' }">
               Go to #{{ this.inputValue }}
