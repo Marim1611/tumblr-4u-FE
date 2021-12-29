@@ -37,7 +37,7 @@ module.exports = () => ({
   like_press,
   comment,
  
-  reblog_post
+  reblog_post,
  
   blog,
   follow,updateColor,
