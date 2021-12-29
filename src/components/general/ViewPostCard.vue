@@ -6,7 +6,7 @@
         <div class="header">
           <img class="profile" src="https://64.media.tumblr.com/54a1c708b6e6f778e6d6a62122b87264/dd15ee49758e1917-0f/s64x64u_c1/591674a52eaa19af57c763479bdbddcfa2219db8.jpg" alt="">
           <div class="name-follow">
-            <a href="" class="name" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}">{{this.name}} </a>
+            <a href="" class="name" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}">{{this.postName}} </a>
             <a href="" v-on:click.prevent="followUnfollow" v-show="!follow" v-bind:style="{'color': homeTheme[homeThemeIndex].focused}">Follow</a>
           </div>
 
@@ -141,7 +141,7 @@
             <b-icon class="options" v-on:click="reblogWind(true)"  icon="arrow-left-right" font-scale="2" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}" ></b-icon> 
           </div>
 
-          <ReblogWindow v-on:reblogWind="reblogWind($event)" v-show="reblog" v-bind:post="post" />
+          <ReblogWindow v-on:reblogWind="reblogWind($event)" v-show="reblog" v-bind:postName="postName" v-bind:name="this.name" v-bind:post="post" />
 
 
           <div v-show="!heartFilled" v-on:click="like(post)">
@@ -173,27 +173,27 @@ export default {
     ReblogWindow:ReblogWindow
   },
   data() {
-      return{
-          showDropDown: false,
-          heartFilled: false,
-          follow:false,
-          forMe:true,
-          comment: false,
-          subscribe:false,
-          share:false,
-          hash:true,
-          copyText: "Copy link",
-          shareCopy:"Copylink",
-          reblog: false,
-          notes:[],
-          notesCount: '',
-          blogIdsNotes:[],
-        likesCount: '',
-        reblogsCount: '',
-          name:"",
-          inputComment:"",
-          commentNames:[]
-    
+    return{
+      showDropDown: false,
+      heartFilled: false,
+      follow:false,
+      forMe:true,
+      comment: false,
+      subscribe:false,
+      share:false,
+      hash:true,
+      copyText: "Copy link",
+      shareCopy:"Copylink",
+      reblog: false,
+      notes:[],
+      notesCount: '',
+      blogIdsNotes:[],
+      likesCount: '',
+      reblogsCount: '',
+      postName:"",
+      name:"",
+      inputComment:"",
+      commentNames:[]  
       }
   },
   
@@ -235,16 +235,16 @@ export default {
       if (this.isMockServer(Browser().baseURL))
         myRoute2=Browser().baseURL+'/blog'
       else
-        myRoute2=Browser().baseURL+`/blog/view/${this.getPrimaryBlogId}`
+        myRoute2=Browser().baseURL+`/blog/view/${this.post.blogId}`
       await axios.get(myRoute2, {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         })
         .then((res) => {
           console.log("*****************")
          
-          this.name = res.data.res.data.name;
+          this.postName = res.data.res.data.name;
            console.log("name worked probably");
-            console.log(  this.name)
+            console.log(  this.postName)
         });
     } catch (e) {
       console.log("error in blog");
@@ -340,9 +340,31 @@ export default {
     * @public This is a public method
     * @param {none}
     */
-   reblogWind:function(x){
+   
+   async reblogWind(x) {
      this.reblog = x;
-   },
+    try {
+      let myRoute=""
+      if (this.isMockServer(Browser().baseURL))
+        myRoute=Browser().baseURL+'/blog'
+      else
+        myRoute=Browser().baseURL+`/blog/view/${this.getPrimaryBlogId}`
+      await axios.get(myRoute, {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        })
+        .then((res) => {
+          this.name = res.data.res.data.name;
+        });
+    } catch (e) {
+      console.log("error in blog");
+      console.error(e);
+    }
+  },
+
+
+
+
+
    closeDropDown:function(){
      this.showDropDown = false;
    },

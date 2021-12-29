@@ -3,13 +3,15 @@
 		<div class="popup-inner">
 			<slot />
 		    <div id = 'parentDivDialog'>
-            <div class="container" v-bind:style="{'background': homeTheme[homeThemeIndex].cardColor, 'max-width': '50%', 'max-height': '700px' }" >
+            <img id="profile" src="https://64.media.tumblr.com/54a1c708b6e6f778e6d6a62122b87264/dd15ee49758e1917-0f/s64x64u_c1/591674a52eaa19af57c763479bdbddcfa2219db8.jpg" alt="">
+            <div class="container" v-bind:style="{'background': homeTheme[homeThemeIndex].cardColor }" >
+                
                 <div class="header">
-                    <img class="profile" src="https://64.media.tumblr.com/54a1c708b6e6f778e6d6a62122b87264/dd15ee49758e1917-0f/s64x64u_c1/591674a52eaa19af57c763479bdbddcfa2219db8.jpg" alt="">
+                  
                     <div class="name-follow">
-                    <a href="" class="clickable name" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}">{{post.blogId}} </a>
+                    <a href="" class="clickable name" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}">{{this.name}} </a>
                     <b-icon class="clickable"  icon="arrow-left-right" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"/>
-                    <a href="" class="name" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}">{{post.blogId}} </a>
+                    <a href="" class="name" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}">{{this.postName}} </a>
                     
                     <div>
     <b-dropdown  variant="primary">
@@ -39,7 +41,7 @@
                 <div class="border-up header">
                     <img class="profile" src="https://64.media.tumblr.com/54a1c708b6e6f778e6d6a62122b87264/dd15ee49758e1917-0f/s64x64u_c1/591674a52eaa19af57c763479bdbddcfa2219db8.jpg" alt="">
                     <div class="">
-                        <a href="" class="clickable " v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}">{{post.blogId}} </a>
+                        <a href="" class="clickable " v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}">{{this.name}} </a>
                     </div>
                 </div>
                 <div class="content" v-html="post.postHtml" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"></div>
@@ -70,7 +72,8 @@ export default {
     props:
     {
         post: Object,
-
+        name: String,
+        postName: String,
     },
     computed:{
         homeTheme: function(){
@@ -155,7 +158,6 @@ try {
 .input-reblog{
     min-height: 70px;
     width: 100%;
-    
 }
 #reblogIn{
   width: 100%;
@@ -179,6 +181,12 @@ try {
   margin-right: 10px;
   border-radius: 3px;
 }
+#profile{
+  width: 80px;
+  height: 80px;
+  margin-right: 20px;
+  border-radius: 3px;
+} 
 .container{
   display: flex;
   flex-direction: column;
@@ -186,6 +194,9 @@ try {
   border-radius: 3px;
   display: inline-block;
   overflow-y: auto;
+  max-width: 50%;
+  max-height: 720px;
+  margin: 0;
 }
 .header{
   display: flex;
@@ -222,8 +233,9 @@ try {
 display: flex;
 justify-content: center;
 text-align: center;
+flex-direction: row;
 position: relative;
-
+margin: 20px 0 10px 0;
 }
 
 #postItem{
