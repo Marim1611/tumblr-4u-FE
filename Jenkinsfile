@@ -50,7 +50,7 @@ post {
              subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
              body: "Something is wrong with ${env.BUILD_URL}"
             }
-    }
+    
     success {
         mail to: 'marimnaser813@gmail.com',
              subject: "Pipeline done: ${currentBuild.fullDisplayName}",
