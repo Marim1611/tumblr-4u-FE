@@ -25,8 +25,8 @@
         </div>
         <div>
             <li>
-                <div id='item' >
-                  <li >
+                <div id='item'  v-on:click="openFollowing">
+                  <li  >
                    <b-icon id="iconList"  icon="person-plus-fill" font-scale="1.5" aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor, 'display': 'inline-block'}"></b-icon>
                  <p v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle, 'display': 'inline-block', 'margin':'auto 3px' }">Followings </p>
                     </li>  
@@ -169,6 +169,9 @@ export default {
   },
   methods:
   {
+    openFollowing(){
+      this.$store.commit('openFollowingComponent');
+    },
     closeThemFromAcc(){
       console.log("1lololoooooooooooooo")
  this.$emit("closeThemFromAcc", this.isOpen);
@@ -230,7 +233,7 @@ export default {
      console.log("2lololoooooooooooooo")
      
             console.log("DDL")   
-        console.log("FINAL blooooooooooooooooog")   
+        console.log("-------- FINAL blooooooooooooooooog")   
  console.log(this.blogsId)
      console.log(this.blogsId.length)
        this.myBlogsId=this.blogsId

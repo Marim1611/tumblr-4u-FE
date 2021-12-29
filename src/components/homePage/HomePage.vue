@@ -150,6 +150,9 @@ export default {
     Radar: Radar,
   },
   computed: {
+    //   openFollowing: function () {
+    //   return this.$store.state.user.show;
+    // },
     blogId: function () {
       return this.$store.state.user.primaryBlogId;
     },

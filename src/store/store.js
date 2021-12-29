@@ -421,6 +421,10 @@ export const store = new Vuex.Store({
   },
   mutations: {
     updateField,
+    
+    async openFollowingComponent(state) {
+      state.showFollowing = ! state.showFollowing;
+    },
     async changePalette(state) {
       if (state.homeThemeIndex < 7) {
         state.homeThemeIndex += 1;

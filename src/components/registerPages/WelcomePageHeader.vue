@@ -3,7 +3,7 @@
  
     <b-navbar class="NavBar" toggleable="sm" type="dark" variant="faded">
         
-        <router-link to="/trending">
+        <router-link to="/">
         <b-navbar-brand class="NavBarBrand bra" >T4U</b-navbar-brand>
         </router-link>
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
