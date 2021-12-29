@@ -45,8 +45,7 @@
                 <div class="content" v-html="post.postHtml" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"></div>
                 
                 <div class="border-up">
-                    <textarea v-model="reblogIn" id="input_reblog" cols="60" rows="5" placeholder="Your text here"></textarea>
-                    <textarea v-model="tags" id="input_tags" cols="60" rows="2" placeholder="#tags"></textarea>
+                    <input v-model="reblogIn" id="reblogIn" placeholder="Your text here" type="text">
                 </div>
                 <div class="flex-button">
                     <button v-on:click="reblogWind" id="button-close">close</button>
@@ -59,16 +58,19 @@
 </template>
 
 <script>
+import Browser from "../../mocks/browser";
+import axios from "axios";
+
 export default {
     data(){
         return{
-            tags:"",
             reblogIn:""
         }
     },
     props:
     {
-        post: Object
+        post: Object,
+
     },
     computed:{
         homeTheme: function(){
@@ -77,14 +79,50 @@ export default {
         homeThemeIndex: function(){
             return this.$store.state.homeThemeIndex;
         },
+        getPrimaryBlogId: function(){
+          return this.$store.state.user.primaryBlogId;
+        },
     },
 methods:{
    reblogWind:function(){
         this.$emit("reblogWind",false)
    },
-   reblogging:function(){
 
-   }
+
+   
+
+    isMockServer:function(baseURL){
+      if(baseURL == "http://localhost:3000")
+        return true;
+      else
+        return false;
+    },
+   
+
+async reblogging() {
+      document.getElementById('reblogIn').value = '';
+      console.log(reblogIn);
+try {
+        let myRoute=""
+      if (this.isMockServer(Browser().baseURL))
+        myRoute=Browser().baseURL+'/reblog_post'
+      else
+        myRoute=Browser().baseURL+`/${this.getPrimaryBlogId}/${this.post._Id}/reblog_post`
+        await axios
+          .post(myRoute, {
+             text: this.reblogIn
+          })
+          .then((res) => {
+            console.log(res.data);
+          });
+      } catch (e) {
+        console.log("^^^^^^^^^^^^^^^^^^");
+        console.error(e);
+      }
+    },
+
+
+
 }
 }
 </script>
@@ -117,13 +155,10 @@ methods:{
 .input-reblog{
     min-height: 70px;
     width: 100%;
-    overflow:hidden; 
-    overflow-wrap:normal;
+    
 }
-.input_tags{
-    width: 100%;
-    word-wrap: break-word;
-        word-break: break-all;
+#reblogIn{
+  width: 100%;
 }
 .border-up{
     border-top: 1px grey solid;

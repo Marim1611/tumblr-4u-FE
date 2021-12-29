@@ -62,7 +62,7 @@
                 <div class="h-flex">
                   <img class="imgComment" > <!--v-bind:src="comment">-->
                   <div class="borderComment" v-bind:style="{'border-color':homeTheme[homeThemeIndex].fontColor}">
-                    <h6 v-bind:style="{color:homeTheme[homeThemeIndex].fontColor}">{{comment.blogId}}</h6>
+                    <h6 v-bind:style="{color:homeTheme[homeThemeIndex].fontColor}">{{commentNames[i]}}</h6>
                     <span v-bind:style="{color:homeTheme[homeThemeIndex].fontColor}">{{comment.text}}</span>
                   </div>
                   <div class="grow right clickable">
@@ -73,7 +73,7 @@
             </div>
             <!--input comment-->
             <div class="h-flex">
-              <input v-model="inputComment" class="grow" placeholder="Have something to say?" type="text">
+              <input v-model="inputComment" id="inputComment" class="grow" placeholder="Have something to say?" type="text">
               <button v-on:click="commenting">Reply</button>
             </div>
           </div>
@@ -187,56 +187,20 @@ export default {
           reblog: false,
           notes:[],
           notesCount: '',
+          blogIdsNotes:[],
         likesCount: '',
         reblogsCount: '',
           name:"",
           inputComment:"",
-          tumblrsObj: {
-        id: "",
-        name: "",
-        avatar: "",
-        coverImg:
-          "https://assets.tumblr.com/images/default_header/optica_pattern_05_focused_v3.png?_v=671444c5f47705cce40d8aefd23df3b1",
-      },
+          commentNames:[]
+    
       }
   },
   
  async created() {
-    try {
-      await axios
-        .get(Browser().baseURL + "/dashboard", {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        })
-        .then((res) => {
-          this.tumblrsObj.id = res.data.res.blog._id;
-          this.tumblrsObj.name = res.data.res.blog.name;   
-        });
-    } catch (e) {
-      console.log("error in dashboard");
-      console.error(e);
-    }
-  
- 
- 
-    try {
-      let myRoute=""
-      if (this.isMockServer(Browser().baseURL))
-        myRoute=Browser().baseURL+'/blog'
-      else
-        myRoute=Browser().baseURL+`/blog/view/${this.tumblrsObj.id}`
-      await axios.get(myRoute, {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        })
-        .then((res) => {
-          this.name = res.data.res.data.name;
-           console.log("name worked probably");
-        });
-    } catch (e) {
-      console.log("error in blog");
-      console.error(e);
-    }
-  
     
+  
+    ///1-get notes
  
     try {
       let myRoute=""
@@ -249,6 +213,8 @@ export default {
         })
         .then((res) => {
           this.notes = res.data.res.notes;
+          console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+          console.log( res.data.res.notesCount)
           this.notesCount= res.data.res.notesCount,
           this.likesCount= res.data.res.likesCount,
           this.reblogsCount= res.data.res.reblogsCount,
@@ -258,28 +224,62 @@ export default {
       console.log("error in notes");
       console.error(e);
     }
-  },
-  methods:{
-    async commenting() {
+
+    //
+    
+  
+
+ 
     try {
-      let myRoute=""
+      let myRoute2=""
       if (this.isMockServer(Browser().baseURL))
-        myRoute=Browser().baseURL+'/comment'
+        myRoute2=Browser().baseURL+'/blog'
       else
-        myRoute=Browser().baseURL+`/${this.tumblrsObj.id}/${this.post._Id}/comment`
-      await axios.get(myRoute,
-      {
-        text: this.inputComment,
-      }, {
+        myRoute2=Browser().baseURL+`/blog/view/${this.getPrimaryBlogId}`
+      await axios.get(myRoute2, {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         })
         .then((res) => {
+          console.log("*****************")
+         
+          this.name = res.data.res.data.name;
+           console.log("name worked probably");
+            console.log(  this.name)
         });
     } catch (e) {
-      console.log("error in comment");
+      console.log("error in blog");
       console.error(e);
     }
+  },
+  methods:{
+
+     async commenting() {
+       document.getElementById('inputComment').value = '';
+      try {
+        let myRoute=""
+      if (this.isMockServer(Browser().baseURL))
+        myRoute=Browser().baseURL+'/comment'
+      else
+        myRoute=Browser().baseURL+`/${this.getPrimaryBlogId}/${this.post._Id}/comment`
+        await axios
+          .post(myRoute, {
+             text: this.inputComment
+          })
+          .then((res) => {
+            console.log(res.data);
+          });
+      } catch (e) {
+        console.log("^^^^^^^^^^^^^^^^^^");
+        console.error(e);
+      }
     },
+
+
+
+    
+
+
+
      async like(post) {
     try {
       
@@ -287,7 +287,7 @@ export default {
       if (this.isMockServer(Browser().baseURL))
         myRoute=Browser().baseURL+'/like_press'
       else
-        myRoute=Browser().baseURL+`/${this.tumblrsObj.id}/${post._Id}/like_press`
+        myRoute=Browser().baseURL+`/${this.getPrimaryBlogId}/${post._Id}/like_press`
       await axios.get(myRoute, {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         })
@@ -308,7 +308,7 @@ export default {
       if (this.isMockServer(Browser().baseURL))
         myRoute=Browser().baseURL+'/like_press'
       else
-        myRoute=Browser().baseURL+`/${this.tumblrsObj.id}/${post._Id}/like_press`
+        myRoute=Browser().baseURL+`/${this.getPrimaryBlogId}/${post._Id}/like_press`
       await axios.get(myRoute, {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         })
@@ -365,10 +365,40 @@ export default {
    notForMe:function(){
      this.forMe= false;
    },
-   commentShow:function(){
+   async commentShow(){
      this.comment = !this.comment;
-     
+     document.getElementById('inputComment').value = "";
      this.hash=true;
+
+
+      console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+     console.log(this.commentsComputed)
+     // getcomments
+     for(let i=0; i<this.commentsComputed.length; i++)
+     {
+       try {
+      let myRoute=""
+      if (this.isMockServer(Browser().baseURL))
+        myRoute=Browser().baseURL+'/blog'
+      else
+        myRoute=Browser().baseURL+`/blog/view/${this.commentsComputed[i].blogId}`
+      await axios.get(myRoute, {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        })
+        .then((res) => {
+          console.log(  res.data.res.data.name)
+          this.commentNames.push(
+             res.data.res.data.name
+          ) 
+         
+        //  console.log(this.commentNames)
+           console.log("name worked probably");
+        });
+    } catch (e) {
+      console.log("error in blog");
+      console.error(e);
+    }
+     }
    },
    shareShow:function(){
      this.share = !this.share;
@@ -379,7 +409,7 @@ export default {
    },
    noComment:function(){
      this.comment=false;
-     
+     document.getElementById('inputComment').value = '';
      this.hash=true;
    },
    hashtag:function(){
@@ -406,6 +436,9 @@ export default {
       maxWidth:String,
   },
    computed: {
+      getPrimaryBlogId: function(){
+          return this.$store.state.user.primaryBlogId;
+        },
         homeTheme: function(){
             return this.$store.state.homeTheme;
         },
