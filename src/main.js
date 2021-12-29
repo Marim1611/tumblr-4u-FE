@@ -21,8 +21,6 @@ Vue.use(VueClipboard)  //for copy
 import Chat from 'vue-beautiful-chat'
 Vue.use(Chat)
 
- 
-
 new Vue({
   el: "#app",
   store: store,
