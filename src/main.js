@@ -21,7 +21,15 @@ Vue.use(VueClipboard)  //for copy
 import Chat from 'vue-beautiful-chat'
 Vue.use(Chat)
 
- 
+import VueSocketIO from "vue-socket.io"
+import SocketIO from "socket.io-client"
+
+Vue.use(new VueSocketIO({
+   debug: false,
+   connection: SocketIO("http://localhost:5000", {
+   autoConnect:false
+}),
+  secure:true }));
 
 new Vue({
   el: "#app",

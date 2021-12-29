@@ -285,19 +285,37 @@ export const store = new Vuex.Store({
         state.user.id= id
          // console.log("%%%USER ID%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
        //  console.log( state.user.id)
-        },
-        
-        auth_request(state){
-            state.status = 'loading'
-          },
-          auth_success(state, token, user){
-            state.status = 'success'
-            state.token = token
-            state.user = user
-          },
-          auth_error(state){
-            state.status = 'error'
-          },     
+        },  
+    auth_request(state) {
+      state.status = "loading";
+    },
+    auth_success(state, token, user) {
+      state.status = "success";
+      state.token = token;
+      state.user = user;
+    },
+    auth_init(state,id,name,email,password,age,blogsId,followedTags,following_blogs,bodyColor) {
+      state.user.id = id;
+      state.user.name = name;
+      state.user.email = email;
+      state.user.password = password;
+      state.user.age = age;
+      state.user.blogsId = blogsId;
+      state.user.followedTags = followedTags;
+      state.user.followingBlogs = following_blogs;
+      state.homeThemeIndex = bodyColor;
+    },
+    blog_init(state,id,name,blogsId,followedTags,following_blogs,likes_posts_id,isBlocked) {
+      state.user.primaryBlogId=id;
+      state.blog.name=name;
+      state.blog.blogsId=blogsId;
+      state.blog.followedTags=followedTags;
+      state.blog.followingBlogs=following_blogs;   
+      state.blog.likesPostsId=likes_posts_id;
+      state.blog.isBlocked=isBlocked;
+    },
+    auth_error(state) {
+      state.status = "error";
     },
     actions: {
       async login({ commit }, user) {
@@ -306,15 +324,39 @@ export const store = new Vuex.Store({
           
           axios.post( Browser().baseURL+'/login',{
             email: user.email,
-            password: user.password
-          }).then(res => {
-            const token =res.data.res.data.token
-            const user = res.data.res.data.user
-            localStorage.setItem('token', token)
-            axios.defaults.headers.common['Authorization'] = token 
-            commit('auth_success', token, user)
-            resolve(res)
-             //this.state.primaryBlogId="61c9d6b82569f9abb33ebe04"
+            password: user.password,
+          })
+          .then((res) => {
+            const token = res.data.res.data.token;
+            const user = res.data.res.data.user;
+            //console.log("******** log in store")
+            //console.log(res.data.res.data)
+            console.log("******** log in user")
+            console.log(res.data.res.data.user)
+            console.log("******** log in blog")
+            console.log(res.data.res.data.blog)
+            // ------------------------ User -------------------------
+            commit("auth_init",res.data.res.data.user._id, res.data.res.data.user.name , res.data.res.data.user.email,res.data.res.data.user.password
+            ,res.data.res.data.user.age
+            , res.data.res.data.user.blogsId
+            ,res.data.res.data.user.followedTags
+            ,res.data.res.data.user.following_blogs
+            ,res.data.res.data.user.bodyColor)
+            // ------------------------ blog -------------------------
+            
+            commit("blog_init",res.data.res.data.blog._id,
+            res.data.res.data.blog.name,
+            res.data.res.data.blogsId,
+            res.data.res.data.blog.followedTags,
+            res.data.res.data.blog.following_blogs,   
+            res.data.res.data.blog.likes_posts_id,
+            res.data.res.data.blog.isBlocked,
+            )
+            localStorage.setItem("token", token);
+            axios.defaults.headers.common["Authorization"] = token;
+            commit("auth_success", token, user);
+            resolve(res);
+            //this.state.primaryBlogId="61c9d6b82569f9abb33ebe04"
             //
 
           })
@@ -397,5 +439,5 @@ export const store = new Vuex.Store({
           reject(err)
       })
     })
-  }}
+  }}}
 });
