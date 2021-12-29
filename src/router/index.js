@@ -15,8 +15,17 @@ import CreatedBlogPage from '../components/blog/CreatedBlogPage.vue'
 import SearchResults from '../components/search/SearchResultsPage'
 import Trending from '../components/registerPages/Trending'
 import Profile from '../components/profile/Profile.vue'
-import Interests from '../components/registerPages/InterestsPage'
 import Messaging from '../components/chat/MessagingMobileView.vue'
+import SearchResultsOut from '../components/search/SearchResultsOutside'
+//import Likes from '../components/profile/likes.vue'
+import followingCard from '../components/profile/followingCard.vue'
+import Likes from '../components/profile/likes.vue'
+import Posts from '../components/profile/posts.vue'
+import Interests from '../components/registerPages/InterestsPage' 
+
+import verifyEmail from '../components/registerPages/verifyEmail.vue'
+import archive from '../components/profile/archive.vue'
+import archiveCard from '../components/profile/archiveCard.vue'
 Vue.use(VueRouter);
 const routes = [
   {
@@ -46,6 +55,11 @@ const routes = [
     name: 'forgotPassword',
     component:forgotPassword,
   },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component:Profile,
+  },
    {
         path: '/home',
         name: 'Home',
@@ -55,8 +69,9 @@ const routes = [
       
       {
         path: '/explore',
-        name: 'Explore',
-        component:Explore
+        name: 'explore',
+        component:Explore,
+        
       },
       {
         path: '/dashBoard',
@@ -78,7 +93,8 @@ const routes = [
       {
         path: '/blog/created',
         name: 'CreatedBlogPage',
-        component:CreatedBlogPage
+        component:CreatedBlogPage,
+        props: true
  
       },
       {
@@ -86,11 +102,19 @@ const routes = [
         name: 'autoCompleteSearchDash',
         component:SearchResults,
         props: true
+
       },
+     
       {
         path: '/profile',
         name: 'profile',
         component:Profile,
+        props: true
+      },
+      {
+        path: '/likes',
+        name: 'likes',
+        component:Likes,
       },
       {
         path: '/getting_to_know_tumblr',
@@ -101,11 +125,44 @@ const routes = [
         path: '/messaging',
         name: 'messaging',
         component:Messaging
+      },
+      {
+        path: '/search/:word',
+        name: 'search',
+        component:SearchResultsOut,
+        props: true
+      },
+      {
+        path: '/posts',
+        name: 'posts',
+        component:Posts
+      },
+    
+      {
+        path: '/followingcard',
+        name: 'followingCard',
+        component:followingCard
+      },
+      {
+        path: '/verifyemail',
+        name: 'verifyEmail',
+        component:verifyEmail
+      },
+      {
+        path: '/archive',
+        name: 'archive',
+        component:archive
+      },
+      {
+        path: '/archiveCard',
+        name: 'archiveCard',
+        component:archiveCard
       }
-      
+     
+    ]
   
       
-]
+
 
 const router = new VueRouter({
   mode: "history",

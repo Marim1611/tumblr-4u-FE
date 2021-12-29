@@ -5,8 +5,21 @@
     }"
   >
     <MatchMedia query="(max-width: 1000px)" v-slot="{ matches }">
-      <div id="mobile" v-if="matches">
+      <div id="mobile" v-if="matches"  >
         <MobileNavBar />
+         <h1
+                id="wordM"
+                v-bind:style="{
+                  color: homeTheme[homeThemeIndex].fontColor,
+                  'font-family': homeTheme[homeThemeIndex].fontStyle,
+                }"
+              >
+                {{ getSearchWord }}
+                <!-- {{ this.$route.params.word }} -->
+              </h1>
+              <div id="dashBoardM" v-for="(post, i) in dashBoardPosts" :key="i">
+                <PostCard v-bind:post="post" v-bind:maxWidth="postCardWidth1" />
+              </div>
       </div>
 
       <div v-else>
@@ -262,6 +275,12 @@ export default {
   font-size: 3rem;
   text-align: left;
 }
+#wordM {
+  margin-top: 50px;
+  margin-left:50px ;
+  font-size: 3rem;
+  text-align: left;
+}
 .main2 {
   margin-top: 50px;
   margin-left: 300px;
@@ -298,6 +317,18 @@ export default {
   margin-bottom: 5px;
   padding-left: 10px;
 
+  /* background-color: red; */
+}
+#mobile{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+ text-align: center;
+}
+#dashBoardM{
+   display: inline-block;
+  margin: 0 auto;
+  padding: 3px;
   /* background-color: red; */
 }
 </style>

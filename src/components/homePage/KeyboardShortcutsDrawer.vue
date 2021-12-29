@@ -7,7 +7,8 @@
       id="blogDrawer"
       v-bind:width="400"
       v-bind:right="true"
-      v-show="showMe"
+       
+     v-model="showMeProp"
     v-click-outside="hideDrawer"
       app
     >
@@ -70,22 +71,32 @@ export default {
   components: {
     
   },
-  created(){
-     this.showMe=true
+  props:{
+showMe:Boolean
   },
+  
   methods:{
        hideDrawer() {
-       this.showMe=false
+      // this.showMe=false
+       this.$emit("hideDrawer",false);
     }
   },
   data: function () {
     return {
-      showMe:true,
+    
       popularTags:["#art", "#crochet", "#baking", "#Block", "#Close","#art", "#crochet", "#baking"]
     };
   }, 
   
   computed: {
+       showMeProp: {
+      get() {
+        return this.showMe;
+      },
+      set(newVal) {
+        return newVal;
+      },
+       },
      
     homeTheme: function () {
       return this.$store.state.homeTheme;

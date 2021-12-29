@@ -1,0 +1,30 @@
+{
+    "meta": {
+      "status": 200,
+      "msg": "OK"
+    },
+    "res": {
+      "message": "Blog Retrieved Successfully",
+      "data": {
+        "_id": "61ae81b91b9ee885f03a6866",
+        "title": "nour",
+        "url": "nour.tumblr.com",
+        "blockedBlogs": [],
+        "followers": ["61c25866ac0f82a2b0c763f6",
+        "61c25866ac0f82a2b0c763f6",
+      "61c25866ac0f82a2b0c763f6"],
+        "privacy": false,
+        "name": "nouro282",
+        "updated": 0,
+        "description": "",
+        "img":"https://64.media.tumblr.com/6af618778c8ea571f089bb71126100cd/26698c7b1d13a141-fd/s96x96u_c1/fe0229890be26cac64a52cd2e16f873281657e53.jpg",
+        "password": "password",
+        "isBlockedFromPrimary": false,
+        "blogVisitor": 0,
+        "followedTags": [],
+        "postsIds": [],
+        "isDeleted": false,
+        "__v": 47
+      }
+    }
+  }

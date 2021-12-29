@@ -11,7 +11,8 @@
       <MobileNavBar v-if="matches" />
 
       <div v-else>
-        <NavBar />
+        <NavBar v-if="isAuth"/>
+        <Header v-else/>
         <div id="posts">
           <div
             id="divider"
@@ -103,6 +104,7 @@ import RelatedBlogs from "./ExploreRelatedBlogs.vue";
 import ExploreBar from "./ExploreBar";
 import ExploreCard from "./ExploreCard.vue";
 import Browser from '../../mocks/browser'
+import Header from '../registerPages/WelcomePageHeader.vue'
 import axios from 'axios';
 /**
  *  Home page that contains dashboard and create post compnents 
@@ -118,9 +120,15 @@ export default {
     FollowTags:FollowTags,
     RelatedBlogs: RelatedBlogs,
     ExploreBar: ExploreBar,
-    ExploreCard: ExploreCard
+    ExploreCard: ExploreCard,
+    Header:Header
   },
+
   async created() {
+    if ( localStorage.getItem('token') == "")
+     this.isAuth= false;
+     else
+     this.isAuth= true;
     try {
     
          await axios.get(Browser().baseURL+'/dashBoard').then(res => {
@@ -145,10 +153,12 @@ export default {
   data: function(){
     return{
       multi:true,
-      dashBoardPosts:[]
+      dashBoardPosts:[],
+      isAuth:false
     }
   },
   computed: {
+     
     homeTheme: function () {
       return this.$store.state.homeTheme;
     },
@@ -172,6 +182,7 @@ export default {
       return this.$store.state.exploreCards;
     }
   },
+   
 };
 </script>
 

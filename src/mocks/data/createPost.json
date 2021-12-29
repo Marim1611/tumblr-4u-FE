@@ -1,12 +1,10 @@
 {
-  "createPost": [
+  "create_post": [
     {
-      "blogId": 0,
       "postHtml": "",
       "type": "",
       "state": "",
-      "tags": "",
-      "date": ""
+      "tags": ""
     }
   ]
 }

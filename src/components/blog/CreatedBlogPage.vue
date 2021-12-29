@@ -1,17 +1,23 @@
 <template>
 <body style="background-color:#001935;">
       <HomePageNavBar/>
+     <div class="Posts"> <CreatePostSection v-if="indxFlag2==0 "/>  </div>
+
 <div class="container">
     <br/><br/><br/>
   <div class="row">
         <div class="col-0" > </div>
 
         <div class="col-8">
-            <div class="Posts" v-if="post_flag">
-                 <CreatePostSection/>  
+            <div  class="no-post"  v-if=" noPostsFlag==true && indxFlag2==0 ">            
+                  <p class="p1">No posts available<br /></p>
+                   <svg   viewBox="0 0 112 112" width="100" height="100" fill="rgba(var(--white-on-dark), 0.65)">
+                    <path d="M25 8h31v29.5h31v41.015l-62-62V8zm0 17L13.243 13.243 9 17.485l16 16V95h61.515l8.752 8.752 4.243-4.242L87 87 25 25zm37 7V8l25 24H62z"></path>
+                    </svg>
+                  <p class="p2">Learn how to make a post.</p>
             </div>
-
-            <div class="postss" v-if="post_flag">
+            <p class="zero-follower"  v-if=" noPostsFlag==true && indxFlag2==1 "> 0 Followers</p>
+            <div class="postss" v-if="indxFlag2==0 && noPostsFlag==false">
                     <ul class="pst">
                     <li class="posts_list" v-for="post of posts " :key="post.id">
                        <ViewPostCard v-bind:post="post"
@@ -21,13 +27,13 @@
                     </ul>
             </div>
             
-            <div class="Followers" v-if="followers_flag==true">
+            <div class="Followers" v-if="indxFlag2==1 && noPostsFlag==false">
                 <p id="p1"> {{followers_count}} Followers  </p> 
                 <input type="text" class="follower-search" placeholder=" Search your followers " v-on:change="searchFollower">
                 <div class="follower_names">
                     <ul class="f_names">
                     <li class="names_list" v-for="follower of followers  " :key="follower.id">
-                        <Followers v-bind:image="follower.image_link"
+                        <Followers v-bind:image="follower.img"
                         v-bind:username="follower.username"
                         v-bind:title="follower.title"
                         v-bind:followerFlag="follower.followerFlag"
@@ -37,8 +43,8 @@
                  </div>
               </div>
 
-            <div class="Activity" v-if="activityFlag==true">
-                <Activity/>
+            <div class="Activity" v-if="indxFlag2==2 ">
+                <Activity  v-bind:flag="noPostsFlag" />
               </div>
 
          </div> 
@@ -76,9 +82,11 @@ export default {
   name: 'CreatedBlogPage',
 
   props: {
-    Username:String,
-    Title:String,
-    blogId:String 
+    noPostsFlag:Boolean ,
+    blogId:String,
+    followersIds:Array,
+    indxFlag:Number
+     
 },
   components: {  
   CreatePostSection,
@@ -88,47 +96,56 @@ export default {
   ViewPostCard,
   },
   methods: {
- button_follower_action(){
-    this.followers_flag=true;
-    this.post_flag=false;
-    this.activityFlag=false;
+     isMockServer(baseUrl){
+     
+        if (baseUrl == "http://tumblr4u.eastus.cloudapp.azure.com:5000")
+          return false
+          else 
+          return true
+    },   
+      button_follower_action(){
+          this.followers_flag=true;
+          this.post_flag=false;
+          this.activityFlag=false;
+          this.indxFlag2=1;
+      },
+      button_post_action(){
+          this.post_flag=true;
+          this.followers_flag=false;
+          this.activityFlag=false;
+          this.indxFlag2=0;
 
- },
- button_post_action(){
-     this.post_flag=true;
-     this.followers_flag=false;
-     this.activityFlag=false;
+      },
+      buttonActivityAction(){
+          this.post_flag=false;
+          this.followers_flag=false;
+          this.activityFlag=true;
+          this.indxFlag2=2;
 
- },
- buttonActivityAction(){
-     this.post_flag=false;
-     this.followers_flag=false;
-     this.activityFlag=true
- },
-inc_followers_count(){
+      },
+      inc_followers_count(){
 
-    this.followers_count++;
-},
-threeDotsHandler(){
-    if(this.threeDotsFlag)this.threeDotsFlag=false;
-    else this.threeDotsFlag=true;
-},
- /*async getInfo() {
- try {
-         await axios.get(Browser().baseURL+`/user/new/blog`
-         ,
-         { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
-         ).then(res => {
-            this.Username=res.data.name;
-            this.Title=res.data.title;
-          })
-    } catch (e) {
-      console.error(e);
-    }
- }*/
-    /*created: function(){
-        this.getInfo();
-    },*/
+          this.followers_count++;
+      },
+      threeDotsHandler(){
+          if(this.threeDotsFlag)this.threeDotsFlag=false;
+          else this.threeDotsFlag=true;
+      },
+      /*async getInfo() {
+      try {
+              await axios.get(Browser().baseURL+`/user/new/blog`
+              ,
+              { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
+              ).then(res => {
+                  this.Username=res.data.name;
+                  this.Title=res.data.title;
+                })
+          } catch (e) {
+            console.error(e);
+          }
+      }*/
+          
+         
  },
   data(){
     return{  
@@ -138,52 +155,89 @@ threeDotsHandler(){
         post_flag:false,
         followers:[],
         posts:[],
+        //posts:this.Posts,
         image:" ",
         threeDotsFlag:false,
         activityFlag:false,
         searchFollower:" ",
         postCardWidth:"540px",
+        Username:"",
+        Title:"",
+        indxFlag2:this.indxFlag
 
     }
   },
 
-
-
-  /*async created(){
-
-        try {
-         await axios.get(Browser().baseURL+`/blog/followers/${this.blogId}`
-         ,
-         
-          { headers: { 'Authorization':`Bearer ${localStorage.getItem('token')}` } })
-          .then(res => {            
-           this.followers = res.data.followers;//object of eh?
-           this.followers_count = this.followers.length;
-            //this.posts= res.data.posts; 
-            //this.post_count=this.posts.length;    
-            //this.blogId=??to be sent to followers       
-          })
-    } catch (e) {
-      console.error(e);
-    }
-        
-
-  },*/
-    /*async created(){
+ async created(){
+  
+       
+         ///1-get posts
+          let myRoute=""
+         if (this.isMockServer(Browser().baseURL))
+         myRoute=Browser().baseURL+'/posts'
+         else
+        myRoute=Browser().baseURL+`/blog/${this.blogId}/getBlogPosts`
       try {
       
-         await axios.get(Browser().baseURL+`/blog/${this.blogId}/getBlogPosts`,
+         await axios.get(myRoute,
          { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
          ).then(res => {
             this.posts = res.data.postsToShow;
-            console.log("myyyyyyyyyyyy postsssssssssssssss")
-            console.log(res.data)
        
           })
     } catch (e) {
       console.error(e);
     }
-  }*/
+
+   ///2- get followers  
+        for (let i = 0; i < this.followersIds.length; i++) 
+        {
+           let myRoute2=""
+         if (this.isMockServer(Browser().baseURL))
+         myRoute2= Browser().baseURL+'/blog'
+         else
+        myRoute2= Browser().baseURL+`/blog/view/${this.followersIds[i]}`
+        console.log(myRoute)
+       try {
+         await axios.get(myRoute2,
+          { headers: { 'Authorization':`Bearer ${localStorage.getItem('token')}` } })
+          .then(res => {    
+            this.followers.push({
+         // userId: res.data.res.data._id,
+           name: res.data.res.data.name,
+           title:res.data.res.data.title,
+           img:res.data.res.data.img,
+        //  followersIds: res.data.res.data.followers
+          })  
+             
+          })
+    } catch (e) {
+      console.error(e);
+    }
+  
+         }
+    
+    this.followers_count = this.followers.length;
+// 3 get activity
+  }
+
+  ///////////////
+  /* async created(){
+           console.log("aaaaaaaaaaaaaaaaaaaaaaaaa") ;
+        try {
+    
+         await axios.get(Browser().baseURL+'/features').then(res => {
+            this.followers = res.data.followers;
+            this.posts= res.data.posts;
+            this.followers_count = this.followers.length;
+            this.post_count=this.posts.length;
+            console.log(this.followers+"aaaaaaaaaaaaaaaaaaaaaaaaa")    
+          })
+        } catch (e) {
+            console.log("^^^^^^^^^^^^^^^^^^")
+        console.error(e);
+        }
+         }*/
 }
 
 
@@ -360,4 +414,40 @@ color: rgb(201, 180, 180);
 position: relative;
 top:-10px;
 }
+.Posts{
+  position: relative;
+  top: 50px;
+  left: 290px;
+}
+.no-post{
+  position: relative;
+  top:200px;
+  left:340px;
+  width: 500px;
+  height: 200px;
+}
+.no-post-icon{
+  position: relative;
+  color: white;
+}
+.p1{
+  color: rgb(221, 198, 198);
+  font-size: 25px;
+  position: relative;
+  left: -50px;
+}
+.p2{
+  color: rgb(240, 219, 219);
+  font-size: 20px;
+  position: relative;
+  left:-55px;
+}
+.zero-follower{
+  color: white;
+  font-size: 25px;
+  position: relative;
+  top: -10px;
+  left:150px;
+}
+
 </style>

@@ -51,6 +51,7 @@
 import vue2Dropzone from "vue2-dropzone";
 import "vue2-dropzone/dist/vue2Dropzone.min.css";
 import axios from "axios";
+import Browser from "../../../mocks/browser";
 
 export default {
   components: {
@@ -67,14 +68,38 @@ export default {
         thumbnailWidth: 200,
         dictDefaultMessage: "UPLOAD A PHOTO",
       },
+      imagesUploaded: [],
+      imagesURLS: [],
     };
   },
   computed: {
+    blogId: function () {
+      return this.$store.state.primaryBlogId;
+    },
     validImage() {
-      return (
-        this.imageSrc.match(/unsplash/) !== null ||
-        this.imageSrc.match(/\.(jpeg|jpg|gif|png)$/) != null
-      );
+      if (this.imageSrc != "")
+        return (
+          this.imageSrc.match(/unsplash/) !== null ||
+          this.imageSrc.match(/\.(jpeg|jpg|gif|png)$/) !== null
+        );
+      return true;
+
+      //   for (var i = 0; i < this.imagesUploaded.length; i++) {
+      //     if (
+      //       this.imagesUploaded[i].match(/unsplash/) !== null ||
+      //       this.imagesUploaded[i].match(/\.(jpeg|jpg|gif|png)$/) !== null
+      //     ) {
+      //       alert("Please enter a valid image!");
+
+      //       flag = false;
+      //       return false;
+      //     } else {
+      //       flag = true;
+      //     }
+      //   }
+
+      //   return flag;
+      // },
     },
   },
   methods: {
@@ -82,33 +107,83 @@ export default {
       this.command = command;
       this.show = true;
     },
-    vfileUploaded(file) {
-      this.imageSrc = "https://source.unsplash.com/random/400x100";
 
-      // await axios
-      //   .post(Browser().baseURL + "/imageUpload", {
-      //     imageSrc: this.$refs.myVueDropzone.getAcceptedFiles()[0].dataURL,
-      //   })
-      //   .then((res) => {
-      //     console.log(res.data);
-      //   });
+    isMockServer(baseUrl) {
+      if (baseUrl == "http://tumblr4u.eastus.cloudapp.azure.com:5000")
+        return false;
+      else return true;
+    },
+    async vfileUploaded(file) {
+      // console.log(file.dataURL);
+      this.imagesUploaded.push(file.dataURL);
+      // console.log("here");
 
-      // await axios.get(Browser().baseURL + "/imageUpload").then((res) => {
-      //   this.imageSrc = res.data.imageUpload[0].imageUrl;
+      let myRoute = "";
+      if (this.isMockServer(Browser().baseURL))
+        myRoute = Browser().baseURL + "/uploadImg";
+      else myRoute = Browser().baseURL + `/uploadImg`;
+      // console.log(this.imagesUploaded);
+      // console.log(this.$refs.myVueDropzone.getAcceptedFiles());
+      // this.imageSrc = "https://source.unsplash.com/random/400x100";
+      // console.log(this.imageSrc);
 
-      //   // console.log(res);
-      // });
-      // },
+
+      try {
+        await axios
+          .post(
+            myRoute,
+            {
+              file: this.imagesUploaded,
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            }
+          )
+          .then((res) => {
+            this.imagesURLS = res.data.file;
+            console.log("images url weslo elhamdullahh")
+            console.log(res.data.file);
+          });
+      } catch (e) {
+        console.log("error in uploading imgs");
+        console.error(e);
+      }
+
+      console.log(this.imagesURLS);
     },
 
     insertImage() {
-      const data = {
-        command: this.command,
-        data: {
-          src: this.imageSrc,
-        },
-      };
-      this.$emit("onConfirm", data);
+      for (var i = 0; i < this.imagesUploaded.length; i++) {
+        const data = {
+          command: this.command,
+          data: {
+            // src:this.imagesUploaded,
+
+            src: this.imagesURLS[i],
+          },
+        };
+
+        this.$emit("onConfirm", data);
+      }
+      if (this.imageSrc != "") {
+        const data = {
+          command: this.command,
+          data: {
+            src: this.imageSrc,
+          },
+        };
+        this.$emit("onConfirm", data);
+      }
+
+      // const data = {
+      //   command: this.command,
+      //   data: {
+      //     src: this.imageSrc,
+      //   },
+      // };
+      // this.$emit("onConfirm", data);
       this.closeModal();
     },
 
@@ -116,6 +191,7 @@ export default {
       this.urlChosen = false;
       this.show = false;
       this.imageSrc = "";
+      this.imagesUploaded = [];
     },
   },
 };
@@ -220,6 +296,4 @@ label {
   float: right;
   cursor: pointer;
 }
-
-
 </style>

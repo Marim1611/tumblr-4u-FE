@@ -16,7 +16,7 @@ pipeline
                     }
                 }
             }
-
+        
         stage('build Docker image'){
             steps{
                 script{
@@ -34,6 +34,14 @@ pipeline
                 }
             }
         }
+        stage('after clean'){
+             steps{
+             script{
+                    sh'docker rmi $(docker images -f "dangling=true" -q)'
+                    }
+                }
+            }
+            
     }
 }
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="menu-item" id="dropDown" v-on:click="isOpen = !isOpen">
+  <div class="menu-item" id="dropDown" v-on:click="openAccDdl">
      
          <b-icon id="icon"  icon="person-fill" font-scale="1.8" aria-hidden="true"  :style="{'color': homeTheme[homeThemeIndex].fontColor, 'cursor':'pointer' }"></b-icon> 
    
@@ -55,7 +55,7 @@
         </div>
         <div>
             <li>
-                <div id='item'  v-on:click="openKeyDrawer=!openKeyDrawer" >
+                <div id='item'  v-on:click="toggleKeyDrawer" >
                   <li >
                    <b-icon id="iconList"  icon="grip-horizontal" font-scale="1.5" aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor, 'display': 'inline-block'}"></b-icon>
                  <p v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle, 'display': 'inline-block', 'margin':'auto 3px' }">key-shortcuts </p>
@@ -103,7 +103,7 @@
                      <div id="blogName">
                        
 <p id="pBlog" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle, 'margin':'auto 3px' }">{{ blog.name }} </p> 
-   <p v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle,'margin':'auto 3px' }">title </p>      
+   <p v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle,'margin':'auto 3px' }">{{ blog.title}} </p>      
                      
                      </div>
                      
@@ -117,9 +117,9 @@
                     </tr>
                   
                       <div v-show="openBlogFeatures[i]" id="blogFeatures">
-   <p v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle }" >posts</p>
-   <p v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle }">followers</p>
-   <p v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle}">Activity</p>
+   <p v-on:click="openFeature(i,0)" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle }" >posts</p>
+   <p  v-on:click="openFeature(i,1)" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle }">followers</p>
+   <p  v-on:click="openFeature(i,2)" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle}">Activity</p>
  </div>
                   
               <!-- <v-spacer :style="{'display': 'inline-block' , 'width' :'30px'}"></v-spacer> -->
@@ -134,7 +134,9 @@
         </div>
       
     </transition>
-    <KeyScDrawer v-if="openKeyDrawer"/>
+    <KeyScDrawer v-if="openKeyDrawer"
+     v-on:hideDrawer="hideKeyDrawer($event)" 
+     v-bind:showMe="openKeyDrawer"/>
     <LogoutDialog  v-show="openLogout"  v-on:hideMe="hideLogoutDialog($event)"/>
   </div>
 </template>
@@ -143,6 +145,9 @@
 import Avatar from "vue-avatar";
 import KeyScDrawer from "./KeyboardShortcutsDrawer.vue"
 import LogoutDialog from "../general/LogoutDialog.vue"
+import Browser from "../../mocks/browser";
+import axios from "axios";
+//import BlogFeatures from '../blog/CreatedBlogPage.vue' 
 
 /**
  *  AccountDropdownList is a drop down list appears when user clicks on account icon in the nav bar it shows list of options user will be able to click on all of them
@@ -153,14 +158,45 @@ export default {
    components: {
     Avatar: Avatar,
     KeyScDrawer:KeyScDrawer,
-    LogoutDialog:LogoutDialog
+    LogoutDialog:LogoutDialog,
+    //BlogFeatures:BlogFeatures
   },
   props: {
     title: String,
+    blogsIds:Array,
+    close:Boolean
 
   },
   methods:
   {
+    closeThemFromAcc(){
+      console.log("1lololoooooooooooooo")
+ this.$emit("closeThemFromAcc", this.isOpen);
+  },
+    openFeature(i, feature){
+      //posts 0
+      if( feature == 0)
+      this.$router.push({ name: 'CreatedBlogPage', params: { indxFlag: feature, noPostsFlag:false 
+              , blogId:this.blogs[i].id} });
+        else if( feature == 1)
+      this.$router.push({ name: 'CreatedBlogPage', params: { indxFlag: feature, noPostsFlag:false 
+              , blogId:this.blogs[i].id} });
+      else if( feature == 2)
+      this.$router.push({ name: 'CreatedBlogPage', params: { indxFlag: feature, noPostsFlag:false 
+              , blogId:this.blogs[i].id} });
+
+
+    },
+     toggleKeyDrawer()
+    {
+       this.openKeyDrawer=true
+    },
+    hideKeyDrawer(hide)
+    {
+    
+       this.openKeyDrawer=hide
+
+    },
       hideLogoutDialog (hide) {
      this.openLogout = hide;
     },
@@ -180,6 +216,53 @@ export default {
      */
      toggleDropdown () {
       this.isOpen = !this.isOpen
+    },
+     isMockServer(baseUrl){
+     
+        if (baseUrl == "http://tumblr4u.eastus.cloudapp.azure.com:5000")
+          return false
+          else 
+          return true
+    },
+  async openAccDdl(){
+     this.isOpen=!this.isOpen
+     this.closeThemFromAcc()
+     console.log("2lololoooooooooooooo")
+     
+            console.log("DDL")   
+        console.log("FINAL blooooooooooooooooog")   
+ console.log(this.blogsId)
+     console.log(this.blogsId.length)
+       this.myBlogsId=this.blogsId
+       console.log(this.myBlogsId)  
+       for (let i =0; i < this.myBlogsId.length; i++)
+     {
+        let myRoute=""
+         if (this.isMockServer(Browser().baseURL))
+         myRoute= Browser().baseURL+'/blog'
+         else
+        myRoute= Browser().baseURL+`/blog/view/${this.myBlogsId[i]}`
+        console.log(myRoute)
+       try {
+         await axios.get(myRoute,
+          { headers: { 'Authorization':`Bearer ${localStorage.getItem('token')}` } })
+          .then(res => {    
+            this.blogs.push({
+          userId: res.data.res.data._id,
+           name: res.data.res.data.name,
+           title:res.data.res.data.title,
+           img:res.data.res.data.img,
+          followersIds: res.data.res.data.followers
+          })  
+             
+          })
+    } catch (e) {
+      console.error(e);
+    }
+
+     }
+ 
+     
     }
     
     },
@@ -190,19 +273,9 @@ export default {
        openKeyDrawer:false,
       openBlogFeatures:[], 
       defaultImg:"https://assets.tumblr.com/images/default_avatar/cone_closed_96.png",
-      blogs:[   
-              {
-                name: "crafts",
-                img:""              },
-              {
-                name: "embroidery",
-                img: "https://64.media.tumblr.com/497a6f202f642d914081723f42b3688c/tumblr_pocj2z2m6F1sst4ed_1280.jpg",
-              },
-              {
-                name: "crochet",
-                img: "https://64.media.tumblr.com/b9a38eb82f59f226df54f746e9ce1193/03dd693220f8205b-41/s640x960/54f78a4ffa63f468c6648ac14f0921b3c9fccb9a.jpg",
-              },
-                    ]  
+     // blog=> userId,followersIds,name,title,description
+      blogs:[]  ,
+     myBlogsId:[]  ,
     }
   },
   computed: {
@@ -227,24 +300,33 @@ export default {
      * @public This is a public method
      * @param {none}
      */
-        blogsId: function(){
+         blogsId: function(){
+          
             return this.$store.state.user.blogsId;
         },
         
   },
-   mounted () {
+  async mounted () {
    
-    let blogNum=3;
-    for( let i =0; i< blogNum ; i++)
-    this.openBlogFeatures[i]=false;
+    // let blogNum=3;
+    // for( let i =0; i< blogNum ; i++)
+    // this.openBlogFeatures[i]=false;
+    
   },
-  created(){
-      
-    console.log(this.blogsId)
-     console.log(this.blogsId.length)
-  
+   async created(){
+   
+    //    this.blogsId=[
+    //      "61c25866ac0f82a2b0c763f6",
+    //             "61c258b6ac0f82a2b0c763fb",
+    //             "61c2ebd23135b522106a78fa",
+    //             "61c3487663d3cefff498217d"
+    //  ]   
+    
+    
+        
 
-  }
+  },
+  
   
   
 }

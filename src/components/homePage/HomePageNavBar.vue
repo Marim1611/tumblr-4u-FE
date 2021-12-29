@@ -18,7 +18,7 @@
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
         <b-collapse id="nav-collapse" is-nav>
             <b-navbar-nav>
-                 <SearchBar />
+                 <SearchBar v-bind:mobileView="false"/>
             </b-navbar-nav>
             <div class="iconsRight">
                 <b-navbar-nav class="navButtons">
@@ -57,12 +57,14 @@
             </router-link>
           
             <router-link to="" class="nav-item nav-link">
-                <NotificationList />
-             
+                <NotificationList  v-bind:close="this.openNotif"
+              v-on:closeThemFromNotif="controlNotif($event)"  />
+        
             </router-link>
          
             <router-link to="" class="nav-item nav-link">
-              <DropdownList   />
+              <DropdownList   v-bind:close="this.openAcc"
+              v-on:closeThemFromAcc="controlDdl($event)"  />
             </router-link>
           
             <router-link to="" class="nav-item nav-link">
@@ -111,7 +113,10 @@ export default {
     return {
       newPost: false,
       color: "red",
-      notificationOpen:false
+      notificationOpen:false,
+      openAcc:false,
+      openNotif:false,
+      openChat:false
      
     };
   },
@@ -120,7 +125,8 @@ export default {
     NewPost: NewPostItem,
     SearchBar: SearchBar,
     NotificationList:NotificationList,
-    ChatList:ChatList
+    ChatList:ChatList,
+
   },
   computed: {
     /**
@@ -144,6 +150,21 @@ export default {
   },
 
   methods:{
+    controlDdl( control){
+      this.openAcc=control;
+      this.openNotif=!control;
+      this.openChat=!control;
+      console.log("3lololoooooooooooooo")
+       console.log(this.openNotif)
+      
+
+
+    },
+    controlNotif(control){
+      this.openAcc=!control;
+      this.openNotif=control;
+      this.openChat=!control;
+    },
     newPostOpen(){
       this.newPost = true;
     },
@@ -165,6 +186,7 @@ export default {
 }
 .NavBarBrand{
     padding: 0 0 0 20px;
+    
      
 }
 .pen{
@@ -172,7 +194,7 @@ export default {
  margin-right:20px;
 }
 .NavBar{
-   
+   /* position: fixed;  */
     padding:4.5 4.3  4.5rem;
 }
 .NavBarBrand{

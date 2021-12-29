@@ -125,10 +125,20 @@ export default {
     async postDone() {
       try {
         await axios
-          .post(Browser().baseURL + "/createPost", {
-            postHtml: this.postTitle + this.postContent,
-            type: "quote",
-          })
+          .post(
+            Browser().baseURL + `/${this.tumblrsObj.id}/posts/create_post`,
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            },
+            {
+              postHtml: this.postTitle + this.postContent,
+              type: "quote",
+              state: "published",
+              tags: [],
+            }
+          )
           .then((res) => {
             this.$emit("closeTextBox", false);
             this.postContent = "";

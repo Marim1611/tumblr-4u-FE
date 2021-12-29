@@ -3,7 +3,7 @@
 <div id="navDiv"  > 
    <nav id = 'navbar' v-bind:style="{'background': homeTheme[homeThemeIndex].backgroundColor}">
   <div id="navItem" >
-      <b-icon id="icon" v-on:click= "showDrawer=!showDrawer" icon="justify" font-scale="1.5"  aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor, 'float': 'right'}" ></b-icon> 
+      <b-icon id="icon" v-on:click="openDrawerNav" icon="justify" font-scale="1.5"  aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor, 'float': 'right'}" ></b-icon> 
          <v-navigation-drawer id="homeDrawer" v-model="showDrawer" app v-bind:style="{'background': homeTheme[homeThemeIndex].backgroundColor}" >
                       <ul id = 'navbar' >
                           <li>
@@ -131,43 +131,39 @@
             <!-- blogs  -->
              <div v-for="(blog, i) in blogs" :key="'A'+ i" class="menu-item">
                   <li >
-                     <tbody>
-                    <tr>
-                       <td>
-          <div class="avatarStyle">
+                    <div id="rowItemF">
+                       <div class="avatarStyle">
                 <avatar
               username="Jane Doe"
                v-bind:rounded=false
-              v-bind:src="blog.img"
+             v-bind:src="blog.img?blog.img:defaultImg"
               v-bind:size="40"
             ></avatar>
             </div>
-             </td>
-                   <td>
+            
                      <div id="blogName">
                        
 <p id="pBlog" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle, 'margin':'auto 3px' }">{{ blog.name }} </p> 
-   <p v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle,'margin':'auto 3px' }">title </p>      
+   <p v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle,'margin':'auto 3px' }">{{ blog.title }}  </p>      
                      
                      </div>
-                     
- </td>
-
-
- <td>
-       <b-icon v-if="openBlogFeatures[i]" id="iconList" v-on:click="openFeatures(i)"  icon="chevron-up" font-scale="1" aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor, 'display': 'inline-block'}"></b-icon>
+   
+    <b-icon v-if="openBlogFeatures[i]" id="iconList" v-on:click="openFeatures(i)"  icon="chevron-up" font-scale="1" aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor, 'display': 'inline-block'}"></b-icon>
        <b-icon v-else id="iconList" v-on:click="openFeatures(i)"  icon="chevron-down" font-scale="1" aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor, 'display': 'inline-block'}"></b-icon>
+ 
 
- </td>
-                    </tr>
+                    </div>
+                     
+         
+ 
                   
                       <div v-show="openBlogFeatures[i]" id="blogFeatures">
-   <p v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle }" >posts</p>
-   <p v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle }">followers</p>
-   <p v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle}">Activity</p>
+   <p v-on:click="openFeature(i,0)" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle }" >posts</p>
+   <p v-on:click="openFeature(i,0)" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle }">followers</p>
+   <p  v-on:click="openFeature(i,0)" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle}">Activity</p>
  </div>
                   
-        </tbody>
+     
             </li>
         </div>
  <!-- end of blogs  -->
@@ -183,7 +179,7 @@
      
        </div>
        <div v-show="showSearch">
-          <SearchBar/> 
+          <SearchBar v-bind:mobileView="true"/> 
        </div>
 
        <div id='spacer'></div>
@@ -198,7 +194,10 @@
 
 <script>
 import Avatar from "vue-avatar";
-import SearchBar  from './SearchBarMobileView.vue';
+import SearchBar from "./HomePageSearchBar.vue";
+import Vue from "vue";
+import Browser from "../../mocks/browser";
+import axios from "axios";
  /**
  *  Home page Navigation Bar for mobile view
  * @example [none]
@@ -209,7 +208,54 @@ export default {
       'SearchBar':SearchBar,
        Avatar: Avatar,
   },
-  methods: {
+  methods: 
+  
+  {
+    async openDrawerNav(){
+      this.showDrawer=!this.showDrawer
+       console.log("^^^^^^^^^^^^mobile view blogs ^^^^^^^^^^^^^^66")
+    for (let i =0; i < this.blogsId.length; i++)
+     {
+        let myRoute=""
+         if (this.isMockServer(Browser().baseURL))
+         myRoute= Browser().baseURL+'/blog'
+         else
+        myRoute= Browser().baseURL+`/blog/view/${this.blogsId[i]}`
+        console.log(myRoute)
+       try {
+         await axios.get(myRoute,
+          { headers: { 'Authorization':`Bearer ${localStorage.getItem('token')}` } })
+          .then(res => {    
+            this.blogs.push({
+          userId: res.data.res.data._id,
+           name: res.data.res.data.name,
+           title:res.data.res.data.title,
+           img:res.data.res.data.img,
+          followersIds: res.data.res.data.followers
+          })  
+             
+          })
+    } catch (e) {
+      console.error(e);
+    }
+
+     }
+
+  },
+     openFeature(i, feature){
+      //posts 0
+      if( feature == 0)
+      this.$router.push({ name: 'CreatedBlogPage', params: { indxFlag: feature, noPostsFlag:false 
+              , blogId:this.blogs[i].id} });
+        else if( feature == 1)
+      this.$router.push({ name: 'CreatedBlogPage', params: { indxFlag: feature, noPostsFlag:false 
+              , blogId:this.blogs[i].id} });
+      else if( feature == 2)
+      this.$router.push({ name: 'CreatedBlogPage', params: { indxFlag: feature, noPostsFlag:false 
+              , blogId:this.blogs[i].id} });
+
+
+    },
      /**
      * Function to fire event from the store to change theme color of website on click the brush icon in the drawer 
      * @public This is a public method
@@ -219,37 +265,42 @@ export default {
     // fire mutation
         this.$store.commit('changePalette');
     },
+      isMockServer(baseUrl){
+     
+        if (baseUrl == "http://tumblr4u.eastus.cloudapp.azure.com:5000")
+          return false
+          else 
+          return true
+    },
     openFeatures(i){
       console.log(i)
-      this.openBlogFeatures[i] = !this.openBlogFeatures[i]
+     let value=!this.openBlogFeatures[i]
+         Vue.set(this.openBlogFeatures,i, value);
+    
     }
   },
     data: function() {
       return {
+              defaultImg:"https://assets.tumblr.com/images/default_avatar/cone_closed_96.png",
         arrowIcon:false,
         showDrawer:false,
         showSearch:false,
         newPost:false,
         color:"red",
            openBlogFeatures:[], 
-      blogs:[   
-              {
-                name: "crafts",
-                img: "https://64.media.tumblr.com/6eb8d7c15856ffa76b0a6b5bdb35f2de/5cf38a736b98badf-f9/s640x960/0762f14581a4a9bf7599fc7899b35cd909878bde.jpg",
-              },
-              {
-                name: "embroidery",
-                img: "https://64.media.tumblr.com/497a6f202f642d914081723f42b3688c/tumblr_pocj2z2m6F1sst4ed_1280.jpg",
-              },
-              {
-                name: "crochet",
-                img: "https://64.media.tumblr.com/b9a38eb82f59f226df54f746e9ce1193/03dd693220f8205b-41/s640x960/54f78a4ffa63f468c6648ac14f0921b3c9fccb9a.jpg",
-              },
-                    ] 
+      blogs:[] 
       }
     }, 
+    props:{
+  blogsIds:Array,
+    },
      
   computed: {
+      blogsId: function(){
+          
+            return this.$store.state.user.blogsId;
+        },
+        
      /**
      * Function to get the home page color theme array from the store
      * @public This is a public method
@@ -272,6 +323,7 @@ export default {
     for( let i =0; i< blogNum ; i++)
     this.openBlogFeatures[i]=false;
   },
+ 
   
 }
 </script>
@@ -309,6 +361,10 @@ ul {
   margin: 0;
   
 }
+#blogName{
+margin-left:30px ;
+margin-right:30px ;
+}
 ul.space-between {  
   justify-content: space-between;
 }
@@ -319,6 +375,15 @@ li {
   justify-content: space-between;
   width: 100%;
 
+}
+ 
+#blogFeatures{
+  margin: 10px;
+}
+#rowItemF{
+display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 li.right{

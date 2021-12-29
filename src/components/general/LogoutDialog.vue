@@ -5,7 +5,7 @@
       <h2 v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor,'font-family':homeTheme[homeThemeIndex].fontStyle}">Are you sure you want to log out?</h2>
 		<div id="buttons" >
 	<button id="myButton" v-on:click="cancel" type="button" v-bind:style="{'background': homeTheme[homeThemeIndex].focused,'font-family':homeTheme[homeThemeIndex].fontStyle }" >Cancel</button>
-  <router-link to='/'>
+  <router-link :to="this.routeOut">
 <button id="myButton" v-on:click="goOut" type="button" v-bind:style="{'background': homeTheme[homeThemeIndex].focused,'font-family':homeTheme[homeThemeIndex].fontStyle }" >Ok</button>
              </router-link>
 
@@ -18,6 +18,11 @@
 <script>
 export default {
 
+data(){
+  return{
+    routeOut:""
+  }
+},
 
  computed: {
      
@@ -48,8 +53,8 @@ destroyed: function() {
  this.$emit("hideMe", false);
   },
   goOut(){
-  // this.$router.push({ path : '/'})
-  this.$router.push( {name: 'Render'})
+   localStorage.removeItem('token')
+  this.routeOut="/"
   
   }
 },

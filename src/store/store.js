@@ -2,7 +2,6 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
 import { getField, updateField } from 'vuex-map-fields';
-import api from '../api';
 import Browser from '../mocks/browser'
  
 
@@ -12,14 +11,17 @@ export const store = new Vuex.Store({
 
     strict: true,
     state: {
-        status: "",
+      status: "",
+      msg:"",
         token: localStorage.getItem('token') || "",
       user: {
         email: "",
         password: "",
         blogname:"", 
         id:"",
+        primaryBlogId:"",
         blogsId: [],
+        blockedBlogsId: [],
         },
         age:0,
         // we need to replace this with bodyColor in DB as each user has his theme color
@@ -245,62 +247,44 @@ export const store = new Vuex.Store({
             state.homeThemeIndex=0;
          } 
          try {
-    
           await axios.put( Browser().baseURL+'/updateColor',
           {
-             bodyColor:  state.homeThemeIndex,
-           },
+            bodyColor:  state.homeThemeIndex,
+          },
           { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
+         
           ) 
      } catch (e) {
        console.error(e);
      }
         },
+        async setBrimaryBlogId(state, id){
+        state.user.primaryBlogId= id
+        console.log("%%%setBrimaryBlogId%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+       console.log( state.user.primaryBlogId)
 
-  //       async createBlog(state,{Title,name,privacy,Password}) {
-      
-  //      try {
-  
-  //       await axios.put( Browser().baseURL+'/user/new/blog/${state.user.id}',//userId=user.id?
-  //       {
-  //         Title:Title,
-  //         name:name,
-  //         privacy:privacy,
-  //         Password:Password
-  //        },
-  //       { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
-  //       ) 
-  //  } catch (e) {
-  //    console.error(e);
-  //  }
-  //     },
+      },
 
-     /* async follow(state,blogId) {
-      
-        try {
-   
-         await axios.put( Browser().baseURL+'/user/follow',
-         {
-          //blogId:this.blogId,
-          },
-         { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
-         ) 
-    } catch (e) {
-      console.error(e);
-    }
-       },*/
-
-        updateBodyColor(state, newColor) {
+      async updateBodyColor(state, newColor) {
           state.homeThemeIndex= newColor
         },
-        setBlogIds(state, Ids) {
+        
+        async stBlockedBlogsId(state, Ids) {
+          state.user.blockedBlogsId= Ids
+         // console.log("%% BLOCKED blogs IDs %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+          //console.log( state.user.blockedBlogsId)
+           
+        },
+        async setBlogIds(state, Ids) {
           state.user.blogsId= Ids
+          console.log("%%blogs IDs %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+          console.log( state.user.blogsId)
            
         },
         setUserId(state, id) {
-          state.user.id= id
-          console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-         console.log( state.user.id)
+        state.user.id= id
+         // console.log("%%%USER ID%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+       //  console.log( state.user.id)
         },
         
         auth_request(state){
@@ -316,18 +300,46 @@ export const store = new Vuex.Store({
           },     
     },
     actions: {
-      login({ commit }, user) {
-        return new Promise((resolve, reject) => {
+      async login({ commit }, user) {
+       return new Promise((resolve, reject) => {
           commit('auth_request')
-          api().post('login',{
+          
+          axios.post( Browser().baseURL+'/login',{
+            email: user.email,
+            password: user.password
+          }).then(res => {
+            const token =res.data.res.data.token
+            const user = res.data.res.data.user
+            localStorage.setItem('token', token)
+            axios.defaults.headers.common['Authorization'] = token 
+            commit('auth_success', token, user)
+            resolve(res)
+             //this.state.primaryBlogId="61c9d6b82569f9abb33ebe04"
+            //
+
+          })
+          .catch(err => {
+            alert(err)
+            commit('auth_error')
+            localStorage.removeItem('token')
+            reject(err)
+          
+          })
+        })
+
+        /*return new Promise((resolve, reject) => {
+          commit('auth_request')
+          axios.post(browser().baseURL+'/login',{
             email: user.email,
             password: user.password
           })
           .then(res => {
-            const token =res.data.res.data
-            const user = res.data.res.data.user
+            const token = res.data.login.id
+            alert(res.data.login)
+            alert(token)
+            const user = res.data.email
             localStorage.setItem('token', token)
-            api().defaults.headers.common['Authorization'] = token 
+            axios.defaults.headers.common['Authorization'] = token 
             commit('auth_success', token, user)
             resolve(res)
           })
@@ -338,12 +350,12 @@ export const store = new Vuex.Store({
             reject(err)
           
           })
-        })
+        })*/
   },
   signup({ commit }, user) {
     return new Promise((resolve, reject) => {
           commit('auth_request')
-          api().post('signup',{
+          axios.post( Browser().baseURL+'/signup',{
             email:this.state.user.email,
             password: this.state.user.password,
             blogName: this.state.user.blogname,
@@ -365,24 +377,25 @@ export const store = new Vuex.Store({
         })
     
   },
-  forgotpassword({ commit }, user) {
+    async  forgotpassword({ commit }, user) {
+    alert(user.email)
     return new Promise((resolve, reject) => {
       commit('auth_request')
-      api().post('forgot_password', {
+      axios.post( Browser().baseURL+'/forgot_password', {
         Email:user.email
       })
         .then(resp => {
+          
+          console.log(resp)
           this.state.msg = resp.message;
+
           resolve(resp)
-        
         })
         .catch(err => {
-          alert(err.error)
+          console.log(err)
+          //alert(err.error)
           reject(err)
       })
     })
-  }
-       
-    
-    }
+  }}
 });

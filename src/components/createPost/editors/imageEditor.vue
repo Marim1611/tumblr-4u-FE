@@ -77,6 +77,7 @@ export default {
     },
     addCommand(data) {
       if (data.command !== null) {
+        console.log(data.data);
         data.command(data.data);
       }
     },
