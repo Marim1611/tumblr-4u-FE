@@ -61,14 +61,15 @@
           <button
            v-if="true"
             id="fButton"
-            v-on:click="followed(item.isFollow, i)"
+            v-on:click="followed(i)"
             type="button"
             v-bind:style="{
+              
               'font-family': homeTheme[homeThemeIndex].focused,
               color: homeTheme[homeThemeIndex].fontColor,
             }"
           >
-            {{ item.isFollow }}
+            Follow
           </button>
         </div>
       </b-col>
@@ -106,7 +107,7 @@
 import Avatar from "vue-avatar";
 import Browser from "../../mocks/browser";
 import axios from "axios";
- 
+import Vue from "vue";
 
 export default {
   name: "TumblrDrawer",
@@ -118,12 +119,22 @@ export default {
       this.$router.push({ name: "explore" });
     },
 
-    followed(status, i) {
-      this.relatedBlogs[i].show = false;
-      if (status === "follow") {
-        this.relatedBlogs[i].isFollow = "Unfollow";
-      } else if (status === "Unfollow")
-        this.relatedBlogs[i].isFollow = "follow";
+    async followed(i) 
+    {
+       try {
+          await axios.post( Browser().baseURL+'/follow',
+         
+          {
+             blogId:  this.relatedBlogs._id,
+           },
+            { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } },
+          ) 
+     } catch (e) {
+       console.error(e);
+     }     
+
+     Vue.set(this.show,i,false) ;
+      
     },
     remove: function (i) {
       this.relatedBlogs[i].show = false;
