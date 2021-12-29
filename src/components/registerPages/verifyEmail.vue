@@ -43,7 +43,8 @@
 
 <script>
 import Header from './WelcomePageHeader.vue'
-import api from '@/api';
+import axios from 'axios';
+import Browser from '../../mocks/browser'
 
 
  
@@ -64,7 +65,7 @@ export default {
   methods:{
     verify(){
         var token=this.$store.state.user.token
-        api.put('verify/'+token, {
+      axios.put( Browser().baseURL+'/verify'+token, {
        }).then(resp => {
           this.$store.state.msg = resp.message;
           this.verified=true;
