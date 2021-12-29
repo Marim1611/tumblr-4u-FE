@@ -130,8 +130,10 @@ export default {
 
          if(this.pass!="")
         this.privacy=true;
-        else this.privacy=false;
-         
+        else {
+          this.privacy=false;
+         this.pass = "Aaaaa12"
+         }
          
         try {
   
