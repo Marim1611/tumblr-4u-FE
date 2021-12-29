@@ -307,7 +307,7 @@ export const store = new Vuex.Store({
             email: user.email,
             password: user.password
           }).then(res => {
-            const token =res.data.res.data
+            const token =res.data.res.data.token
             const user = res.data.res.data.user
             localStorage.setItem('token', token)
             axios.defaults.headers.common['Authorization'] = token 
@@ -336,7 +336,7 @@ export const store = new Vuex.Store({
             age:user.age,
           })
             .then(res => {
-            const token = res.data.res.data
+            const token = res.data.res.data.token
             const user = res.data.res.data.user
             localStorage.setItem('token', token)
             axios.defaults.headers.common['Authorization'] = token
