@@ -1,0 +1,62 @@
+{
+    "res":{
+        "message":"notes got successfully",
+        "notesCount": 10,
+        "likesCount": 6,
+        "reblogsCount": 2,
+        "notes":
+        [
+            {
+            "noteType":"comment",
+            "blogId": "61968c974f161173940ea9cb",
+            "text": "hii",
+            "isDeleted":false,
+            "_id":"619957113df6b45019c42d07"
+        },
+    {
+            "noteType":"comment",
+            "blogId": "61968c974f161173940ea9c1",
+            "text": "hii",
+            "isDeleted":false,
+            "_id":"619957113df6b45019c42d06"
+    },{
+            "noteType":"reblog",
+            "blogId": "61968c974f161173940ea9c2",
+            "isDeleted":false,
+            "_id":"619957113df6b45019c42d05"
+    },
+    {
+            "noteType":"comment",
+            "blogId": "61968c974f161173940ea9c3",
+            "text": "hii",
+            "isDeleted":false,
+            "_id":"619957113df6b45019c42d04"
+    },
+    {
+            "noteType":"reblog",
+            "blogId": "61968c974f161173940ea9c4",
+            "isDeleted":false,
+            "_id":"619957113df6b45019c42d03"
+    },
+    {
+            "noteType":"like",
+            "blogId": "61968c974f161173940ea9c5",
+            "isDeleted":false,
+            "_id":"619957113df6b45019c42d02"
+    }
+]
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    }
+}

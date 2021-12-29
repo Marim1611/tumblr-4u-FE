@@ -43,8 +43,10 @@ export default {
   },
   components:{
       SearchBar:SearchBar
-
-  }
+  },
+  data(){
+      return{}
+    }
 }
 </script>
 
