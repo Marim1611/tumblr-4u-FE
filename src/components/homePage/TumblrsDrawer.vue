@@ -489,7 +489,7 @@ export default {
       try {
       
          await axios.get(myRoute,
-         { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
+         { headers: { 'Authorization':`Bearer ${localStorage.getItem('token')}` } }
          ).then(res => {
             this.myPosts = res.data.postsToShow;
             console.log("myyyyyyyyyyyy postsssssssssssssss")
@@ -508,15 +508,29 @@ export default {
 
 <style scoped>
 #cover{
-  display: flex;
-  flex-direction: column;
   max-width: 100%;
   height: 300px;  
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover;
-  background-color: #464747;
+   background-color: #464747;
 }
+#profileImg {
+  text-align: center;
+  width: 110px;
+ 
+  margin: auto;
+  padding: auto;
+}
+.imgshape {
+  border-radius: 50%;
+  position: relative;
+  top: 5px;
+  border-style: solid;
+  border-width: 5px;
+  border-color: white;
+}
+ 
 #avatarDiv {
   display: flex;
   flex-direction: column;
@@ -525,18 +539,27 @@ export default {
   justify-content: center;
   margin-top: 40px; 
 }
+#rightDiv{
+  display: flex;
+  flex-direction: row;
+}
+#leftDiv{
+  display: flex;
+  flex-direction: row;
+  
+}
 #searchList{
   overflow-y: scroll;
   height: 140px;
 }
 .menu-item .sub-menu {
- position: relative;
+  position: absolute;
   /* top: 0; */
-  left: 48%;
+  left: 55%;
   /* left: 100px; */
   /* top: 20px; */
   /* right: 0; */
-  transform: translateX(100%) translateY(-42%);
+  transform: translateX(100%) translateY(-80%);
   width: max-content;
   border-radius: 5px;
 }
@@ -545,7 +568,7 @@ export default {
  
 }
 .menu-item-share .sub-menu-share {
-   position:absolute;
+  position: absolute;
   /* top: 0; */
   left: 48%;
   /* left: 100px; */
@@ -560,7 +583,7 @@ export default {
   display: inline-block;
   padding: 3px;
 }
- 
+
 #homeDrawer {
   width: 90%;
   display: flex;
@@ -575,13 +598,15 @@ display: inline-block;
   color: white;
   cursor: pointer;
 }
+#dottedList{
+margin-top:70px;
+}
 #navbar {
   align-items: center;
   width: 100%;
   height: 20%;
   position: relative;
   display: flex;
-  flex-direction: row;
 }
 #userName{
   position: relative;
@@ -596,15 +621,15 @@ display: inline-block;
 }
 #iconsDiv {
   display: flex;
-  justify-content: center;
   flex-direction: row;
-    height: 200px;
-  /* text-align: center;
+  text-align: center;
   position: relative;
   flex-grow: 2;
-  flex-shrink: 7;
-  float: right; */
-
+  flex-shrink: 2;
+  float: right;
+  height: 200px;
+  
+  justify-content: space-around;
 }
 ul {
   position: absolute;
@@ -632,8 +657,9 @@ li {
 .dropdown-selected {
   padding: 10px 10px;
   border-radius: 8px;
-  opacity: 0.1;
-  width: 135px;
+  opacity: 0.3;
+  background-color:#d9ffcc ;
+  width: 150px;
   line-height: 1.5em;
   outline: none;
 }
@@ -664,24 +690,10 @@ li {
   width: 100px;
 }
 #item:hover {
-  background: #464747;
+  background:  grayscale(100%) brightness(51%);
   cursor: pointer;
 }
-#profileImg {
-  text-align: center;
-  width: 110px;
- 
-  margin: auto;
-  padding: auto;
-}
-.imgshape {
-  border-radius: 50%;
-  position: relative;
-  top: 5px;
-  border-style: solid;
-  border-width: 5px;
-  border-color: white;
-}
+
 .avatarStyle {
   width: 25px;
   margin: auto;

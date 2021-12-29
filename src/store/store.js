@@ -2,7 +2,6 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
 import { getField, updateField } from 'vuex-map-fields';
-import api from '../api';
 import Browser from '../mocks/browser'
  
 
@@ -303,17 +302,20 @@ export const store = new Vuex.Store({
       login({ commit }, user) {
         return new Promise((resolve, reject) => {
           commit('auth_request')
-          api().post('login',{
+          
+          axios.post( Browser().baseURL+'/login',{
             email: user.email,
             password: user.password
-          })
-          .then(res => {
+          }).then(res => {
             const token =res.data.res.data
             const user = res.data.res.data.user
             localStorage.setItem('token', token)
-            api().defaults.headers.common['Authorization'] = token 
+            axios.defaults.headers.common['Authorization'] = token 
             commit('auth_success', token, user)
             resolve(res)
+             //this.state.primaryBlogId="61c9d6b82569f9abb33ebe04"
+            //
+
           })
           .catch(err => {
             alert(err)
@@ -327,7 +329,7 @@ export const store = new Vuex.Store({
   signup({ commit }, user) {
     return new Promise((resolve, reject) => {
           commit('auth_request')
-          api().post('signup',{
+          axios.post( Browser().baseURL+'/signup',{
             email:this.state.user.email,
             password: this.state.user.password,
             blogName: this.state.user.blogname,
@@ -352,21 +354,17 @@ export const store = new Vuex.Store({
   forgotpassword({ commit }, user) {
     return new Promise((resolve, reject) => {
       commit('auth_request')
-      api().post('forgot_password', {
+      axios.post( Browser().baseURL+'/forgot_password', {
         Email:user.email
       })
         .then(resp => {
           this.state.msg = resp.message;
           resolve(resp)
-        
         })
         .catch(err => {
           alert(err.error)
           reject(err)
       })
     })
-  }
-       
-    
-    }
+  }}
 });

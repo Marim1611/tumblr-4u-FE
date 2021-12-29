@@ -11,7 +11,7 @@
       <MobileNavBar v-if="matches" />
 
       <div v-else>
-        <NavBar v-if="!this.out"/>
+        <NavBar v-if="isAuth"/>
         <Header v-else/>
         <div id="posts">
           <div
@@ -123,7 +123,12 @@ export default {
     ExploreCard: ExploreCard,
     Header:Header
   },
+
   async created() {
+    if ( localStorage.getItem('token') == "")
+     this.isAuth= false;
+     else
+     this.isAuth= true;
     try {
     
          await axios.get(Browser().baseURL+'/dashBoard').then(res => {
@@ -148,18 +153,12 @@ export default {
   data: function(){
     return{
       multi:true,
-      dashBoardPosts:[]
+      dashBoardPosts:[],
+      isAuth:false
     }
   },
   computed: {
-    out: {
-      get() {
-        return this.isOut;
-      },
-      set(newVal) {
-        return newVal;
-      },
-    },
+     
     homeTheme: function () {
       return this.$store.state.homeTheme;
     },
@@ -183,9 +182,7 @@ export default {
       return this.$store.state.exploreCards;
     }
   },
-  props:{
-    isOut:Boolean
-  }
+   
 };
 </script>
 

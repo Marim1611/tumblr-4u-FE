@@ -55,7 +55,7 @@
         </div>
         <div>
             <li>
-                <div id='item'  v-on:click="openKeyDrawer=!openKeyDrawer" >
+                <div id='item'  v-on:click="toggleKeyDrawer" >
                   <li >
                    <b-icon id="iconList"  icon="grip-horizontal" font-scale="1.5" aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor, 'display': 'inline-block'}"></b-icon>
                  <p v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle, 'display': 'inline-block', 'margin':'auto 3px' }">key-shortcuts </p>
@@ -134,7 +134,9 @@
         </div>
       
     </transition>
-    <KeyScDrawer v-if="openKeyDrawer"/>
+    <KeyScDrawer v-if="openKeyDrawer"
+     v-on:hideDrawer="hideKeyDrawer($event)" 
+     v-bind:showMe="openKeyDrawer"/>
     <LogoutDialog  v-show="openLogout"  v-on:hideMe="hideLogoutDialog($event)"/>
   </div>
 </template>
@@ -161,11 +163,16 @@ export default {
   },
   props: {
     title: String,
-    blogsIds:Array
+    blogsIds:Array,
+    close:Boolean
 
   },
   methods:
   {
+    closeThemFromAcc(){
+      console.log("1lololoooooooooooooo")
+ this.$emit("closeThemFromAcc", this.isOpen);
+  },
     openFeature(i, feature){
       //posts 0
       if( feature == 0)
@@ -178,6 +185,16 @@ export default {
       this.$router.push({ name: 'CreatedBlogPage', params: { indxFlag: feature, noPostsFlag:false 
               , blogId:this.blogs[i].id} });
 
+
+    },
+     toggleKeyDrawer()
+    {
+       this.openKeyDrawer=true
+    },
+    hideKeyDrawer(hide)
+    {
+    
+       this.openKeyDrawer=hide
 
     },
       hideLogoutDialog (hide) {
@@ -208,7 +225,10 @@ export default {
           return true
     },
   async openAccDdl(){
-      this.isOpen=!this.isOpen
+     this.isOpen=!this.isOpen
+     this.closeThemFromAcc()
+     console.log("2lololoooooooooooooo")
+     
             console.log("DDL")   
         console.log("FINAL blooooooooooooooooog")   
  console.log(this.blogsId)
@@ -241,8 +261,7 @@ export default {
     }
 
      }
- console.log("_____________________--------________blogs")
-        console.log(this.blogs)
+ 
      
     }
     

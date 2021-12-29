@@ -56,7 +56,7 @@
      </div>
       <!-- interests  -->
       <div v-on:click.prevent="toggleDropdown">
-        <div v-if="!inputValue" v-show="isClicked" class="dropdown-list">
+        <div v-if="!inputValue&&interestsList.length" v-show="isClicked" class="dropdown-list">
           <div
             v-for="(item,i) in interestsList"
             v-on:click="searchMe(item)"
@@ -74,7 +74,7 @@
           </div>
         </div>
         <!-- auto complete "tags"  -->
-        <div v-else class="dropdown-list">
+        <div v-else-if="inputValue" v-show="isClicked" class="dropdown-list">
           <div>
             <p v-bind:style="{ 'font-size': '18px', margin: '10px' }">
               Go to #{{ this.inputValue }}

@@ -33,7 +33,7 @@
                 <div class="follower_names">
                     <ul class="f_names">
                     <li class="names_list" v-for="follower of followers  " :key="follower.id">
-                        <Followers v-bind:image="follower.image_link"
+                        <Followers v-bind:image="follower.img"
                         v-bind:username="follower.username"
                         v-bind:title="follower.title"
                         v-bind:followerFlag="follower.followerFlag"
@@ -84,6 +84,8 @@ export default {
   props: {
     noPostsFlag:Boolean ,
     blogId:String,
+    followersIds:Array,
+    indxFlag:Number
      
 },
   components: {  
@@ -94,6 +96,13 @@ export default {
   ViewPostCard,
   },
   methods: {
+     isMockServer(baseUrl){
+     
+        if (baseUrl == "http://tumblr4u.eastus.cloudapp.azure.com:5000")
+          return false
+          else 
+          return true
+    },   
       button_follower_action(){
           this.followers_flag=true;
           this.post_flag=false;
@@ -135,10 +144,8 @@ export default {
             console.error(e);
           }
       }*/
-          /*created: function(){
-              this.getInfo();
-          },*/
-     
+          
+         
  },
   data(){
     return{  
@@ -161,25 +168,58 @@ export default {
     }
   },
 
-/* async created(){
-   
+ async created(){
+  
+       
+         ///1-get posts
+          let myRoute=""
+         if (this.isMockServer(Browser().baseURL))
+         myRoute=Browser().baseURL+'/posts'
+         else
+        myRoute=Browser().baseURL+`/blog/${this.blogId}/getBlogPosts`
       try {
-        for (i = 0; i < this.followersIds.length; i++) {
-         await axios.get(Browser().baseURL+`/user/follow/${this.followersIds[i]}`,
+      
+         await axios.get(myRoute,
          { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
          ).then(res => {
-           this.followers[i] = res.data;//object of eh?
-          console.log("followeeeeeeeeeers")
-          console.log(res.data)
+            this.posts = res.data.postsToShow;
        
           })
-         }
     } catch (e) {
       console.error(e);
     }
-    this.followers_count = this.followers.length;
 
-  }*/
+   ///2- get followers  
+        for (let i = 0; i < this.followersIds.length; i++) 
+        {
+           let myRoute2=""
+         if (this.isMockServer(Browser().baseURL))
+         myRoute2= Browser().baseURL+'/blog'
+         else
+        myRoute2= Browser().baseURL+`/blog/view/${this.followersIds[i]}`
+        console.log(myRoute)
+       try {
+         await axios.get(myRoute2,
+          { headers: { 'Authorization':`Bearer ${localStorage.getItem('token')}` } })
+          .then(res => {    
+            this.followers.push({
+         // userId: res.data.res.data._id,
+           name: res.data.res.data.name,
+           title:res.data.res.data.title,
+           img:res.data.res.data.img,
+        //  followersIds: res.data.res.data.followers
+          })  
+             
+          })
+    } catch (e) {
+      console.error(e);
+    }
+  
+         }
+    
+    this.followers_count = this.followers.length;
+// 3 get activity
+  }
 
   ///////////////
   /* async created(){

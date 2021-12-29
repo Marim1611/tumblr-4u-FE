@@ -18,7 +18,7 @@ import Profile from '../components/profile/Profile.vue'
 import Interests from '../components/registerPages/InterestsPage'
 import Messaging from '../components/chat/MessagingMobileView.vue'
 import SearchResultsOut from '../components/search/SearchResultsOutside'
-import Likes from '../components/profile/likes.vue'
+//import Likes from '../components/profile/likes.vue'
 import Posts from '../components/profile/posts.vue'
 import followingCard from '../components/profile/followingCard.vue'
 Vue.use(VueRouter);
@@ -61,7 +61,7 @@ const routes = [
         path: '/explore',
         name: 'explore',
         component:Explore,
-        props: true
+        
       },
       {
         path: '/dashBoard',

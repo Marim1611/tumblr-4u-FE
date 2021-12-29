@@ -135,12 +135,12 @@ export default {
          
         try {
   
-        await axios.put(  Browser().baseURL+`/user/new/blog`, 
+        await axios.post(  Browser().baseURL+`/user/new/blog`, 
         {
-          Title:this.title,
-          name:this.name,
+          title:this.title,
+          name:this.url,
           privacy:this.privacy,
-          Password:this.pass
+          password:this.pass
          },
         { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
         ).then(res => {

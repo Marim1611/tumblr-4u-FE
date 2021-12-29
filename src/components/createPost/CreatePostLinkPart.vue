@@ -66,8 +66,6 @@ export default {
     };
   },
 
-
-
   methods: {
     writeLink() {
       this.showLink = false;
@@ -133,16 +131,24 @@ export default {
     async postDone() {
       try {
         await axios
-          .post(Browser().baseURL + "/createPost", {
-            postHtml:
-              '<a href:"' +
-              this.urlString +
-              '">' +
-              this.urlString +
-              "</a>" +
-              this.postContent,
-            type: "link",
-          })
+          .post(
+            Browser().baseURL + `/${this.tumblrsObj.id}/posts/create_post`,
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            },
+            {
+              postHtml:
+                '<a href:"' +
+                this.urlString +
+                '">' +
+                this.urlString +
+                "</a>" +
+                this.postContent,
+              type: "link",
+            }
+          )
           .then((res) => {
             this.$emit("closeTextBox", false);
             this.postContent = "";
