@@ -218,7 +218,7 @@ export default {
             myRoute,
             {
               postHtml:
-                "<audio controls><   style= 'width: 600px;' src='" +
+                "<audio controls style= 'width: 600px;' src='" +
                 this.audioURL[0] +
                 "'></audio>" +
                 +this.postContent,

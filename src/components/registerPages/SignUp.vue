@@ -83,13 +83,9 @@
           <div class="striped-border"></div>
           <br />
           <div>
-            <b-button
-              @click="Google"
-              size="lg"
-              class="buttonBot"
-              block
-              variant="light"
-              ><b-icon icon="google"></b-icon> Continue with Google</b-button
+            <b-button @click="Google" size="lg" class="buttonBot" block variant="light"
+              ><b-icon  icon="google"></b-icon> Continue with
+              Google</b-button
             >
           </div>
           <div class="d7k"></div>
@@ -103,8 +99,8 @@
 <script>
 import Header from "./WelcomePageHeader.vue";
 import { mapFields } from "vuex-map-fields";
-import axios from "axios";
-import Browser from "../../mocks/browser";
+//import axios from "axios";
+//import Browser from "../../mocks/browser";
 
 /**
  *   A complete SignUp template
@@ -159,25 +155,7 @@ export default {
       this.lowerCase = false;
       this.upperCase = false;
     },
-    async Google() {
-      let myRoute = "";
-      //""
-      const googleuser = await this.$gAuth.signIn()
-      console.log(googleuser.yu.nv)
-      //let email = googleuser.yu.nv;
-      /*  */
-      myRoute = Browser().baseURL + `/androidSignUpWithGoogle`;
-       try {
-         await axios.post(myRoute,{
-           "googleToken": googleuser.vc.id_token
-         }).then((res) => {
-           localStorage.setItem('token',res.data.res.token)
-           this.$router.push('/home')
-         });
-      } catch (e) {
-        console.error(e);
-       }
-    },
+
     handel: function () {
       if (!this.email && !this.password && !this.blogname) {
         this.resetflags();
@@ -246,9 +224,38 @@ export default {
         this.$router.push("/age");
       }
     },
+
+    async Google() {
+      this.email = "nourdx552@gmail.com";
+          this.$router.push("/signUp");
+          return
+      /*let myRoute = "";
+      //""
+      /*  
+      if (this.isMockServer(Browser().baseURL))
+        myRoute = Browser().baseURL + "/posts";
+      else myRoute = Browser().baseURL + `/google`;
+      try {
+        await axios.get(myRoute).then((res) => {
+          this.email = res.data.email;
+          this.$router.push("/signUp");
+
+          console.log(res);
+        });
+      } catch (e) {
+        console.error(e);
+      }*/
+    },
+
     randomImg() {
       console.log(Math.floor(Math.random() * this.BgImgArr.length));
       return this.BgImgArr[Math.floor(Math.random() * this.BgImgArr.length)];
+    },
+
+    isMockServer(baseUrl) {
+      if (baseUrl == "http://tumblr4u.eastus.cloudapp.azure.com:5000")
+        return false;
+      else return true;
     },
   },
   props: {
