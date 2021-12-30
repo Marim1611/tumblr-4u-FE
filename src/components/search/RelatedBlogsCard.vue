@@ -11,9 +11,9 @@
             <b-row v-for="(item, i) in relatedBlogs" :key="i" class='sec'>
                 <div class="avatarStyle">
                 <avatar
-              :username=relatedBlogs.name
+              :username=item.name
                v-bind:rounded=true
-               v-bind:src=relatedBlogs.img
+               v-bind:src=item.img
               v-bind:size="50"
             ></avatar>
             </div>
@@ -21,14 +21,14 @@
           
              <b-col>
                  <div :style="{'width':'120px'}" > 
-                 <p id="block" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor, 'font-family':homeTheme[homeThemeIndex].fontStyle }">{{relatedBlogs.name}}</p>
-                 <p id="block" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor, 'font-family':homeTheme[homeThemeIndex].fontStyle }">{{relatedBlogs.title}}</p>
+                 <p id="block" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor, 'font-family':homeTheme[homeThemeIndex].fontStyle }">{{item.name}}</p>
+                 <p id="block" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor, 'font-family':homeTheme[homeThemeIndex].fontStyle }">{{item.title}}</p>
                  </div>
                 
               </b-col>
                <div id="space2">  <b-col></b-col></div>
                  <b-col>
-               <div>      <button id="fButton" v-on:click="followed( i)" type="button" v-bind:style="{'font-family':homeTheme[homeThemeIndex].fontStyle,'color': homeTheme[homeThemeIndex].fontColor }" >{{this.isFollower[i]}}</button>
+               <div>      <button id="fButton" v-on:click="followed( i)" type="button" v-bind:style="{'font-family':homeTheme[homeThemeIndex].fontStyle,'color': homeTheme[homeThemeIndex].fontColor }" >{{isFollower[i]}}</button>
 </div>
   </b-col>
                  
@@ -53,29 +53,58 @@ import Vue from 'vue';
  
 export default {
   name: "TumblrDrawer",
-  components: {
+  components:
+   {
     Avatar: Avatar,
   },
-  methods:{
-     data: function () {
+   data: function () {
     return {
          relatedBlogs:[],
-        isFollower:[]
+        isFollower:[],
+          avatarDefaultPhoto:
+        "https://assets.tumblr.com/images/default_avatar/octahedron_closed_128.png",
             
            
     };
   },
+  methods:{
+    
          
-   followed( i){
+  async followed( i){
         
        if( this.isFollower[i] == "Follow")
        {
- this.isFollower[i]= "Unfollow"
+         try {
+          await axios.post( Browser().baseURL+'/follow',
+         
+          {
+             blogId:  this.relatedBlogs[i]._id,
+           },
+            { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } },
+          ) 
+     } catch (e) {
+       console.error(e);
+     }
+                     Vue.set(this.isFollower,i,'Unfollow')
  
        }
       
        else if(this.isFollower[i]  == "Unfollow")
-      this.isFollower[i]= "Follow"
+       {
+           try {
+          await axios.post( Browser().baseURL+'/unfollow',
+         
+          {
+             blogId:  this.relatedBlogs[i]._id,
+           },
+            { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } },
+          ) 
+     } catch (e) {
+       console.error(e);
+     }
+          Vue.set(this.isFollower,i,'Follow') 
+       }
+      
 
    }
   },
@@ -88,16 +117,19 @@ export default {
         })
         .then((res) => {
           console.log("888dijnfkjnkjnkdjf,nsnv,ngm,v")
-          console.log()
-          this.relatedBlogs = res.data.ranBlogs;
-          console.log( res.data.ranBlogs)
-            
-           for (let i = 0; i < this.relatedBlogs.length; i++) {
+           console.log( res.data.ranBlogs)
+              
+           for (let i = 0; i < res.data.ranBlogs.length; i++) {
+             console.log("888dijnfkjnkjnkdjf,nsnv,ngm,v")
             //this.show.push(false);
             Vue.set(this.isFollower,i,'Follow')
           
              
           }
+         
+          this.relatedBlogs = res.data.ranBlogs;
+         
+        
 
        
           
@@ -135,6 +167,7 @@ export default {
 }
 #fButton{
   font-size: 16px;
+  margin-top:20px ;
   font-weight: bold;  
 }
 #sButton{
@@ -162,10 +195,13 @@ export default {
 }
 
 .sec:hover {
-  
+
    cursor: pointer;
    
 } 
+.sec{
+    margin-top:10px;
+}
 #sButton:hover {
   text-decoration: underline;
 } 

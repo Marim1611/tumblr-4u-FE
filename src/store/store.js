@@ -488,7 +488,7 @@ export const store = new Vuex.Store({
     },
     auth_init(state,user) {
       console.log("///////////////////////////////////////////")
-  
+      console.log(    state.user.blogsId)
       state.user = user;
       state.user.id = user._id;
       state.user.name = user.name;
@@ -496,7 +496,6 @@ export const store = new Vuex.Store({
       state.user.password = user.password;
       state.user.age = user.age;
       state.user.blogsId = user.blogsId;
-      console.log(    state.user.blogsId)
       state.user.followedTags = user.followedTags;
       state.user.followingBlogs = user.following_blogs;
       state.homeThemeIndex = user.bodyColor;
@@ -609,7 +608,7 @@ signup({ commit }, user) {
         age: user.age,
       })
       .then((res) => {
-        const token = res.data.res.data.token;
+        const token = res.data.res.token;
         const user = res.data.res.data.user;
         localStorage.setItem("token", token);
         axios.defaults.headers.common["Authorization"] = token;
