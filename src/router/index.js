@@ -22,6 +22,7 @@ import Likes from '../components/profile/likes.vue'
 import Posts from '../components/profile/posts.vue'
 import followingCard from '../components/profile/followingCard.vue'
 import resetPassword from '../components/registerPages/resetPassword.vue'
+import verifyEmail from '../components/registerPages/verifyEmail'
 Vue.use(VueRouter);
 const routes = [
   {
@@ -138,6 +139,11 @@ const routes = [
     name: 'likes',
     component:Likes
     
+  },
+  {
+    path: "/verifyemail",
+    name: "verifyEmail",
+    component:verifyEmail
   }
       
   

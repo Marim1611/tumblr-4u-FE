@@ -66,6 +66,8 @@
 </template>
 
 <script>
+import axios from "axios";
+import Browser from "../../mocks/browser";
 export default {
   name: "resetPassword",
   data() {
@@ -83,14 +85,20 @@ export default {
     };
   },
   components: {},
+
   methods: {
+    isMockServer(baseUrl) {
+      if (baseUrl == "http://tumblr4u.eastus.cloudapp.azure.com:5000")
+        return false;
+      else return true;
+    },
     resetflags() {
       this.emptyError = false;
       this.lengthError = false;
       this.lowerCase = false;
       this.upperCase = false;
     },
-    handel() {
+    async handel() {
       if (!this.newPassword && !this.confirmPassword) {
         this.resetflags();
         this.emptyError = true;
@@ -119,7 +127,25 @@ export default {
         }
         if (this.cleanPassword) {
           if (this.newPassword === this.confirmPassword) {
-            true;
+            let myRoute = "";
+            //""
+            /*  */
+            if (this.isMockServer(Browser().baseURL))
+              myRoute = Browser().baseURL + "/posts";
+            else myRoute = Browser().baseURL + `/user/reset_password/`;
+            try {
+              await axios
+                .put(myRoute, {
+                  email: this.Email,
+                  password: this.newPassword,
+                  cpassword: this.confirmPassword,
+                })
+                .then((res) => {
+                  console.log(res)
+                });
+            } catch (e) {
+              console.error(e);
+            }
           } else {
             this.resetflags();
             this.notMatch = true;
