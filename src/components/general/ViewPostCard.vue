@@ -1,59 +1,141 @@
- <template>
+<template>
   <div id="searchCard" v-show="forMe">
-     
-      <div class="container" v-bind:style="{'background': homeTheme[homeThemeIndex].cardColor, 'width': this.maxWidth }" >
-        <!--header of card-->
-        <div class="header">
-          <img class="profile" src="https://64.media.tumblr.com/54a1c708b6e6f778e6d6a62122b87264/dd15ee49758e1917-0f/s64x64u_c1/591674a52eaa19af57c763479bdbddcfa2219db8.jpg" alt="">
-          <div class="name-follow">
-            <a href="" class="name" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}">{{this.postName}} </a>
-            <a href="" v-on:click.prevent="followUnfollow" v-show="!follow" v-bind:style="{'color': homeTheme[homeThemeIndex].focused}">Follow</a>
-          </div>
-
-          <div class="dropdown">
-     
-           <b-icon class="options" v-on:click="postOption"  icon="three-dots" font-scale="2" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}" ></b-icon> 
-            
-            <!--drop down menu of options-->
-            <div v-show="showDropDown" class="dropdown-content">
-              <a href="#">Posted - Tuesday 6:30AM</a>
-              <button v-clipboard:copy="" v-on:click="copy">{{copyText}}</button>
-              <button v-on:click="followUnfollow" v-show="follow">Unfollow</button>
-              <button v-on:click="notForMe">This particular post isn't for me</button>
-              <button class="red">Report</button>
-              <button class="red">Block</button>
-
-              <button v-on:click="closeDropDown" class="closeButton">Close</button>
-            </div>
-          </div>
-        </div>
-        <!--content & tags of card-->
-
-        <div class="content" v-if="post!==undefined" v-html="post.postHtml" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"></div> 
-        <div class="tag-container">
-          <span v-if="post!==undefined">
-          <a v-bind:style="{'color': homeTheme[homeThemeIndex].focused}" href="" class="tags" v-for="tag in post.tags" :key="tag">#{{ tag }}</a>
-          </span>
+    <div
+      class="container"
+      v-bind:style="{
+        background: homeTheme[homeThemeIndex].cardColor,
+        'width': this.maxWidth,
+      }"
+    >
+      <!--header of card-->
+      <div class="header">
+        <img
+          class="profile"
+          src="https://64.media.tumblr.com/54a1c708b6e6f778e6d6a62122b87264/dd15ee49758e1917-0f/s64x64u_c1/591674a52eaa19af57c763479bdbddcfa2219db8.jpg"
+          alt=""
+        />
+        <div class="name-follow">
+          <a
+            href=""
+            class="name"
+            v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
+            >{{ this.postName }}
+          </a>
+          <a
+            href=""
+            v-on:click.prevent="followUnfollow"
+            v-show="!follow"
+            v-bind:style="{ color: homeTheme[homeThemeIndex].focused }"
+            >Follow</a
+          >
         </div>
 
-        <!--footer of card-->
-        <div class="footer-flex dropdown">
-          <div class="notes" v-on:click="commentShow" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"> {{ this.notesCount }} notes</div> <!--onClick:300x510-->
-          <!--comment dropdown menu-->
-          <div class="v-flex comment-window" v-show="comment" v-bind:style="{'background': homeTheme[homeThemeIndex].cardColor}">
-            
-            <!--header of comment window-->
-              <div class="h-flex border-bottom">
-                <b-icon class="clickable" v-on:click="noComment" icon="arrow-left" font-scale="2" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}" ></b-icon>
-                <p class="grow" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}">{{ this.notesCount }} notes</p>
-                <div class="no-padding" v-show="hash">
-                <b-icon class="clickable" v-on:click="subscribeConversation" v-show="!subscribe" icon="lightning" font-scale="2" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}" ></b-icon>
-                <b-icon class="clickable" v-on:click="subscribeConversation" v-show="subscribe" icon="lightning-fill" font-scale="2" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}" ></b-icon>
+        <div class="dropdown">
+          <b-icon
+            class="options"
+            v-on:click="postOption"
+            icon="three-dots"
+            font-scale="2"
+            aria-hidden="true"
+            v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
+          ></b-icon>
+
+          <!--drop down menu of options-->
+          <div v-show="showDropDown" class="dropdown-content">
+            <a href="#">Posted - Tuesday 6:30AM</a>
+            <button v-clipboard:copy="" v-on:click="copy">
+              {{ copyText }}
+            </button>
+            <button v-on:click="followUnfollow" v-show="follow">
+              Unfollow
+            </button>
+            <button v-on:click="notForMe">
+              This particular post isn't for me
+            </button>
+            <button class="red">Report</button>
+            <button class="red">Block</button>
+
+            <button v-on:click="closeDropDown" class="closeButton">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+      <!--content & tags of card-->
+      <div
+        class="content"
+        v-if="post!==undefined" v-html="post.postHtml"
+        v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
+      ></div>
+      <div class="tag-container">
+        <span v-if="post!==undefined">
+        <a
+          v-bind:style="{ color: homeTheme[homeThemeIndex].focused }"
+          href=""
+          class="tags"
+          v-for="tag in post.tags"
+          :key="tag"
+          >#{{ tag }}</a
+        >
+        </span>
+      </div>
+
+      <!--footer of card-->
+      <div class="footer-flex dropdown">
+        <div
+          class="notes"
+          v-on:click="commentShow"
+          v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
+        >
+          {{ this.notesCount }} notes
+        </div>
+        <!--onClick:300x510-->
+        <!--comment dropdown menu-->
+        <div
+          class="v-flex comment-window"
+          v-show="comment"
+          v-bind:style="{ background: homeTheme[homeThemeIndex].cardColor }"
+        >
+          <!--header of comment window-->
+          <div class="h-flex border-bottom">
+            <b-icon
+              class="clickable"
+              v-on:click="noComment"
+              icon="arrow-left"
+              font-scale="2"
+              aria-hidden="true"
+              v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
+            ></b-icon>
+            <p
+              class="grow"
+              v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
+            >
+              {{ this.notesCount }} notes
+            </p>
+            <div class="no-padding" v-show="hash">
+              <b-icon
+                class="clickable"
+                v-on:click="subscribeConversation"
+                v-show="!subscribe"
+                icon="lightning"
+                font-scale="2"
+                aria-hidden="true"
+                v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
+              ></b-icon>
+              <b-icon
+                class="clickable"
+                v-on:click="subscribeConversation"
+                v-show="subscribe"
+                icon="lightning-fill"
+                font-scale="2"
+                aria-hidden="true"
+                v-bind:style="{ color: homeTheme[homeThemeIndex].fontColor }"
+              ></b-icon>
                 <!-- <b-icon class="clickable" v-on:click="hashtag" icon="hash" font-scale="2" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}" ></b-icon> -->
-              </div>
             </div>
-            <!-- reactions -->
-            <div id="reactions" v-show="response">
+          </div>
+          <!-- reactions -->
+          <div id="reactions" v-show="response">
               <div class="no padding" v-for="(res, i) in responseComputed" :key="i">
                 <div class="h-flex center">
                   <img class="imgComment" v-bind:src="responseImgs[i]?responseImgs[i]:defaultImg" > <!--v-bind:src="comment">-->  
@@ -288,9 +370,13 @@ export default {
       else
         myRoute=Browser().baseURL+`/${this.getPrimaryBlogId}/${this.post._id}/comment`
         await axios
-          .post(myRoute, {
+          .put(myRoute, {
              text: this.inputComment
-          })
+          },{
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            })
           .then((res) => {
             // console.log(res.data);
           });
@@ -298,7 +384,7 @@ export default {
         console.log("^^^^^^^^^^^^^^^^^^");
         console.error(e);
       }
-      document.getElementById('inputcomment').value = "";
+      //document.getElementById('inputcomment').value = "";
     },
 
 
