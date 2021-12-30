@@ -79,6 +79,7 @@ export default {
 
 .ProseMirror p.placeholderClass.is-editor-empty::before {
   content: "\201C Quote\201D";
+  /* content: " Quote"; */
   float: left;
   color: #48515a;
   pointer-events: none;
@@ -89,6 +90,7 @@ export default {
   font-family: Georgia, serif;
   font-size: 50px;
   font-weight: 300;
+  padding-top: 20px;
 }
 
 /* .ProseMirror-trailingBreak{
@@ -99,14 +101,14 @@ export default {
   font-family: Georgia, serif;
 }
 
-.quoteClass.is-empty.is-editor-empty::after {
+/* .placeholderClass.is-empty.is-editor-empty::after {
   content: "";
-}
+} */
 
-.quoteClass:first-child:before {
+/* .placeholderClass:first-child:before {
   content: "\201C";
 }
-.quoteClass:last-of-type:after {
+.placeholderClass:last-of-type:after {
   content: "\201D";
-}
+} */
 </style>

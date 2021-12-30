@@ -116,17 +116,16 @@ export default {
     async vfileUploaded(file) {
       // console.log(file.dataURL);
       this.imagesUploaded.push(file.dataURL);
-      // console.log("here");
 
       let myRoute = "";
       if (this.isMockServer(Browser().baseURL))
         myRoute = Browser().baseURL + "/uploadImg";
       else myRoute = Browser().baseURL + `/uploadImg`;
-      // console.log(this.imagesUploaded);
-      // console.log(this.$refs.myVueDropzone.getAcceptedFiles());
-      // this.imageSrc = "https://source.unsplash.com/random/400x100";
-      // console.log(this.imageSrc);
+      console.log("UPLOADING IMAGE: images uploaded--> ");
+      console.log(this.imagesUploaded);
+      let formData = new FormData();
 
+      formData.append("file", this.imagesUploaded);
 
       try {
         await axios
@@ -142,9 +141,11 @@ export default {
             }
           )
           .then((res) => {
-            this.imagesURLS = res.data.file;
-            console.log("images url weslo elhamdullahh")
-            console.log(res.data.file);
+            console.log("images url weslo elhamdullahh");
+            console.log(res.data);
+            this.imagesURLS = res.data.images;
+            // console.log("images url weslo elhamdullahh");
+            // console.log(res.data.file);
           });
       } catch (e) {
         console.log("error in uploading imgs");
@@ -155,19 +156,26 @@ export default {
     },
 
     insertImage() {
-      for (var i = 0; i < this.imagesUploaded.length; i++) {
-        const data = {
-          command: this.command,
-          data: {
-            // src:this.imagesUploaded,
+      if (this.imageSrc === "") {
+        console.log("inserting uploaded img");
+        console.log("this.imagesUploaded");
 
-            src: this.imagesURLS[i],
-          },
-        };
+        for (var i = 0; i < this.imagesUploaded.length; i++) {
+          const data = {
+            command: this.command,
+            data: {
+              // src:this.imagesUploaded,
 
-        this.$emit("onConfirm", data);
-      }
-      if (this.imageSrc != "") {
+              src: this.imagesURLS[i],
+            },
+          };
+
+          this.$emit("onConfirm", data);
+        }
+      } else {
+        console.log("inserting url img");
+        console.log("this.imageSrc");
+
         const data = {
           command: this.command,
           data: {

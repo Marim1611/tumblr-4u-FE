@@ -154,7 +154,7 @@ export default {
       this.openAcc=control;
       this.openNotif=!control;
       this.openChat=!control;
-      console.log("3lololoooooooooooooo")
+   
        console.log(this.openNotif)
       
 

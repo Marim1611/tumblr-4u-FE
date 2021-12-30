@@ -1,66 +1,82 @@
 <template>
   <md-dialog v-bind:md-active.sync="postToBegin" v-on:keyup.esc="closeTextBox">
     <md-dialog-content>
-      <div class="imageMainDiv">
-        <div v-show="!urlChosen">
-          <div
-            draggable="true"
-            @dragover.prevent="tts"
-            @drop.prevent="ttrs"
-            class="uploadImage"
-          >
-            <label for="imageUpload" class="customImageUpload">
-              <b-icon
-                icon="camera-fill"
-                font-scale="3.5"
-                style="color: #a3a3a3"
-              ></b-icon>
-              <p>Upload photos</p>
-            </label>
-            <input
-              id="imageUpload"
-              type="file"
-              multiple
-              name="filefield"
-              accept="video/mp4,video/x-m4v,video/* "
-              ref="fileInput"
-              @input="ImageSelected"
-            />
-          </div>
+      <div class="videoMainDiv" v-show="!showVideo">
+        <div v-show="!urlChosen" class="uploadVideoFromWeb">
+          <label for="videoUpload" v-show="!showInsert">
+            <b-icon
+              icon="camera-reels"
+              font-scale="3.5"
+              style="color: #a3a3a3"
+            ></b-icon>
+            <p>Upload a video</p>
+          </label>
+          <input
+            id="videoUpload"
+            type="file"
+            multiple
+            name="filefield"
+            accept="video/mp4,video/x-m4v,video/* "
+            ref="fileInput"
+            @input="videoSelected"
+          />
 
-          <!-- <div v-for="src in srcs" :key="src.id">
-        <video controls :src="src.file" style="width: 800px"></video>
-      </div> -->
-          <v-divider> </v-divider>
+          <button @click="uploadVideoDone" class="success" v-show="showInsert">
+            Insert the video
+          </button>
+
+          <!-- <v-divider> </v-divider> -->
         </div>
-        <div class="uploadImageFromWeb" @click="webImage" v-show="urlChosen">
+
+        <!-- <div v-for="src in srcs" :key="src.id">
+      </div> -->
+        <div class="uploadVideoFromWeb" @click="webvideo">
           <b-icon
             icon="cloud-download-fill"
-            class="border rounded p-2"
             font-scale="3.5"
             style="color: #a3a3a3"
           ></b-icon>
-          <p>Add photo from web</p>
+          <p>Add video from web</p>
         </div>
 
         <div v-show="urlChosen" class="enterURL">
-          <button class="exitURL" v-on:click="urlChosen = false">
-            <b-icon
-              icon="x-circle-fill"
-              font-scale="1.4"
-              style="color: red"
-            ></b-icon>
-          </button>
-
           <v-textarea
-            v-model="imageSrc"
+            v-model="videoSrc"
             id="imgUrl"
             auto-grow
             placeholder="Paste a URL"
           ></v-textarea>
         </div>
       </div>
+      <button class="exitURL" v-show="showVideo" v-on:click="uploadVideo">
+        <b-icon
+          icon="x-circle-fill"
+          font-scale="1.4"
+          style="color: red"
+        ></b-icon>
+      </button>
+      <video
+        controls
+        v-show="showVideo"
+        :src="srcs[0]"
+        style="width: 800px"
+      ></video>
 
+      <CreatePostTextEditor
+        v-on:childToParent="onPostCaption"
+        v-show="showEditor"
+      />
+
+      <!-- <div class="showLink" v-show="showLink">
+        <button class="exitURL" v-on:click="writeLink">
+          <b-icon
+            icon="x-circle-fill"
+            font-scale="1.4"
+            style="color: red"
+          ></b-icon>
+        </button>
+        <a :href="urlString">{{ urlString }}</a>
+      </div> -->
       <input type="text" placeholder="#tags" id="theTags" />
       <md-divider></md-divider>
       <div class="footerBtns">
@@ -81,11 +97,16 @@
 </template>
 
 <script>
+import Browser from "../../mocks/browser";
+import axios from "axios";
+import CreatePostTextEditor from "./editors/imageContentEditor.vue";
+
 /**
- *  Uploading, dragging/dropping images file
+ *  Uploading, dragging/dropping videos file
  * @example [none]
  */
 export default {
+  components: { CreatePostTextEditor },
   props: {
     videoPost: {
       type: Boolean,
@@ -94,23 +115,51 @@ export default {
   data() {
     return {
       dt: "",
-      ImagesUploaded: [],
+      videosUploaded: [],
+      videoUrl: "",
       srcs: [],
       urlChosen: false,
+      videoSrc: [],
+      
+      showVideo: false,
+      showEditor: false,
+      showInsert: false,
     };
   },
 
   methods: {
+    onPostCaption(content) {
+      this.postCaption = content;
+      if (content === "" || content === null) {
+     
+        this.showEditor = false;
+      } else this.showEditor = true;
+      console.log(content);
+    },
+    
+
     closeTextBox() {
       this.$emit("closeVideoBox", false);
-      this.postContent = null;
+      this.postCaption = null;
+      this.srcs = [];
+      this.showVideo = false;
+      this.videoUrl = "";
+      this.showInsert = false;
+    },
+
+    uploadVideo() {
+      this.showEditor = false;
+      this.showVideo = false;
+      this.srcs = [];
+      this.videoUrl = "";
+      this.showInsert = false;
     },
     /**
-     * Function to take the uploaded images and save them in an array
+     * Function to take the uploaded videos and save them in an array
      * @public This is a public method
      * @param {none}
      */
-    ImageSelected: function (e) {
+    videoSelected: function (e) {
       let input = this.$refs.fileInput;
       let file = input.files;
       let datas = e.target.files || e.dataTransfer.files;
@@ -119,13 +168,13 @@ export default {
         let reader = new FileReader();
         reader.onload = (e) => {
           this.srcs.push(e.target.result);
-          console.log(e.target.result);
+       
         };
         reader.readAsDataURL(file[0]);
 
         var i;
         for (i = 0; i < datas.length; i++) {
-          this.ImagesUploaded.push(datas[i]);
+          this.videosUploaded.push(datas[i]);
         }
         this.readFile(datas);
       }
@@ -143,46 +192,109 @@ export default {
         };
         reader.readAsDataURL(files[index]);
       }
-    },
-    testfunc(event) {
-      alert("dragdrop!");
-      event.stopPropagation();
-      event.preventDefault();
+
+      this.showInsert = true;
     },
 
-    tts() {
-      this.dt = "Drag here to upload files";
-    },
     /**
-     * Function to save the dragged photo in an array
+     * Function to uppload video as a link (from browser, not finished yet)
      * @public This is a public method
      * @param {none}
      */
-    ttrs(e) {
-      let datas = e.target.files || e.dataTransfer.files;
+    webvideo: function () {
+      this.urlChosen = true;
+    },
 
-      var i;
-      for (i = 0; i < datas.length; i++) {
-        this.ImagesUploaded.push(datas[i]);
+    isMockServer(baseUrl) {
+      if (baseUrl == "http://tumblr4u.eastus.cloudapp.azure.com:5000")
+        return false;
+      else return true;
+    },
+    async uploadVideoDone() {
+      this.videoSrc.push(this.srcs[0]);
+
+      let myRoute = "";
+      if (this.isMockServer(Browser().baseURL))
+        myRoute = Browser().baseURL + "/uploadImg";
+      else myRoute = Browser().baseURL + `/uploadImg`;
+
+      console.log(this.videoSrc);
+      try {
+        await axios
+          .post(
+            myRoute,
+            {
+              file: this.videoSrc,
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            }
+          )
+          .then((res) => {
+        
+
+            this.videoUrl = res.data.images;
+            this.showVideo = true;
+            this.postTitle = this.videoURL;
+            this.showEditor = true;
+
+             
+          });
+      } catch (e) {
+      
+        console.error(e);
       }
 
-      this.readFile(datas);
-
-      e.stopPropagation();
-      e.preventDefault();
+     
     },
 
-    /**
-     * Function to uppload image as a link (from browser, not finished yet)
-     * @public This is a public method
-     * @param {none}
-     */
-    webImage: function () {
-      this.urlChosen = true;
+    async postDone() {
+      console.log(this.postCaption);
+      let myRoute = "";
+      if (this.isMockServer(Browser().baseURL))
+        myRoute = Browser().baseURL + "/create_post";
+      else myRoute = Browser().baseURL + `/${this.blogId}/create_post`;
+      try {
+        await axios
+          .post(
+            myRoute,
+            {
+              postHtml:
+                "<video controls   style= 'width: 600px;' src='" +
+                this.videoUrl +
+                "'></video>" +
+                "yarabb",
+              type: "video",
+              state: "published",
+              tags: [" "],
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            }
+          )
+          .then((res) => {
+            // this.$emit("closeTextBox", false);
+
+            this.postCaption = "";
+            this.srcs = "";
+            console.log(res.data);
+            this.closeTextBox();
+          });
+      } catch (e) {
+        console.log("^^^^^^^^^^^^^^^^^^");
+        console.error(e);
+      }
     },
   },
 
   computed: {
+    blogId: function () {
+      return this.$store.state.user.primaryBlogId;
+    },
     /**
      * Function to know if the text upload post should appear or not
      * @public This is a public method
@@ -202,7 +314,7 @@ export default {
      * @param {none}
      */
     disablePosting() {
-      if (this.postContent === "" || this.postContent === null) {
+      if (!this.showVideo) {
         return true;
       }
       return false;
@@ -212,7 +324,7 @@ export default {
 </script>
 
 <style scoped>
-.imageMainDiv {
+.videoMainDiv {
   border-bottom: 2px dashed #ccc;
   border-top: 2px dashed #ccc;
   color: rgb(161, 159, 159);
@@ -224,7 +336,10 @@ export default {
   cursor: pointer;
   /* margin: 0;
   padding: 0; */
-  position: relative;
+  /* position: relative; */
+  /* display: flex;
+  flex-direction: column; */
+  justify-content: space-around;
   /* left: 0; */
 }
 input[type="file"] {
@@ -232,9 +347,9 @@ input[type="file"] {
   display: none;
 }
 
-.uploadImage,
-.uploadImageFromWeb {
-  /* padding: 6px 12px; */
+.uploadvideo,
+.uploadVideoFromWeb {
+  padding: 6px 12px;
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -242,15 +357,24 @@ input[type="file"] {
   /* width: 100vw; */
   align-items: center;
 }
-.customImageUpload {
+
+.customvideoUpload {
   cursor: pointer;
+  padding: 30px;
+  height: 20px;
 }
-.uploadImage p {
+
+/* #imageUpload {
+  padding-bottom: 30px;
+  height: 20px;
+} */
+
+.uploadvideo p {
   font-size: 14px;
   cursor: pointer;
 }
 
-.webImageDiv {
+.webvideoDiv {
   background-color: white;
   cursor: text;
 }
@@ -305,5 +429,29 @@ input[type="text"] {
   color: hsla(0, 0%, 100%, 0.5);
   cursor: default;
   font-size: 13px;
+}
+
+.exitURL {
+  padding-left: 20px;
+  padding-right: 10px;
+}
+
+.success {
+  font-family: inherit;
+  font-size: 100%;
+  color: white;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  border: 1px solid #999;
+  border: transparent;
+  background-color: #e6e6e6;
+  text-decoration: none;
+  border-radius: 2px;
+  cursor: pointer;
+  background: rgb(91, 156, 106);
+  /* padding-bottom: 20px; */
+  /* height: 40px; */
+  padding: 6px;
+  color: white;
+  /* margin: 40px; */
 }
 </style>

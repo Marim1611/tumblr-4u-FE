@@ -30,9 +30,6 @@
 <script>
 import CreatePostTextEditor from "./editors/imageContentEditor.vue";
 import imageEditor from "./editors/imageEditor.vue";
-import Modal from "./editors/imageModal.vue";
-import vue2Dropzone from "vue2-dropzone";
-import "vue2-dropzone/dist/vue2Dropzone.min.css";
 import axios from "axios";
 import Browser from "../../mocks/browser";
 
@@ -47,12 +44,11 @@ export default {
     },
     // tumblrsObj: Object,
   },
-    
+
   components: {
     CreatePostTextEditor,
-    Modal,
     imageEditor,
-    vueDropzone: vue2Dropzone,
+    
   },
   data() {
     return {
@@ -74,6 +70,7 @@ export default {
     closeTextBox() {
       this.$emit("closeimageBox", false);
       this.postContent = null;
+      this.postCaption = "";
     },
     /**
      * Function to recieve the content written inside the post from the text editor file
@@ -107,6 +104,12 @@ export default {
       } else this.showEditor = true;
       // console.log(content);
     },
+
+    isMockServer(baseUrl) {
+      if (baseUrl == "http://tumblr4u.eastus.cloudapp.azure.com:5000")
+        return false;
+      else return true;
+    },
     /**
      * Function to publish the post and save its content
      * @public This is a public method
@@ -114,25 +117,46 @@ export default {
      */
 
     async postDone() {
+      let myRoute = "";
+      console.log("CREATE POST image *****************");
+      // console.log(this.postTitle + this.postContent);
+      if (this.isMockServer(Browser().baseURL))
+        myRoute = Browser().baseURL + "/create_post";
+      else myRoute = Browser().baseURL + `/${this.blogId}/create_post`;
       try {
         await axios
-          .post(Browser().baseURL + "/createPost", {
-            postHtml: this.postContent + this.postCaption,
-            type: "image",
-          })
+          .post(
+            myRoute,
+            {
+              postHtml: this.postContent + this.postCaption,
+              type: "image",
+              tags: [" "],
+              state: "published",
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            }
+          )
           .then((res) => {
-            this.$emit("closeTextBox", false);
+            // this.$emit("closeTextBox", false);
             this.postContent = "";
-            console.log(res.data);
+            this.postCaption = "";
+            console.log(res.data);     
+            this.closeTextBox();
+
           });
       } catch (e) {
-        console.log("^^^^^^^^^^^^^^^^^^");
         console.error(e);
       }
     },
   },
 
   computed: {
+    blogId: function () {
+      return this.$store.state.user.primaryBlogId;
+    },
     /**
      * Function to know if the text upload post should appear or not
      * @public This is a public method

@@ -111,7 +111,7 @@ try {
       else
         myRoute=Browser().baseURL+`/${this.getPrimaryBlogId}/${this.post._id}/reblog_post`
         await axios
-          .post(myRoute, {
+          .put(myRoute, {
              text: this.reblogIn
           })
           .then((res) => {

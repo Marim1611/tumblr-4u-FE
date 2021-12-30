@@ -203,11 +203,11 @@ export default {
           { headers: { 'Authorization':`Bearer ${localStorage.getItem('token')}` } })
           .then(res => {    
             this.followers.push({
-         // userId: res.data.res.data._id,
+       
            name: res.data.res.data.name,
            title:res.data.res.data.title,
            img:res.data.res.data.img,
-        //  followersIds: res.data.res.data.followers
+         
           })  
              
           })
@@ -218,26 +218,10 @@ export default {
          }
     
     this.followers_count = this.followers.length;
-// 3 get activity
+ 
   }
 
-  ///////////////
-  /* async created(){
-           console.log("aaaaaaaaaaaaaaaaaaaaaaaaa") ;
-        try {
-    
-         await axios.get(Browser().baseURL+'/features').then(res => {
-            this.followers = res.data.followers;
-            this.posts= res.data.posts;
-            this.followers_count = this.followers.length;
-            this.post_count=this.posts.length;
-            console.log(this.followers+"aaaaaaaaaaaaaaaaaaaaaaaaa")    
-          })
-        } catch (e) {
-            console.log("^^^^^^^^^^^^^^^^^^")
-        console.error(e);
-        }
-         }*/
+   
 }
 
 

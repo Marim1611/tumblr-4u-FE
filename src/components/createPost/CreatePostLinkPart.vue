@@ -128,25 +128,39 @@ export default {
      * @param {none}
      */
 
+    isMockServer(baseUrl) {
+      if (baseUrl == "http://tumblr4u.eastus.cloudapp.azure.com:5000")
+        return false;
+      else return true;
+    },
     async postDone() {
+      let myRoute = "";
+      console.log("CREATE POST Link *****************");
+      // console.log(this.postTitle + this.postContent);
+      if (this.isMockServer(Browser().baseURL))
+        myRoute = Browser().baseURL + "/create_post";
+      else myRoute = Browser().baseURL + `/${this.blogId}/create_post`;
       try {
         await axios
           .post(
-            Browser().baseURL + `/${this.tumblrsObj.id}/posts/create_post`,
-            {
-              headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
-              },
-            },
+            myRoute,
             {
               postHtml:
-                '<a href:"' +
+                '<a href="' +
                 this.urlString +
                 '">' +
                 this.urlString +
                 "</a>" +
                 this.postContent,
+              state: "published",
+
               type: "link",
+              tags: [" "],
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
             }
           )
           .then((res) => {
@@ -161,6 +175,9 @@ export default {
     },
   },
   computed: {
+    blogId: function () {
+      return this.$store.state.user.primaryBlogId;
+    },
     /**
      * Function to know if the text upload post should appear or not
      * @public This is a public method

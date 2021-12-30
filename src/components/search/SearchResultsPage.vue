@@ -153,8 +153,9 @@
           </div>
 
           <div id="sidePanel" md="auto">
+               <RelatedBlogs />
             <RelatedTags />
-            <RelatedBlogs />
+         
           </div>
         </div>
 
