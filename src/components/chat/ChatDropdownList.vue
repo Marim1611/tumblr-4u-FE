@@ -189,12 +189,8 @@ export default {
         this.listColors[i]=this.homeTheme[this.homeThemeIndex].fontColor
           else  
             this.listColors[i]="transparent"
-        
          }
-       
           }
-          console.log("|||||||||||||||")
-         
       },
       newMsgClicked()
       {
@@ -214,9 +210,7 @@ export default {
      toggleDropdown () {
       this.isOpen = !this.isOpen
     },
-     openBox(indxMemb){
-        //this.$router.push({ name: 'ChatBox', params: { friendName: this.friendName, friendImage: this.friendImage } });
-        console.log("kaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaak");
+     openBox(indxMemb){      
         this.checkBoxFlag=!this.checkBoxFlag;
         this.indxMem=indxMemb;
      }

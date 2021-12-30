@@ -45,7 +45,6 @@
             id="imgUrl"
             auto-grow
             placeholder="Paste a URL"
-            v-bind:rules="rules"
           ></v-textarea>
         </div>
       </div>
@@ -121,7 +120,7 @@ export default {
       srcs: [],
       urlChosen: false,
       videoSrc: [],
-      rules: [(value) => !!value, (value) => this.validURL(value)],
+      
       showVideo: false,
       showEditor: false,
       showInsert: false,
@@ -132,19 +131,12 @@ export default {
     onPostCaption(content) {
       this.postCaption = content;
       if (content === "" || content === null) {
-        // console.log("fadyyy")
+     
         this.showEditor = false;
       } else this.showEditor = true;
       console.log(content);
     },
-    validURL(str) {
-      var pattern = new RegExp(
-        "/^(?:https?:\/\/)?(?:m\.|www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/"
-      );
-
-      var validUrl = !!pattern.test(str);
-      return validUrl;
-    },
+    
 
     closeTextBox() {
       this.$emit("closeVideoBox", false);
@@ -176,7 +168,7 @@ export default {
         let reader = new FileReader();
         reader.onload = (e) => {
           this.srcs.push(e.target.result);
-          // console.log(e.target.result);
+       
         };
         reader.readAsDataURL(file[0]);
 
@@ -241,22 +233,21 @@ export default {
             }
           )
           .then((res) => {
-            console.log("video url wesl elhamdullahh");
-            console.log(res.data);
+        
 
             this.videoUrl = res.data.images;
             this.showVideo = true;
             this.postTitle = this.videoURL;
             this.showEditor = true;
 
-            // console.log(res.data);
+             
           });
       } catch (e) {
-        console.log("error in uploading video");
+      
         console.error(e);
       }
 
-      // console.log(this.postTitle);
+     
     },
 
     async postDone() {
@@ -277,7 +268,7 @@ export default {
                 "yarabb",
               type: "video",
               state: "published",
-              tags: [],
+              tags: [" "],
             },
             {
               headers: {

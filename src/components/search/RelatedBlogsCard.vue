@@ -39,7 +39,7 @@
               'background': homeTheme[homeThemeIndex].fontColor,
             }"
           ></div> 
-           <button id="sButton" type="button" v-bind:style="{'font-family':homeTheme[homeThemeIndex].fontStyle,'color': homeTheme[homeThemeIndex].fontColor }" >show more tags</button>
+           <button id="sButton" type="button" v-bind:style="{'font-family':homeTheme[homeThemeIndex].fontStyle,'color': homeTheme[homeThemeIndex].fontColor }" ></button>
         
 
             </div>
@@ -162,6 +162,7 @@ export default {
   flex-direction: column;
   min-height: 100px;
   margin-top:20px;
+  margin-bottom:20px ;
 }
 #fButton{
   font-size: 16px;

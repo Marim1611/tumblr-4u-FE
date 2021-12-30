@@ -435,15 +435,15 @@ export default {
         })
         .then((res) => {
           this.notes = res.data.res.notes;
-          console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-          console.log(res.data.res.notesCount);
+        
+       
           (this.notesCount = res.data.res.notesCount),
             (this.likesCount = res.data.res.likesCount),
-            (this.reblogsCount = res.data.res.reblogsCount),
-            console.log(res.data.res.message);
+            (this.reblogsCount = res.data.res.reblogsCount)
+            
         });
     } catch (e) {
-      console.log("error in notes");
+     
       console.error(e);
     }
 
@@ -459,14 +459,13 @@ export default {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         })
         .then((res) => {
-          console.log("*****************");
+        
 
           this.postName = res.data.res.data.name;
-          console.log("name worked probably");
-          console.log(this.postName);
+         
         });
     } catch (e) {
-      console.log("error in blog");
+      
       console.error(e);
     }
   },
@@ -497,14 +496,14 @@ export default {
             console.log(res.data);
           });
       } catch (e) {
-        console.log("^^^^^^^^^^^^^^^^^^");
+       
         console.error(e);
       }
     },
 
     async like(post) {
       try {
-        console.log("LIKEEEEEE");
+      
 
         let myRoute = "";
         if (this.isMockServer(Browser().baseURL))
@@ -517,7 +516,7 @@ export default {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         });
       } catch (e) {
-        console.log("error in like_press");
+        
         console.error(e);
       }
       this.heartFilled = !this.heartFilled;
@@ -607,12 +606,6 @@ export default {
       this.comment = !this.comment;
       document.getElementById("inputComment").value = "";
       this.hash = true;
-
-      console.log(
-        "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"
-      );
-      console.log(this.commentsComputed);
-      // getcomments
       for (let i = 0; i < this.commentsComputed.length; i++) {
         try {
           let myRoute = "";
@@ -629,14 +622,13 @@ export default {
               },
             })
             .then((res) => {
-              console.log(res.data.res.data.name);
+               
               this.commentNames.push(res.data.res.data.name);
 
-              //  console.log(this.commentNames)
-              console.log("name worked probably");
+            
             });
         } catch (e) {
-          console.log("error in blog");
+           
           console.error(e);
         }
       }

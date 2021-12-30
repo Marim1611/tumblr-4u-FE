@@ -120,8 +120,7 @@ export default {
 
     async postDone() {
       let myRoute = "";
-      console.log("CREATE POST *****************")
-      console.log(this.postTitle + this.postContent)
+      
       if (this.isMockServer(Browser().baseURL))
         myRoute = Browser().baseURL + "/create_post";
       else myRoute = Browser().baseURL + `/${this.blogId}/create_post`;
@@ -133,7 +132,7 @@ export default {
               postHtml: this.postTitle + this.postContent,
               type: "text",
               state: "published",
-              tags: "cmp",
+              tags: [" "],
             },
             {
               headers: {

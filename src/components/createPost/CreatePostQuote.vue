@@ -144,7 +144,7 @@ export default {
               postHtml: this.postTitle + this.postContent,
               type: "quote",
               state: "published",
-              tags: "cmp",
+                tags: [" "],
             },
             {
               headers: {

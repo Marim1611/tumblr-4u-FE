@@ -30,9 +30,6 @@
 <script>
 import CreatePostTextEditor from "./editors/imageContentEditor.vue";
 import imageEditor from "./editors/imageEditor.vue";
-import Modal from "./editors/imageModal.vue";
-import vue2Dropzone from "vue2-dropzone";
-import "vue2-dropzone/dist/vue2Dropzone.min.css";
 import axios from "axios";
 import Browser from "../../mocks/browser";
 
@@ -50,9 +47,8 @@ export default {
 
   components: {
     CreatePostTextEditor,
-    Modal,
     imageEditor,
-    vueDropzone: vue2Dropzone,
+    
   },
   data() {
     return {
@@ -134,7 +130,7 @@ export default {
             {
               postHtml: this.postContent + this.postCaption,
               type: "image",
-              tags: "el",
+              tags: [" "],
               state: "published",
             },
             {

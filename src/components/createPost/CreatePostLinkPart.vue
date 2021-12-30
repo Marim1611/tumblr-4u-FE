@@ -155,7 +155,7 @@ export default {
               state: "published",
 
               type: "link",
-              tags: "cmp",
+              tags: [" "],
             },
             {
               headers: {
