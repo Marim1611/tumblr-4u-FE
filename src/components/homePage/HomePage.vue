@@ -112,7 +112,8 @@ export default {
       await axios
         .get(Browser().baseURL + "/dashboard", {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        })
+        }
+        )
         .then((res) => {
           this.dashBoardPosts = res.data.res.postsToShow;
           this.tumblrsObj.id =  this.blogId;

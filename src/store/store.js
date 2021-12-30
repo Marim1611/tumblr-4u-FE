@@ -487,8 +487,7 @@ export const store = new Vuex.Store({
       state.user = user;
     },
     auth_init(state,user) {
-      console.log("///////////////////////////////////////////")
-  
+    
       state.user = user;
       state.user.id = user._id;
       state.user.name = user.name;
@@ -609,7 +608,7 @@ signup({ commit }, user) {
         age: user.age,
       })
       .then((res) => {
-        const token = res.data.res.data.token;
+        const token = res.data.res.token;
         const user = res.data.res.data.user;
         localStorage.setItem("token", token);
         axios.defaults.headers.common["Authorization"] = token;
@@ -623,25 +622,23 @@ signup({ commit }, user) {
       });
   });
 },
-async forgotpassword({ commit }, user) {
-  alert(user.email);
+  
+forgotpassword({ commit }, user) {
   return new Promise((resolve, reject) => {
-    commit("auth_request");
-    axios
-      .post(Browser().baseURL + "/forgot_password", {
-        Email: user.email,
-      })
-      .then((resp) => {
-        console.log(resp);
-        this.state.msg = resp.message;
-
-      resolve(resp)
+    commit('auth_request')
+    axios.post(  Browser().baseURL +  '/user/forget_password', {
+      email:user.email
     })
-    .catch(err => {
-      console.log(err)
-      //alert(err.error)
-      reject(err)
+      .then(resp => {
+        this.state.msg = resp.message;
+        resolve(resp)
+      
+      })
+      .catch(err => {
+        alert(err.error)
+        reject(err)
+    })
   })
-})
-}}
+}
+}
 });

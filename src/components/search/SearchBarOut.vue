@@ -44,8 +44,8 @@
           <div
             v-show="itemVisible(item)"
             v-on:click="searchMeTag(item)"
-            v-for="item in tags"
-            v-bind:key="item"
+            v-for="(item,i) in tags"
+            v-bind:key="i"
             class="dropdown-item"
           >
             <b-icon
@@ -73,7 +73,7 @@
             "
             v-show="itemVisible(item.name)"
             v-for="item in usersInSearch"
-            v-bind:key="item.name"
+            v-bind:key="item._id"
             class="dropdown-item"
           >
             <!-- <img :src="item.img" class="dropdown-item-flag" /> -->

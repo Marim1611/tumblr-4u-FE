@@ -178,16 +178,15 @@ export default {
     if (localStorage.getItem("token") == "") this.isAuth = false;
     else this.isAuth = true;
     try {
-      await axios
-        .get(Browser().baseURL + "/dashboard", {
+ 
+
+         await axios.get(Browser().baseURL+'/dashboard',
+          {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        })
-        .then((res) => {
-          this.dashBoardPosts = res.data.res.postsToShow;
-          console.log("^^^^^^^EXPLORE^^^^^^^^^^^");
-          console.log(res.data.res.postsToShow);
-          console.log(res.data);
-        });
+        }
+         
+         ).then(res => {
+ 
 
       //  const res =await axios.get('http://localhost:3000/autoCompleteSearchDash')
 
