@@ -194,10 +194,10 @@
     >
     </CreatePostChat> -->
 
-    <!-- <CreatePostVideo
+    <CreatePostVideo
       v-bind:videoPost="videoChosen"
       v-on:closeVideoBox="closeVideo($event)"
-    /> -->
+    />
 
     <CreatePostAudio
       v-bind:audioPost="audioChosen"

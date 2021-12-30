@@ -2,25 +2,32 @@
   <md-dialog v-bind:md-active.sync="postToBegin" v-on:keyup.esc="closeTextBox">
     <md-dialog-content>
       <div class="audioMainDiv">
-        <div class="uploadImage">
-          <label for="audioUpload" class="customImageUpload">
-            <b-icon
-              icon=" headphones"
-              font-scale="3.5"
-              style="color: #a3a3a3"
-              v-show="srcs == ''"
-            ></b-icon>
-          </label>
-          <input
-            id="audioUpload"
-            type="file"
-            name="filefield"
-            accept="audio/mp3 "
-            ref="fileInput"
-            @input="audioSelected"
-            v-show="srcs == ''"
-          />
+        <div class="uploadAudio" v-show="!showAudio">
+          <div class="audioStaff">
+            <label for="audioUpload" class="customAudioUpload">
+              <b-icon
+                icon=" headphones"
+                font-scale="3.5"
+                style="color: #a3a3a3"
+              ></b-icon>
+              <p>Upload an audio</p>
+            </label>
+
+            <input
+              id="audioUpload"
+              type="file"
+              name="filefield"
+              accept="audio/mp3 "
+              ref="fileInput"
+              @input="audioSelected"
+            />
+            <button @click="uploadAudioDone" class="success">
+              Insert the audio
+            </button>
+          </div>
         </div>
+
+        <!-- v-show="srcs == ''" -->
 
         <!-- <audio
           controls
@@ -33,9 +40,9 @@
           controls
           :src="audioURL[0]"
           class="audioShown"
-          v-show="srcs != ''"
+          v-show="showAudio"
         ></audio>
-        <button class="exitURL" v-show="srcs != ''" v-on:click="uploadAudio">
+        <button class="exitURL" v-show="showAudio" v-on:click="uploadAudio">
           <b-icon
             icon="x-circle-fill"
             font-scale="1.4"
@@ -67,6 +74,8 @@
 
 <script>
 import audioEditor from "./editors/linkEditor.vue";
+import Browser from "../../mocks/browser";
+import axios from "axios";
 
 /**
  *  Uploading, dragging/dropping audios file
@@ -84,13 +93,14 @@ export default {
   data() {
     return {
       dt: "",
-      ImagesUploaded: [],
+      AudiosUploaded: [],
       srcs: [],
       audioSrc: [],
       audioURL: "",
       urlChosen: false,
       showEditor: false,
       postTitle: "",
+      showAudio: false,
     };
   },
 
@@ -99,6 +109,8 @@ export default {
       this.$emit("closeAudioBox", false);
       this.postContent = null;
       this.srcs = [];
+      this.showAudio = false;
+      this.audioURL = [];
     },
     /**
      * Function to take the uploaded audios and save them in an array
@@ -113,8 +125,6 @@ export default {
         let reader = new FileReader();
         reader.onload = (e) => {
           this.srcs.push(e.target.result);
-          console.log("saved");
-          console.log(this.srcs[0]);
         };
         reader.readAsDataURL(file[0]);
 
@@ -122,12 +132,11 @@ export default {
       }
     },
 
-    async readFile(files) {
+    readFile(files) {
       var vm = this;
       for (var index = 0; index < files.length; index++) {
         var file = { file: "" };
         var reader = new FileReader();
-
         reader.onload = function (event) {
           file.file = event.target.result;
           vm.srcs.push(file);
@@ -135,9 +144,12 @@ export default {
         reader.readAsDataURL(files[index]);
       }
 
-      this.postTitle = this.srcs[0]; // here the url will be taken
-      // this.audioSrc = this.srcs[0]; // here the url will be taken
+      // this.tryme()
+    },
+
+    async uploadAudioDone() {
       this.audioSrc.push(this.srcs[0]);
+
       let myRoute = "";
       if (this.isMockServer(Browser().baseURL))
         myRoute = Browser().baseURL + "/uploadImg";
@@ -157,15 +169,21 @@ export default {
             }
           )
           .then((res) => {
-            this.audioURL = res.data.file;
-            console.log(res.data.file);
+            console.log("audio url wesl elhamdullahh");
+            console.log(res.data);
+
+            this.audioURL = res.data.images;
+            this.showAudio = true;
+            this.postTitle = this.audioURL[0];
+
+            // console.log(res.data);
           });
       } catch (e) {
         console.log("error in uploading audio");
         console.error(e);
       }
 
-      console.log(this.postTitle);
+      // console.log(this.postTitle);
     },
 
     onTextClick(content) {
@@ -179,7 +197,8 @@ export default {
 
     uploadAudio() {
       this.showEditor = false;
-      // this.srcs = [];
+      this.showAudio = false;
+      this.srcs = [];
     },
 
     isMockServer(baseUrl) {
@@ -199,8 +218,8 @@ export default {
             myRoute,
             {
               postHtml:
-                "<audio controls   style= 'width: 600px;' src='" +
-                this.audioURL +
+                "<audio controls><   style= 'width: 600px;' src='" +
+                this.audioURL[0] +
                 "'></audio>" +
                 +this.postContent,
               type: "audio",
@@ -214,10 +233,11 @@ export default {
             }
           )
           .then((res) => {
-            this.$emit("closeTextBox", false);
+            // this.$emit("closeTextBox", false);
             this.postContent = "";
             this.postTitle = "";
             console.log(res.data);
+            this.closeTextBox();
           });
       } catch (e) {
         console.log("^^^^^^^^^^^^^^^^^^");
@@ -227,6 +247,9 @@ export default {
   },
 
   computed: {
+    blogId: function () {
+      return this.$store.state.user.primaryBlogId;
+    },
     /**
      * Function to know if the text upload post should appear or not
      * @public This is a public method
@@ -246,7 +269,7 @@ export default {
      * @param {none}
      */
     disablePosting() {
-      if (this.postTitle === "" || this.postTitle === null) {
+      if (this.audioURL == []) {
         return true;
       }
       return false;
@@ -265,7 +288,7 @@ export default {
   flex-direction: row;
   justify-content: center;
   width: 28vw;
-  height: 10vh;
+  height: 20vh;
   cursor: pointer;
   padding-bottom: 10px;
   /* padding-top:30px ; */
@@ -281,25 +304,28 @@ input[type="file"] {
   display: none;
 }
 
-.uploadImage,
-.uploadImageFromWeb {
+.uploadAudio {
   /* padding: 6px 12px; */
   cursor: pointer;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   /* width: 100vw; */
   align-items: center;
+  /* padding-top: 40px; */
 }
-.customImageUpload {
+.customAudioUpload {
   cursor: pointer;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
 }
-.uploadImage p {
+.uploadAudio p {
   font-size: 14px;
   cursor: pointer;
 }
 
-.webImageDiv {
+.webAudioDiv {
   background-color: white;
   cursor: text;
 }
@@ -364,5 +390,31 @@ input[type="text"] {
 .exitURL {
   padding-left: 20px;
   padding-right: 10px;
+}
+
+.success {
+  font-family: inherit;
+  font-size: 100%;
+  /* padding: 0.5em 1em; */
+  color: white;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  border: 1px solid #999;
+  border: transparent;
+  background-color: #e6e6e6;
+  text-decoration: none;
+  border-radius: 2px;
+  cursor: pointer;
+  background: rgb(73, 194, 101);
+  /* padding-bottom: 20px; */
+  height: 40px;
+  padding: 6px 10px 10px 10px;
+  color: white;
+  margin: 40px;
+}
+
+.audioStaff {
+  display: flex;
+  flex-direction: row;
+  /* justify-content: center; */
 }
 </style>
