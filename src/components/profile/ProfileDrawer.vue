@@ -386,8 +386,13 @@ export default {
          { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
          ).then(res => {
             this.myPosts = res.data.postsToShow;
+            console.log("resp")
+            console.log(res)
        
           })
+          console.log("ProfileDrawer")
+          console.log(this.myPosts)
+          
     } catch (e) {
       console.error(e);
     }

@@ -352,8 +352,8 @@ export const store = new Vuex.Store({
   forgotpassword({ commit }, user) {
     return new Promise((resolve, reject) => {
       commit('auth_request')
-      api().post('forgot_password', {
-        Email:user.email
+      api().post('/user/forget_password', {
+        email:user.email
       })
         .then(resp => {
           this.state.msg = resp.message;

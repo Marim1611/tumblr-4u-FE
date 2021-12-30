@@ -21,6 +21,7 @@ import SearchResultsOut from '../components/search/SearchResultsOutside'
 import Likes from '../components/profile/likes.vue'
 import Posts from '../components/profile/posts.vue'
 import followingCard from '../components/profile/followingCard.vue'
+import resetPassword from '../components/registerPages/resetPassword.vue'
 Vue.use(VueRouter);
 const routes = [
   {
@@ -125,7 +126,19 @@ const routes = [
         path: '/followingcard',
         name: 'followingCard',
         component:followingCard
-      }
+  },
+  {
+    path: "/resetPassword",
+    name: 'resetPassword',
+    component:resetPassword
+    
+  },
+  {
+    path: "/likes",
+    name: 'likes',
+    component:Likes
+    
+  }
       
   
       
