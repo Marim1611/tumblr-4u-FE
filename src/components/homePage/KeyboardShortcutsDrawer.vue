@@ -135,6 +135,7 @@ p{
      height:30px;
     justify-content: center;
     border-radius: 5px;
+    text-align: center;
 }
 #blogDrawer{
    box-shadow: 0px 5px 10px rgb(43, 42, 42);

@@ -508,6 +508,7 @@ export const store = new Vuex.Store({
       console.log( state.user.primaryBlogId)
       state.blog.name=blog.name;
       state.blog.title=blog.title;
+      state.user.blockBlogsId=blog.blockedBlogs
       //state.user.blogsId = blog.blogsId;
       state.blog.followedTags=blog.followedTags;
       state.blog.followingBlogs=blog.following_blogs;   
