@@ -49,7 +49,6 @@ import CreatePostTextEditor from "./editors/textEditor.vue";
 import CreatePostTitleEditor from "./editors/titleEditor.vue";
 import axios from "axios";
 import Browser from "../../mocks/browser";
-
 /**
  *  Create post for text
  * @example [none]
@@ -102,11 +101,9 @@ export default {
     onTextClick(content) {
       this.postContent = content;
     },
-
     onTitleClick(content) {
       this.postTitle = content;
     },
-
     isMockServer(baseUrl) {
       if (baseUrl == "http://tumblr4u.eastus.cloudapp.azure.com:5000")
         return false;
@@ -117,9 +114,10 @@ export default {
      * @public This is a public method
      * @param {none}
      */
-
     async postDone() {
       let myRoute = "";
+      console.log("CREATE POST *****************")
+      console.log(this.postTitle + this.postContent)
       if (this.isMockServer(Browser().baseURL))
         myRoute = Browser().baseURL + "/create_post";
       else myRoute = Browser().baseURL + `/${this.blogId}/create_post`;
@@ -131,7 +129,7 @@ export default {
               postHtml: this.postTitle + this.postContent,
               type: "text",
               state: "published",
-              tags: "cmp",
+              tags: "",
             },
             {
               headers: {
@@ -146,14 +144,13 @@ export default {
             console.log(res.data);
           });
       } catch (e) {
-        console.log("^^^^^^^^^^^^^^^^^^");
         console.error(e);
       }
     },
   },
   computed: {
-    blogId: function () {
-      return this.$store.state.primaryBlogId;
+     blogId: function () {
+      return this.$store.state.user.primaryBlogId;
     },
     /**
      * Function to know if the text upload post should appear or not
