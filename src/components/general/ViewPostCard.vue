@@ -240,12 +240,12 @@ export default {
         })
         .then((res) => {
           this.notes = res.data.res.notes;
-          console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-          console.log( res.data.res.notesCount)
+          // console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+          // console.log( res.data.res.notesCount)
           this.notesCount= res.data.res.notesCount,
           this.likesCount= res.data.res.likesCount,
-          this.reblogsCount= res.data.res.reblogsCount,
-          console.log(res.data.res.message)
+          this.reblogsCount= res.data.res.reblogsCount
+          // console.log(res.data.res.message)
         });
     } catch (e) {
       console.log("error in notes");
@@ -267,11 +267,11 @@ export default {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         })
         .then((res) => {
-          console.log("*****************")
+          // console.log("*****************")
          
           this.postName = res.data.res.data.name;
-           console.log("name worked probably");
-            console.log(  this.postName)
+          //  console.log("name worked probably");
+          //   console.log(  this.postName)
         });
     } catch (e) {
       console.log("error in blog");
@@ -292,7 +292,7 @@ export default {
              text: this.inputComment
           })
           .then((res) => {
-            console.log(res.data);
+            // console.log(res.data);
           });
       } catch (e) {
         console.log("^^^^^^^^^^^^^^^^^^");
@@ -309,7 +309,7 @@ export default {
 
      async like(post) {
     try {
-      console.log("LIKEEEEEE")
+      // console.log("LIKEEEEEE")
 
       let myRoute=""
       if (this.isMockServer(Browser().baseURL))
@@ -365,8 +365,8 @@ export default {
   //  },
    async responses(){
       this.response = true;
-      console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
-     console.log(this.responseComputed)
+    //   console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+    //  console.log(this.responseComputed)
      // getcomments
      for(let i=0; i<this.responseComputed.length; i++)
      {
@@ -380,7 +380,7 @@ export default {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         })
         .then((res) => {
-          console.log(  res.data.res.data.name)
+          // console.log(  res.data.res.data.name)
           this.responseNames.push(
              res.data.res.data.name
           ); 
@@ -390,7 +390,7 @@ export default {
 
          
         //  console.log(this.commentNames)
-           console.log("name worked probably");
+          //  console.log("name worked probably");
         });
     } catch (e) {
       console.log("error in blog");
@@ -538,11 +538,11 @@ export default {
         //   return this.notes.filter(this.checkReblog);
         // },
         commentsComputed: function(){
-          console.log("comments computed");
+          // console.log("comments computed");
           return this.notes.filter(this.checkComment);
         } ,
         responseComputed: function(){
-          console.log("comments computed");
+          // console.log("comments computed");
           return this.notes.filter(this.checkResponse);
         } ,
         

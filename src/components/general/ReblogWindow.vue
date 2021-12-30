@@ -148,10 +148,10 @@ export default {
             text: this.reblogIn,
           })
           .then((res) => {
-            console.log(res.data);
+            // console.log(res.data);
           });
       } catch (e) {
-        console.log("^^^^^^^^^^^^^^^^^^");
+        console.log("error in reblog");
         console.error(e);
       }
     },
@@ -256,7 +256,6 @@ export default {
   #popup-inner {
     background: transparent;
     padding: 32px;
-    
   }
 }
 #parentDivDialog {
