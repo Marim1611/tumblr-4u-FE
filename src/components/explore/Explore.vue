@@ -29,24 +29,36 @@
                 <ExploreBar v-on:multiCol="multiCol($event)" v-on:singCol="multiCol($event)" />
 
                 <div id="cards" class="flexH">
-                  <div class="margin-right" v-for="i in 6" :key="i">
+                  <div
+                    class="margin-right"
+                    v-for="i in 6" 
+                    :key="i"
+                  >
                     <ExploreCard v-bind:card="exploreCards[i]"/>
                   </div>
                 </div>
-                
+
                 <!-- showing one coloumn -->
-                <div  v-show="!multi" class="left flexH">
+                <div v-show="!multi" class="left flexH">
                   <div class="flexV">
-                    <div id="dashBoard" v-for="(post, i) in dashBoardPosts" :key="i">
-                        <DashBoard v-bind:post="post" maxWidth="540px" />
+                    <div
+                     id="dashBoard"
+                      v-for="(post, i) in dashBoardPosts"
+                      :key="i"
+                    >
+                      <DashBoard v-bind:post="post" maxWidth="540px" />
                     </div>
                   </div>
                 </div>
                 <!-- the two coloumns -->
                 <div v-if="match" v-show="multi" class="left flexH">
                   <div class="flexV">
-                    <div id="dashBoard" v-for="(post, i) in dashBoardPosts" :key="i">
-                        <DashBoard v-if="i%2==0" v-bind:post="post" maxWidth="300px" />
+                    <div
+                     id="dashBoard"
+                      v-for="(post, i) in dashBoardPosts"
+                      :key="i"
+                    >
+                      <DashBoard v-if="i%2==0" v-bind:post="post" maxWidth="300px" />
                     </div>
                   </div>
                   <div class="flexV">
@@ -103,9 +115,9 @@ import FollowTags from "./FollowTag.vue";
 import RelatedBlogs from "./ExploreRelatedBlogs.vue";
 import ExploreBar from "./ExploreBar";
 import ExploreCard from "./ExploreCard.vue";
-import Browser from '../../mocks/browser'
-import Header from '../registerPages/WelcomePageHeader.vue'
-import axios from 'axios';
+import Browser from "../../mocks/browser";
+import Header from "../registerPages/WelcomePageHeader.vue";
+import axios from "axios";
 /**
  *  Home page that contains dashboard and create post compnents 
  * @example [none]
@@ -121,7 +133,7 @@ export default {
     RelatedBlogs: RelatedBlogs,
     ExploreBar: ExploreBar,
     ExploreCard: ExploreCard,
-    Header:Header
+    Header:Header,
   },
 
 async created() {
@@ -159,7 +171,7 @@ async created() {
       multi:true,
       dashBoardPosts:[],
       isAuth:false
-    }
+    };
   },
   computed: {
     homeTheme: function () {

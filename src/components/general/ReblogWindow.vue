@@ -122,8 +122,8 @@ export default {
   },
   methods: {
     reblogWind: function () {
-      this.$emit("reblogWind", false);
       document.getElementById("reblogIn").value = "";
+      this.$emit("reblogWind", false);
     },
 
     isMockServer: function (baseURL) {
@@ -132,8 +132,8 @@ export default {
     },
 
     async reblogging() {
-      document.getElementById("reblogIn").value = "";
-      this.$emit("reblogWind", false);
+      
+      
 
       try {
         let myRoute = "";
@@ -154,6 +154,8 @@ export default {
         console.log("error in reblog");
         console.error(e);
       }
+      document.getElementById("reblogIn").value = "";
+      this.$emit("reblogWind", false);
     },
   },
 };
