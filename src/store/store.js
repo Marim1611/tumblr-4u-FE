@@ -488,8 +488,7 @@ export const store = new Vuex.Store({
       state.user = user;
     },
     auth_init(state,user) {
-      console.log("///////////////////////////////////////////")
-  
+    
       state.user = user;
       state.user.id = user._id;
       state.user.name = user.name;
@@ -610,7 +609,7 @@ signup({ commit }, user) {
         age: user.age,
       })
       .then((res) => {
-        const token = res.data.res.data.token;
+        const token = res.data.res.token;
         const user = res.data.res.data.user;
         localStorage.setItem("token", token);
         axios.defaults.headers.common["Authorization"] = token;

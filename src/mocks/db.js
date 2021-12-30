@@ -15,6 +15,7 @@ const comment = require("./data/comment.json")
 const reblog_post = require("./data/reblog_post.json")
 const blog= require("./data/blog.json");
 const follow= require("./data/follow.json");
+const unfollow= require("./data/unfollow.json");
 const updateColor= require("./data/updateColor.json");
 const profile = require("./data/db.json");
  
@@ -35,7 +36,7 @@ module.exports = () => ({
   getInterestsFromUser,
   ranBlogs,
   ranPosts,
- 
+  unfollow,
   notes,
   like_press,
   comment,
