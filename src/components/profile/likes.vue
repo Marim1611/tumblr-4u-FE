@@ -1,13 +1,20 @@
 <template>
   <div>
     <Profile/>
-    <div class="row row-cols-1 row-cols-md-4">
-      <div class="col mb-4">
+    <div class="row row-cols-1 row-cols-md-4 likesCards">
     
-      
-    
+        <profileCard
+            v-for="(post,i) in posts"
+            v-bind:key="i"
+            :post="post"
+            :x="0"
+            :l="1"
+            :profileUser="profileUser"
+            
+          />
+    <div class="col mb-4">      
     </div>
-     
+    
      </div>
     
     </div>
@@ -43,26 +50,74 @@
 <script>
 import axios from "axios";
 import Profile from './Profile.vue'
-//import ProfileCard from "./ProfileCard.vue";
+import ProfileCard from "./ProfileCard.vue";
 import Browser from "../../mocks/browser";
 export default {
   name: "likes",
   async created() {
+    console.log("%%%%%%$$$$------------$$$$$$$%%%%%%%%%%%%$$$$$$$$$$%");
+    console.log(this.blogId);
+    let myRoute = "";
+    if (this.isMockServer(Browser().baseURL))
+      myRoute = Browser().baseURL + "/posts";
+    else myRoute = Browser().baseURL + `/blog/${this.blogId}/getLikedPosts`;
     try {
-      const resp = await axios.get(Browser().baseURL + "/Profile");
-      this.posts = resp.data.Profile;
+      await axios
+        .get(myRoute, {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        })
+        .then((res) => {
+          this.posts = res.data.res.postsToShow;
+          this.recentlyPost = this.posts[0];
+        });
     } catch (e) {
       alert(e);
     }
+
+    if (this.isMockServer(Browser().baseURL))
+         myRoute= Browser().baseURL+'/blog'
+         else
+        myRoute= Browser().baseURL+`/blog/view/${this.posts.blogId}`
+        console.log(myRoute)
+       try {
+         await axios.get(myRoute,
+          { headers: { 'Authorization':`Bearer ${localStorage.getItem('token')}` } })
+          .then(res => {    
+            this.profileUser={
+           name: res.data.res.data.name,
+           img:res.data.res.data.img,
+          }
+             
+          })
+    } catch (e) {
+      console.error(e);
+    }
+    
   },
   data() {
     return {
       flag: false,
       posts: [],
+      notes: [],
+      notesCount: [],
+      profileUser:{},
+      
     };
   },
+  computed:{
+     blogId: function () {
+      return this.$store.state.user.primaryBlogId;
+    },
+  },
+  methods:{
+    isMockServer(baseUrl) {
+      if (baseUrl == "http://tumblr4u.eastus.cloudapp.azure.com:5000")
+        return false;
+      else return true;
+    },
+  },
   components: {
-    //ProfileCard,
+    ProfileCard,
     Profile,
   },
 };
@@ -74,58 +129,8 @@ export default {
   top: 0;
   width: 100%;
 }
-.NavBarRight {
-  margin-left: auto;
-}
-.icons {
-  margin-right: 10px;
-  margin-left: 10px;
-}
-.iconColor {
-  color: white !important;
-  margin-right: 10px;
-  margin-left: 10px;
-}
-
-.fill {
-  height: 200px;
-}
-.profileImg {
-  text-align: center;
-}
-.imgshape {
-  border-radius: 50%;
-  position: relative;
-  top: 60px;
-  border-style: solid;
-  border-width: 5px;
-  border-color: white;
-}
-.secondHalf {
-  text-align: center;
-}
-.headers {
-  font-weight: bold;
-  position: relative;
-  top: 50px;
-}
-.links {
-  text-align: center;
-  margin-top: 20px;
-}
-.linksbeuty {
-  margin-left: 7px;
-  margin-right: 7px;
-  font-weight: bold;
-}
-.third {
-  margin-top: 18px;
-}
-.Cardshit {
-  width: 30%;
-  height: 30%;
-}
-.group{
-  margin-left:100px;
+.likesCards{
+  margin-top:20px;
+  margin-left:10px;
 }
 </style>

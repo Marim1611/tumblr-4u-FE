@@ -132,7 +132,10 @@ export default {
     try {
     
     
-         await axios.get(Browser().baseURL+'/dashboard').then(res => {
+         await axios.get(Browser().baseURL+'/dashboard',
+         {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }).then(res => {
 
             this.dashBoardPosts = res.data.res.postsToShow;
              console.log("^^^^^^^EXPLORE^^^^^^^^^^^")
