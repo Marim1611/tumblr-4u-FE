@@ -307,18 +307,19 @@ export default {
       if (this.isMockServer(Browser().baseURL))
         myRoute=Browser().baseURL+'/like_press'
       else
-        myRoute=Browser().baseURL+`/${this.getPrimaryBlogId}/${post._Id}/like_press`
-      await axios.get(myRoute, {
+        myRoute=Browser().baseURL+`/${this.getPrimaryBlogId}/${post._id}/like_press`
+      await axios.put(myRoute, {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         })
-        .then((res) => {
-          this.heartFilled = !this.heartFilled;
          
-        });
+         
+         
+   
     } catch (e) {
       console.log("error in like_press");
       console.error(e);
     }
+     this.heartFilled = !this.heartFilled;
   },
 
     isMockServer:function(baseURL){
