@@ -1,9 +1,9 @@
 {
     "res":{
         "message":"notes got successfully",
-        "notesCount": 10,
-        "likesCount": 6,
-        "reblogsCount": 2,
+        "notesCount": 29,
+        "likesCount": 10,
+        "reblogsCount": 10,
         "notes":
         [
             {

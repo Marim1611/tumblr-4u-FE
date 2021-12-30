@@ -24,7 +24,7 @@
           <!-- the 2 coloumns of the page -->
           <div class="flexH">
             <!-- the first coloumn of the posts -->
-            <div class="flexV center">
+            <div id="container" class="flexV center">
               <!-- explore bar of trending, staff picked....etc -->
                 <ExploreBar v-on:multiCol="multiCol($event)" v-on:singCol="multiCol($event)" />
 
@@ -131,9 +131,8 @@ export default {
      this.isAuth= true;
     try {
     
-    
-         await axios.get(Browser().baseURL+'/dashboard').then(res => {
 
+         await axios.get(Browser().baseURL+'/dashboard').then(res => {
             this.dashBoardPosts = res.data.res.postsToShow;
              console.log("^^^^^^^EXPLORE^^^^^^^^^^^")
              console.log(res.data.res.postsToShow)
@@ -144,7 +143,6 @@ export default {
         
    //  this.interestsList= res.data;
     } catch (e) {
-       
       console.error(e);
     }
   },
@@ -162,7 +160,6 @@ export default {
     }
   },
   computed: {
-     
     homeTheme: function () {
       return this.$store.state.homeTheme;
     },
@@ -186,7 +183,6 @@ export default {
       return this.$store.state.exploreCards;
     }
   },
-   
 };
 </script>
 
@@ -197,6 +193,9 @@ export default {
 #cards{
   margin-bottom: 40px;
   overflow-x: auto;
+  max-width: 920px;
+}
+#container{
   max-width: 920px;
 }
 .left{

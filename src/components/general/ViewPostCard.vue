@@ -28,9 +28,12 @@
           </div>
         </div>
         <!--content & tags of card-->
-        <div class="content" v-html="post.postHtml" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"></div>
+
+        <div class="content" v-if="post!==undefined" v-html="post.postHtml" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"></div> 
         <div class="tag-container">
+          <span v-if="post!==undefined">
           <a v-bind:style="{'color': homeTheme[homeThemeIndex].focused}" href="" class="tags" v-for="tag in post.tags" :key="tag">#{{ tag }}</a>
+          </span>
         </div>
 
         <!--footer of card-->
@@ -46,7 +49,7 @@
                 <div class="no-padding" v-show="hash">
                 <b-icon class="clickable" v-on:click="subscribeConversation" v-show="!subscribe" icon="lightning" font-scale="2" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}" ></b-icon>
                 <b-icon class="clickable" v-on:click="subscribeConversation" v-show="subscribe" icon="lightning-fill" font-scale="2" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}" ></b-icon>
-                <b-icon class="clickable" v-on:click="hashtag" icon="hash" font-scale="2" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}" ></b-icon>
+                <!-- <b-icon class="clickable" v-on:click="hashtag" icon="hash" font-scale="2" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}" ></b-icon> -->
               </div>
             </div>
             <!-- reactions -->
@@ -92,7 +95,7 @@
             </div>
             <!--input comment-->
             <div v-show="!response" class="h-flex">
-              <input v-model="inputComment" id="inputComment" class="grow" placeholder="Have something to say?" type="text">
+              <input v-model="inputComment" id="inputcomment" class="grow" placeholder="Have something to say?" type="text">
               <button v-on:click="commenting">Reply</button>
             </div>
           </div>
@@ -278,7 +281,6 @@ export default {
   methods:{
 
      async commenting() {
-       document.getElementById('inputComment').value = '';
       try {
         let myRoute=""
       if (this.isMockServer(Browser().baseURL))
@@ -296,6 +298,7 @@ export default {
         console.log("^^^^^^^^^^^^^^^^^^");
         console.error(e);
       }
+      document.getElementById('inputcomment').value = "";
     },
 
 
@@ -307,7 +310,7 @@ export default {
      async like(post) {
     try {
       console.log("LIKEEEEEE")
-      
+
       let myRoute=""
       if (this.isMockServer(Browser().baseURL))
         myRoute=Browser().baseURL+'/like_press'
@@ -316,12 +319,12 @@ export default {
       await axios.put(myRoute, {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         })
-         
+        
     } catch (e) {
       console.log("error in like_press");
       console.error(e);
     }
-     this.heartFilled = !this.heartFilled;
+    this.heartFilled = !this.heartFilled;
   }
   ,
      async unlike(post) {
@@ -335,15 +338,13 @@ export default {
       await axios.put(myRoute, {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         })
-         
-         
-         
-   
+        
+
     } catch (e) {
       console.log("error in like_press");
       console.error(e);
     }
-     this.heartFilled = !this.heartFilled;
+    this.heartFilled = !this.heartFilled;
   },
 
     isMockServer:function(baseURL){
@@ -453,13 +454,10 @@ export default {
      this.forMe= false;
    },
    async commentShow(){
+     document.getElementById('inputcomment').value = "";
      this.comment = !this.comment;
-     document.getElementById('inputComment').value = "";
      this.hash=true;
-      this.response = false;
-
-      console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
-     console.log(this.commentsComputed)
+     this.response = false;
      // getcomments
      for(let i=0; i<this.commentsComputed.length; i++)
      {
@@ -473,16 +471,12 @@ export default {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         })
         .then((res) => {
-          console.log(  res.data.res.data.name)
           this.commentNames.push(
              res.data.res.data.name
           );
           this.commentImgs.push(
             res.data.res.data.img
           );
-         
-        //  console.log(this.commentNames)
-           console.log("name worked probably");
         });
     } catch (e) {
       console.log("error in blog");
@@ -498,8 +492,8 @@ export default {
      
    },
    noComment:function(){
+     document.getElementById('inputcomment').value = "";
      this.comment=false;
-     document.getElementById('inputComment').value = '';
      this.hash=true;
      this.response = false;
    },
@@ -783,7 +777,7 @@ a:hover{
   width: 100%;
 }
 .container{
- 
+ padding-bottom: 10px;
   background: #ffffff;
   border-radius: 3px;
   display: inline-block;
