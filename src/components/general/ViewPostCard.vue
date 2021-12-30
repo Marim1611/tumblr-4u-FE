@@ -16,7 +16,7 @@
             
             <!--drop down menu of options-->
             <div v-show="showDropDown" class="dropdown-content">
-              <a href="#">Posted - ....,..:...M</a>
+              <a href="#">Posted - Tuesday 6:30AM</a>
               <button v-clipboard:copy="" v-on:click="copy">{{copyText}}</button>
               <button v-on:click="followUnfollow" v-show="follow">Unfollow</button>
               <button v-on:click="notForMe">This particular post isn't for me</button>
@@ -50,17 +50,36 @@
               </div>
             </div>
             <!-- reactions -->
-            <div class="clickable reactionsWind border-bottom v-flex text-left">
+            <div id="reactions" v-show="response">
+              <div class="no padding" v-for="(res, i) in responseComputed" :key="i">
+                <div class="h-flex center">
+                  <img class="imgComment" v-bind:src="responseImgs[i]?responseImgs[i]:defaultImg" > <!--v-bind:src="comment">-->  
+                  <b-icon v-if="res.noteType==='like'" icon="heart-fill" font-scale=".8" aria-hidden="true" v-bind:style="{'color': 'red'}" ></b-icon> 
+                  <b-icon v-if="res.noteType==='reblog'" icon="arrow-left-right" font-scale=".8" aria-hidden="true" v-bind:style="{'color': 'lightgreen'}" ></b-icon> 
+                  <div class="h-flex" v-bind:style="{'border-color':homeTheme[homeThemeIndex].fontColor}">
+                    <h6 v-bind:style="{color:homeTheme[homeThemeIndex].fontColor}">{{responseNames[i]}}</h6>
+                    <b-icon v-if="res.noteType==='reblog'" icon="arrow-left-right" font-scale="1" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}" ></b-icon> 
+                    <h6 v-if="res.noteType==='reblog'" v-bind:style="{color:homeTheme[homeThemeIndex].fontColor}">{{postName}}</h6>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div v-on:click="responses" v-show="!response" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}" class="clickable reactionsWind border-bottom v-flex text-left">
               <div class="h-flex no-padding">
-                <img v-for="i in 8" :key="i" class="img-reactions" src="https://64.media.tumblr.com/51b7d5e9cfaa579ec94a17e618d96a1a/95b6dc889657dcc9-3c/s64x64u_c1/283ac5792129caa8fa116b4560861ff3431d7e3c.pnj">
-              </div> 
+               <!-- <img v-for="i in 8" :key="i" class="img-reactions" src="https://64.media.tumblr.com/51b7d5e9cfaa579ec94a17e618d96a1a/95b6dc889657dcc9-3c/s64x64u_c1/283ac5792129caa8fa116b4560861ff3431d7e3c.pnj"> -->
+              </div > 
               {{this.likesCount}} likes and {{this.reblogsCount}} reblogs
             </div>
             <!--body (comments)(of others)-->
-            <div class="border-bottom grow v-flex comments">
+            <div v-show="!response" class="border-bottom grow v-flex comments">
               <div id="comments" class="no padding" v-for="(comment, i) in commentsComputed" :key="i">
                 <div class="h-flex">
-                  <img class="imgComment" > <!--v-bind:src="comment">-->
+                  <!--<img class="imgComment" > v-bind:src="comment">-->
+                 <img class="imgComment" v-bind:src="commentImgs[i]?commentImgs[i]:defaultImg" > <!--v-bind:src="comment">-->  
+                 
                   <div class="borderComment" v-bind:style="{'border-color':homeTheme[homeThemeIndex].fontColor}">
                     <h6 v-bind:style="{color:homeTheme[homeThemeIndex].fontColor}">{{commentNames[i]}}</h6>
                     <span v-bind:style="{color:homeTheme[homeThemeIndex].fontColor}">{{comment.text}}</span>
@@ -72,7 +91,7 @@
               </div>
             </div>
             <!--input comment-->
-            <div class="h-flex">
+            <div v-show="!response" class="h-flex">
               <input v-model="inputComment" id="inputComment" class="grow" placeholder="Have something to say?" type="text">
               <button v-on:click="commenting">Reply</button>
             </div>
@@ -193,7 +212,12 @@ export default {
       postName:"",
       name:"",
       inputComment:"",
-      commentNames:[]  
+      commentNames:[]  ,
+      responseNames:[],
+      response: false,
+      defaultImg: "https://assets.tumblr.com/images/default_avatar/octahedron_closed_96.png",
+      responseImgs:[],
+      commentImgs:[],
       }
   },
   
@@ -335,6 +359,47 @@ export default {
    postOption: function(){
      this.showDropDown = !this.showDropDown;
    },
+  //  responses: function(){
+  //    this.response = "true";
+  //  },
+   async responses(){
+      this.response = true;
+      console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+     console.log(this.responseComputed)
+     // getcomments
+     for(let i=0; i<this.responseComputed.length; i++)
+     {
+       try {
+      let myRoute=""
+      if (this.isMockServer(Browser().baseURL))
+        myRoute=Browser().baseURL+'/blog'
+      else
+        myRoute=Browser().baseURL+`/blog/view/${this.responseComputed[i].blogId}`
+      await axios.get(myRoute, {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        })
+        .then((res) => {
+          console.log(  res.data.res.data.name)
+          this.responseNames.push(
+             res.data.res.data.name
+          ); 
+          this.responseImgs.push(
+            res.data.res.data.img
+          );
+
+         
+        //  console.log(this.commentNames)
+           console.log("name worked probably");
+        });
+    } catch (e) {
+      console.log("error in blog");
+      console.error(e);
+    }
+     }
+   },
+
+
+
    /**
     * Function that close the drop down list of options in the post when clicking on the close button in the list
     * @public This is a public method
@@ -391,7 +456,7 @@ export default {
      this.comment = !this.comment;
      document.getElementById('inputComment').value = "";
      this.hash=true;
-
+      this.response = false;
 
       console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
      console.log(this.commentsComputed)
@@ -411,7 +476,10 @@ export default {
           console.log(  res.data.res.data.name)
           this.commentNames.push(
              res.data.res.data.name
-          ) 
+          );
+          this.commentImgs.push(
+            res.data.res.data.img
+          );
          
         //  console.log(this.commentNames)
            console.log("name worked probably");
@@ -433,19 +501,24 @@ export default {
      this.comment=false;
      document.getElementById('inputComment').value = '';
      this.hash=true;
+     this.response = false;
    },
    hashtag:function(){
      this.hash = false;
-   },
-   checkReblog: function(note){
-     if(note.noteType === "reblog" && !note.isDeleted)
+    },
+  //  checkReblog: function(note){
+  //    if(note.noteType === "reblog" && !note.isDeleted)
+  //     return note;
+  //  },
+   checkResponse: function(note){
+     if(note.noteType === "reblog" && !note.isDeleted || note.noteType === "like" && !note.isDeleted)
       return note;
    },
-   checkLikes: function(note){
-     if(note.noteType === "like" && !note.isDeleted)
-      return note;
-   },
-   checkComment: function(note){
+  //  checkLikes: function(note){
+  //    if(note.noteType === "like" && !note.isDeleted)
+  //     return note;
+  //  },
+    checkComment: function(note){
             
      if(note.noteType === "comment" && !note.isDeleted )
      {
@@ -467,17 +540,21 @@ export default {
         homeThemeIndex: function(){
             return this.$store.state.homeThemeIndex;
         },
-        reblogsComputed: function(){
-          return this.notes.filter(this.checkReblog);
-        },
+        // reblogsComputed: function(){
+        //   return this.notes.filter(this.checkReblog);
+        // },
         commentsComputed: function(){
           console.log("comments computed");
           return this.notes.filter(this.checkComment);
-          
         } ,
-        likesComputed: function(){
-          return this.notes.filter(this.checkLikes);
-        }  
+        responseComputed: function(){
+          console.log("comments computed");
+          return this.notes.filter(this.checkResponse);
+        } ,
+        
+        // likesComputed: function(){
+        //   return this.notes.filter(this.checkLikes);
+        // }  
   },
   // created(){
   //     this.reblogs = this.reblogsComputed;
@@ -496,6 +573,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+#reactions{
+   height: 430px;
+  overflow-y: auto;
+}
 .img-reactions{
   width:25px;
   border-radius: 5px;
@@ -536,6 +617,10 @@ export default {
 .out-share{
   overflow-x: scroll; 
 }
+.center{
+  align-items: center;
+ 
+}
 .share-item{
   display: flex;
   width: 80px;
@@ -558,7 +643,7 @@ export default {
 }
 .comments{
   overflow-y: auto;
-  height: 347px;
+  height: 365px;
 }
 .clickable{
   cursor: pointer;
