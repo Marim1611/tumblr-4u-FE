@@ -264,7 +264,7 @@
            <div id="noPosts">
     <p id="noPostsP"
       v-bind:style="{
-                          color: homeTheme[homeThemeIndex].fontColor,
+                          color: homeTheme[homeThemeIndex].fontColo2,
                           'font-style': homeTheme[homeThemeIndex].fontStyle,
                           
                         }"
