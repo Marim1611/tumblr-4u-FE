@@ -44,7 +44,7 @@
                         <a href="" class="clickable " v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}">{{this.name}} </a>
                     </div>
                 </div>
-                <div class="content" v-html="post.postHtml" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"></div>
+                <div class="content" v-if="post!==undefined" v-html="post.postHtml" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"></div>
                 
                 <div class="border-up">
                     <input v-model="reblogIn" id="reblogIn" placeholder="Your text here" type="text">
@@ -103,8 +103,10 @@ methods:{
    
 
 async reblogging() {
-      document.getElementById('reblogIn').value = '';
-      console.log(reblogIn);
+    document.getElementById('reblogIn').value = '';
+    console.log(reblogIn);
+    this.$emit("reblogWind",false);
+
 try {
         let myRoute=""
       if (this.isMockServer(Browser().baseURL))

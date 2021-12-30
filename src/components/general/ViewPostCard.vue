@@ -28,9 +28,12 @@
           </div>
         </div>
         <!--content & tags of card-->
-        <div class="content" v-html="post.postHtml" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"></div>
+          
+        <div class="content" v-if="post!==undefined" v-html="post.postHtml" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"></div> 
         <div class="tag-container">
+          <span v-if="post!==undefined">
           <a v-bind:style="{'color': homeTheme[homeThemeIndex].focused}" href="" class="tags" v-for="tag in post.tags" :key="tag">#{{ tag }}</a>
+          </span>
         </div>
 
         <!--footer of card-->
@@ -278,7 +281,7 @@ export default {
   methods:{
 
      async commenting() {
-       document.getElementById('inputComment').value = '';
+       document.getElementById('inputComment').value = "";
       try {
         let myRoute=""
       if (this.isMockServer(Browser().baseURL))
@@ -454,7 +457,7 @@ export default {
    },
    async commentShow(){
      this.comment = !this.comment;
-     document.getElementById('inputComment').value = "";
+     //document.getElementById('inputComment').value = "";
      this.hash=true;
       this.response = false;
 
@@ -499,7 +502,7 @@ export default {
    },
    noComment:function(){
      this.comment=false;
-     document.getElementById('inputComment').value = '';
+     //document.getElementById('inputComment').value = "";
      this.hash=true;
      this.response = false;
    },
@@ -783,7 +786,7 @@ a:hover{
   width: 100%;
 }
 .container{
- 
+ padding-bottom: 10px;
   background: #ffffff;
   border-radius: 3px;
   display: inline-block;

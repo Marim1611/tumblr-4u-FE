@@ -23,7 +23,7 @@
           <!-- the 2 coloumns of the page -->
           <div class="flexH">
             <!-- the first coloumn of the posts -->
-            <div class="flexV center">
+            <div id="container" class="flexV center">
               <!-- explore bar of trending, staff picked....etc -->
                 <ExploreBar v-on:multiCol="multiCol($event)" v-on:singCol="multiCol($event)" />
 
@@ -124,7 +124,7 @@ export default {
     try {
     
          await axios.get(Browser().baseURL+'/dashBoard').then(res => {
-            this.dashBoardPosts = res.data.posts;
+            this.dashBoardPosts = res.data.res.postsToShow;
           console.log(res.data)    
           })
          
@@ -182,6 +182,9 @@ export default {
 #cards{
   margin-bottom: 40px;
   overflow-x: auto;
+  max-width: 920px;
+}
+#container{
   max-width: 920px;
 }
 .left{
