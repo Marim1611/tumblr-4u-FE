@@ -418,6 +418,7 @@ export const store = new Vuex.Store({
     getField,
     isLoggedIn: (state) => !!state.token,
     authStatus: (state) => state.status,
+   
   },
   mutations: {
     updateField,
@@ -507,129 +508,130 @@ export const store = new Vuex.Store({
     auth_error(state) {
       state.status = "error";
     },
-    actions: {
-      async login({ commit }, user) {
-       return new Promise((resolve, reject) => {
-          commit('auth_request')
-          
-          axios.post( Browser().baseURL+'/login',{
-            email: user.email,
-            password: user.password,
-          })
-          .then((res) => {
-            const token = res.data.res.data.token;
-            const user = res.data.res.data.user;
-            //console.log("******** log in store")
-            //console.log(res.data.res.data)
-            console.log("******** log in user")
-            console.log(res.data.res.data.user)
-            console.log("******** log in blog")
-            console.log(res.data.res.data.blog)
-            // ------------------------ User -------------------------
-            commit("auth_init",res.data.res.data.user._id, res.data.res.data.user.name , res.data.res.data.user.email,res.data.res.data.user.password
-            ,res.data.res.data.user.age
-            , res.data.res.data.user.blogsId
-            ,res.data.res.data.user.followedTags
-            ,res.data.res.data.user.following_blogs
-            ,res.data.res.data.user.bodyColor)
-            // ------------------------ blog -------------------------
-            
-            commit("blog_init",res.data.res.data.blog._id,
-            res.data.res.data.blog.name,
-            res.data.res.data.blogsId,
-            res.data.res.data.blog.followedTags,
-            res.data.res.data.blog.following_blogs,   
-            res.data.res.data.blog.likes_posts_id,
-            res.data.res.data.blog.isBlocked,
-            )
-            localStorage.setItem("token", token);
-            axios.defaults.headers.common["Authorization"] = token;
-            commit("auth_success", token, user);
-            resolve(res);
-            //this.state.primaryBlogId="61c9d6b82569f9abb33ebe04"
-            //
-
-  
-            //this.state.primaryBlogId="61c9d6b82569f9abb33ebe04"
-            //
-          })
-          .catch((err) => {
-            alert(err);
-            commit("auth_error");
-            localStorage.removeItem("token");
-            reject(err);
-          });
-      });
-
-      /*return new Promise((resolve, reject) => {
-          commit('auth_request')
-          axios.post(browser().baseURL+'/login',{
-            email: user.email,
-            password: user.password
-          })
-          .then(res => {
-            const token = res.data.login.id
-            alert(res.data.login)
-            alert(token)
-            const user = res.data.email
-            localStorage.setItem('token', token)
-            axios.defaults.headers.common['Authorization'] = token 
-            commit('auth_success', token, user)
-            resolve(res)
-          })
-          .catch(err => {
-            alert(err)
-            commit('auth_error')
-            localStorage.removeItem('token')
-            reject(err)
-          
-          })
-        })*/
-    },
-    signup({ commit }, user) {
-      return new Promise((resolve, reject) => {
-        commit("auth_request");
-        axios
-          .post(Browser().baseURL + "/signup", {
-            email: this.state.user.email,
-            password: this.state.user.password,
-            blogName: this.state.user.blogname,
-            age: user.age,
-          })
-          .then((res) => {
-            const token = res.data.res.data.token;
-            const user = res.data.res.data.user;
-            localStorage.setItem("token", token);
-            axios.defaults.headers.common["Authorization"] = token;
-            commit("auth_success", token, user);
-            resolve(res);
-          })
-          .catch((err) => {
-            commit("auth_error");
-            localStorage.removeItem("token");
-            reject(err);
-          });
-      });
-    },
-    async forgotpassword({ commit }, user) {
-      alert(user.email);
-      return new Promise((resolve, reject) => {
-        commit("auth_request");
-        axios
-          .post(Browser().baseURL + "/forgot_password", {
-            Email: user.email,
-          })
-          .then((resp) => {
-            console.log(resp);
-            this.state.msg = resp.message;
-
-          resolve(resp)
-        })
-        .catch(err => {
-          console.log(err)
-          //alert(err.error)
-          reject(err)
+   
+},
+actions: {
+  async login({ commit }, user) {
+   return new Promise((resolve, reject) => {
+      commit('auth_request')
+      
+      axios.post( Browser().baseURL+'/login',{
+        email: user.email,
+        password: user.password,
       })
+      .then((res) => {
+        const token = res.data.res.data.token;
+        const user = res.data.res.data.user;
+        //console.log("******** log in store")
+        //console.log(res.data.res.data)
+        console.log("******** log in user")
+        console.log(res.data.res.data.user)
+        console.log("******** log in blog")
+        console.log(res.data.res.data.blog)
+        // ------------------------ User -------------------------
+        commit("auth_init",res.data.res.data.user._id, res.data.res.data.user.name , res.data.res.data.user.email,res.data.res.data.user.password
+        ,res.data.res.data.user.age
+        , res.data.res.data.user.blogsId
+        ,res.data.res.data.user.followedTags
+        ,res.data.res.data.user.following_blogs
+        ,res.data.res.data.user.bodyColor)
+        // ------------------------ blog -------------------------
+        commit("blog_init",res.data.res.data.blog._id,
+        res.data.res.data.blog.name,
+        res.data.res.data.blogsId,
+        res.data.res.data.blog.followedTags,
+        res.data.res.data.blog.following_blogs,   
+        res.data.res.data.blog.likes_posts_id,
+        res.data.res.data.blog.isBlocked,
+        )
+        localStorage.setItem("token", token);
+        axios.defaults.headers.common["Authorization"] = token;
+        commit("auth_success", token, user);
+        resolve(res);
+        //this.state.primaryBlogId="61c9d6b82569f9abb33ebe04"
+        //
+
+
+        //this.state.primaryBlogId="61c9d6b82569f9abb33ebe04"
+        //
+      })
+      .catch((err) => {
+        alert(err);
+        commit("auth_error");
+        localStorage.removeItem("token");
+        reject(err);
+      });
+  });
+
+  /*return new Promise((resolve, reject) => {
+      commit('auth_request')
+      axios.post(browser().baseURL+'/login',{
+        email: user.email,
+        password: user.password
+      })
+      .then(res => {
+        const token = res.data.login.id
+        alert(res.data.login)
+        alert(token)
+        const user = res.data.email
+        localStorage.setItem('token', token)
+        axios.defaults.headers.common['Authorization'] = token 
+        commit('auth_success', token, user)
+        resolve(res)
+      })
+      .catch(err => {
+        alert(err)
+        commit('auth_error')
+        localStorage.removeItem('token')
+        reject(err)
+      
+      })
+    })*/
+},
+signup({ commit }, user) {
+  return new Promise((resolve, reject) => {
+    commit("auth_request");
+    axios
+      .post(Browser().baseURL + "/signup", {
+        email: this.state.user.email,
+        password: this.state.user.password,
+        blogName: this.state.user.blogname,
+        age: user.age,
+      })
+      .then((res) => {
+        const token = res.data.res.data.token;
+        const user = res.data.res.data.user;
+        localStorage.setItem("token", token);
+        axios.defaults.headers.common["Authorization"] = token;
+        commit("auth_success", token, user);
+        resolve(res);
+      })
+      .catch((err) => {
+        commit("auth_error");
+        localStorage.removeItem("token");
+        reject(err);
+      });
+  });
+},
+async forgotpassword({ commit }, user) {
+  alert(user.email);
+  return new Promise((resolve, reject) => {
+    commit("auth_request");
+    axios
+      .post(Browser().baseURL + "/forgot_password", {
+        Email: user.email,
+      })
+      .then((resp) => {
+        console.log(resp);
+        this.state.msg = resp.message;
+
+      resolve(resp)
     })
-  }}}
+    .catch(err => {
+      console.log(err)
+      //alert(err.error)
+      reject(err)
+  })
+})
+}}
 });
