@@ -138,6 +138,7 @@ export default {
             }
           )
           .then((res) => {
+            console.log(res.data);
             this.imagesURLS = res.data.file;
             console.log("images url weslo elhamdullahh");
             console.log(res.data.file);
