@@ -447,10 +447,8 @@ export const store = new Vuex.Store({
     },
     async setBrimaryBlogId(state, id) {
       state.user.primaryBlogId = id;
-      console.log(
-        "%%%setBrimaryBlogId%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
-      );
-      console.log(state.user.primaryBlogId);
+      
+      
     },
 
     async updateBodyColor(state, newColor) {
@@ -459,20 +457,15 @@ export const store = new Vuex.Store({
 
     async stBlockedBlogsId(state, Ids) {
       state.user.blockedBlogsId = Ids;
-      // console.log("%% BLOCKED blogs IDs %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-      //console.log( state.user.blockedBlogsId)
+      
     },
     async setBlogIds(state, Ids) {
       state.user.blogsId = Ids;
-      console.log(
-        "%%blogs IDs %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
-      );
-      console.log(state.user.blogsId);
+      
     },
     setUserId(state, id) {
       state.user.id = id;
-      // console.log("%%%USER ID%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-      //  console.log( state.user.id)
+    
     },
 
        

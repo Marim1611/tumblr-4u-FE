@@ -116,23 +116,22 @@ export default {
         )
         .then((res) => {
           this.dashBoardPosts = res.data.res.postsToShow;
+        
+           
+            
+          this.$store.commit("auth_init", res.data.res.user);
+          this.$store.commit("blog_init", res.data.res.blog);
+          this.$store.commit("updateBodyColor", res.data.res.user.bodyColor);
+         
+           this.$store.commit(
+            "stBlockedBlogsId",
+             res.data.res.blog.blockedBlogs  );
+          // this.$store.commit("setUserId", res.data.res.user._id);
+        this.$store.commit("setBrimaryBlogId", res.data.res.blog._id);
           this.tumblrsObj.id =  this.blogId;
           this.tumblrsObj.name =this.userBlog.name;
           this.tumblrsObj.title = this.userBlog.title;
          
-           console.log(">>>>>>>>>>DEPLOYED*******?????????????????????");
-           console.log( res.data.res)
-            //  console.log(this.userBlog.title)
-          this.$store.commit("auth_init", res.data.res.user);
-          this.$store.commit("blog_init", res.data.res.blog);
-          this.$store.commit("updateBodyColor", res.data.res.user.bodyColor);
-          // this.$store.commit("setBlogIds", res.data.res.user.blogsId);
-           this.$store.commit(
-            "stBlockedBlogsId",
-             res.data.res.blog.blockedBlogs
-       );
-          // this.$store.commit("setUserId", res.data.res.user._id);
-        this.$store.commit("setBrimaryBlogId", res.data.res.blog._id);
         
        
         });
