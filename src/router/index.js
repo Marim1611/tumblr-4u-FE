@@ -26,10 +26,9 @@ import Posts from '../components/profile/posts.vue'
 import resetPassword from '../components/registerPages/resetPassword.vue'
 import verifyEmail from '../components/registerPages/verifyEmail'
 
-//import Interests from '../components/registerPages/InterestsPage' 
+import Interests from '../components/registerPages/InterestsPage' 
 
-import verifyEmail from '../components/registerPages/verifyEmail.vue'
- 
+
  
 Vue.use(VueRouter);
 const routes = [

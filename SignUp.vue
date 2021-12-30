@@ -83,7 +83,12 @@
           <div class="striped-border"></div>
           <br />
           <div>
-            <b-button size="lg" class="buttonBot" block variant="light"
+            <b-button
+              @click="Google"
+              size="lg"
+              class="buttonBot"
+              block
+              variant="light"
               ><b-icon icon="google"></b-icon> Continue with Google</b-button
             >
           </div>
@@ -98,7 +103,8 @@
 <script>
 import Header from "./WelcomePageHeader.vue";
 import { mapFields } from "vuex-map-fields";
-
+import Browser from "./src/mocks/browser";
+import axios from "axios";
 /**
  *   A complete SignUp template
  * @example [none]
@@ -224,6 +230,25 @@ export default {
     randomImg() {
       console.log(Math.floor(Math.random() * this.BgImgArr.length));
       return this.BgImgArr[Math.floor(Math.random() * this.BgImgArr.length)];
+    },
+     async Google() {
+      let myRoute = "";
+      //""
+      const googleuser = await this.$gAuth.signIn()
+      console.log(googleuser.yu.nv)
+      //let email = googleuser.yu.nv;
+      /*  */
+      myRoute = Browser().baseURL + `/androidSignUpWithGoogle`;
+       try {
+         await axios.post(myRoute,{
+           "googleToken": googleuser.vc.id_token
+         }).then((res) => {
+           localStorage.setItem('token',res.data.res.token)
+           this.$router.push('/home')
+         });
+      } catch (e) {
+        console.error(e);
+       }
     },
   },
   props: {

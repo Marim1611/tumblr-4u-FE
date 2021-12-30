@@ -36,9 +36,8 @@
           <br />
 
           <div>
-            <b-button 
+            <b-button
               @click="Google"
- 
               size="lg"
               class="buttonBot"
               block
@@ -87,7 +86,6 @@ export default {
       console.log(Math.floor(Math.random() * this.BgImgArr.length));
       return this.BgImgArr[Math.floor(Math.random() * this.BgImgArr.length)];
     },
- 
     isMockServer(baseUrl) {
       if (baseUrl == "http://tumblr4u.eastus.cloudapp.azure.com:5000")
         return false;
@@ -96,28 +94,23 @@ export default {
     async Google() {
       let myRoute = "";
       //""
+      const googleuser = await this.$gAuth.signIn()
+      console.log(googleuser.yu.nv)
+      //let email = googleuser.yu.nv;
       /*  */
-      if (this.isMockServer(Browser().baseURL))
-        myRoute = Browser().baseURL + "/posts";
-      else myRoute = Browser().baseURL + `/google`;
-      try {
-        await axios.get(myRoute).then((res) => {
-          console.log(res);
-        });
+     if (this.isMockServer(Browser().baseURL))
+         myRoute = Browser().baseURL + "/posts";
+       else myRoute = Browser().baseURL + `/androidSignUpWithGoogle`;
+       try {
+         await axios.post(myRoute,{
+           "googleToken": googleuser.vc.id_token
+         }).then((res) => {
+           localStorage.setItem('token',res.data.res.token)
+           this.$router.push('/home')
+         });
       } catch (e) {
         console.error(e);
-      }
- 
-   async google() {
-     /* try {
-      const resp = await api().get("google");
-     alert(resp.data)
-    } catch (e) {
-      this.$router.push('https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A5000%2Fgoogle%2Fcallback&scope=profile%20email&client_id=633147263244-qjs8lmqb79ohr4ahtulevhh8qpbn0bu3.apps.googleusercontent.com&flowName=GeneralOAuthFlow')
-            alert(e);
-    }*/
-   
- 
+       }
     },
   },
 };
