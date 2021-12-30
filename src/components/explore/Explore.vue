@@ -29,8 +29,8 @@
                 <ExploreBar v-on:multiCol="multiCol($event)" v-on:singCol="multiCol($event)" />
 
                 <div id="cards" class="flexH">
-                  <div class="margin-right" v-for="(card,i) in exploreCards" :key="i">
-                    <ExploreCard v-bind:card="card"/>
+                  <div class="margin-right" v-for="i in 6" :key="i">
+                    <ExploreCard v-bind:card="exploreCards[i]"/>
                   </div>
                 </div>
                 
@@ -124,28 +124,30 @@ export default {
     Header:Header
   },
 
-  async created() {
-    if ( localStorage.getItem('token') == "")
-     this.isAuth= false;
-     else
-     this.isAuth= true;
+async created() {
+    if (localStorage.getItem("token") == "") this.isAuth = false;
+    else this.isAuth = true;
     try {
-    
+      await axios
+        .get(Browser().baseURL + "/dashboard", {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        })
+        .then((res) => {
+          this.dashBoardPosts = res.data.res.postsToShow;
+          console.log("^^^^^^^EXPLORE^^^^^^^^^^^");
+          console.log(res.data.res.postsToShow);
+          console.log(res.data);
+        });
 
-         await axios.get(Browser().baseURL+'/dashboard').then(res => {
-            this.dashBoardPosts = res.data.res.postsToShow;
-             console.log("^^^^^^^EXPLORE^^^^^^^^^^^")
-             console.log(res.data.res.postsToShow)
-          console.log(res.data)    
-          })
-         
-     //  const res =await axios.get('http://localhost:3000/autoCompleteSearchDash')
-        
-   //  this.interestsList= res.data;
+      //  const res =await axios.get('http://localhost:3000/autoCompleteSearchDash')
+
+      //  this.interestsList= res.data;
     } catch (e) {
       console.error(e);
     }
   },
+
+ 
   methods:
   {
     multiCol:function(close){
@@ -188,12 +190,12 @@ export default {
 
 <style scoped>
 .margin-right{
-  margin: 0px 10px 0px 10px;
+  margin: 0px 6px 0px 6px;
 }
 #cards{
   margin-bottom: 40px;
   overflow-x: auto;
-  max-width: 920px;
+   max-width: 920px; 
 }
 #container{
   max-width: 920px;

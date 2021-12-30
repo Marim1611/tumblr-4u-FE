@@ -1,7 +1,7 @@
  <template>
   <div id="searchCard" v-show="forMe">
      
-      <div class="container" v-bind:style="{'background': homeTheme[homeThemeIndex].cardColor, 'max-width': this.maxWidth }" >
+      <div class="container" v-bind:style="{'background': homeTheme[homeThemeIndex].cardColor, 'width': this.maxWidth }" >
         <!--header of card-->
         <div class="header">
           <img class="profile" src="https://64.media.tumblr.com/54a1c708b6e6f778e6d6a62122b87264/dd15ee49758e1917-0f/s64x64u_c1/591674a52eaa19af57c763479bdbddcfa2219db8.jpg" alt="">
@@ -234,7 +234,7 @@ export default {
       if (this.isMockServer(Browser().baseURL))
         myRoute=Browser().baseURL+'/notes'
       else
-        myRoute=Browser().baseURL+`/${this.post.notesId}/notes`
+        myRoute=Browser().baseURL+`/${post.notesId}/notes`
       await axios.get(myRoute, {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         })
@@ -262,7 +262,7 @@ export default {
       if (this.isMockServer(Browser().baseURL))
         myRoute2=Browser().baseURL+'/blog'
       else
-        myRoute2=Browser().baseURL+`/blog/view/${this.post.blogId}`
+        myRoute2=Browser().baseURL+`/blog/view/${post.blogId}`
       await axios.get(myRoute2, {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         })
