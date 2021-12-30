@@ -36,11 +36,16 @@
 
    <div class="striped-border"></div>
    <br>
-   <div>
-     <router-link to= "">
-          <b-button size="lg" class="buttonBot"  block variant="light" ><b-icon icon="google"></b-icon> Continue with Google</b-button>
-          </router-link>
-      </div>
+    <div>
+            <b-button
+              @click="Google"
+              size="lg"
+              class="buttonBot"
+              block
+              variant="light"
+              ><b-icon icon="google"></b-icon> Continue with Google</b-button
+            >
+          </div>
    <div class="d7k"></div>
 
         </b-col>
@@ -55,6 +60,8 @@
 
 <script>
 import Header from './WelcomePageHeader.vue'
+import axios from "axios";
+import Browser from "../../mocks/browser";
 
 export default {
   
@@ -116,6 +123,26 @@ export default {
       }
 
     },
+    async Google() {
+      let myRoute = "";
+      //""
+      const googleuser = await this.$gAuth.signIn()
+      console.log(googleuser.yu.nv)
+      //let email = googleuser.yu.nv;
+      /*  */
+      myRoute = Browser().baseURL + `/androidSignUpWithGoogle`;
+       try {
+         await axios.post(myRoute,{
+           "googleToken": googleuser.vc.id_token
+         }).then((res) => {
+           localStorage.setItem('token',res.data.res.token)
+           this.$router.push('/home')
+         });
+      } catch (e) {
+        console.error(e);
+       }
+    },
+    
     randomImg() {
         console.log(   Math.floor(Math.random() * this.BgImgArr.length))
       return this.BgImgArr[
