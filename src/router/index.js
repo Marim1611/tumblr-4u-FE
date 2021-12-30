@@ -21,11 +21,16 @@ import SearchResultsOut from '../components/search/SearchResultsOutside'
 import followingCard from '../components/profile/followingCard.vue'
 import Likes from '../components/profile/likes.vue'
 import Posts from '../components/profile/posts.vue'
-import Interests from '../components/registerPages/InterestsPage' 
+ 
+ 
+import resetPassword from '../components/registerPages/resetPassword.vue'
+import verifyEmail from '../components/registerPages/verifyEmail'
+
+//import Interests from '../components/registerPages/InterestsPage' 
 
 import verifyEmail from '../components/registerPages/verifyEmail.vue'
-import archive from '../components/profile/archive.vue'
-import archiveCard from '../components/profile/archiveCard.vue'
+ 
+ 
 Vue.use(VueRouter);
 const routes = [
   {
@@ -111,11 +116,7 @@ const routes = [
         component:Profile,
         props: true
       },
-      {
-        path: '/likes',
-        name: 'likes',
-        component:Likes,
-      },
+     
       {
         path: '/getting_to_know_tumblr',
         name: 'getting_to_know_tumblr',
@@ -142,24 +143,32 @@ const routes = [
         path: '/followingcard',
         name: 'followingCard',
         component:followingCard
-      },
-      {
-        path: '/verifyemail',
-        name: 'verifyEmail',
-        component:verifyEmail
-      },
-      {
-        path: '/archive',
-        name: 'archive',
-        component:archive
-      },
-      {
-        path: '/archiveCard',
-        name: 'archiveCard',
-        component:archiveCard
-      }
+ 
+  },
+  {
+    path: "/resetPassword",
+    name: 'resetPassword',
+    component:resetPassword
+    
+  },
+  {
+    path: "/likes",
+    name: 'likes',
+    component:Likes
+    
+  },
+  {
+    path: "/verifyemail",
+    name: "verifyEmail",
+    component:verifyEmail
+  }
+      
+ 
+     
+       
      
     ]
+ 
   
       
 

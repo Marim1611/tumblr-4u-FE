@@ -3,6 +3,7 @@ import Vuex from "vuex";
 import axios from "axios";
 import { getField, updateField } from "vuex-map-fields";
 import Browser from "../mocks/browser";
+import browser from "../mocks/browser";
 
 Vue.use(Vuex);
 
@@ -487,8 +488,7 @@ export const store = new Vuex.Store({
       state.user = user;
     },
     auth_init(state,user) {
-      console.log("///////////////////////////////////////////")
-      console.log(    state.user.blogsId)
+    
       state.user = user;
       state.user.id = user._id;
       state.user.name = user.name;
@@ -496,6 +496,7 @@ export const store = new Vuex.Store({
       state.user.password = user.password;
       state.user.age = user.age;
       state.user.blogsId = user.blogsId;
+      console.log(    state.user.blogsId)
       state.user.followedTags = user.followedTags;
       state.user.followingBlogs = user.following_blogs;
       state.homeThemeIndex = user.bodyColor;
@@ -622,25 +623,23 @@ signup({ commit }, user) {
       });
   });
 },
-async forgotpassword({ commit }, user) {
-  alert(user.email);
+  
+forgotpassword({ commit }, user) {
   return new Promise((resolve, reject) => {
-    commit("auth_request");
-    axios
-      .post(Browser().baseURL + "/forgot_password", {
-        Email: user.email,
-      })
-      .then((resp) => {
-        console.log(resp);
-        this.state.msg = resp.message;
-
-      resolve(resp)
+    commit('auth_request')
+    axios.post(  Browser().baseURL +  '/user/forget_password', {
+      email:user.email
     })
-    .catch(err => {
-      console.log(err)
-      //alert(err.error)
-      reject(err)
+      .then(resp => {
+        this.state.msg = resp.message;
+        resolve(resp)
+      
+      })
+      .catch(err => {
+        alert(err.error)
+        reject(err)
+    })
   })
-})
-}}
+}
+}
 });
