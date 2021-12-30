@@ -28,6 +28,7 @@ export const store = new Vuex.Store({
     blog: {
       id: "",
       name: "",
+      title:"",
       email: "",
       password: "",
       age: 0,
@@ -499,9 +500,13 @@ export const store = new Vuex.Store({
       console.log("user",state.user)
     },
     blog_init(state,blog) {
+      console.log("#@#@@#@#@#@# blog")
+      console.log( blog)
       state.user.primaryBlogId=blog._id;
+      console.log( state.user.primaryBlogId)
       state.blog.name=blog.name;
-      state.blog.blogsId=blog.blogsId;
+      state.blog.title=blog.title;
+      //state.user.blogsId = blog.blogsId;
       state.blog.followedTags=blog.followedTags;
       state.blog.followingBlogs=blog.following_blogs;   
       state.blog.likesPostsId=blog.likes_posts_id;
@@ -525,6 +530,10 @@ actions: {
         const token = res.data.res.data.token;
         const user = res.data.res.data.user;
         const blog = res.data.res.data.blog;
+        console.log("$$$$$$$$$$$$$$$$$$$$$$final$$$$$$$$$$$$$$$$$$$$$$$$")
+        console.log( res.data.res.data.user)
+        console.log( res.data.res.data.blog)
+  //  localStorage.setItem("colorBody", res.data.res.data.user);
         // ------------------------ User -------------------------
         this.commit("auth_init",user)
         // ------------------------ blog -------------------------

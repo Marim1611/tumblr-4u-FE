@@ -2,7 +2,7 @@
   <div>
     <v-navigation-drawer
       id="blogDrawer"
-      v-bind:width="625"
+      v-bind:width="655"
       v-bind:right="true"
       v-model="postToBegin"
       app
@@ -246,16 +246,32 @@
               v-bind:size="100"
             ></avatar>
           </div> -->
-
-          <p id="userName">
+ 
+<p id="userName">
           {{ this.tumblrsObj.title }}
           </p>
+ 
+          
         </div>
 
          <b-col id="postsList">
-            <div id="dashBoard" v-for="(post, i) in myPosts" :key="i">
+          
+           <div  v-if="myPosts.length">
+ <div  id="dashBoard" v-for="(post, i) in myPosts" :key="i">
       <PostCard v-bind:post="post" v-bind:maxWidth="postCardWidth" />
        </div>
+           </div>
+           <div id="noPosts">
+    <p id="noPostsP"
+      v-bind:style="{
+                          color: homeTheme[homeThemeIndex].fontColor,
+                          'font-style': homeTheme[homeThemeIndex].fontStyle,
+                          
+                        }"
+    >No posts yet</p>
+           </div>
+        
+           
         </b-col>
       </div>
     </v-navigation-drawer>
@@ -352,6 +368,8 @@ export default {
   {
       if (this.isFollow.status == "Follow")
       {
+        console.log("%$-------------%$%$")
+        console.log( this.tumblrsObj.id)
   try {
           await axios.post( Browser().baseURL+'/follow',
          
@@ -481,19 +499,21 @@ export default {
   },
   async created(){
    
+   console.log("#$%^^^^^&%%#-------------------------------")
+   console.log(this.tumblrsObj.id)
      let myRoute=""
          if (this.isMockServer(Browser().baseURL))
          myRoute=Browser().baseURL+'/posts'
          else
+         //`/blog/${this.blogId}/getBlogPosts`
         myRoute=Browser().baseURL+`/blog/${this.tumblrsObj.id}/getBlogPosts`
       try {
       
          await axios.get(myRoute,
          { headers: { 'Authorization':`Bearer ${localStorage.getItem('token')}` } }
          ).then(res => {
-            this.myPosts = res.data.res.data.postsToShow;
-            console.log("myyyyyyyyyyyy postsssssssssssssss")
-            console.log(res.data)
+             this.myPosts = res.data.res.postsToShow
+          //  this.myPosts = res.data.res.data.postsToShow;
        
           })
     } catch (e) {
@@ -507,6 +527,15 @@ export default {
 </script>
 
 <style scoped>
+#noPosts{
+  margin-top: 80px;
+  text-align: center;
+}
+#noPostsP{
+   font-size:50px;
+   font-weight: bold;
+}
+
 #cover{
   max-width: 100%;
   height: 300px;  
@@ -593,6 +622,7 @@ export default {
 }
 #nameDiv{
 display: inline-block;
+text-align: center;
 }
 #icon {
   color: white;
@@ -608,6 +638,7 @@ margin-top:70px;
   position: relative;
   display: flex;
 }
+ 
 #userName{
   position: relative;
    text-align: center;
@@ -617,6 +648,7 @@ margin-top:70px;
   margin: auto;
   padding: auto;
   margin-left: 200px;
+
               
 }
 #iconsDiv {

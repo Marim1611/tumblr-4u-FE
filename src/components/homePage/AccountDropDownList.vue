@@ -110,7 +110,7 @@
  </td>
 
 
- <td>
+ <td id="acc">
        <b-icon id="iconList" v-on:click="openBlogFeatures[i] = !openBlogFeatures[i]"  icon="person-lines-fill" font-scale="1" aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor, 'display': 'inline-block'}"></b-icon>
 
  </td>
@@ -163,7 +163,7 @@ export default {
   },
   props: {
     title: String,
-    blogsIds:Array,
+   // blogsIds:Array,
     close:Boolean
 
   },
@@ -227,14 +227,8 @@ export default {
   async openAccDdl(){
      this.isOpen=!this.isOpen
      this.closeThemFromAcc()
-     console.log("2lololoooooooooooooo")
-     
-            console.log("DDL")   
-        console.log("FINAL blooooooooooooooooog")   
- console.log(this.blogsId)
-     console.log(this.blogsId.length)
        this.myBlogsId=this.blogsId
-       console.log(this.myBlogsId)  
+       
        for (let i =0; i < this.myBlogsId.length; i++)
      {
         let myRoute=""
@@ -242,7 +236,7 @@ export default {
          myRoute= Browser().baseURL+'/blog'
          else
         myRoute= Browser().baseURL+`/blog/view/${this.myBlogsId[i]}`
-        console.log(myRoute)
+      
        try {
          await axios.get(myRoute,
           { headers: { 'Authorization':`Bearer ${localStorage.getItem('token')}` } })
@@ -340,6 +334,9 @@ export default {
 #divider{
   width: 100%;
   height: 1px;
+}
+#acc{
+  float: right;
 }
 nav .menu-item .sub-menu {
   position: absolute;

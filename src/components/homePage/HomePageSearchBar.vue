@@ -244,7 +244,9 @@ export default {
      * @param {none}
      */
     openDrawer(name,title, avatar, cover,id) {
-      console.log("why??????????")
+      console.log("@@@@@@@@why??????????")
+      console.log(id)
+        console.log(name)
       this.showBlogDrawer = true;
       console.log( this.showBlogDrawer )
        console.log(id )

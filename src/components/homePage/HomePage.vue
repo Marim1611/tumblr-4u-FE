@@ -120,8 +120,11 @@ export default {
           this.tumblrsObj.title = this.userBlog.title;
          // this.tumblrsObj.avatar = this.userBlog.img;
            console.log("DEPLOYED*******?????????????????????");
+           console.log(this.userBlog.name)
+              console.log(this.userBlog.title)
           this.$store.commit("auth_init", res.data.res.user);
           this.$store.commit("blog_init", res.data.res.blog);
+          this.$store.commit("updateBodyColor", res.data.res.user.bodyColor);
           // this.$store.commit("setBlogIds", res.data.res.user.blogsId);
           // this.$store.commit(
           //   "stBlockedBlogsId",
@@ -177,8 +180,7 @@ export default {
       else return true;
     },
     async openAvatarDrawer() {
-      console.log("BLOG DRAWER :''''D ");
-       console.log(this.blogId);
+     
      
       let myRoute = "";
       if (this.isMockServer(Browser().baseURL))
@@ -195,8 +197,13 @@ export default {
             },
           })
           .then((res) => {
+            
+     
             this.myPosts = res.data.res.postsToShow
-            console.log(  this.myPosts)
+              this.tumblrsObj.id =  this.blogId;
+          this.tumblrsObj.name =this.userBlog.name;
+          this.tumblrsObj.title = this.userBlog.title;
+          
           });
       } catch (e) {
         console.error(e);

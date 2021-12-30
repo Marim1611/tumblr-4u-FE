@@ -132,7 +132,7 @@ export default {
     try {
     
          await axios.get(Browser().baseURL+'/dashBoard').then(res => {
-            this.dashBoardPosts = res.data.posts;
+            this.dashBoardPosts = res.data.res.postsToShow;
           console.log(res.data)    
           })
          
