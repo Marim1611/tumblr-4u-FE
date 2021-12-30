@@ -18,9 +18,12 @@ const follow= require("./data/follow.json");
 const unfollow= require("./data/unfollow.json");
 const updateColor= require("./data/updateColor.json");
 const profile = require("./data/db.json");
+ 
+const notes = require("./data/notes.json");
 const profilePosts= require("./data/profilePosts.json");
 const imgtitle = require("./data/imgtitle.json")
 const login=require('./data/login.json')
+ 
  
 module.exports = () => ({
   autoCompleteSearchDash,
@@ -43,8 +46,11 @@ module.exports = () => ({
   blog,
   follow,updateColor,
   profile,
+ 
+  notes,
+ 
   profilePosts,
   imgtitle,
   login
- 
+  
 });

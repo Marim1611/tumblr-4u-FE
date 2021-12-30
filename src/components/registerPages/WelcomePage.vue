@@ -36,8 +36,9 @@
           <br />
 
           <div>
-            <b-button
-              @click="google"
+            <b-button 
+              @click="Google"
+ 
               size="lg"
               class="buttonBot"
               block
@@ -53,6 +54,8 @@
   </div>
 </template>
 <script>
+import axios from "axios";
+import Browser from "../../mocks/browser";
 export default {
   name: "WelcomePage",
   data() {
@@ -84,6 +87,27 @@ export default {
       console.log(Math.floor(Math.random() * this.BgImgArr.length));
       return this.BgImgArr[Math.floor(Math.random() * this.BgImgArr.length)];
     },
+ 
+    isMockServer(baseUrl) {
+      if (baseUrl == "http://tumblr4u.eastus.cloudapp.azure.com:5000")
+        return false;
+      else return true;
+    },
+    async Google() {
+      let myRoute = "";
+      //""
+      /*  */
+      if (this.isMockServer(Browser().baseURL))
+        myRoute = Browser().baseURL + "/posts";
+      else myRoute = Browser().baseURL + `/google`;
+      try {
+        await axios.get(myRoute).then((res) => {
+          console.log(res);
+        });
+      } catch (e) {
+        console.error(e);
+      }
+ 
    async google() {
      /* try {
       const resp = await api().get("google");
@@ -93,6 +117,7 @@ export default {
             alert(e);
     }*/
    
+ 
     },
   },
 };
