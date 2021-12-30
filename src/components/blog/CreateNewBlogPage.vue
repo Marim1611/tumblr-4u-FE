@@ -134,9 +134,9 @@ export default {
           this.privacy=false;
          this.pass = "Aaaaa12"
          }
+          let id = ""
          
         try {
-  
         await axios.post(  Browser().baseURL+`/user/new/blog`, 
         {
           title:this.title,
@@ -146,6 +146,8 @@ export default {
          },
         { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
         ).then(res => {
+          console.log(res.data.res.data)
+          id = res.data.res.data._id
             console.log("FINAL CREATE BLOG")
                  console.log(res.data.res.message)
                 })
@@ -153,7 +155,7 @@ export default {
           console.error(e);
         }
 
-        this.$router.push({ name: 'CreatedBlogPage', params: { indxFlag: this.temp, noPostsFlag: this.tempFlag } });
+        this.$router.push({ name: 'CreatedBlogPage', params: { indxFlag: this.temp,blogId:id, noPostsFlag: this.tempFlag } });
         console.log(this.url);
         }
       

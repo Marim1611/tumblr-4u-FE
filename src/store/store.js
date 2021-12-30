@@ -485,25 +485,27 @@ export const store = new Vuex.Store({
       state.token = token;
       state.user = user;
     },
-    auth_init(state,id,name,email,password,age,blogsId,followedTags,following_blogs,bodyColor) {
-      state.user.id = id;
-      state.user.name = name;
-      state.user.email = email;
-      state.user.password = password;
-      state.user.age = age;
-      state.user.blogsId = blogsId;
-      state.user.followedTags = followedTags;
-      state.user.followingBlogs = following_blogs;
-      state.homeThemeIndex = bodyColor;
+    auth_init(state,user) {
+      state.user = user;
+      state.user.id = user._id;
+      state.user.name = user.name;
+      state.user.email = user.email;
+      state.user.password = user.password;
+      state.user.age = user.age;
+      state.user.blogsId = user.blogsId;
+      state.user.followedTags = user.followedTags;
+      state.user.followingBlogs = user.following_blogs;
+      state.homeThemeIndex = user.bodyColor;
+      console.log("user",state.user)
     },
-    blog_init(state,id,name,blogsId,followedTags,following_blogs,likes_posts_id,isBlocked) {
-      state.user.primaryBlogId=id;
-      state.blog.name=name;
-      state.blog.blogsId=blogsId;
-      state.blog.followedTags=followedTags;
-      state.blog.followingBlogs=following_blogs;   
-      state.blog.likesPostsId=likes_posts_id;
-      state.blog.isBlocked=isBlocked;
+    blog_init(state,blog) {
+      state.user.primaryBlogId=blog._id;
+      state.blog.name=blog.name;
+      state.blog.blogsId=blog.blogsId;
+      state.blog.followedTags=blog.followedTags;
+      state.blog.followingBlogs=blog.following_blogs;   
+      state.blog.likesPostsId=blog.likes_posts_id;
+      state.blog.isBlocked=blog.isBlocked;
     },
     auth_error(state) {
       state.status = "error";
@@ -513,7 +515,7 @@ export const store = new Vuex.Store({
 actions: {
   async login({ commit }, user) {
    return new Promise((resolve, reject) => {
-      commit('auth_request')
+      this.commit('auth_request')
       
       axios.post( Browser().baseURL+'/login',{
         email: user.email,
@@ -522,36 +524,15 @@ actions: {
       .then((res) => {
         const token = res.data.res.data.token;
         const user = res.data.res.data.user;
-        //console.log("******** log in store")
-        //console.log(res.data.res.data)
-        console.log("******** log in user")
-        console.log(res.data.res.data.user)
-        console.log("******** log in blog")
-        console.log(res.data.res.data.blog)
+        const blog = res.data.res.data.blog;
         // ------------------------ User -------------------------
-        commit("auth_init",res.data.res.data.user._id, res.data.res.data.user.name , res.data.res.data.user.email,res.data.res.data.user.password
-        ,res.data.res.data.user.age
-        , res.data.res.data.user.blogsId
-        ,res.data.res.data.user.followedTags
-        ,res.data.res.data.user.following_blogs
-        ,res.data.res.data.user.bodyColor)
+        this.commit("auth_init",user)
         // ------------------------ blog -------------------------
-        commit("blog_init",res.data.res.data.blog._id,
-        res.data.res.data.blog.name,
-        res.data.res.data.blogsId,
-        res.data.res.data.blog.followedTags,
-        res.data.res.data.blog.following_blogs,   
-        res.data.res.data.blog.likes_posts_id,
-        res.data.res.data.blog.isBlocked,
-        )
+        this.commit("blog_init",blog)
         localStorage.setItem("token", token);
         axios.defaults.headers.common["Authorization"] = token;
         commit("auth_success", token, user);
         resolve(res);
-        //this.state.primaryBlogId="61c9d6b82569f9abb33ebe04"
-        //
-
-
         //this.state.primaryBlogId="61c9d6b82569f9abb33ebe04"
         //
       })
