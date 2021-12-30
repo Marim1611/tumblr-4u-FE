@@ -7,7 +7,7 @@
         <b-col cols="5">
           <profileCard
             v-for="(post, index) in posts"
-            v-bind:key="post.blogId"
+            v-bind:key="index"
             :post="post"
             :notesCount="notesCount[index]"
             :x="0"
@@ -37,7 +37,6 @@ import axios from "axios";
 export default {
   name: "posts",
   async created() {
- 
     console.log("%%%%%%$$$$------------$$$$$$$%%%%%%%%%%%%$$$$$$$$$$%");
     console.log(this.blogid);
     let myRoute = "";
@@ -54,10 +53,9 @@ export default {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         })
         .then((res) => {
-          this.posts = res.data.postsToShow;
+          this.posts = res.data.res.postsToShow;
           this.recentlyPost = this.posts[0];
         });
- 
     } catch (e) {
       console.error(e);
     }
@@ -113,5 +111,4 @@ export default {
 .PostsMargin {
   margin-top: 50px;
 }
- 
 </style>

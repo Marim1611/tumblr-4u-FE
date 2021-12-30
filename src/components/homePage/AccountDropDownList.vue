@@ -180,16 +180,11 @@ export default {
   methods:
   {
     closeThemFromAcc(){
-      console.log("1lololoooooooooooooo")
+     
  this.$emit("closeThemFromAcc", this.isOpen);
   },
     openFeature(i, feature){
-      console.log("_------------------------------------------------------------------------------------")
-      console.log(i)
-       console.log(feature)
-        console.log(this.blogsId[i])
-
-
+    
       //posts 0
       if( feature == 0)
       this.$router.push({ name: 'CreatedBlogPage', params: { indxFlag: feature, noPostsFlag:false 
@@ -317,26 +312,7 @@ export default {
         },
         
   },
-  async mounted () {
-   
-    // let blogNum=3;
-    // for( let i =0; i< blogNum ; i++)
-    // this.openBlogFeatures[i]=false;
-    
-  },
-   async created(){
-   
-    //    this.blogsId=[
-    //      "61c25866ac0f82a2b0c763f6",
-    //             "61c258b6ac0f82a2b0c763fb",
-    //             "61c2ebd23135b522106a78fa",
-    //             "61c3487663d3cefff498217d"
-    //  ]   
-    
-    
-        
-
-  },
+  
   
   
   
@@ -383,6 +359,7 @@ nav .menu-item .sub-menu {
      
      float: left;
      margin :0px 20px 0px 10px;
+     margin-top: 10px;
      /* display :inline-block; */
      
  }

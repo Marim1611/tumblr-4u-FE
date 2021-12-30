@@ -68,8 +68,6 @@ export default {
     };
   },
   methods:{
-    
-         
   async followed( i){
         
        if( this.isFollower[i] == "Follow")

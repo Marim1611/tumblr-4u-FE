@@ -125,7 +125,7 @@ export default {
           await axios.post( Browser().baseURL+'/follow',
          
           {
-             blogId:  this.relatedBlogs._id,
+             blogId:  this.relatedBlogs[i]._id,
            },
             { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } },
           ) 

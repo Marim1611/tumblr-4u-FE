@@ -22,7 +22,7 @@ import followingCard from '../components/profile/followingCard.vue'
 import Likes from '../components/profile/likes.vue'
 import Posts from '../components/profile/posts.vue'
  
- 
+import ChatBox from '../components/chat/ChatBox.vue'
 import resetPassword from '../components/registerPages/resetPassword.vue'
 import verifyEmail from '../components/registerPages/verifyEmail'
 
@@ -160,7 +160,12 @@ const routes = [
     path: "/verifyemail",
     name: "verifyEmail",
     component:verifyEmail
-  }
+  },
+  {
+    path: '/ChatBox',
+    name: 'ChatBox',
+    component:ChatBox
+  },
       
  
      

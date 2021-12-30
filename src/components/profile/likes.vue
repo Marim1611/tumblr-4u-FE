@@ -4,8 +4,8 @@
     <div class="row row-cols-1 row-cols-md-4 likesCards">
     
         <profileCard
-            v-for="post in posts"
-            v-bind:key="post.blogId"
+            v-for="(post,i) in posts"
+            v-bind:key="i"
             :post="post"
             :x="0"
             :l="1"
@@ -56,18 +56,19 @@ export default {
   name: "likes",
   async created() {
     console.log("%%%%%%$$$$------------$$$$$$$%%%%%%%%%%%%$$$$$$$$$$%");
-    console.log(this.blogid);
+    console.log(this.blogId);
+    //getLikedPosts
     let myRoute = "";
     if (this.isMockServer(Browser().baseURL))
       myRoute = Browser().baseURL + "/posts";
-    else myRoute = Browser().baseURL + `/blog/${this.blogid}/getBlogPosts`;
+    else myRoute = Browser().baseURL + `/blog/${this.blogId}/getLikedPosts`;
     try {
       await axios
         .get(myRoute, {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         })
         .then((res) => {
-          this.posts = res.data.postsToShow;
+          this.posts = res.data.res.postsToShow;
           this.recentlyPost = this.posts[0];
         });
     } catch (e) {
@@ -77,7 +78,7 @@ export default {
     if (this.isMockServer(Browser().baseURL))
          myRoute= Browser().baseURL+'/blog'
          else
-        myRoute= Browser().baseURL+`/blog/view/${this.blogId}`
+        myRoute= Browser().baseURL+`/blog/view/${this.posts.blogId}`
         console.log(myRoute)
        try {
          await axios.get(myRoute,

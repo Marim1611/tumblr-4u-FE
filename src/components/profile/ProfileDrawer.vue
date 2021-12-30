@@ -368,34 +368,7 @@ export default {
     tumblrsObj: Object,
     myPosts: Array,
   },
- 
-      async created(){
-         
-         let myRoute=""
-         if (this.isMockServer(Browser().baseURL))
-         myRoute=Browser().baseURL+'/posts'
-         else
-        myRoute=Browser().baseURL+`/blog/${this.tumblrsObj.id}/getBlogPosts`
-      try {
-      
-         await axios.get(myRoute,
-         { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
-         ).then(res => {
-            this.myPosts = res.data.postsToShow;
-            console.log("resp")
-            console.log(res)
-       
-          })
-          console.log("ProfileDrawer")
-          console.log(this.myPosts)
-          
-    } catch (e) {
-      console.error(e);
-    }
-
-  }
-  
- 
+  async created() {},
 };
 </script>
 
