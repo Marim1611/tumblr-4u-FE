@@ -8,12 +8,12 @@
             }"
           ></div>
            
-            <b-row v-for="(item, i) in relatedTags" :key="i" class='sec'>
+            <b-row v-for="(item, i) in relatedBlogs" :key="i" class='sec'>
                 <div class="avatarStyle">
                 <avatar
-              username="Jane Doe"
+              :username=relatedBlogs.name
                v-bind:rounded=true
-               v-bind:src=item.img
+               v-bind:src=relatedBlogs.img
               v-bind:size="50"
             ></avatar>
             </div>
@@ -21,14 +21,14 @@
           
              <b-col>
                  <div :style="{'width':'120px'}" > 
-                 <p id="block" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor, 'font-family':homeTheme[homeThemeIndex].fontStyle }">{{item.tag}}</p>
-                 <p id="block" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor, 'font-family':homeTheme[homeThemeIndex].fontStyle }">{{item.followers}}</p>
+                 <p id="block" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor, 'font-family':homeTheme[homeThemeIndex].fontStyle }">{{relatedBlogs.name}}</p>
+                 <p id="block" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor, 'font-family':homeTheme[homeThemeIndex].fontStyle }">{{relatedBlogs.title}}</p>
                  </div>
                 
               </b-col>
                <div id="space2">  <b-col></b-col></div>
                  <b-col>
-               <div>      <button id="fButton" v-on:click="followed(item.isFollow,i)" type="button" v-bind:style="{'font-family':homeTheme[homeThemeIndex].fontStyle,'color': homeTheme[homeThemeIndex].fontColor }" >{{item.isFollow}}</button>
+               <div>      <button id="fButton" v-on:click="followed( i)" type="button" v-bind:style="{'font-family':homeTheme[homeThemeIndex].fontStyle,'color': homeTheme[homeThemeIndex].fontColor }" >{{this.isFollower[i]}}</button>
 </div>
   </b-col>
                  
@@ -47,8 +47,9 @@
 
 <script>
 import Avatar from "vue-avatar";
- 
- 
+import Browser from "../../mocks/browser";
+import axios from "axios";
+import Vue from 'vue';
  
 export default {
   name: "TumblrDrawer",
@@ -56,52 +57,56 @@ export default {
     Avatar: Avatar,
   },
   methods:{
+     data: function () {
+    return {
+         relatedBlogs:[],
+        isFollower:[]
+            
+           
+    };
+  },
          
-   followed(status,i){
+   followed( i){
         
-       if( status == "follow")
+       if( this.isFollower[i] == "Follow")
        {
- this.relatedTags[i].isFollow= "Unfollow"
+ this.isFollower[i]= "Unfollow"
  
        }
       
-       else if( status == "Unfollow")
-       this.relatedTags[i].isFollow= "follow"
+       else if(this.isFollower[i]  == "Unfollow")
+      this.isFollower[i]= "Follow"
 
    }
   },
-  data: function () {
-    return {
-         relatedTags:[
-             {
-             tag:"#food",
-             followers:"800k followers",
-             isFollow:"follow",
-             img:"https://64.media.tumblr.com/b3147fe4c7716e1f091ee153a6f1dbeb/da923b03059c3a4b-23/s640x960/a199c4ea8338aed64e57cb0ff34b7d61db4bb555.jpg"
+ 
+ async created(){
+    try {
+      await axios
+        .get(Browser().baseURL + "/ranBlogs", {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        })
+        .then((res) => {
+          console.log("888dijnfkjnkjnkdjf,nsnv,ngm,v")
+          console.log()
+          this.relatedBlogs = res.data.ranBlogs;
+          console.log( res.data.ranBlogs)
+            
+           for (let i = 0; i < this.relatedBlogs.length; i++) {
+            //this.show.push(false);
+            Vue.set(this.isFollower,i,'Follow')
+          
+             
+          }
 
-             },
-               {
-             tag:"#art",
-             followers:"4k followers",
-             isFollow:"follow",
-             img:"https://64.media.tumblr.com/b3147fe4c7716e1f091ee153a6f1dbeb/da923b03059c3a4b-23/s640x960/a199c4ea8338aed64e57cb0ff34b7d61db4bb555.jpg"
-
-             },
-               {
-             tag:"#fashion",
-             followers:"15k followers",
-             isFollow:"follow",
-             img:"https://64.media.tumblr.com/b3147fe4c7716e1f091ee153a6f1dbeb/da923b03059c3a4b-23/s640x960/a199c4ea8338aed64e57cb0ff34b7d61db4bb555.jpg"
-
-             },
-             {
-             tag:"#fashion",
-             followers:"15k followers",
-             isFollow:"follow",
-             img:"https://64.media.tumblr.com/b3147fe4c7716e1f091ee153a6f1dbeb/da923b03059c3a4b-23/s640x960/a199c4ea8338aed64e57cb0ff34b7d61db4bb555.jpg"
-
-             }]
-    };
+       
+          
+             
+          
+        });
+    } catch (e) {
+      console.error(e);
+    }
   },
   
   computed: {

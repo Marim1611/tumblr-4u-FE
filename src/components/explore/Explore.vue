@@ -131,8 +131,12 @@ export default {
      this.isAuth= true;
     try {
     
-         await axios.get(Browser().baseURL+'/dashBoard').then(res => {
+    
+         await axios.get(Browser().baseURL+'/dashboard').then(res => {
+
             this.dashBoardPosts = res.data.res.postsToShow;
+             console.log("^^^^^^^EXPLORE^^^^^^^^^^^")
+             console.log(res.data.res.postsToShow)
           console.log(res.data)    
           })
          
@@ -140,7 +144,7 @@ export default {
         
    //  this.interestsList= res.data;
     } catch (e) {
-        console.log("^^^^^^^^^^^^^^^^^^")
+       
       console.error(e);
     }
   },

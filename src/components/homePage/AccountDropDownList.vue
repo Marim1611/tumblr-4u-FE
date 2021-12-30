@@ -84,8 +84,13 @@
 </router-link>
         </li>
          <!-- blogs -->
-         
-          <div v-for="(blog, i) in blogs" :key="'A'+ i" class="menu-item">
+         <div v-if="isLoading">
+         <loader  object="#ff9633" color1="#ffffff" color2="#17fd3d" size="5" speed="2" bg="#343a40" objectbg="#999793" opacity="80" name="dots"></loader>
+
+         </div>
+
+         <div v-else>
+             <div v-for="(blog, i) in blogs" :key="'A'+ i" class="menu-item">
                   <li >
                      <tbody>
                     <tr>
@@ -128,6 +133,8 @@
         </tbody>
             </li>
         </div>
+         </div>
+        
     
       </div>
 
@@ -147,6 +154,9 @@ import KeyScDrawer from "./KeyboardShortcutsDrawer.vue"
 import LogoutDialog from "../general/LogoutDialog.vue"
 import Browser from "../../mocks/browser";
 import axios from "axios";
+import Vue from 'vue';
+import loader from "vue-ui-preloader";
+Vue.use(loader);
 //import BlogFeatures from '../blog/CreatedBlogPage.vue' 
 
 /**
@@ -228,7 +238,7 @@ export default {
      this.isOpen=!this.isOpen
      this.closeThemFromAcc()
        this.myBlogsId=this.blogsId
-       
+       this.isLoading=true;
        for (let i =0; i < this.myBlogsId.length; i++)
      {
         let myRoute=""
@@ -256,12 +266,13 @@ export default {
 
      }
  
-     
+      this.isLoading=false;
     }
     
     },
   data: function () {
     return {
+      isLoading:false,
       openLogout:false,
       isOpen: false,
        openKeyDrawer:false,
