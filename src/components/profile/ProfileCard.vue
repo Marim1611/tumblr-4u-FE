@@ -1,7 +1,8 @@
 <template>
+<div  class="" :class="l ? 'col mb-4' : ''">
   <div class="card">
     <div class="card-body">
-      <b-container v-show="flag">
+      <!--<b-container v-show="x">
         <b-row class="zero-padding">
           <b-col cols="2">
             <router-link to="">
@@ -15,24 +16,40 @@
             </router-link>
           </b-col>
         </b-row>
-      </b-container>
-      <b-container>
+      </b-container>-->
+      <b-container v-if="x === 0">
         <b-row class="zero-padding">
-          <div v-show="photo" class="imgFit">
-            <img  :src="photo"  />
+          <br>
+          <div v-if="l===1" class="profileDiv">
+            <img class="imgFit" :src="this.profileUser.img?this.profileUser.img:avatarPhoto"  />
+            <a class="link2" href="">{{profileUser.name}}</a>
           </div>
-          
-          <div v-show="link" class="link">
-            <div class="link2">
-              <a class="xx" :href="link">asdasdasd ></a>
-            </div>
+          <div v-html="post.postHtml" ></div>
+          <br >
+          <br >
+          <div class="note_1">
+            <router-link
+              v-for="t in post.tags"
+              :key="t.tag"
+              class="note"
+              :to="t"
+              >{{ t }}
+            </router-link>
           </div>
+        </b-row>
+      </b-container>
+      <b-container v-if="x === 1">
+        <b-row class="zero-padding">
           <br />
-          <p v-show="text" class="card-text">{{ text }}</p>
-
-          <a href=""></a>
-          <div v-show="tag">
-            <router-link v-for="t in tag" :key="t.tag" class="note" to=""
+          <div v-html="recentlyPost.postHtml"></div>
+          <br />
+          <br />
+          <div class="note_1">
+            <router-link
+              v-for="t in recentlyPost.tags"
+              :key="t.tag"
+              class="note"
+              :to="t"
               >{{ t }}
             </router-link>
           </div>
@@ -40,8 +57,11 @@
       </b-container>
       <br />
       <b-row class="zero-padding">
-        <b-col>
-          <router-link class="note" to="/nopage">{{ note }} note</router-link>
+        <b-col v-if="x===0">
+          <router-link class="note" to="/nopage">{{notesCount}} note</router-link>
+        </b-col>
+        <b-col v-else-if="x===1">
+          <router-link class="note" to="/nopage">{{recentlyNoteCount}} note</router-link>
         </b-col>
         <b-col>
           <div class="iconsDiv">
@@ -68,23 +88,25 @@
             <router-link class="note" to="/nopage">
               <b-icon class="h4 mb-2 cardIcons" icon="arrow-repeat"></b-icon>
             </router-link>
-              <b-icon
+            <b-icon
               v-show="!fill"
-                v-on:click="like"
-                class="h4 mb-2 cardIcons"
-                icon="heart"
-              ></b-icon>
-              <b-icon
-                v-show="fill"
-                v-on:click="unlike"
-                class="h4 mb-2 cardIcons heartColor"
-                icon="heart-fill"
-              ></b-icon>
+              v-on:click="like"
+              class="h4 mb-2 cardIcons"
+              icon="heart"
+            ></b-icon>
+            <b-icon
+              v-show="fill"
+              v-on:click="unlike"
+              class="h4 mb-2 cardIcons heartColor"
+              icon="heart-fill"
+            ></b-icon>
           </div>
         </b-col>
       </b-row>
     </div>
   </div>
+  </div>
+  
 </template>
 
 <script>
@@ -93,28 +115,17 @@ export default {
   data() {
     return {
       fill: false,
-
+      avatarPhoto:
+        "https://assets.tumblr.com/images/default_avatar/octahedron_closed_128.png",
+      
     };
     /*dd:(
         
         new URL(this.link).hostname.replace('www.','')
       ),*/
   },
-  props: [
-    "text",
-    "photo",
-    "quote",
-    "link",
-    "Domain",
-    "chat",
-    "audio",
-    "video",
-    "tag",
-    "note",
-    "flag",
-    "profileImg",
-  ],
-  
+  props: ["post", "x", "recentlyPost","notesCount","recentlyNoteCount","l","profileUser"],
+
   //created(){
 
   //alert(this.dd)
@@ -133,10 +144,8 @@ export default {
       this.note--;
     },
   },
-}
-
+};
 </script>
-
 
 <style scoped>
 .card {
@@ -163,6 +172,9 @@ export default {
   color: #a7a7a7 !important;
   font-weight: 400;
 }
+.note_1 {
+  margin-top: 10px;
+}
 .note:hover {
   color: rgb(104, 103, 103) !important;
   text-decoration: none;
@@ -181,12 +193,12 @@ export default {
 .imgFit {
   padding: 0;
   border-radius: 3px 3px 0 0;
-  height: 80%;
+  
+  width: 25%;;
 }
 .card-body {
   padding: 0;
-  border-radius: 6px;
-  
+  border-radius: 10px;
 }
 .zero-padding {
   padding: 0;
@@ -219,10 +231,14 @@ export default {
 }
 .link2 {
   text-align: left;
-  font-size: 22px;
+  position: relative;
+  left:10px;
+ color:black !important;
   font-weight: 700;
-  line-height: 25.52px;
-  margin: 15px 0px;
+  
+}
+.link2:hover{
+  text-decoration: none !important;
 }
 .xx {
   color: black !important;
@@ -230,10 +246,19 @@ export default {
 .xx:hover {
   text-decoration: none;
 }
-.heartColor{
-  fill:red;
+.heartColor {
+  fill: red;
 }
-.heartColor:hover{
-  fill:red !important;
+.heartColor:hover {
+  fill: red !important;
+}
+.profileDiv{
+  margin: 0 5px 5px 0;
+  padding:0;
+  border-bottom: 1px solid rgb(172, 170, 170);
+  position: relative;
+  bottom: 25px;
+  /* margin-top:5px;
+  margin-bottom: 5px; */
 }
 </style>
