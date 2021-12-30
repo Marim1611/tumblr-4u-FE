@@ -155,6 +155,7 @@ export default {
     },
 
     insertImage() {
+      if(this.imageSrc===""){
       for (var i = 0; i < this.imagesUploaded.length; i++) {
         const data = {
           command: this.command,
@@ -167,7 +168,8 @@ export default {
 
         this.$emit("onConfirm", data);
       }
-      if (this.imageSrc != "") {
+      }
+      else{
         const data = {
           command: this.command,
           data: {
