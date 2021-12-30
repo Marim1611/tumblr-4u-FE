@@ -2,7 +2,7 @@
   <div>
     <v-navigation-drawer
       id="blogDrawer"
-      v-bind:width="625"
+      v-bind:width="655"
       v-bind:right="true"
       v-model="postToBegin"
       app
@@ -246,16 +246,32 @@
               v-bind:size="100"
             ></avatar>
           </div> -->
-
-          <p id="userName">
+ 
+<p id="userName">
           {{ this.tumblrsObj.title }}
           </p>
+ 
+          
         </div>
 
          <b-col id="postsList">
-            <div id="dashBoard" v-for="(post, i) in myPosts" :key="i">
+          
+           <div  v-if="myPosts.length">
+ <div  id="dashBoard" v-for="(post, i) in myPosts" :key="i">
       <PostCard v-bind:post="post" v-bind:maxWidth="postCardWidth" />
        </div>
+           </div>
+           <div id="noPosts">
+    <p id="noPostsP"
+      v-bind:style="{
+                          color: homeTheme[homeThemeIndex].fontColor,
+                          'font-style': homeTheme[homeThemeIndex].fontStyle,
+                          
+                        }"
+    >No posts yet</p>
+           </div>
+        
+           
         </b-col>
       </div>
     </v-navigation-drawer>
@@ -352,6 +368,8 @@ export default {
   {
       if (this.isFollow.status == "Follow")
       {
+        console.log("%$-------------%$%$")
+        console.log( this.tumblrsObj.id)
   try {
           await axios.post( Browser().baseURL+'/follow',
          
@@ -481,19 +499,21 @@ export default {
   },
   async created(){
    
+   console.log("#$%^^^^^&%%#-------------------------------")
+   console.log(this.tumblrsObj.id)
      let myRoute=""
          if (this.isMockServer(Browser().baseURL))
          myRoute=Browser().baseURL+'/posts'
          else
+         //`/blog/${this.blogId}/getBlogPosts`
         myRoute=Browser().baseURL+`/blog/${this.tumblrsObj.id}/getBlogPosts`
       try {
       
          await axios.get(myRoute,
-         { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
+         { headers: { 'Authorization':`Bearer ${localStorage.getItem('token')}` } }
          ).then(res => {
-            this.myPosts = res.data.postsToShow;
-            console.log("myyyyyyyyyyyy postsssssssssssssss")
-            console.log(res.data)
+             this.myPosts = res.data.res.postsToShow
+          //  this.myPosts = res.data.res.data.postsToShow;
        
           })
     } catch (e) {
@@ -507,16 +527,39 @@ export default {
 </script>
 
 <style scoped>
+#noPosts{
+  margin-top: 80px;
+  text-align: center;
+}
+#noPostsP{
+   font-size:50px;
+   font-weight: bold;
+}
+
 #cover{
-  display: flex;
-  flex-direction: column;
   max-width: 100%;
   height: 300px;  
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover;
-  background-color: #464747;
+   background-color: #464747;
 }
+#profileImg {
+  text-align: center;
+  width: 110px;
+ 
+  margin: auto;
+  padding: auto;
+}
+.imgshape {
+  border-radius: 50%;
+  position: relative;
+  top: 5px;
+  border-style: solid;
+  border-width: 5px;
+  border-color: white;
+}
+ 
 #avatarDiv {
   display: flex;
   flex-direction: column;
@@ -525,18 +568,27 @@ export default {
   justify-content: center;
   margin-top: 40px; 
 }
+#rightDiv{
+  display: flex;
+  flex-direction: row;
+}
+#leftDiv{
+  display: flex;
+  flex-direction: row;
+  
+}
 #searchList{
   overflow-y: scroll;
   height: 140px;
 }
 .menu-item .sub-menu {
- position: relative;
+  position: absolute;
   /* top: 0; */
-  left: 48%;
+  left: 55%;
   /* left: 100px; */
   /* top: 20px; */
   /* right: 0; */
-  transform: translateX(100%) translateY(-42%);
+  transform: translateX(100%) translateY(-80%);
   width: max-content;
   border-radius: 5px;
 }
@@ -545,7 +597,7 @@ export default {
  
 }
 .menu-item-share .sub-menu-share {
-   position:absolute;
+  position: absolute;
   /* top: 0; */
   left: 48%;
   /* left: 100px; */
@@ -560,7 +612,7 @@ export default {
   display: inline-block;
   padding: 3px;
 }
- 
+
 #homeDrawer {
   width: 90%;
   display: flex;
@@ -570,10 +622,14 @@ export default {
 }
 #nameDiv{
 display: inline-block;
+text-align: center;
 }
 #icon {
   color: white;
   cursor: pointer;
+}
+#dottedList{
+margin-top:70px;
 }
 #navbar {
   align-items: center;
@@ -581,8 +637,8 @@ display: inline-block;
   height: 20%;
   position: relative;
   display: flex;
-  flex-direction: row;
 }
+ 
 #userName{
   position: relative;
    text-align: center;
@@ -592,19 +648,20 @@ display: inline-block;
   margin: auto;
   padding: auto;
   margin-left: 200px;
+
               
 }
 #iconsDiv {
   display: flex;
-  justify-content: center;
   flex-direction: row;
-    height: 200px;
-  /* text-align: center;
+  text-align: center;
   position: relative;
   flex-grow: 2;
-  flex-shrink: 7;
-  float: right; */
-
+  flex-shrink: 2;
+  float: right;
+  height: 200px;
+  
+  justify-content: space-around;
 }
 ul {
   position: absolute;
@@ -632,8 +689,9 @@ li {
 .dropdown-selected {
   padding: 10px 10px;
   border-radius: 8px;
-  opacity: 0.1;
-  width: 135px;
+  opacity: 0.3;
+  background-color:#d9ffcc ;
+  width: 150px;
   line-height: 1.5em;
   outline: none;
 }
@@ -664,24 +722,10 @@ li {
   width: 100px;
 }
 #item:hover {
-  background: #464747;
+  background:  grayscale(100%) brightness(51%);
   cursor: pointer;
 }
-#profileImg {
-  text-align: center;
-  width: 110px;
- 
-  margin: auto;
-  padding: auto;
-}
-.imgshape {
-  border-radius: 50%;
-  position: relative;
-  top: 5px;
-  border-style: solid;
-  border-width: 5px;
-  border-color: white;
-}
+
 .avatarStyle {
   width: 25px;
   margin: auto;

@@ -174,7 +174,7 @@ export default {
 }
 
 .sec:hover {
-  background-color: #CCCED0;
+ 
    cursor: pointer;
     
 } 

@@ -243,7 +243,6 @@ export default {
 </script>
 
 <style>
-
 .ProseMirror {
   outline: none;
   overflow: hidden;

@@ -56,7 +56,8 @@
      </div>
       <!-- interests  -->
       <div v-on:click.prevent="toggleDropdown">
-        <div v-if="!inputValue" v-show="isClicked" class="dropdown-list">
+         
+          <div v-if="!inputValue&&interestsList.length" v-show="isClicked" class="dropdown-list">
           <div
             v-for="(item,i) in interestsList"
             v-on:click="searchMe(item)"
@@ -73,8 +74,11 @@
             </p>
           </div>
         </div>
+      
         <!-- auto complete "tags"  -->
-        <div v-else class="dropdown-list">
+         
+        
+          <div v-if="inputValue" v-show="isClicked" class="dropdown-list">
           <div>
             <p v-bind:style="{ 'font-size': '18px', margin: '10px' }">
               Go to #{{ this.inputValue }}
@@ -84,7 +88,7 @@
             v-show="itemVisible(item)"
             v-on:click="searchMeTag(item)"
             v-for="item in tags"
-            v-bind:key="item"
+            v-bind:key="item.id"
             class="dropdown-item"
           >
             <b-icon
@@ -111,7 +115,7 @@
             v-on:click="openDrawer(item.name, item.title,item.img, item.coverImg,item._id)"
             v-show="itemVisible(item.name)"
             v-for="item in usersInSearch"
-            v-bind:key="item.name"
+            v-bind:key="item.id"
             class="dropdown-item"
           >
             <!-- <img :src="item.img" class="dropdown-item-flag" /> -->
@@ -137,6 +141,8 @@
           </div>
         </div>
 
+         
+
        
 
 
@@ -155,9 +161,12 @@
 import axios from 'axios';
 import TumblrDrawer from "./TumblrsDrawer.vue";
 import Browser from '../../mocks/browser'
+import Vue from 'vue';
+import loader from "vue-ui-preloader";
+Vue.use(loader);
 //import Avatar from 'vue-avatar'
 //import { fetchSearchResults } from '@/services/fetchers'
-import Vue from "vue";
+ 
 /**
  *  SearchBar of the home page shows list of user interests if he didn't type any thing otherwise show related other users or tags
  * @example [none]
@@ -165,6 +174,7 @@ import Vue from "vue";
 export default {
   data: function () {
     return {
+      isLoading:false,
       showBlogDrawer: false,
       inputValue: "",
       isClicked: false,
@@ -185,6 +195,7 @@ export default {
   },
   methods: {
     async getSearchLists(){
+      this.isLoading=true
       console.log(this.inputValue)
        let myRoute=""
          if (this.isMockServer(Browser().baseURL))
@@ -201,6 +212,7 @@ export default {
     } catch (e) {
       console.error(e);
     }
+      this.isLoading=false
 
     },
       closeDrawer: function (close) {
@@ -244,7 +256,9 @@ export default {
      * @param {none}
      */
     openDrawer(name,title, avatar, cover,id) {
-      console.log("why??????????")
+      console.log("@@@@@@@@why??????????")
+      console.log(id)
+        console.log(name)
       this.showBlogDrawer = true;
       console.log( this.showBlogDrawer )
        console.log(id )
@@ -361,6 +375,7 @@ export default {
 
   },
     async created() {
+      this.isLoading=true;
     try {
          await axios.get(Browser().baseURL+'/autoCompleteSearchDash'
          ,
@@ -374,6 +389,7 @@ export default {
         console.log("^^^^^^^^^^^^^^^^^^")
       console.error(e);
     }
+     this.isLoading=true;
   },
   async mounted() {
     document.addEventListener("click", this.close);

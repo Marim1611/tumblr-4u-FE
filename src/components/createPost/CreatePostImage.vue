@@ -45,7 +45,9 @@ export default {
     imagePost: {
       type: Boolean,
     },
+    // tumblrsObj: Object,
   },
+    
   components: {
     CreatePostTextEditor,
     Modal,

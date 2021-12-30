@@ -43,7 +43,10 @@
 
 <script>
 import Header from './WelcomePageHeader.vue'
+ 
 import api from '@/api';
+ 
+ 
 
 
  
@@ -64,7 +67,9 @@ export default {
   methods:{
     verify(){
         var token=this.$store.state.user.token
+ 
         api.put('verify/'+token, {
+ 
        }).then(resp => {
           this.$store.state.msg = resp.message;
           this.verified=true;

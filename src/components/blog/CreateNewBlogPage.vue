@@ -130,20 +130,24 @@ export default {
 
          if(this.pass!="")
         this.privacy=true;
-        else this.privacy=false;
-         
+        else {
+          this.privacy=false;
+         this.pass = "Aaaaa12"
+         }
+          let id = ""
          
         try {
-  
-        await axios.put(  Browser().baseURL+`/user/new/blog`, 
+        await axios.post(  Browser().baseURL+`/user/new/blog`, 
         {
-          Title:this.title,
-          name:this.name,
+          title:this.title,
+          name:this.url,
           privacy:this.privacy,
-          Password:this.pass
+          password:this.pass
          },
         { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } }
         ).then(res => {
+          console.log(res.data.res.data)
+          id = res.data.res.data._id
             console.log("FINAL CREATE BLOG")
                  console.log(res.data.res.message)
                 })
@@ -151,7 +155,7 @@ export default {
           console.error(e);
         }
 
-        this.$router.push({ name: 'CreatedBlogPage', params: { indxFlag: this.temp, noPostsFlag: this.tempFlag } });
+        this.$router.push({ name: 'CreatedBlogPage', params: { indxFlag: this.temp,blogId:id, noPostsFlag: this.tempFlag } });
         console.log(this.url);
         }
       

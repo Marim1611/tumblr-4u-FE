@@ -11,19 +11,12 @@
         id="cover"
         v-bind:style="{
           'background-image': 'url(' + this.tumblrsObj.coverImg + ')',
-           
         }"
       >
-
-      
-            <b-row>
-            
-        
-            <div id="iconsDiv">
-            
-
+        <b-row>
+          <div id="iconsDiv">
             <div id="leftDiv">
-               <li>
+              <li>
                 <b-icon
                   v-on:click="closeDrawer"
                   id="icon"
@@ -32,20 +25,19 @@
                   aria-hidden="true"
                 ></b-icon>
               </li>
-                <li v-if="!isOpenSearch">
-                <div id="nameDiv" >
-                  <p v-if="!myUrl" @mouseover="myUrl=true"  class="searchP"
-                  >    {{ this.tumblrsObj.name }}  </p>
-                  <p v-else @mouseover="myUrl=false"   class="searchP">    {{ this.tumblrsObj.name }}.tumblr.com   </p>
- 
-        
-                
+              <li v-if="!isOpenSearch">
+                <div id="nameDiv">
+                  <p v-if="!myUrl" @mouseover="myUrl = true" class="searchP">
+                    {{ this.tumblrsObj.name }}
+                  </p>
+                  <p v-else @mouseover="myUrl = false" class="searchP">
+                    {{ this.tumblrsObj.name }}.tumblr.com
+                  </p>
                 </div>
               </li>
 
               <li v-else>
-                <div >
-                  
+                <div>
                   <input
                     v-model.trim="inputValue"
                     v-on:click="inputClicked = !inputClicked"
@@ -53,85 +45,84 @@
                     type="text"
                     placeholder="Search"
                   />
-                  <div v-if="!inputValue"  v-show="inputClicked"   v-bind:style="{
-                'background-color': homeTheme[homeThemeIndex].cardColor,
-              }">
-            <div
-             class="sub-menu"
-             id="searchList"
-          >
-              <p   
-             
-              v-bind:style="{
-                          color: homeTheme[homeThemeIndex].fontColor,
-                          'font-style': homeTheme[homeThemeIndex].fontStyle,
-                          'cursor':'pointer'
-                        }"
-            >
-              Popular tags
-            </p>
-            <p  v-for="item in popularTags"   v-bind:key="item.name"
-              v-bind:style="{
-                          color: homeTheme[homeThemeIndex].fontColor,
-                          'font-style': homeTheme[homeThemeIndex].fontStyle,
-                          'cursor':'pointer'
-                        }"
-            >
-              {{ item }}
-            </p>
-          </div>
-        </div>
-        <div v-else   v-bind:style="{
-                'background-color': homeTheme[homeThemeIndex].cardColor }">
                   <div
-             class="sub-menu"
-             id="searchList"
-          >
-              <p   
-             
-              v-bind:style="{
+                    v-if="!inputValue"
+                    v-show="inputClicked"
+                    v-bind:style="{
+                      'background-color': homeTheme[homeThemeIndex].cardColor,
+                    }"
+                  >
+                    <div class="sub-menu" id="searchList">
+                      <p
+                        v-bind:style="{
                           color: homeTheme[homeThemeIndex].fontColor,
                           'font-style': homeTheme[homeThemeIndex].fontStyle,
-                          'cursor':'pointer'
+                          cursor: 'pointer',
                         }"
-            >
-              Popular tags
-            </p>
-            <p   
-             v-for="item in popularTags"   v-bind:key="item.name"
-             v-show="itemVisible(item)"
-              v-bind:style="{
+                      >
+                        Popular tags
+                      </p>
+                      <p
+                        v-for="item in popularTags"
+                        v-bind:key="item.name"
+                        v-bind:style="{
                           color: homeTheme[homeThemeIndex].fontColor,
                           'font-style': homeTheme[homeThemeIndex].fontStyle,
-                          'cursor':'pointer'
+                          cursor: 'pointer',
                         }"
-            >
-              {{ item }}
-            </p>
-          </div>
-         
-          
-        </div>
+                      >
+                        {{ item }}
+                      </p>
+                    </div>
+                  </div>
+                  <div
+                    v-else
+                    v-bind:style="{
+                      'background-color': homeTheme[homeThemeIndex].cardColor,
+                    }"
+                  >
+                    <div class="sub-menu" id="searchList">
+                      <p
+                        v-bind:style="{
+                          color: homeTheme[homeThemeIndex].fontColor,
+                          'font-style': homeTheme[homeThemeIndex].fontStyle,
+                          cursor: 'pointer',
+                        }"
+                      >
+                        Popular tags
+                      </p>
+                      <p
+                        v-for="item in popularTags"
+                        v-bind:key="item.name"
+                        v-show="itemVisible(item)"
+                        v-bind:style="{
+                          color: homeTheme[homeThemeIndex].fontColor,
+                          'font-style': homeTheme[homeThemeIndex].fontStyle,
+                          cursor: 'pointer',
+                        }"
+                      >
+                        {{ item }}
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </li>
             </div>
+            <li>
+              <div v-if="!isOpenSearch" :style="{ width: '40px' }"></div>
+            </li>
+            <div id="rightDiv">
               <li>
-                <div v-if="!isOpenSearch" :style="{'width':'40px'}"></div>
+                <b-icon
+                  class="searchP"
+                  v-on:click="isOpenSearch = !isOpenSearch"
+                  id="icon"
+                  icon="search"
+                  font-scale="2"
+                  aria-hidden="true"
+                ></b-icon>
               </li>
-              <div id="rightDiv">
-                <li>
-                  <b-icon
-                    class="searchP"
-                    v-on:click="isOpenSearch = !isOpenSearch"
-                    id="icon"
-                    icon="search"
-                    font-scale="2"
-                    aria-hidden="true"
-                  ></b-icon>
-                  
-                 
-              </li>
-              
+
               <li>
                 <b-icon
                   id="icon"
@@ -142,15 +133,13 @@
                 ></b-icon>
               </li>
               <li>
-                  <b-icon
-                    class="searchP"
-                    id="icon"
-                    icon="gear-fill"
-                    font-scale="2"
-                    aria-hidden="true"
-                  ></b-icon>
-                  
-                 
+                <b-icon
+                  class="searchP"
+                  id="icon"
+                  icon="gear-fill"
+                  font-scale="2"
+                  aria-hidden="true"
+                ></b-icon>
               </li>
               <li>
                 <b-icon
@@ -161,15 +150,12 @@
                   aria-hidden="true"
                 ></b-icon>
               </li>
+            </div>
 
-              </div>
-              
-              <!-- <li>
+            <!-- <li>
                     <b-icon id="icon" icon="three-dots" font-scale="2"  aria-hidden="true"></b-icon> 
                 </li> -->
-              
-            </div>
-         
+          </div>
         </b-row>
         <div class="menu-item">
           <transition name="fade" appear>
@@ -181,7 +167,12 @@
                 'background-color': homeTheme[homeThemeIndex].cardColor,
               }"
             >
-              <div v-on:click=" closeDotted(item)" v-for="(item, i) in dottedItems" :key="i" class="menu-item">
+              <div
+                v-on:click="closeDotted(item)"
+                v-for="(item, i) in dottedItems"
+                :key="i"
+                class="menu-item"
+              >
                 <li>
                   <div id="item">
                     <li>
@@ -205,7 +196,6 @@
         <div class="menu-item-share">
           <transition name="fade" appear>
             <div
-           
               class="sub-menu-share"
               v-if="isOpenShare"
               v-bind:style="{
@@ -213,7 +203,7 @@
               }"
             >
               <div
-               id="shareList"
+                id="shareList"
                 v-for="(item, i) in shareItems"
                 v-bind:key="i"
                 class="menu-item"
@@ -238,30 +228,30 @@
             </div>
           </transition>
         </div>
-        
+
         <div id="avatarDiv">
-          <router-link to ="/profile"
-          >
-           <div id="profileImg">
-            <img
-              class="imgshape"
-              :src="this.tumblrsObj.avatar?this.tumblrsObj.avatar:avatarPhoto"
-              alt="Avatar"
-            />
-          </div>
+          <router-link to="/profile">
+            <div id="profileImg">
+              <img
+                class="imgshape"
+                :src="
+                  this.tumblrsObj.avatar ? this.tumblrsObj.avatar : avatarPhoto
+                "
+                alt="Avatar"
+              />
+            </div>
           </router-link>
-          
-           
+
           <p id="userName">
             <!-- {{ this.tumblrsObj.name }} -->
-          {{ this.tumblrsObj.title }}
+            {{ this.tumblrsObj.title }}
           </p>
         </div>
 
-         <b-col id="postsList">
-            <div id="dashBoard" v-for="(post, i) in myPosts" :key="i">
-      <PostCard v-bind:post="post" v-bind:maxWidth="postCardWidth" />
-       </div>
+        <b-col id="postsList">
+          <div id="dashBoard" v-for="(post, i) in myPosts" :key="i">
+            <PostCard v-bind:post="post" v-bind:maxWidth="postCardWidth" />
+          </div>
         </b-col>
       </div>
     </v-navigation-drawer>
@@ -269,13 +259,12 @@
 </template>
 
 <script>
- 
 import PostCard from "../general/ViewPostCard.vue";
-import axios from 'axios';
-import Browser from '../../mocks/browser'
+//import axios from 'axios';
+//import Browser from '../../mocks/browser'
 import Vue from "vue";
-import vOutsideEvents from 'vue-outside-events'
- Vue.use(vOutsideEvents)
+import vOutsideEvents from "vue-outside-events";
+Vue.use(vOutsideEvents);
 /**
  *  TumblrDrawer with profile view of a tumblr user -not the current user- should appear when current user clicks on some user in the search drop down list
  * @example [none]
@@ -283,76 +272,81 @@ import vOutsideEvents from 'vue-outside-events'
 export default {
   name: "TumblrDrawer",
   components: {
-    PostCard:PostCard,
+    PostCard: PostCard,
   },
   data: function () {
     return {
-      myUrl:false,
-     
-      drawerIsClosed:false,
-      showBlogDrawer1:false,
-       postCardWidth:"540px",
+      myUrl: false,
+
+      drawerIsClosed: false,
+      showBlogDrawer1: false,
+      postCardWidth: "540px",
       isFollow: { status: "Follow" },
       inputValue: "",
-      name:"",
+      name: "",
       avatarPhoto:
         "https://assets.tumblr.com/images/default_avatar/octahedron_closed_128.png",
       isOpendotted: false,
       isOpenShare: false,
       isOpenSearch: false,
-      openPopularTags:false,
-      inputClicked:false,
-      myPosts:[],
+      openPopularTags: false,
+      inputClicked: false,
+      // myPosts:[],
       dottedItems: ["Archive", "Following", "Close"],
       shareItems: ["Facebook", "Twitter"],
-      popularTags:["#art", "#crochet", "#baking", "#Block", "#Close","#art", "#crochet", "#baking"]
+      popularTags: [
+        "#art",
+        "#crochet",
+        "#baking",
+        "#Block",
+        "#Close",
+        "#art",
+        "#crochet",
+        "#baking",
+      ],
     };
   },
- 
+
   methods: {
-      closeDrawer() {
+    closeDrawer() {
       this.$emit("closeDrawer", false);
-     
     },
     hideDrawer() {
-      this.showBlogDrawer1=this.showBlogDrawer;
+      this.showBlogDrawer1 = this.showBlogDrawer;
     },
-   
-     itemVisible(item) {
+
+    itemVisible(item) {
       let currentName = item.toLowerCase();
       let currentInput = this.inputValue.toLowerCase();
       return currentName.includes(currentInput);
     },
-    toggleShare(){
-      this.isOpenShare = !this.isOpenShare
-      this.isOpendotted=false
+    toggleShare() {
+      this.isOpenShare = !this.isOpenShare;
+      this.isOpendotted = false;
     },
-     toggleDotted(){
-      this.isOpendotted = !this.isOpendotted
-      this.isOpenShare=false
+    toggleDotted() {
+      this.isOpendotted = !this.isOpendotted;
+      this.isOpenShare = false;
     },
-     closeDotted(item){
-       if (item == "Close")
-      this.isOpendotted = false
-       
-    }, isMockServer(baseUrl){
-     
-        if (baseUrl == "http://tumblr4u.eastus.cloudapp.azure.com:5000")
-          return false
-          else 
-          return true
-    },      
+    closeDotted(item) {
+      if (item == "Close") this.isOpendotted = false;
+    },
+    isMockServer(baseUrl) {
+      if (baseUrl == "http://tumblr4u.eastus.cloudapp.azure.com:5000")
+        return false;
+      else return true;
+    },
   },
   computed: {
-      postToBegin: {
+    postToBegin: {
       get() {
         return this.showBlogDrawer;
       },
       set(newVal) {
         return newVal;
       },
-      },
-     /**
+    },
+    /**
      * Function to get the home page color theme array from the store
      * @public This is a public method
      * @param {none}
@@ -360,19 +354,21 @@ export default {
     homeTheme: function () {
       return this.$store.state.homeTheme;
     },
-     /**
+    /**
      * Function to get the home page colortheme Index from the store
      * @public This is a public method
      * @param {none}
      */
     homeThemeIndex: function () {
       return this.$store.state.homeThemeIndex;
-    }
+    },
   },
   props: {
-     showBlogDrawer: Boolean,
+    showBlogDrawer: Boolean,
     tumblrsObj: Object,
+    myPosts: Array,
   },
+ 
       async created(){
          
          let myRoute=""
@@ -399,22 +395,23 @@ export default {
 
   }
   
+ 
 };
 </script>
 
 <style scoped>
-#cover{
+#cover {
   max-width: 100%;
-  height: 300px;  
+  height: 300px;
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover;
-   background-color: #464747;
+  background-color: #464747;
 }
 #profileImg {
   text-align: center;
   width: 110px;
- 
+
   margin: auto;
   padding: auto;
 }
@@ -426,25 +423,24 @@ export default {
   border-width: 5px;
   border-color: white;
 }
- 
+
 #avatarDiv {
   display: flex;
   flex-direction: column;
   text-align: center;
   position: relative;
   justify-content: center;
-  margin-top: 40px; 
+  margin-top: 40px;
 }
-#rightDiv{
+#rightDiv {
   display: flex;
   flex-direction: row;
 }
-#leftDiv{
+#leftDiv {
   display: flex;
   flex-direction: row;
-  
 }
-#searchList{
+#searchList {
   overflow-y: scroll;
   height: 140px;
 }
@@ -459,9 +455,8 @@ export default {
   width: max-content;
   border-radius: 5px;
 }
-#postsList{
+#postsList {
   margin-left: 10px;
- 
 }
 .menu-item-share .sub-menu-share {
   position: absolute;
@@ -487,8 +482,8 @@ export default {
 #spacer {
   width: 300px;
 }
-#nameDiv{
-display: inline-block;
+#nameDiv {
+  display: inline-block;
 }
 #icon {
   color: white;
@@ -501,18 +496,17 @@ display: inline-block;
   position: relative;
   display: flex;
 }
-#userName{
+#userName {
   position: relative;
-   text-align: center;
+  text-align: center;
   font-size: 50px;
-  color: 'black';
+  color: "black";
   font-weight: bold;
   margin: auto;
   padding: auto;
   margin-left: 200px;
-              
 }
- 
+
 #iconsDiv {
   display: flex;
   flex-direction: row;
@@ -522,7 +516,7 @@ display: inline-block;
   flex-shrink: 2;
   float: right;
   height: 200px;
-  
+
   justify-content: space-around;
 }
 ul {
@@ -552,7 +546,7 @@ li {
   padding: 10px 10px;
   border-radius: 8px;
   opacity: 0.3;
-  background-color:#d9ffcc ;
+  background-color: #d9ffcc;
   width: 150px;
   line-height: 1.5em;
   outline: none;
@@ -577,14 +571,14 @@ li {
   opacity: 0.7;
   color: white;
 }
- 
+
 #item {
   padding: 0px;
   margin: 0px;
   width: 100px;
 }
 #item:hover {
-  background:  grayscale(100%) brightness(51%);
+  background: grayscale(100%) brightness(51%);
   cursor: pointer;
 }
 
@@ -595,12 +589,9 @@ li {
   /* position: absolute; */
   /* right: 50%; */
 }
-.searchP{
-  
+.searchP {
   color: white;
   font-size: 20px;
   margin-left: 10px;
-                    
 }
- 
 </style>

@@ -1,0 +1,94 @@
+{
+    "meta": {
+        "status": 200,
+        "msg": "OK"
+    },
+    "res": {
+        "message": "LogIn Successfully (<:>)",
+        "data": {
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFobWVkLmF5bWFuLjE0MjBAZ21haWwuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE2NDA3MjI2NTl9.ZG5inF85JOgBQ9u_cU5rLL8bS_a0mUpXWB781PHVrec",
+            "user": {
+                "_id": "61c9d749b33bf76a71baed86",
+                "name": "CMP-2023",
+                "email": "ahmed.ayman.1420@gmail.com",
+                "password": "$2b$08$sIVzArWwg9S8ifimODqvL.Q2Y.p4QgbNxDaXMZwESXaylXgDK8Vyy",
+                "age": 21,
+                "blogsId": [
+                    "61c9e2100ea834c610490b64",
+                    "61c9e3a2b47e807b87e3db9d",
+                    "61c9e3cdb47e807b87e3dba2"
+                ],
+                "favoriteBlogs": [
+                    "61c9d6b82569f9abb33ebe04",
+                    "61c9e441b47e807b87e3dba9",
+                    "61c9e4c5b47e807b87e3dbbc",
+                    "61c9e611b47e807b87e3dbde"
+                ],
+                "followedTags": [
+                    "songs",
+                    "Geometry",
+                    "politics"
+                ],
+                "following_blogs": [
+                    "61ca263b7fe50404cb203057",
+                    "61ca26417fe50404cb2030b5",
+                    "61ca26467fe50404cb20310f",
+                    "61caf81ca8e220ef1dc81b15",
+                    "61c9e4c5b47e807b87e3dbbc",
+                    "61c9e2100ea834c610490b64"
+                ],
+                "likes_posts_id": [],
+                "role": "user",
+                "isDeleted": false,
+                "isVerified": true,
+                "isActivated": true,
+                "isBlocked": false,
+                "__v": 0,
+                "bodyColor": 1,
+                "country": "Australia",
+                "city": "Canberra"
+            },
+            "blog": {
+                "_id": "61c9d749b33bf76a71baed86",
+                "name": "CMP-2023",
+                "email": "ahmed.ayman.1420@gmail.com",
+                "password": "$2b$08$sIVzArWwg9S8ifimODqvL.Q2Y.p4QgbNxDaXMZwESXaylXgDK8Vyy",
+                "age": 21,
+                "blogsId": [
+                    "61c9e2100ea834c610490b64",
+                    "61c9e3a2b47e807b87e3db9d",
+                    "61c9e3cdb47e807b87e3dba2"
+                ],
+                "favoriteBlogs": [
+                    "61c9d6b82569f9abb33ebe04",
+                    "61c9e441b47e807b87e3dba9",
+                    "61c9e4c5b47e807b87e3dbbc",
+                    "61c9e611b47e807b87e3dbde"
+                ],
+                "followedTags": [
+                    "songs",
+                    "Geometry",
+                    "politics"
+                ],
+                "following_blogs": [
+                    "61ca263b7fe50404cb203057",
+                    "61ca26417fe50404cb2030b5",
+                    "61ca26467fe50404cb20310f",
+                    "61caf81ca8e220ef1dc81b15",
+                    "61c9e4c5b47e807b87e3dbbc",
+                    "61c9e2100ea834c610490b64"
+                ],
+                "likes_posts_id": [],
+                "role": "user",
+                "isDeleted": false,
+                "isVerified": true,
+                "isActivated": true,
+                "isBlocked": false,
+                "__v": 0,
+                "bodyColor": 1,
+                "country": "Australia",
+                "city": "Canberra"
+            }
+        }
+    }
+}

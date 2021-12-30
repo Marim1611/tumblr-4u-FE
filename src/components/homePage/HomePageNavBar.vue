@@ -57,12 +57,14 @@
             </router-link>
           
             <router-link to="" class="nav-item nav-link">
-                <NotificationList />
-             
+                <NotificationList  v-bind:close="this.openNotif"
+              v-on:closeThemFromNotif="controlNotif($event)"  />
+        
             </router-link>
          
             <router-link to="" class="nav-item nav-link">
-              <DropdownList   />
+              <DropdownList   v-bind:close="this.openAcc"
+              v-on:closeThemFromAcc="controlDdl($event)"  />
             </router-link>
           
             <router-link to="" class="nav-item nav-link">
@@ -111,7 +113,10 @@ export default {
     return {
       newPost: false,
       color: "red",
-      notificationOpen:false
+      notificationOpen:false,
+      openAcc:false,
+      openNotif:false,
+      openChat:false
      
     };
   },
@@ -120,7 +125,8 @@ export default {
     NewPost: NewPostItem,
     SearchBar: SearchBar,
     NotificationList:NotificationList,
-    ChatList:ChatList
+    ChatList:ChatList,
+
   },
   computed: {
     /**
@@ -144,6 +150,21 @@ export default {
   },
 
   methods:{
+    controlDdl( control){
+      this.openAcc=control;
+      this.openNotif=!control;
+      this.openChat=!control;
+      console.log("3lololoooooooooooooo")
+       console.log(this.openNotif)
+      
+
+
+    },
+    controlNotif(control){
+      this.openAcc=!control;
+      this.openNotif=control;
+      this.openChat=!control;
+    },
     newPostOpen(){
       this.newPost = true;
     },

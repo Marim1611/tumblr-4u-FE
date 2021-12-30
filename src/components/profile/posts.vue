@@ -37,6 +37,7 @@ import axios from "axios";
 export default {
   name: "posts",
   async created() {
+ 
     console.log("%%%%%%$$$$------------$$$$$$$%%%%%%%%%%%%$$$$$$$$$$%");
     console.log(this.blogid);
     let myRoute = "";
@@ -56,6 +57,7 @@ export default {
           this.posts = res.data.postsToShow;
           this.recentlyPost = this.posts[0];
         });
+ 
     } catch (e) {
       console.error(e);
     }
@@ -111,4 +113,5 @@ export default {
 .PostsMargin {
   margin-top: 50px;
 }
+ 
 </style>

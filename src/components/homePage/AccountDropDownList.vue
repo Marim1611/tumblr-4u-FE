@@ -55,7 +55,7 @@
         </div>
         <div>
             <li>
-                <div id='item'  v-on:click="openKeyDrawer=!openKeyDrawer" >
+                <div id='item'  v-on:click="toggleKeyDrawer" >
                   <li >
                    <b-icon id="iconList"  icon="grip-horizontal" font-scale="1.5" aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor, 'display': 'inline-block'}"></b-icon>
                  <p v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor , 'font-family':homeTheme[homeThemeIndex].fontStyle, 'display': 'inline-block', 'margin':'auto 3px' }">key-shortcuts </p>
@@ -84,8 +84,13 @@
 </router-link>
         </li>
          <!-- blogs -->
-         
-          <div v-for="(blog, i) in blogs" :key="'A'+ i" class="menu-item">
+         <div v-if="isLoading">
+         <loader  object="#ff9633" color1="#ffffff" color2="#17fd3d" size="5" speed="2" bg="#343a40" objectbg="#999793" opacity="80" name="dots"></loader>
+
+         </div>
+
+         <div v-else>
+             <div v-for="(blog, i) in blogs" :key="'A'+ i" class="menu-item">
                   <li >
                      <tbody>
                     <tr>
@@ -110,7 +115,7 @@
  </td>
 
 
- <td>
+ <td id="acc">
        <b-icon id="iconList" v-on:click="openBlogFeatures[i] = !openBlogFeatures[i]"  icon="person-lines-fill" font-scale="1" aria-hidden="true" :style="{'color': homeTheme[homeThemeIndex].fontColor, 'display': 'inline-block'}"></b-icon>
 
  </td>
@@ -128,13 +133,17 @@
         </tbody>
             </li>
         </div>
+         </div>
+        
     
       </div>
 
         </div>
       
     </transition>
-    <KeyScDrawer v-if="openKeyDrawer"/>
+    <KeyScDrawer v-if="openKeyDrawer"
+     v-on:hideDrawer="hideKeyDrawer($event)" 
+     v-bind:showMe="openKeyDrawer"/>
     <LogoutDialog  v-show="openLogout"  v-on:hideMe="hideLogoutDialog($event)"/>
   </div>
 </template>
@@ -145,6 +154,9 @@ import KeyScDrawer from "./KeyboardShortcutsDrawer.vue"
 import LogoutDialog from "../general/LogoutDialog.vue"
 import Browser from "../../mocks/browser";
 import axios from "axios";
+import Vue from 'vue';
+import loader from "vue-ui-preloader";
+Vue.use(loader);
 //import BlogFeatures from '../blog/CreatedBlogPage.vue' 
 
 /**
@@ -161,12 +173,23 @@ export default {
   },
   props: {
     title: String,
-    blogsIds:Array
+   // blogsIds:Array,
+    close:Boolean
 
   },
   methods:
   {
+    closeThemFromAcc(){
+      console.log("1lololoooooooooooooo")
+ this.$emit("closeThemFromAcc", this.isOpen);
+  },
     openFeature(i, feature){
+      console.log("_------------------------------------------------------------------------------------")
+      console.log(i)
+       console.log(feature)
+        console.log(this.blogsId[i])
+
+
       //posts 0
       if( feature == 0)
       this.$router.push({ name: 'CreatedBlogPage', params: { indxFlag: feature, noPostsFlag:false 
@@ -178,6 +201,16 @@ export default {
       this.$router.push({ name: 'CreatedBlogPage', params: { indxFlag: feature, noPostsFlag:false 
               , blogId:this.blogs[i].id} });
 
+
+    },
+     toggleKeyDrawer()
+    {
+       this.openKeyDrawer=true
+    },
+    hideKeyDrawer(hide)
+    {
+    
+       this.openKeyDrawer=hide
 
     },
       hideLogoutDialog (hide) {
@@ -208,13 +241,10 @@ export default {
           return true
     },
   async openAccDdl(){
-      this.isOpen=!this.isOpen
-            console.log("DDL")   
-        console.log("FINAL blooooooooooooooooog")   
- console.log(this.blogsId)
-     console.log(this.blogsId.length)
+     this.isOpen=!this.isOpen
+     this.closeThemFromAcc()
        this.myBlogsId=this.blogsId
-       console.log(this.myBlogsId)  
+     //  this.isLoading=true;
        for (let i =0; i < this.myBlogsId.length; i++)
      {
         let myRoute=""
@@ -222,7 +252,7 @@ export default {
          myRoute= Browser().baseURL+'/blog'
          else
         myRoute= Browser().baseURL+`/blog/view/${this.myBlogsId[i]}`
-        console.log(myRoute)
+      
        try {
          await axios.get(myRoute,
           { headers: { 'Authorization':`Bearer ${localStorage.getItem('token')}` } })
@@ -241,14 +271,14 @@ export default {
     }
 
      }
- console.log("_____________________--------________blogs")
-        console.log(this.blogs)
-     
+ 
+      this.isLoading=false;
     }
     
     },
   data: function () {
     return {
+      isLoading:false,
       openLogout:false,
       isOpen: false,
        openKeyDrawer:false,
@@ -321,6 +351,9 @@ export default {
 #divider{
   width: 100%;
   height: 1px;
+}
+#acc{
+  float: right;
 }
 nav .menu-item .sub-menu {
   position: absolute;

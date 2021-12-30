@@ -1,5 +1,5 @@
 <template>
-  <div class="menu-item" id="dropDown" v-on:click="isOpen = !isOpen">
+  <div class="menu-item" id="dropDown" v-on:click="openNoti">
          <b-icon
                 id="icon"
                 icon="lightning-fill"
@@ -126,6 +126,17 @@ export default {
   },
   methods:
   {
+    openNoti(){
+      console.log("7araaaaaaaaaaaaaaaaaaam")
+  this.isOpen = !this.isOpen
+  console.log(this.isOpen)
+  this.closeThemFromNotif()
+
+    },
+     closeThemFromNotif(){
+       console.log("7araaaaaaaaaaaaaaaaaaam2")
+ this.$emit("closeThemFromNotif", this.isOpen);
+  },
       openItem(i){
           for(let j=0; j< 4;j++)
           {
@@ -181,6 +192,9 @@ export default {
             return this.$store.state.homeThemeIndex;
         },
   },
+  props:{
+     close:Boolean, 
+  }
    
   
 }

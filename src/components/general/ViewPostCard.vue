@@ -6,7 +6,7 @@
         <div class="header">
           <img class="profile" src="https://64.media.tumblr.com/54a1c708b6e6f778e6d6a62122b87264/dd15ee49758e1917-0f/s64x64u_c1/591674a52eaa19af57c763479bdbddcfa2219db8.jpg" alt="">
           <div class="name-follow">
-            <a href="" class="name" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}">{{post.blogId}} </a>
+            <a href="" class="name" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}">{{this.postName}} </a>
             <a href="" v-on:click.prevent="followUnfollow" v-show="!follow" v-bind:style="{'color': homeTheme[homeThemeIndex].focused}">Follow</a>
           </div>
 
@@ -17,11 +17,12 @@
             <!--drop down menu of options-->
             <div v-show="showDropDown" class="dropdown-content">
               <a href="#">Posted - ....,..:...M</a>
-              <button v-clipboard:copy="post.URL" v-on:click="copy">{{copyText}}</button>
+              <button v-clipboard:copy="" v-on:click="copy">{{copyText}}</button>
               <button v-on:click="followUnfollow" v-show="follow">Unfollow</button>
               <button v-on:click="notForMe">This particular post isn't for me</button>
               <button class="red">Report</button>
               <button class="red">Block</button>
+
               <button v-on:click="closeDropDown" class="closeButton">Close</button>
             </div>
           </div>
@@ -33,15 +34,15 @@
         </div>
 
         <!--footer of card-->
-        <div class="footer-flex">
-          <div class="notes" v-on:click="commentShow" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"> {{ post.notes_cnt }} notes</div> <!--onClick:300x510-->
+        <div class="footer-flex dropdown">
+          <div class="notes" v-on:click="commentShow" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"> {{ this.notesCount }} notes</div> <!--onClick:300x510-->
           <!--comment dropdown menu-->
           <div class="v-flex comment-window" v-show="comment" v-bind:style="{'background': homeTheme[homeThemeIndex].cardColor}">
             
             <!--header of comment window-->
               <div class="h-flex border-bottom">
                 <b-icon class="clickable" v-on:click="noComment" icon="arrow-left" font-scale="2" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}" ></b-icon>
-                <p class="grow" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}">{{ post.notes_cnt }} notes</p>
+                <p class="grow" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}">{{ this.notesCount }} notes</p>
                 <div class="no-padding" v-show="hash">
                 <b-icon class="clickable" v-on:click="subscribeConversation" v-show="!subscribe" icon="lightning" font-scale="2" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}" ></b-icon>
                 <b-icon class="clickable" v-on:click="subscribeConversation" v-show="subscribe" icon="lightning-fill" font-scale="2" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}" ></b-icon>
@@ -53,16 +54,16 @@
               <div class="h-flex no-padding">
                 <img v-for="i in 8" :key="i" class="img-reactions" src="https://64.media.tumblr.com/51b7d5e9cfaa579ec94a17e618d96a1a/95b6dc889657dcc9-3c/s64x64u_c1/283ac5792129caa8fa116b4560861ff3431d7e3c.pnj">
               </div> 
-              {{post.likes_cnt}} likes and {{post.reblogs_cnt}} reblogs
+              {{this.likesCount}} likes and {{this.reblogsCount}} reblogs
             </div>
             <!--body (comments)(of others)-->
             <div class="border-bottom grow v-flex comments">
-              <div id="comments" class="no padding" v-for="(comment, i) in post.comments" :key="i">
+              <div id="comments" class="no padding" v-for="(comment, i) in commentsComputed" :key="i">
                 <div class="h-flex">
-                  <img class="imgComment" v-bind:src="comment.avatar">
+                  <img class="imgComment" > <!--v-bind:src="comment">-->
                   <div class="borderComment" v-bind:style="{'border-color':homeTheme[homeThemeIndex].fontColor}">
-                    <h6 v-bind:style="{color:homeTheme[homeThemeIndex].fontColor}">{{comment.name}}</h6>
-                    <span v-bind:style="{color:homeTheme[homeThemeIndex].fontColor}">{{comment.content}}</span>
+                    <h6 v-bind:style="{color:homeTheme[homeThemeIndex].fontColor}">{{commentNames[i]}}</h6>
+                    <span v-bind:style="{color:homeTheme[homeThemeIndex].fontColor}">{{comment.text}}</span>
                   </div>
                   <div class="grow right clickable">
                   <b-icon icon="three-dots" font-scale="1.5" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}"/>
@@ -72,29 +73,19 @@
             </div>
             <!--input comment-->
             <div class="h-flex">
-              <input class="grow " placeholder="Have something to say?" type="text">
-              <button>Reply</button>
+              <input v-model="inputComment" id="inputComment" class="grow" placeholder="Have something to say?" type="text">
+              <button v-on:click="commenting">Reply</button>
             </div>
           </div>
 
           <!--the rest of card footer icons-->
-          <div>
+          <div class="dropdown">
           <b-icon class="options" v-on:click="shareShow"  icon="reply" font-scale="2" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}" ></b-icon> 
           </div>
-          <div>
-            <b-icon class="options" v-on:click="commentShow"  icon="chat" font-scale="2" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}" ></b-icon> 
-          </div>
-          <div>
-            <b-icon class="options" v-on:click="postOption"  icon="arrow-left-right" font-scale="2" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}" ></b-icon> 
-          </div>
-          <div v-show="!heartFilled" v-on:click="like">
-            <b-icon class="options" icon="heart" font-scale="2" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}" ></b-icon> 
-          </div>
-          <div v-show="heartFilled"  v-on:click="unLike">
-            <b-icon class="options" icon="heart-fill" font-scale="2" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}" ></b-icon> 
-          </div>
-        </div>
-        <!--340x303.8 the share-->
+
+
+
+<!--340x303.8 the share-->
         <!--share dropdown menu-->
         <div class="v-flex share-window" v-show="share" v-bind:style="{'background': homeTheme[homeThemeIndex].cardColor}">
           <!--share header (searching for people to share(?))-->
@@ -108,7 +99,7 @@
           </div>
           <!--other sharing options(to out of tumblr like: facebook, twitter...etc)-->
           <div class="out-share h-flex">
-            <div v-clipboard:copy="post.URL" v-on:click="copyShare" class="share-item clickable">
+            <div v-clipboard:copy="" v-on:click="copyShare" class="share-item clickable">
               <b-icon class="img-icon" icon="files" font-scale="2" aria-hidden="true" ></b-icon> 
               <p v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}">{{shareCopy}}</p>
             </div>
@@ -140,32 +131,203 @@
           </div>       
         </div>
 
+
+
+
+          <div>
+            <b-icon class="options" v-on:click="commentShow"  icon="chat" font-scale="2" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}" ></b-icon> 
+          </div>
+          <div>
+            <b-icon class="options" v-on:click="reblogWind(true)"  icon="arrow-left-right" font-scale="2" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}" ></b-icon> 
+          </div>
+
+          <ReblogWindow v-on:reblogWind="reblogWind($event)" v-show="reblog" v-bind:postName="postName" v-bind:name="this.name" v-bind:post="post" />
+
+
+          <div v-show="!heartFilled" v-on:click="like(post)">
+            <b-icon class="options" icon="heart" font-scale="2" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}" ></b-icon> 
+          </div>
+          <div v-show="heartFilled"  v-on:click="unlike(post)">
+            <b-icon class="options" icon="heart-fill" font-scale="2" aria-hidden="true" v-bind:style="{'color': homeTheme[homeThemeIndex].fontColor}" ></b-icon> 
+          </div>
+        </div>
+       
+
           
 
       </div>
     </div>
 </template>
 <script>
+import ReblogWindow from "./ReblogWindow.vue";
+import Browser from "../../mocks/browser";
+import axios from "axios";
+
+
 /** 
  *  Post Card in the home page
  * @example [none]
  */
 export default {
+  components:{
+    ReblogWindow:ReblogWindow
+  },
   data() {
-      return{
-          showDropDown: false,
-          heartFilled: false,
-          follow:false,
-          forMe:true,
-          comment: false,
-          subscribe:false,
-          share:false,
-          hash:true,
-          copyText: "Copy link",
-          shareCopy:"Copylink"
+    return{
+      showDropDown: false,
+      heartFilled: false,
+      follow:false,
+      forMe:true,
+      comment: false,
+      subscribe:false,
+      share:false,
+      hash:true,
+      copyText: "Copy link",
+      shareCopy:"Copylink",
+      reblog: false,
+      notes:[],
+      notesCount: '',
+      blogIdsNotes:[],
+      likesCount: '',
+      reblogsCount: '',
+      postName:"",
+      name:"",
+      inputComment:"",
+      commentNames:[]  
       }
   },
+  
+ async created() {
+    
+  
+    ///1-get notes
+ 
+    try {
+      let myRoute=""
+      if (this.isMockServer(Browser().baseURL))
+        myRoute=Browser().baseURL+'/notes'
+      else
+        myRoute=Browser().baseURL+`/${this.post.notesId}/notes`
+      await axios.get(myRoute, {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        })
+        .then((res) => {
+          this.notes = res.data.res.notes;
+          console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+          console.log( res.data.res.notesCount)
+          this.notesCount= res.data.res.notesCount,
+          this.likesCount= res.data.res.likesCount,
+          this.reblogsCount= res.data.res.reblogsCount,
+          console.log(res.data.res.message)
+        });
+    } catch (e) {
+      console.log("error in notes");
+      console.error(e);
+    }
+
+    //
+    
+  
+
+ 
+    try {
+      let myRoute2=""
+      if (this.isMockServer(Browser().baseURL))
+        myRoute2=Browser().baseURL+'/blog'
+      else
+        myRoute2=Browser().baseURL+`/blog/view/${this.post.blogId}`
+      await axios.get(myRoute2, {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        })
+        .then((res) => {
+          console.log("*****************")
+         
+          this.postName = res.data.res.data.name;
+           console.log("name worked probably");
+            console.log(  this.postName)
+        });
+    } catch (e) {
+      console.log("error in blog");
+      console.error(e);
+    }
+  },
   methods:{
+
+     async commenting() {
+       document.getElementById('inputComment').value = '';
+      try {
+        let myRoute=""
+      if (this.isMockServer(Browser().baseURL))
+        myRoute=Browser().baseURL+'/comment'
+      else
+        myRoute=Browser().baseURL+`/${this.getPrimaryBlogId}/${this.post._id}/comment`
+        await axios
+          .post(myRoute, {
+             text: this.inputComment
+          })
+          .then((res) => {
+            console.log(res.data);
+          });
+      } catch (e) {
+        console.log("^^^^^^^^^^^^^^^^^^");
+        console.error(e);
+      }
+    },
+
+
+
+    
+
+
+
+     async like(post) {
+    try {
+      console.log("LIKEEEEEE")
+      
+      let myRoute=""
+      if (this.isMockServer(Browser().baseURL))
+        myRoute=Browser().baseURL+'/like_press'
+      else
+        myRoute=Browser().baseURL+`/${this.getPrimaryBlogId}/${post._id}/like_press`
+      await axios.put(myRoute, {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        })
+         
+    } catch (e) {
+      console.log("error in like_press");
+      console.error(e);
+    }
+     this.heartFilled = !this.heartFilled;
+  }
+  ,
+     async unlike(post) {
+    try {
+      
+      let myRoute=""
+      if (this.isMockServer(Browser().baseURL))
+        myRoute=Browser().baseURL+'/like_press'
+      else
+        myRoute=Browser().baseURL+`/${this.getPrimaryBlogId}/${post._id}/like_press`
+      await axios.put(myRoute, {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        })
+         
+         
+         
+   
+    } catch (e) {
+      console.log("error in like_press");
+      console.error(e);
+    }
+     this.heartFilled = !this.heartFilled;
+  },
+
+    isMockServer:function(baseURL){
+      if(baseURL == "http://localhost:3000")
+        return true;
+      else
+        return false;
+    },
    /** Function that shows a drop down list of clickable options in the post when clicking on the 3-points icon in the post
     * @public This is a public method
     * @param {none}
@@ -178,17 +340,38 @@ export default {
     * @public This is a public method
     * @param {none}
     */
+   
+   async reblogWind(x) {
+     this.reblog = x;
+    try {
+      let myRoute=""
+      if (this.isMockServer(Browser().baseURL))
+        myRoute=Browser().baseURL+'/blog'
+      else
+        myRoute=Browser().baseURL+`/blog/view/${this.getPrimaryBlogId}`
+      await axios.get(myRoute, {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        })
+        .then((res) => {
+          this.name = res.data.res.data.name;
+        });
+    } catch (e) {
+      console.log("error in blog");
+      console.error(e);
+    }
+  },
+
+
+
+
+
    closeDropDown:function(){
      this.showDropDown = false;
    },
-   like:function(){
+   /*like:function(){
      this.heartFilled = !this.heartFilled;
-     this.post.notes_cnt +=1;
-   },
-   unLike:function(){
-     this.heartFilled = !this.heartFilled;
-     this.post.notes_cnt -=1;
-   },
+   },*/
+   
    copy:function(){
      //time in milliseconds
      setTimeout(this.copyText= "Link copied!",1500); //waiting after
@@ -204,10 +387,40 @@ export default {
    notForMe:function(){
      this.forMe= false;
    },
-   commentShow:function(){
+   async commentShow(){
      this.comment = !this.comment;
-     
+     document.getElementById('inputComment').value = "";
      this.hash=true;
+
+
+      console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+     console.log(this.commentsComputed)
+     // getcomments
+     for(let i=0; i<this.commentsComputed.length; i++)
+     {
+       try {
+      let myRoute=""
+      if (this.isMockServer(Browser().baseURL))
+        myRoute=Browser().baseURL+'/blog'
+      else
+        myRoute=Browser().baseURL+`/blog/view/${this.commentsComputed[i].blogId}`
+      await axios.get(myRoute, {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        })
+        .then((res) => {
+          console.log(  res.data.res.data.name)
+          this.commentNames.push(
+             res.data.res.data.name
+          ) 
+         
+        //  console.log(this.commentNames)
+           console.log("name worked probably");
+        });
+    } catch (e) {
+      console.log("error in blog");
+      console.error(e);
+    }
+     }
    },
    shareShow:function(){
      this.share = !this.share;
@@ -218,27 +431,66 @@ export default {
    },
    noComment:function(){
      this.comment=false;
-     
+     document.getElementById('inputComment').value = '';
      this.hash=true;
    },
    hashtag:function(){
      this.hash = false;
+   },
+   checkReblog: function(note){
+     if(note.noteType === "reblog" && !note.isDeleted)
+      return note;
+   },
+   checkLikes: function(note){
+     if(note.noteType === "like" && !note.isDeleted)
+      return note;
+   },
+   checkComment: function(note){
+            
+     if(note.noteType === "comment" && !note.isDeleted )
+     {
+      return note;
+     }
    }
   },
   props:{
       post:Object,
-      maxWidth:String
+      maxWidth:String,
   },
    computed: {
+      getPrimaryBlogId: function(){
+          return this.$store.state.user.primaryBlogId;
+        },
         homeTheme: function(){
             return this.$store.state.homeTheme;
         },
         homeThemeIndex: function(){
             return this.$store.state.homeThemeIndex;
         },
-        
+        reblogsComputed: function(){
+          return this.notes.filter(this.checkReblog);
+        },
+        commentsComputed: function(){
+          console.log("comments computed");
+          return this.notes.filter(this.checkComment);
+          
+        } ,
+        likesComputed: function(){
+          return this.notes.filter(this.checkLikes);
+        }  
   },
-  
+  // created(){
+  //     this.reblogs = this.reblogsComputed;
+  //     this.likes = this.likesComputed;
+  //     this.comments = this.commentsComputed;
+  // // },
+  // watch: {
+  //   computedData(){
+  //     this.reblogs = this.reblogsComputed;
+  //     this.likes = this.likesComputed;
+  //     this.comments = this.commentsComputed;
+  //   }
+  // }
 }
 </script>
 
@@ -330,7 +582,7 @@ export default {
 .comment-window{
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.9);  width: 300px;
   height: 510px;
-  left: 390px;
+  left: 50px;
   border-radius: 3px;
   z-index: 1;
   text-align: center;
@@ -338,12 +590,14 @@ export default {
   background: #ffffff;
   position: absolute;
   display: block;
+
 }
 .share-window{
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.9);
   width: 340px;
   height: 303.8px;
-  left: 500px;
+  left: 50px;
+  top: -300px;
   border-radius: 3px;
   padding:10px;
   background: #ffffff;

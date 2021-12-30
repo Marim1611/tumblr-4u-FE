@@ -245,13 +245,7 @@ export default {
             dashBoardPosts: this.postsInSearch,
           },
         });
-      } else this.$router.push({
-         name: "explore",
-          params: {
-            isOut:true
-             
-          },
-         });
+      } 
 
       // this.$router.push({ path: '/search', searchWord: this.inputValue });
     },
