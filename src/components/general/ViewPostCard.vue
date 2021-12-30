@@ -260,7 +260,7 @@ export default {
       if (this.isMockServer(Browser().baseURL))
         myRoute=Browser().baseURL+'/comment'
       else
-        myRoute=Browser().baseURL+`/${this.getPrimaryBlogId}/${this.post._Id}/comment`
+        myRoute=Browser().baseURL+`/${this.getPrimaryBlogId}/${this.post._id}/comment`
         await axios
           .post(myRoute, {
              text: this.inputComment

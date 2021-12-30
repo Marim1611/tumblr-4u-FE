@@ -1,8 +1,7 @@
 <template>
 	<div id="popup" >
 		<div class="popup-inner">
-			<slot />
-		    <div id = 'parentDivDialog'>
+			<slot />	    <div id = 'parentDivDialog'>
             <img id="profile" src="https://64.media.tumblr.com/54a1c708b6e6f778e6d6a62122b87264/dd15ee49758e1917-0f/s64x64u_c1/591674a52eaa19af57c763479bdbddcfa2219db8.jpg" alt="">
             <div class="container" v-bind:style="{'background': homeTheme[homeThemeIndex].cardColor }" >
                 
@@ -104,13 +103,13 @@ methods:{
 
 async reblogging() {
       document.getElementById('reblogIn').value = '';
-      console.log(reblogIn);
+   //   console.log(reblogIn);
 try {
         let myRoute=""
       if (this.isMockServer(Browser().baseURL))
         myRoute=Browser().baseURL+'/reblog_post'
       else
-        myRoute=Browser().baseURL+`/${this.getPrimaryBlogId}/${this.post._Id}/reblog_post`
+        myRoute=Browser().baseURL+`/${this.getPrimaryBlogId}/${this.post._id}/reblog_post`
         await axios
           .post(myRoute, {
              text: this.reblogIn

@@ -78,7 +78,7 @@
         <!-- auto complete "tags"  -->
          
         
-          <div v-else-if="inputValue" v-show="isClicked" class="dropdown-list">
+          <div v-if="inputValue" v-show="isClicked" class="dropdown-list">
           <div>
             <p v-bind:style="{ 'font-size': '18px', margin: '10px' }">
               Go to #{{ this.inputValue }}
@@ -88,7 +88,7 @@
             v-show="itemVisible(item)"
             v-on:click="searchMeTag(item)"
             v-for="item in tags"
-            v-bind:key="item"
+            v-bind:key="item.id"
             class="dropdown-item"
           >
             <b-icon
@@ -115,7 +115,7 @@
             v-on:click="openDrawer(item.name, item.title,item.img, item.coverImg,item._id)"
             v-show="itemVisible(item.name)"
             v-for="item in usersInSearch"
-            v-bind:key="item.name"
+            v-bind:key="item.id"
             class="dropdown-item"
           >
             <!-- <img :src="item.img" class="dropdown-item-flag" /> -->

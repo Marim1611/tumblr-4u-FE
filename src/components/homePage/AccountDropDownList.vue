@@ -184,6 +184,12 @@ export default {
  this.$emit("closeThemFromAcc", this.isOpen);
   },
     openFeature(i, feature){
+      console.log("_------------------------------------------------------------------------------------")
+      console.log(i)
+       console.log(feature)
+        console.log(this.blogsId[i])
+
+
       //posts 0
       if( feature == 0)
       this.$router.push({ name: 'CreatedBlogPage', params: { indxFlag: feature, noPostsFlag:false 
@@ -238,7 +244,7 @@ export default {
      this.isOpen=!this.isOpen
      this.closeThemFromAcc()
        this.myBlogsId=this.blogsId
-       this.isLoading=true;
+     //  this.isLoading=true;
        for (let i =0; i < this.myBlogsId.length; i++)
      {
         let myRoute=""
