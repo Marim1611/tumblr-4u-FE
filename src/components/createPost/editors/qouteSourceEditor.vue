@@ -89,10 +89,6 @@ import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
 import Paragraph from "@tiptap/extension-paragraph";
 
-/**
- *  Create rich text editor
- * @example [none]
- */
 export default {
   components: {
     EditorContent,
@@ -123,19 +119,11 @@ export default {
           },
         }),
       ],
-      /**
-       * Function to make sure that the editor empty when creating it
-       * @public This is a public method
-       * @param {none}
-       */
+    
       onCreate() {
         this.editor = null;
       },
-      /**
-       * Function to know whenever something is written inside the editor (it removes any edited effects on the new text --> bold/italic..) and sends the content of this editor whether its empty or not to the create posts' components
-       * @public This is a public method
-       * @param {Editor} editor
-       */
+      
       onUpdate: ({ editor }) => {
         if (editor.getText() == "") {
           if (this.headingChosen == true) {
@@ -164,29 +152,17 @@ export default {
     });
   },
   methods: {
-    /**
-     * Function to make the selected text bold, and toggle its variable to be used in update method
-     * @public This is a public method
-     * @param {none}
-     */
+ 
     boldButton() {
       this.boldChosen = !this.boldChosen;
       this.editor.chain().focus().toggleBold().run();
     },
-    /**
-     * Function to make the selected text italic, and toggle its variable to be used in update method
-     * @public This is a public method
-     * @param {none}
-     */
+    
     italicButton() {
       this.italicChosen = !this.italicChosen;
       this.editor.chain().focus().toggleItalic().run();
     },
-    /**
-     * Function to make the selected text be headline, and toggle its variable to be used in update method, also makes sure that if the ordered or unordered list was chosen then will disable their effect
-     * @public This is a public method
-     * @param {none}
-     */
+    
     headlineButton() {
       if (this.orderedListChosen == true) {
         this.orderedListChosen = !this.orderedListChosen;
@@ -201,40 +177,24 @@ export default {
       this.headingChosen = !this.headingChosen;
       this.editor.chain().focus().toggleHeading({ level: 3 }).run();
     },
-    /**
-     * Function to make the selected text striked
-     * @public This is a public method
-     * @param {none}
-     */
+   
     strikedButton() {
       this.strikeChosen = !this.strikeChosen;
       this.editor.chain().focus().toggleStrike().run();
     },
-    /**
-     * Function to make the selected text be ordered list, and toggle its variable also make the value of unordered list variable be false
-     * @public This is a public method
-     * @param {none}
-     */
+  
     orderedListButton() {
       this.orderedListChosen = !this.orderedListChosen;
       this.unorderedListChosen = false;
       this.editor.chain().focus().toggleOrderedList().run();
     },
-    /**
-     * Function to make the selected text be unordered list, and toggle its variable also make the value of ordered list variable be false
-     * @public This is a public method
-     * @param {none}
-     */
+   
     unorderedListButton() {
       this.unorderedListChosen = !this.unorderedListChosen;
       this.orderedListChosen = false;
       this.editor.chain().focus().toggleBulletList().run();
     },
-    /**
-     * Function to make the selected text has block quote, and toggle its variable
-     * @public This is a public method
-     * @param {none}
-     */
+   
     blockQuoteButton() {
       this.blockQuoteChosen = !this.blockQuoteChosen;
       this.editor.chain().focus().toggleBlockquote().run();

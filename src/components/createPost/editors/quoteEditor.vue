@@ -10,7 +10,10 @@ import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
 import Heading from "@tiptap/extension-heading";
 import Paragraph from "@tiptap/extension-paragraph";
-
+/**
+ *  Create rich text editor for the quote part
+ * @example [none]
+ */
 export default {
   components: {
     EditorContent,
@@ -40,9 +43,20 @@ export default {
         }),
       ],
 
+      /**
+       * Function to make sure that the editor empty when creating it
+       * @public This is a public method
+       * @param {none}
+       */
       onCreate() {
         this.editor = null;
       },
+
+      /**
+       * Function to know whenever something is written inside the editor (it removes any edited effects on the new text --> bold/italic..) and sends the content of this editor whether its empty or not to the create posts' components
+       * @public This is a public method
+       * @param {Editor} editor
+       */
 
       onUpdate: ({ editor }) => {
         try {

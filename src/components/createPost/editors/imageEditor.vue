@@ -32,6 +32,10 @@ import { Editor, EditorContent, EditorMenuBar } from "tiptap";
 import { Image } from "tiptap-extensions";
 import Modal from "./imageModal.vue";
 
+/**
+ *  Uploading images editor
+ * @example [none]
+ */
 export default {
   name: "editor",
   components: {
@@ -72,6 +76,11 @@ export default {
     this.editor.destroy();
   },
   methods: {
+    /**
+     * Function to open the modal of uploading images
+     * @public This is a public method
+     * @param {none}
+     */
     openModal(command) {
       this.$refs.ytmodal.showModal(command);
     },

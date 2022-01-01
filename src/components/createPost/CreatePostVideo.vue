@@ -102,7 +102,7 @@ import axios from "axios";
 import CreatePostTextEditor from "./editors/imageContentEditor.vue";
 
 /**
- *  Uploading, dragging/dropping videos file
+ *  create post for video part
  * @example [none]
  */
 export default {
@@ -120,7 +120,7 @@ export default {
       srcs: [],
       urlChosen: false,
       videoSrc: [],
-      
+
       showVideo: false,
       showEditor: false,
       showInsert: false,
@@ -128,16 +128,24 @@ export default {
   },
 
   methods: {
+    /**
+     * Function to recieve the caption written inside the post from the text editor file
+     * @public This is a public method
+     * @param {Boolean} content --> boolean sent from the create post section when clicking on text post to start uploading one
+     */
     onPostCaption(content) {
       this.postCaption = content;
       if (content === "" || content === null) {
-     
         this.showEditor = false;
       } else this.showEditor = true;
       console.log(content);
     },
-    
 
+    /**
+     * Function to close the video upload section for create post
+     * @public This is a public method
+     * @param {none}
+     */
     closeTextBox() {
       this.$emit("closeVideoBox", false);
       this.postCaption = null;
@@ -147,6 +155,11 @@ export default {
       this.showInsert = false;
     },
 
+    /**
+     * Function to enable uploading videos
+     * @public This is a public method
+     * @param {none}
+     */
     uploadVideo() {
       this.showEditor = false;
       this.showVideo = false;
@@ -168,7 +181,6 @@ export default {
         let reader = new FileReader();
         reader.onload = (e) => {
           this.srcs.push(e.target.result);
-       
         };
         reader.readAsDataURL(file[0]);
 
@@ -210,6 +222,13 @@ export default {
         return false;
       else return true;
     },
+
+    /**
+     * Function to send the src of the video chosen to the server and gets a url instead
+     * @public This is a public method
+     * @param {none}
+     */
+
     async uploadVideoDone() {
       this.videoSrc.push(this.srcs[0]);
 
@@ -233,22 +252,20 @@ export default {
             }
           )
           .then((res) => {
-        
-
             this.videoUrl = res.data.images;
             this.showVideo = true;
             this.postTitle = this.videoURL;
             this.showEditor = true;
-
-             
           });
       } catch (e) {
-      
         console.error(e);
       }
-
-     
     },
+    /**
+     * Function to publish the post and save its content
+     * @public This is a public method
+     * @param {none}
+     */
 
     async postDone() {
       console.log(this.postCaption);
@@ -292,6 +309,11 @@ export default {
   },
 
   computed: {
+    /**
+     * Function to get id of the blog from the store
+     * @public This is a public method
+     * @param {none}
+     */
     blogId: function () {
       return this.$store.state.user.primaryBlogId;
     },

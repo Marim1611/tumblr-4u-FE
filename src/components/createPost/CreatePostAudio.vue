@@ -78,7 +78,7 @@ import Browser from "../../mocks/browser";
 import axios from "axios";
 
 /**
- *  Uploading, dragging/dropping audios file
+ * create post for audio part
  * @example [none]
  */
 export default {
@@ -146,6 +146,11 @@ export default {
 
       // this.tryme()
     },
+    /**
+     * Function to send the src of the audio chosen to the server and gets a url instead
+     * @public This is a public method
+     * @param {none}
+     */
 
     async uploadAudioDone() {
       this.audioSrc.push(this.srcs[0]);
@@ -186,6 +191,11 @@ export default {
       // console.log(this.postTitle);
     },
 
+    /**
+     * Function to recieve the caption written inside the post from the text editor file
+     * @public This is a public method
+     * @param {Boolean} content --> boolean sent from the create post section when clicking on text post to start uploading one
+     */
     onTextClick(content) {
       this.postContent = content;
       if (content === "" || content === null) {
@@ -194,7 +204,11 @@ export default {
 
       console.log(content);
     },
-
+    /**
+     * Function to enable uploading audio
+     * @public This is a public method
+     * @param {none}
+     */
     uploadAudio() {
       this.showEditor = false;
       this.showAudio = false;
@@ -207,6 +221,11 @@ export default {
       else return true;
     },
 
+    /**
+     * Function to publish the post and save its content
+     * @public This is a public method
+     * @param {none}
+     */
     async postDone() {
       let myRoute = "";
       if (this.isMockServer(Browser().baseURL))
@@ -247,6 +266,11 @@ export default {
   },
 
   computed: {
+    /**
+     * Function to get id of the blog from the store
+     * @public This is a public method
+     * @param {none}
+     */
     blogId: function () {
       return this.$store.state.user.primaryBlogId;
     },

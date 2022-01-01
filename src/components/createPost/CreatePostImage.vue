@@ -34,7 +34,7 @@ import axios from "axios";
 import Browser from "../../mocks/browser";
 
 /**
- *  Create post for text
+ *  Create post for image
  * @example [none]
  */
 export default {
@@ -48,7 +48,6 @@ export default {
   components: {
     CreatePostTextEditor,
     imageEditor,
-    
   },
   data() {
     return {
@@ -63,7 +62,7 @@ export default {
   },
   methods: {
     /**
-     * Function to close the text upload section for create post
+     * Function to close the image upload section for create post
      * @public This is a public method
      * @param {none}
      */
@@ -73,7 +72,7 @@ export default {
       this.postCaption = "";
     },
     /**
-     * Function to recieve the content written inside the post from the text editor file
+     * Function to recieve the content written inside the post from the image editor file
      * @public This is a public method
      * @param {Boolean} content --> boolean sent from the create post section when clicking on text post to start uploading one
      */
@@ -96,6 +95,11 @@ export default {
       // console.log(content);
     },
 
+ /**
+     * Function to recieve the caption written inside the post from the image content editor file
+     * @public This is a public method
+     * @param {Boolean} content --> boolean sent from the create post section when clicking on text post to start uploading one
+     */
     onPostCaption(content) {
       this.postCaption = content;
       if (content === "" || content === null) {
@@ -143,9 +147,8 @@ export default {
             // this.$emit("closeTextBox", false);
             this.postContent = "";
             this.postCaption = "";
-            console.log(res.data);     
+            console.log(res.data);
             this.closeTextBox();
-
           });
       } catch (e) {
         console.error(e);
@@ -154,11 +157,16 @@ export default {
   },
 
   computed: {
+     /**
+     * Function to get id of the blog from the store
+     * @public This is a public method
+     * @param {none}
+     */
     blogId: function () {
       return this.$store.state.user.primaryBlogId;
     },
     /**
-     * Function to know if the text upload post should appear or not
+     * Function to know if the image upload post should appear or not
      * @public This is a public method
      * @param {none}
      */
