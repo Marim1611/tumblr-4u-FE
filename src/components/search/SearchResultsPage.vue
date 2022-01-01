@@ -182,6 +182,10 @@ import MobileNavBar from "../homePage/HomePageMobileNavBar.vue";
 import PostCard from "../general/ViewPostCard.vue";
 import RelatedTags from "./RelatedTagsCard.vue";
 import RelatedBlogs from "./RelatedBlogsCard.vue";
+/**
+ *  search page results to show posts related to the word user typed in search bar
+ * @example [none]
+ */
 export default {
   name: "search",
   components: {
@@ -202,6 +206,7 @@ export default {
   },
 
   computed: {
+    
     getSearchWord: {
       get() {
         return this.searchWord;
@@ -222,10 +227,20 @@ export default {
     dashBoardPosts: Array,
   },
   methods: {
+     /**
+     * Function to make view of posts like a grid in search page
+     * @public This is a public method
+     * @param {none}
+     */
     gridView() {
       this.showAsGrid = true;
       this.showAsRows = false;
     },
+    /**
+     * Function to make view of posts in rows after each other  in search page
+     * @public This is a public method
+     * @param {none}
+     */
     rowView() {
       this.showAsRows = true;
       this.showAsGrid = false;

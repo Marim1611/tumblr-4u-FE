@@ -305,6 +305,11 @@ export default {
       // this.$router.push({ path: '/search', searchWord: this.inputValue }); 
        
     },
+    /**
+     * Function to route for search results page when user click on a tag appeared from the list in search bar
+     * @public This is a public method
+     * @param {none}
+     */
     async searchMeTag(tag){
        let myRoute=""
          if (this.isMockServer(Browser().baseURL))
@@ -324,6 +329,11 @@ export default {
              this.$router.push({ name: 'autoCompleteSearchDash', params: {searchWord: tag, word: tag,dashBoardPosts:this.postsInSearch}})
 
     },
+    /**
+     * Function to route for search results page when user click in intersets list
+     * @public This is a public method
+     * @param {none}
+     */
     async searchMe(interest){
         try {
          await axios.get(Browser().baseURL+'/autoCompleteSearchDash'
@@ -374,6 +384,11 @@ export default {
     mobileView:Boolean
 
   },
+  /**
+     * created cycle to get user interests list when click on input field of the nav bar
+     * @public This is a public method
+     * @param {none}
+     */
     async created() {
       this.isLoading=true;
     try {

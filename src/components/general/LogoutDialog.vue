@@ -16,6 +16,10 @@
 </template>
 
 <script>
+/**
+ *  Logout dialog appears when user click on logout button
+ * @example [none]
+ */
 export default {
 
 data(){
@@ -41,6 +45,11 @@ destroyed: function() {
   document.removeEventListener('keyup', this.hideMe);
 },
  methods:{
+    /**
+     * Function to hide the logout dialog when user click esc button
+     * @public This is a public method
+     * @param {none}
+     */
   hideMe(event) {
   if (event.keyCode === 27) {
     {
@@ -52,6 +61,11 @@ destroyed: function() {
  cancel(){
  this.$emit("hideMe", false);
   },
+    /**
+     * Function for user log out remove token from local storage and get the user back to welcome page
+     * @public This is a public method
+     * @param {none}
+     */
   goOut(){
    localStorage.removeItem('token')
   this.routeOut="/"

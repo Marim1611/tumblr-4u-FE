@@ -108,17 +108,29 @@ import Avatar from "vue-avatar";
 import Browser from "../../mocks/browser";
 import axios from "axios";
 import Vue from "vue";
-
+/**
+ *  component to show blogs that user doesn't follow
+ * @example [none]
+ */
 export default {
   name: "TumblrDrawer",
   components: {
     Avatar: Avatar,
   },
   methods: {
+     /**
+     * Function to route to explore page when user clicks explore new tumblr s
+     * @public This is a public method
+     * @param {none}
+     */
     goToExplore() {
       this.$router.push({ name: "explore" });
     },
-
+ /**
+     * Function to follow some blog  when click on follow button
+     * @public This is a public method
+     * @param {none}
+     */
     async followed(i) 
     {
        try {
@@ -136,6 +148,11 @@ export default {
      Vue.set(this.show,i,false) ;
       
     },
+    /**
+     * Function to remove blog from checkout blogs component after clicking on follow button
+     * @public This is a public method
+     * @param {none}
+     */
     remove: function (i) {
       this.relatedBlogs[i].show = false;
     },
