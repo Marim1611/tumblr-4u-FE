@@ -107,6 +107,11 @@ export default {
       dashBoardPosts: [],
     };
   },
+   /**
+     * created cycle hook to get dashboard posts from data base in home page
+     * @public This is a public method
+     * @param {none}
+     */
   async created() {
     try {
       await axios
@@ -179,6 +184,11 @@ export default {
         return false;
       else return true;
     },
+     /**
+     * Function to open user drawer and getting its blog data from data base
+     * @public This is a public method
+     * @param {none}
+     */
     async openAvatarDrawer() {
      
      

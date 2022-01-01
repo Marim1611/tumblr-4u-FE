@@ -50,7 +50,10 @@ import Avatar from "vue-avatar";
 import Browser from "../../mocks/browser";
 import axios from "axios";
 import Vue from 'vue';
- 
+/**
+ *  component to show related blogs to a some word user typed in search bar
+ * @example [none]
+ */
 export default {
   name: "TumblrDrawer",
   components:
@@ -68,6 +71,11 @@ export default {
     };
   },
   methods:{
+     /**
+     * Function to allow user to follow/unfollow some blog of another user
+     * @public This is a public method
+     * @param {none}
+     */
   async followed( i){
         
        if( this.isFollower[i] == "Follow")
@@ -106,7 +114,11 @@ export default {
 
    }
   },
- 
+  /**
+     * created cycle hook to get related blogs when this is component is created
+     * @public This is a public method
+     * @param {none}
+     */
  async created(){
     try {
       await axios

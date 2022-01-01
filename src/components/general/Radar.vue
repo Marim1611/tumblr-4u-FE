@@ -15,6 +15,10 @@
 import PostCard from "./ViewPostCard.vue"
 import axios from 'axios';
 import Browser from '../../mocks/browser'
+/**
+ *  component to show radar posts in home page 
+ * @example [none]
+ */
 export default {
   data(){
 return{
@@ -38,6 +42,11 @@ PostCard:PostCard
       return this.$store.state.homeThemeIndex;
     },
   },
+  /**
+     * created cycle hook to get radar posts from data base when component is created
+     * @public This is a public method
+     * @param {none}
+     */
      async created() {
       /// radar posts
      try {
@@ -55,6 +64,11 @@ PostCard:PostCard
   },
 
  methods: {
+   /**
+     * Function to get random number to get random post from radar posts
+     * @public This is a public method
+     * @param {none}
+     */
     randomPost() {
  
       return   Math.floor(Math.random() * this.posts.length);

@@ -51,7 +51,10 @@
 import Avatar from "vue-avatar";
  
  
- 
+/**
+ *  component to show related tags to a some word user typed in search bar
+ * @example [none]
+ */
 export default {
   name: "TumblrDrawer",
   components: {
@@ -91,7 +94,11 @@ export default {
     };
   },
   methods:{
-      
+       /**
+     * Function to allow user to follow/unfollow some tag of another user
+     * @public This is a public method
+     * @param {none}
+     */
    followed(status,i){
         
        if( status == "follow")

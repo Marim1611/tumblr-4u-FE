@@ -16,6 +16,10 @@
 </template>
 
 <script>
+/**
+ *  block dialog appears when user click on block button in another user drawer
+ * @example [none]
+ */
 export default {
 
 
@@ -36,6 +40,11 @@ destroyed: function() {
   document.removeEventListener('keyup', this.hideMe);
 },
  methods:{
+   /**
+     * Function to hide block dialog when user clicks esc button
+     * @public This is a public method
+     * @param {none}
+     */
   hideMe(event) {
   if (event.keyCode === 27) {
     {
@@ -44,9 +53,19 @@ destroyed: function() {
      console.log('esc key pressed');
   }
 },
+/**
+     * Function to cancel blocking some blog
+     * @public This is a public method
+     * @param {none}
+     */
  neverMind(){
  this.$emit("hideMe", false);
   },
+   /**
+     * Function to emit event to block another user
+     * @public This is a public method
+     * @param {none}
+     */
   block(){
     console.log("ahhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
  this.$emit("doBlock", false);

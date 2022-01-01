@@ -499,8 +499,7 @@ export default {
   },
   async created(){
    
-   console.log("#$%^^^^^&%%#-------------------------------")
-   console.log(this.tumblrsObj.id)
+  
      let myRoute=""
          if (this.isMockServer(Browser().baseURL))
          myRoute=Browser().baseURL+'/posts'

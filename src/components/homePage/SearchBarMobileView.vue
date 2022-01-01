@@ -121,7 +121,7 @@ import TumblrDrawer from "./TumblrsDrawer.vue";
 
 import Vue from "vue";
 /**
- *  SearchBar of the home page shows list of user interests if he didn't type any thing otherwise show related other users or tags
+ *  SearchBar mobile view of the home page shows list of user interests if he didn't type any thing otherwise show related other users or tags
  * @example [none]
  */
 export default {

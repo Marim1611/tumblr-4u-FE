@@ -154,9 +154,9 @@ import KeyScDrawer from "./KeyboardShortcutsDrawer.vue"
 import LogoutDialog from "../general/LogoutDialog.vue"
 import Browser from "../../mocks/browser";
 import axios from "axios";
-import Vue from 'vue';
-import loader from "vue-ui-preloader";
-Vue.use(loader);
+//import Vue from 'vue';
+//import loader from "vue-ui-preloader";
+//Vue.use(loader);
 //import BlogFeatures from '../blog/CreatedBlogPage.vue' 
 
 /**
@@ -183,6 +183,11 @@ export default {
      
  this.$emit("closeThemFromAcc", this.isOpen);
   },
+   /**
+     * Function to open blog (posts,followers, activity ) after clicking on each blog
+     * @public This is a public method
+     * @param {none}
+     */
     openFeature(i, feature){
     
       //posts 0
@@ -198,10 +203,20 @@ export default {
 
 
     },
+     /**
+     * Function to open keyboard shortcuts drawer
+     * @public This is a public method
+     * @param {none}
+     */
      toggleKeyDrawer()
     {
        this.openKeyDrawer=true
     },
+      /**
+     * Function to open keyboard shortcuts drawer
+     * @public This is a public method
+     * @param {none}
+     */
     hideKeyDrawer(hide)
     {
     
@@ -235,6 +250,11 @@ export default {
           else 
           return true
     },
+      /**
+     * Function to open account drop down list and gets data of user blogs Ids from the data base
+     * @public This is a public method
+     * @param {none}
+     */
   async openAccDdl(){
      this.isOpen=!this.isOpen
      this.closeThemFromAcc()
