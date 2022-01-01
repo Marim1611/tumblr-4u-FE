@@ -155,8 +155,8 @@ import LogoutDialog from "../general/LogoutDialog.vue"
 import Browser from "../../mocks/browser";
 import axios from "axios";
 import Vue from 'vue';
-import loader from "vue-ui-preloader";
-Vue.use(loader);
+///import loader from "vue-ui-preloader";
+///Vue.use(loader);
 //import BlogFeatures from '../blog/CreatedBlogPage.vue' 
 
 /**

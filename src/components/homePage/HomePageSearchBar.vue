@@ -162,8 +162,8 @@ import axios from 'axios';
 import TumblrDrawer from "./TumblrsDrawer.vue";
 import Browser from '../../mocks/browser'
 import Vue from 'vue';
-import loader from "vue-ui-preloader";
-Vue.use(loader);
+///import loader from "vue-ui-preloader";
+///Vue.use(loader);
 //import Avatar from 'vue-avatar'
 //import { fetchSearchResults } from '@/services/fetchers'
  

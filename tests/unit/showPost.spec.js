@@ -178,6 +178,144 @@ describe('ViewPostCard.vue', () => {
     });
 
 
+    it('is the commenting fun being called when clicking reply button',() =>{
+        const wrapper = shallowMount(ViewPostCard, {store,localVue,
+        propsData:
+    {
+        maxWidth: "100px",
+        post:{
+            
+            "_id": "61c35d1eac19df9274f9a2b5",
+            "blogId": "619957113df6b45019c42d07",
+            "postHtml":	"<img width='100%' src='https://64.media.tumblr.com/f865cdf68f134ffcbf911507b857711f/68ae925735582341-32/s640x960/0030b5e77af53286e7b2ca1906ffd439987353c0.jpg'> ",
+            "type": "link",
+            "state": "published",
+            "tags": [
+                "cmp"
+            ],
+            "notesId": "61c35d1eac19df9274f9a2b4",
+            "__v": 0
+        }
+    }})
+        const closeDropDown = jest.fn();
+        wrapper.setMethods({
+            closeDropDown: closeDropDown
+        });
+        wrapper.find('.closeButton').trigger('click')
+        expect(closeDropDown).toHaveBeenCalled()
+    });
+
+
+    it('is the commenting fun being called when clicking reply button',() =>{
+        const wrapper = shallowMount(ViewPostCard, {store,localVue,
+        propsData:
+    {
+        maxWidth: "100px",
+        post:{
+            
+            "_id": "61c35d1eac19df9274f9a2b5",
+            "blogId": "619957113df6b45019c42d07",
+            "postHtml":	"<img width='100%' src='https://64.media.tumblr.com/f865cdf68f134ffcbf911507b857711f/68ae925735582341-32/s640x960/0030b5e77af53286e7b2ca1906ffd439987353c0.jpg'> ",
+            "type": "link",
+            "state": "published",
+            "tags": [
+                "cmp"
+            ],
+            "notesId": "61c35d1eac19df9274f9a2b4",
+            "__v": 0
+        }
+    }})
+        const copy = jest.fn();
+        wrapper.setMethods({
+            copy: copy
+        });
+        wrapper.find('.dropdown-content button').trigger('click')
+        expect(copy).toHaveBeenCalled()
+    });
+
+
+    it('is the commenting fun being called when clicking reply button',() =>{
+        const wrapper = shallowMount(ViewPostCard, {store,localVue,
+        propsData:
+    {
+        maxWidth: "100px",
+        post:{
+            
+            "_id": "61c35d1eac19df9274f9a2b5",
+            "blogId": "619957113df6b45019c42d07",
+            "postHtml":	"<img width='100%' src='https://64.media.tumblr.com/f865cdf68f134ffcbf911507b857711f/68ae925735582341-32/s640x960/0030b5e77af53286e7b2ca1906ffd439987353c0.jpg'> ",
+            "type": "link",
+            "state": "published",
+            "tags": [
+                "cmp"
+            ],
+            "notesId": "61c35d1eac19df9274f9a2b4",
+            "__v": 0
+        }
+    }})
+        const copyShare = jest.fn();
+        wrapper.setMethods({
+            copyShare: copyShare
+        });
+        wrapper.find('.out-share div').trigger('click')
+        expect(copyShare).toHaveBeenCalled()
+    });
+
+
+    it('is the commenting fun being called when clicking reply button',() =>{
+        const wrapper = shallowMount(ViewPostCard, {store,localVue,
+        propsData:
+    {
+        maxWidth: "100px",
+        post:{
+            
+            "_id": "61c35d1eac19df9274f9a2b5",
+            "blogId": "619957113df6b45019c42d07",
+            "postHtml":	"<img width='100%' src='https://64.media.tumblr.com/f865cdf68f134ffcbf911507b857711f/68ae925735582341-32/s640x960/0030b5e77af53286e7b2ca1906ffd439987353c0.jpg'> ",
+            "type": "link",
+            "state": "published",
+            "tags": [
+                "cmp"
+            ],
+            "notesId": "61c35d1eac19df9274f9a2b4",
+            "__v": 0
+        }
+    }})
+        const subscribeConversation = jest.fn();
+        wrapper.setMethods({
+            subscribeConversation: subscribeConversation
+        });
+        wrapper.find('.no-padding .clickable').trigger('click')
+        expect(subscribeConversation).toHaveBeenCalled()
+    });
+
+
+    it('is the commenting fun being called when clicking reply button',() =>{
+        const wrapper = shallowMount(ViewPostCard, {store,localVue,
+        propsData:
+    {
+        maxWidth: "100px",
+        post:{
+            
+            "_id": "61c35d1eac19df9274f9a2b5",
+            "blogId": "619957113df6b45019c42d07",
+            "postHtml":	"<img width='100%' src='https://64.media.tumblr.com/f865cdf68f134ffcbf911507b857711f/68ae925735582341-32/s640x960/0030b5e77af53286e7b2ca1906ffd439987353c0.jpg'> ",
+            "type": "link",
+            "state": "published",
+            "tags": [
+                "cmp"
+            ],
+            "notesId": "61c35d1eac19df9274f9a2b4",
+            "__v": 0
+        }
+    }})
+        const noComment = jest.fn();
+        wrapper.setMethods({
+            noComment: noComment
+        });
+        wrapper.find('.h-flex.border-bottom .clickable').trigger('click')
+        expect(noComment).toHaveBeenCalled()
+    });
 })
 
 
