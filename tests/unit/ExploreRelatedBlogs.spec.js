@@ -13,12 +13,8 @@ localVue.use(Vuex);
 describe('ExploreRelatedBlogs.vue', () => {
     let store
     let state
-    let i
-    let status
 
     beforeEach(() => {
-        i = 0
-        status = "Follow"
         state = {
             homeThemeIndex:0,
             homeTheme: [{
@@ -37,18 +33,23 @@ describe('ExploreRelatedBlogs.vue', () => {
       })
 
     it('Is called HomePage',() =>{
-        const wrapper = shallowMount(ExploreRelatedBlogs, {store,localVue})//,
-       // methods:
-         //   {
-           //     followed: jest.fn(status,i)
-            //}})
-        const followed = jest.fn(status,i);
+        const wrapper = shallowMount(ExploreRelatedBlogs, {store,localVue})
+        const followed = jest.fn();
         wrapper.setMethods({
           followed: followed,
         });
         wrapper.find('#fButton').trigger('click')
         expect(followed).toHaveBeenCalled()
-        //expect(wrapper.name()).toEqual('HomePage');
+    });
+
+    it('Is called HomePage',() =>{
+        const wrapper = shallowMount(ExploreRelatedBlogs, {store,localVue})//,
+        const remove = jest.fn();
+        wrapper.setMethods({
+          remove: remove,
+        });
+        wrapper.find('b-icon').trigger('click')
+        expect(remove).toHaveBeenCalled()
     });
 })
 
