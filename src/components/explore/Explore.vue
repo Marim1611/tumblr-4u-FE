@@ -157,7 +157,7 @@ import Browser from "../../mocks/browser";
 import Header from "../registerPages/WelcomePageHeader.vue";
 import axios from "axios";
 /**
- *  Home page that contains dashboard and create post compnents
+ *  explore page that contains trending posts and the similar
  * @example [none]
  */
 export default {
@@ -193,6 +193,12 @@ export default {
     }
   },
   methods: {
+    /**
+     * Function that alternates between multi-column and single column views depending on the emited event.
+     * get started when clicking on the multi and singlw icons on the explore page.
+     * @public This is a public method
+     * @param {none}
+     */
     multiCol: function (close) {
       this.multi = close;
     },

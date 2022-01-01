@@ -12,7 +12,10 @@
 <script>
  
  
- 
+ /**
+ *  explore card that shows suggested tags
+ * @example [none]
+ */
 export default {
   name: "ExploreCard",
   components: {

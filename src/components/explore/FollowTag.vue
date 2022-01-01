@@ -12,7 +12,10 @@
 <script>
  
  
- 
+ /**
+ *  followed tags window
+ * @example [none]
+ */
 export default {
   name: "FollowTags",
   components: {

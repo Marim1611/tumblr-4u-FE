@@ -25,24 +25,51 @@
 <script>
  
  
- 
+ /**
+ *  explore bar that change the number of column in the page and have the trending, staffpicks...etc
+ * @example [none]
+ */
 export default {
   name: "ExploreBar",
   components: {
    
   },
   methods:{
+      /**
+     * Function that open and close the more menu.
+     * get started when clicking on the more button on the explore page.
+     * @public This is a public method
+     * @param {none}
+     */
    moreDropdown:function(){
        this.moreShow=!this.moreShow;
    },
+   /**
+     * Function that emits an event for multi-column view.
+     * get started when clicking on the multi-column icon on the explore page.
+     * @public This is a public method
+     * @param {none}
+     */
    multiCol:function(){
        this.$emit("multiCol",true);
        this.multi=true;
    },
+   /**
+     * Function that emits an event for single-column view.
+     * get started when clicking on the single-column icon on the explore page.
+     * @public This is a public method
+     * @param {none}
+     */
    singCol:function(){
        this.$emit("singCol",false)
        this.multi=false;
    },
+   /**
+     * Function that choose the text option and write instead of more.
+     * get started when clicking on the text button in the more menu on the explore page.
+     * @public This is a public method
+     * @param {none}
+     */
    textOnly:function(){
         this.moreShow=!this.moreShow;
         this.more="Text"
@@ -59,6 +86,12 @@ export default {
         this.video=false;
         this.ask=false;
    },
+   /**
+     * Function that choose the photo option and write instead of more.
+     * get started when clicking on the photo button in the more menu on the explore page.
+     * @public This is a public method
+     * @param {none}
+     */
    photoOnly:function(){
         this.moreShow=!this.moreShow;
         this.more="Photos"
@@ -75,6 +108,12 @@ export default {
         this.video=false;
         this.ask=false;
    },
+   /**
+     * Function that choose the gif option and write instead of more.
+     * get started when clicking on the gif button in the more menu on the explore page.
+     * @public This is a public method
+     * @param {none}
+     */
    gifOnly:function(){
         this.moreShow=!this.moreShow;
         this.more="GIFs"
@@ -91,6 +130,12 @@ export default {
         this.video=false;
         this.ask=false;
    },
+   /**
+     * Function that choose the quotes option and write instead of more.
+     * get started when clicking on the quote button in the more menu on the explore page.
+     * @public This is a public method
+     * @param {none}
+     */
    quoteOnly:function(){
         this.moreShow=!this.moreShow;
         this.more="Quotes"
@@ -107,6 +152,12 @@ export default {
         this.video=false;
         this.ask=false;
    },
+   /**
+     * Function that choose the chat option and write instead of more.
+     * get started when clicking on the chat button in the more menu on the explore page.
+     * @public This is a public method
+     * @param {none}
+     */
     chatOnly:function(){
         this.moreShow=!this.moreShow;
         this.more="Chats"
@@ -123,6 +174,12 @@ export default {
         this.video=false;
         this.ask=false;
    },
+   /**
+     * Function that choose the audio option and write instead of more.
+     * get started when clicking on the audio button in the more menu on the explore page.
+     * @public This is a public method
+     * @param {none}
+     */
    audioOnly:function(){
         this.moreShow=!this.moreShow;
         this.more="Audio"
@@ -139,6 +196,12 @@ export default {
         this.video=false;
         this.ask=false;
    },
+   /**
+     * Function that choose the video option and write instead of more.
+     * get started when clicking on the video button in the more menu on the explore page.
+     * @public This is a public method
+     * @param {none}
+     */
    videoOnly:function(){
         this.moreShow=!this.moreShow;
         this.more="Videos"
@@ -155,6 +218,12 @@ export default {
         this.video=true;
         this.ask=false;
    },
+   /**
+     * Function that choose the ask option and write instead of more.
+     * get started when clicking on the ask button in the more menu on the explore page.
+     * @public This is a public method
+     * @param {none}
+     */
    askOnly:function(){
         this.moreShow=!this.moreShow;
         this.more="Asks"
@@ -171,6 +240,12 @@ export default {
         this.video=false;
         this.ask=true;
    },
+   /**
+     * Function that choose the for you option.
+     * get started when clicking on the foryou button on the explore page.
+     * @public This is a public method
+     * @param {none}
+     */
    foryou:function(){
         this.more="More"
         this.text=false;
@@ -186,6 +261,12 @@ export default {
         this.video=false;
         this.ask=false;
    },
+   /**
+     * Function that choose the trending option.
+     * get started when clicking on the trending button on the explore page.
+     * @public This is a public method
+     * @param {none}
+     */
    Trending:function(){
         this.more="More"
         this.text=false;
@@ -201,6 +282,12 @@ export default {
         this.video=false;
         this.ask=false;
    },
+   /**
+     * Function that choose the staffPicks option.
+     * get started when clicking on the staff picks button on the explore page.
+     * @public This is a public method
+     * @param {none}
+     */
    staffpicks:function(){
         this.more="More"
         this.text=false;

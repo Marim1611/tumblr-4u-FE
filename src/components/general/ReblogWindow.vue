@@ -62,6 +62,10 @@
 import Browser from "../../mocks/browser";
 import axios from "axios";
 
+/**
+ *  reblog window 
+ * @example [none]
+ */
 export default {
     data(){
         return{
@@ -86,13 +90,24 @@ export default {
         },
     },
 methods:{
+
+     /**
+     * Function that emits an event to close the reblog window.
+     * get started when clicking on the close button on the reblog window.
+     * @public This is a public method
+     * @param {none}
+     */
    reblogWind:function(){
         this.$emit("reblogWind",false)
    },
 
 
    
-
+    /**
+     * Function that alternates between the real and mock server.
+     * @public This is a public method
+     * @param {string} baseURL the currently used URL
+     */
     isMockServer:function(baseURL){
       if(baseURL == "http://localhost:3000")
         return true;
@@ -100,7 +115,12 @@ methods:{
         return false;
     },
    
-
+     /**
+     * Function that reblogs the post.
+     * get started when clicking on the reblog button on the reblog window.
+     * @public This is a public method
+     * @param {none}
+     */
 async reblogging() {
       document.getElementById('reblogIn').value = '';
    //   console.log(reblogIn);

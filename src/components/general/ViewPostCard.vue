@@ -389,7 +389,7 @@ import Browser from "../../mocks/browser";
 import axios from "axios";
 
 /**
- *  Post Card in the home page
+ *  Post Card 
  * @example [none]
  */
 export default {
@@ -470,6 +470,11 @@ export default {
     }
   },
   methods: {
+    /** Function that post a comment to the post.
+     * get started when clicking on the reply button to comment.
+     * @public This is a public method
+     * @param {none}
+     */
     async commenting() {
       //  document.getElementById('inputComment').value = '';
       try {
@@ -501,6 +506,11 @@ export default {
       }
     },
 
+     /** Function that give a like to a post.
+     * Get started when clicking on the like button.
+     * @public This is a public method
+     * @param {object} post the post being liked as an object
+     */
     async like(post) {
       try {
       
@@ -521,6 +531,12 @@ export default {
       }
       this.heartFilled = !this.heartFilled;
     },
+
+    /** Function that remove a like from a post. 
+     * Get started when clicking on the liked button.
+     * @public This is a public method
+     * @param {object} post the post being unliked as an object
+     */
     async unlike(post) {
       try {
         let myRoute = "";
@@ -540,23 +556,29 @@ export default {
       this.heartFilled = !this.heartFilled;
     },
 
+    /** Function that alternate between the local and real server
+     * @public This is a public method
+     * @param {string} baseURL the URL used now
+     */
     isMockServer: function (baseURL) {
       if (baseURL == "http://localhost:3000") return true;
       else return false;
     },
-    /** Function that shows a drop down list of clickable options in the post when clicking on the 3-points icon in the post
+    /** Function that shows a drop down list of clickable options in the post. 
+     * Get started when clicking on the 3-points icon in the post
      * @public This is a public method
      * @param {none}
      */
     postOption: function () {
       this.showDropDown = !this.showDropDown;
     },
+    
     /**
-     * Function that close the drop down list of options in the post when clicking on the close button in the list
+     * Function that open and close the reblog window and fetching some needed data. 
+     * Get started when clicking on the reblog icon or the close button later. 
      * @public This is a public method
-     * @param {none}
+     * @param {boolean} x if it is true, the window shows and it disappears when false.
      */
-
     async reblogWind(x) {
       this.reblog = x;
       try {
@@ -580,6 +602,12 @@ export default {
       }
     },
 
+    /**
+     * Function that close the drop down list of options in the post.
+     * get started when clicking on the close button in the list.
+     * @public This is a public method
+     * @param {none}
+     */
     closeDropDown: function () {
       this.showDropDown = false;
     },
@@ -587,21 +615,55 @@ export default {
      this.heartFilled = !this.heartFilled;
    },*/
 
+    /**
+     * Function that copy the link of the post.
+     * get started when clicking on the copy button in the list.
+     * @public This is a public method
+     * @param {none}
+     */
     copy: function () {
       //time in milliseconds
       setTimeout((this.copyText = "Link copied!"), 1500); //waiting after
       setTimeout(() => (this.copyText = "Copy link"), 1500); //waiting before
     },
+
+     
+    /**
+     * Function that copy the link of the post.
+     * get started when clicking on the copy button in the share menu.
+     * @public This is a public method
+     * @param {none}
+     */
     copyShare: function () {
       setTimeout((this.shareCopy = "Linkcopied!"), 1500);
       setTimeout(() => (this.shareCopy = "Copylink"), 1500);
     },
+
+    /**
+     * Function that remove the follow button or returnning it.
+     * get started when clicking on the follow next to the name or the unfollow showing in the menu after.
+     * @public This is a public method
+     * @param {none}
+     */
     followUnfollow: function () {
       this.follow = !this.follow;
     },
+    /**
+     * Function that hide the post.
+     * get started when clicking on the this post isn't for me button in the menu.
+     * @public This is a public method
+     * @param {none}
+     */
     notForMe: function () {
       this.forMe = false;
     },
+
+    /**
+     * Function that open and close the comment window while fetching the necessary data.
+     * get started when clicking on the comment icon or the notes.
+     * @public This is a public method
+     * @param {none}
+     */
     async commentShow() {
       this.comment = !this.comment;
       document.getElementById("inputComment").value = "";
@@ -633,12 +695,30 @@ export default {
         }
       }
     },
+    /**
+     * Function that open and close the share window.
+     * get started when clicking on the share icon.
+     * @public This is a public method
+     * @param {none}
+     */
     shareShow: function () {
       this.share = !this.share;
     },
+    /**
+     * Function that alternates between the subscribe icon or unsubscribe.
+     * get started when clicking on the subscribe icon in the comment window.
+     * @public This is a public method
+     * @param {none}
+     */
     subscribeConversation: function () {
       this.subscribe = !this.subscribe;
     },
+    /**
+     * Function that closes the comment window.
+     * get started when clicking on the arrow-left icon in the comment window.
+     * @public This is a public method
+     * @param {none}
+     */
     noComment: function () {
       this.comment = false;
       document.getElementById("inputComment").value = "";
@@ -647,12 +727,27 @@ export default {
     hashtag: function () {
       this.hash = false;
     },
+    /**
+     * Function that filters only the reblog notes.
+     * @public This is a public method
+     * @param {object} note it is the note being tested
+     */
     checkReblog: function (note) {
       if (note.noteType === "reblog" && !note.isDeleted) return note;
     },
+    /**
+     * Function that filters only the likes notes.
+     * @public This is a public method
+     * @param {object} note it is the note being tested
+     */
     checkLikes: function (note) {
       if (note.noteType === "like" && !note.isDeleted) return note;
     },
+    /**
+     * Function that filters only the comment notes.
+     * @public This is a public method
+     * @param {object} note it is the note being tested
+     */
     checkComment: function (note) {
       if (note.noteType === "comment" && !note.isDeleted) {
         return note;

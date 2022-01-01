@@ -48,14 +48,23 @@
 import Avatar from "vue-avatar";
  
  
- 
+ /**
+ *  related blogs window in explore page
+ * @example [none]
+ */
 export default {
   name: "TumblrDrawer",
   components: {
     Avatar: Avatar,
   },
   methods:{
-         
+    /**
+     * Function that removes the option when following.
+     * get started when clicking on the follow button.
+     * @public This is a public method
+     * @param {number} i the index of the followed one
+     * @param {string} status the status of whether it is folloe or unfollow 
+     */ 
    followed(status,i){
        
        this.relatedBlogs[i].show=false;
