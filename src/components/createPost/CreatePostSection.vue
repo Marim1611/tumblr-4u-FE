@@ -272,6 +272,11 @@ export default {
       this.textChosen = textClosed;
     },
 
+    /**
+     * Function to close the qoute upload box and return to the main page
+     * @public This is a public method
+     * @param {Boolean} quoteClosed
+     */
     closeQuote(quoteClosed) {
       this.quoteChosen = quoteClosed;
     },
@@ -292,30 +297,63 @@ export default {
       this.imageChosen = imgClosed;
     },
 
+    /**
+     * Function to open the video upload box
+     * @public This is a public method
+     * @param {none}
+     */
     videoUpload() {
       // console.log("here");
       this.videoChosen = true;
     },
-
+    /**
+     * Function to close the video upload box and return to the main page
+     * @public This is a public method
+     * @param {Boolean} videoClosed
+     */
     closeVideo(videoClosed) {
       this.videoChosen = videoClosed;
     },
-
+    /**
+     * Function to open the audio upload box
+     * @public This is a public method
+     * @param {none}
+     */
     audioUpload() {
       this.audioChosen = true;
     },
 
+    /**
+     * Function to close the audio upload box and return to the main page
+     * @public This is a public method
+     * @param {Boolean} audioClosed
+     */
     closeAudio(audioClosed) {
       this.audioChosen = audioClosed;
     },
+    /**
+     * Function to open the link upload box
+     * @public This is a public method
+     * @param {none}
+     */
     linkUpload() {
       this.linkChosen = true;
     },
 
+    /**
+     * Function to close the link upload box and return to the main page
+     * @public This is a public method
+     * @param {Boolean} imgClosed
+     */
     closeLink(linkClosed) {
       this.linkChosen = linkClosed;
     },
 
+    /**
+     * Function to open the quote upload box
+     * @public This is a public method
+     * @param {none}
+     */
     quoteUpload() {
       this.quoteChosen = true;
     },

@@ -91,7 +91,10 @@
 <script>
 import axios from "axios";
 import Browser from "../../mocks/browser";
-
+/**
+ *  Interests page
+ * @example [none]
+ */
 export default {
   data() {
     return {
@@ -344,21 +347,43 @@ export default {
   },
 
   methods: {
+    /**
+     * Function to insert for each interest its corresponding image
+     * @public This is a public method
+     * @param {String} bg
+     */
     cardImage(bg) {
       return {
-        // backgroundImage: ` radial-gradient(ellipse at center,transparent 0,rgba(0,0,0,.36) 100%),url(${require("../../assets/images/InterestsImgs/" +
-        //   bg)})`,
+        backgroundImage: ` radial-gradient(ellipse at center,transparent 0,rgba(0,0,0,.36) 100%),url(${require("../../assets/images/InterestsImgs/" +
+          bg)})`,
       };
     },
+
+    /**
+     * Function to rearrange the cards each time the page is opened or reloaded
+     * @public This is a public method
+     * @param {none}
+     */
     shuffle() {
       // for the cards to be randomized
       this.cards.sort(() => Math.random() - 0.5);
     },
+    /**
+     * Function to randomize the color of the interest in the above bar
+     * @public This is a public method
+     * @param {none}
+     */
     randomColor() {
       return this.randomColors[
         Math.floor(Math.random() * this.randomColors.length)
       ];
     },
+
+    /**
+     * Function to mark the card as selected or not and add/remove this card to the selected items array which will be send  and increment/decrement the counter
+     * @public This is a public method
+     * @param {none}
+     */
     cardSelected(card) {
       card.selected = !card.selected;
       if (card.selected) {
@@ -374,6 +399,12 @@ export default {
         }
       }
     },
+
+    /**
+     * Function to remove the interest from the selected items from the above bar
+     * @public This is a public method
+     * @param {none}
+     */
 
     itemRemoveSelection(item) {
       const index = this.selectedItems.indexOf(item);
@@ -393,12 +424,25 @@ export default {
       }
     },
 
+    /**
+     * Function to send the selected items to the server to be saved
+     * @public This is a public method
+     * @param {none}
+     */
     async doneSelection() {
       try {
-        await axios.post(Browser().baseURL + "/getInterestsFromUser", {
-            interests: this.selectedItems,
-          },
-             { headers: { 'Authorization':   `Bearer ${localStorage.getItem('token')}` } })
+        await axios
+          .post(
+            Browser().baseURL + "/getInterestsFromUser",
+            {
+              interests: this.selectedItems,
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            }
+          )
           .then((res) => {
             console.log(res.data);
           });

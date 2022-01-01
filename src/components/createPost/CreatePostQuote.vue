@@ -61,7 +61,7 @@ import axios from "axios";
 import Browser from "../../mocks/browser";
 
 /**
- *  Create post for text
+ *  Create post for quote
  * @example [none]
  */
 export default {
@@ -96,7 +96,7 @@ export default {
     //   if (selectedIndex === 1) this.selectedPostOption = "Mariem";
     // },
     /**
-     * Function to close the text upload section for create post
+     * Function to close the quote upload section for create post
      * @public This is a public method
      * @param {none}
      */
@@ -106,14 +106,19 @@ export default {
       this.postTitle = "";
     },
     /**
-     * Function to recieve the content written inside the post from the text editor file
+     * Function to recieve the content written inside the post from the quote source editor file
      * @public This is a public method
-     * @param {Boolean} content --> boolean sent from the create post section when clicking on text post to start uploading one
+     * @param {Boolean} content --> boolean sent from the create post section when clicking on quote post to start uploading one
      */
     onTextClick(content) {
       this.postContent = content;
     },
 
+    /**
+     * Function to recieve the title written inside the post from the quote editor file
+     * @public This is a public method
+     * @param {Boolean} content --> boolean sent from the create post section when clicking on quote post to start uploading one
+     */
     onTitleClick(content) {
       this.postTitle = content;
     },
@@ -144,7 +149,7 @@ export default {
               postHtml: this.postTitle + this.postContent,
               type: "quote",
               state: "published",
-                tags: [" "],
+              tags: [" "],
             },
             {
               headers: {
@@ -164,11 +169,16 @@ export default {
     },
   },
   computed: {
+    /**
+     * Function to get id of the blog from the store
+     * @public This is a public method
+     * @param {none}
+     */
     blogId: function () {
       return this.$store.state.user.primaryBlogId;
     },
     /**
-     * Function to know if the text upload post should appear or not
+     * Function to know if the quote upload post should appear or not
      * @public This is a public method
      * @param {none}
      */

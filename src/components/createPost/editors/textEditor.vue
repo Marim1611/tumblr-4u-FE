@@ -90,7 +90,7 @@ import Placeholder from "@tiptap/extension-placeholder";
 import Paragraph from "@tiptap/extension-paragraph";
 
 /**
- *  Create rich text editor
+ *  Create rich text editor for the text part
  * @example [none]
  */
 export default {

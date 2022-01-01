@@ -102,7 +102,11 @@ export default {
     onTextClick(content) {
       this.postContent = content;
     },
-
+    /**
+     * Function to recieve the title written inside the post from the title editor file
+     * @public This is a public method
+     * @param {Boolean} content --> boolean sent from the create post section when clicking on text post to start uploading one
+     */
     onTitleClick(content) {
       this.postTitle = content;
     },
@@ -120,7 +124,7 @@ export default {
 
     async postDone() {
       let myRoute = "";
-      
+
       if (this.isMockServer(Browser().baseURL))
         myRoute = Browser().baseURL + "/create_post";
       else myRoute = Browser().baseURL + `/${this.blogId}/create_post`;
@@ -152,7 +156,13 @@ export default {
     },
   },
   computed: {
-     blogId: function () {
+    /**
+     * Function to get id of the blog from the store
+     * @public This is a public method
+     * @param {none}
+     */
+
+    blogId: function () {
       return this.$store.state.user.primaryBlogId;
     },
     /**

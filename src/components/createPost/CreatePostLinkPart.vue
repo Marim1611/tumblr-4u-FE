@@ -45,6 +45,11 @@
 import axios from "axios";
 import Browser from "../../mocks/browser";
 import linkEditor from "./editors/linkEditor.vue";
+
+/**
+ *  Create post for link
+ * @example [none]
+ */
 export default {
   components: {
     linkEditor,
@@ -67,10 +72,21 @@ export default {
   },
 
   methods: {
+    /**
+     * Function to open the write link textarea
+     * @public This is a public method
+     * @param {none}
+     */
     writeLink() {
       this.showLink = false;
       this.urlString = "";
     },
+
+    /**
+     * Function to check the validity of the link
+     * @public This is a public method
+     * @param {none}
+     */
     validURL(str) {
       var pattern = new RegExp(
         "^(https?:\\/\\/)?" + // protocol
@@ -100,7 +116,7 @@ export default {
     },
 
     /**
-     * Function to close the text upload section for create post
+     * Function to close the link upload section for create post
      * @public This is a public method
      * @param {none}
      */
@@ -111,9 +127,9 @@ export default {
       this.urlString = "";
     },
     /**
-     * Function to recieve the content written inside the post from the text editor file
+     * Function to recieve the content written inside the post from the link editor file
      * @public This is a public method
-     * @param {Boolean} content --> boolean sent from the create post section when clicking on text post to start uploading one
+     * @param {Boolean} content --> boolean sent from the create post section when clicking on link post to start uploading one
      */
     onTextClick(content) {
       this.postContent = content;
@@ -122,17 +138,17 @@ export default {
       }
     },
 
-    /**
-     * Function to publish the post and save its content
-     * @public This is a public method
-     * @param {none}
-     */
-
     isMockServer(baseUrl) {
       if (baseUrl == "http://tumblr4u.eastus.cloudapp.azure.com:5000")
         return false;
       else return true;
     },
+
+    /**
+     * Function to publish the post and save its content
+     * @public This is a public method
+     * @param {none}
+     */
     async postDone() {
       let myRoute = "";
       console.log("CREATE POST Link *****************");
@@ -175,6 +191,11 @@ export default {
     },
   },
   computed: {
+    /**
+     * Function to get id of the blog from the store
+     * @public This is a public method
+     * @param {none}
+     */
     blogId: function () {
       return this.$store.state.user.primaryBlogId;
     },

@@ -53,6 +53,10 @@ import "vue2-dropzone/dist/vue2Dropzone.min.css";
 import axios from "axios";
 import Browser from "../../../mocks/browser";
 
+/**
+ *  Uploading images modal
+ * @example [none]
+ */
 export default {
   components: {
     vueDropzone: vue2Dropzone,
@@ -76,6 +80,12 @@ export default {
     blogId: function () {
       return this.$store.state.primaryBlogId;
     },
+
+    /**
+     * Function to check fir the validity of image link
+     * @public This is a public method
+     * @param {none}
+     */
     validImage() {
       if (this.imageSrc != "")
         return (
@@ -113,6 +123,12 @@ export default {
         return false;
       else return true;
     },
+
+    /**
+     * Function to send the src of the image chosen to the server and gets a url instead
+     * @public This is a public method
+     * @param {none}
+     */
     async vfileUploaded(file) {
       // console.log(file.dataURL);
       this.imagesUploaded.push(file.dataURL);
@@ -155,6 +171,11 @@ export default {
       console.log(this.imagesURLS);
     },
 
+    /**
+     * Function to insert the image in the editor
+     * @public This is a public method
+     * @param {none}
+     */
     insertImage() {
       if (this.imageSrc === "") {
         console.log("inserting uploaded img");
