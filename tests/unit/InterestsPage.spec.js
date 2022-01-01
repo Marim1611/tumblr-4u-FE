@@ -38,24 +38,26 @@ describe("Interests page Test", () => {
   });
 
   test("Counter is incremented/decremented when selecting/diselecting a card", async () => {
-    // const cardSelected = jest.fn();
-    // wrapper.setMethods({
-    //   cardSelected: cardSelected,
-    // });
+    const cardSelected = jest.fn();
+    wrapper.setMethods({
+      cardSelected: cardSelected,
+    });
 
-    // expect(wrapper.vm.counter).toBe(0);
-    // let button = wrapper.get(".cardsStyle");
-    // const text = wrapper.findComponent(".counterInfo");
+    expect(wrapper.vm.counter).toBe(0);
+    let button = wrapper.get(".cardsStyle");
+    const text = wrapper.findComponent(".counterInfo");
 
-    // // expect(text.text()).toContain("5");
-    // // button.trigger("click");
-    // await wrapper.vm.$nextTick();
+    expect(text.text()).toContain("5");
+    button.trigger("click");
+    await wrapper.vm.$nextTick();
 
     // // button.$on("click");
 
     // expect(cardSelected).toHaveBeenCalled();
-    // expect(text.text()).toContain("4");
+    expect(text.text()).toContain("4");
+  });
 
+  test("Buttons route to the home page", async () => {
     let button = wrapper.find("button");
     await button.trigger("click");
     // await wrapper.vm.$nextTick();
