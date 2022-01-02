@@ -7,7 +7,7 @@
   >
     <b-container class="bv-example-row">
       <b-row>
-        <h1 class="Main">Tumblr4U</h1>
+        <h1 class="Main">Marim</h1>
         <b-col></b-col>
 
         <b-col lg="3">
