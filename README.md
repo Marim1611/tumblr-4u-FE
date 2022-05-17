@@ -5,15 +5,21 @@ A project that mimics Tumblr website.
 
 
 
-https://user-images.githubusercontent.com/76264155/168915355-8f41b289-57e0-4b5f-b0ec-e77f39263e83.mp4
+
+
+https://user-images.githubusercontent.com/76264155/168916850-e9a603b4-db56-41d5-8150-aeeca297e7ee.mp4
 
 
 
-https://user-images.githubusercontent.com/76264155/168915379-52af87e7-0fb8-427a-b31a-5b1af123c0cb.mp4
+
+https://user-images.githubusercontent.com/76264155/168916867-09b7ca1a-2aaf-4773-bd63-a65380644846.mp4
 
 
 
-https://user-images.githubusercontent.com/76264155/168915393-5f833f4c-6b6a-4b19-b3e1-441c79e4d840.mp4
+
+
+
+https://user-images.githubusercontent.com/76264155/168916901-7fa2597c-eef3-4dfb-b3c7-279ceb1ae8cf.mp4
 
 
 
