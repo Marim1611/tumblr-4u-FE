@@ -1,7 +1,7 @@
-# Tumblr-4u-FE
-A project that mimics Tumblr website. 
+<h1 align="center">Tumblr-4u </h1>
 
-# Demo 
+<p > A project that mimics the FrontEnd part of Tumblr website. </p>
+<h1 align="center">Demo </h1>
 
 
 
