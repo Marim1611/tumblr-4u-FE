@@ -8,7 +8,6 @@
 
 
 
-https://user-images.githubusercontent.com/76264155/170825384-1f3648b2-1461-463a-918b-106516b48df1.mp4
 
 
 
