@@ -1,6 +1,6 @@
 <h1 align="center">Tumblr-4u </h1>
 
-<p > A project that mimics the FrontEnd part of Tumblr website. </p>
+<p > A software project that mimics the FrontEnd of Tumblr website using vue.js and vuex. </p>
 <h1 align="center">Demo </h1>
 
 
